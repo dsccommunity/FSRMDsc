@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/o1gjn95bwaxea2ga/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/cfsrm/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/7n1yr63x7ptneyc5/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/cfsrm/branch/master)
 
 # cFSRM
 
