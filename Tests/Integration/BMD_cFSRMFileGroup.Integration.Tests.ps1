@@ -45,7 +45,9 @@ try
         }
         
         # Clean up
-        Remove-FSRMFileGroup -Name $filegroup.Name -Confirm:$false
+        Remove-FSRMFileGroup `
+            -Name $filegroup.Name `
+            -Confirm:$false
     }
     #endregion
 }

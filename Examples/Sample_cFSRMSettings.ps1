@@ -1,6 +1,6 @@
 configuration Sample_cFSRMSettings
 {
-    Import-DscResource -Module cFSRMSettings
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {

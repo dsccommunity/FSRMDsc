@@ -1,7 +1,7 @@
 $classificationproperty = @{
-    Name = 'Privacy'
+    Name = 'IntegrationTest'
     Type = 'SingleChoice'
-    PossibleValue = @( 'Top Secret' )
+    PossibleValue = @( 'Value1' )
 }
 $classificationPropertyValue = @{
     PropertyName = $classificationproperty.Name

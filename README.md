@@ -241,7 +241,7 @@ This configuration will configure the FSRM Settings on a server.
 ```powershell
 configuration Sample_cFSRMSettings
 {
-    Import-DscResource -Module cFSRMSettings
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -266,7 +266,7 @@ This will configure the FSRM Classification settings on this server. It enables 
 ```powershell
 configuration Sample_cFSRMClassification
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -291,7 +291,7 @@ This configuration will create a FSRM Yes/No Classification Property called Conf
 ```powershell
 configuration Sample_cFSRMClassificationProperty_YesNo
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -313,7 +313,7 @@ This configuration will create a FSRM Single Choice Classification Property call
 ```powershell
 configuration Sample_cFSRMClassificationProperty_SingleChoice
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -337,7 +337,7 @@ This configuration will create a FSRM Classification Property Value called 'Publ
 ```powershell
 configuration Sample_cFSRMClassificationPropertyValue
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -359,7 +359,7 @@ This configuration will create a FSRM Classification Rule called 'Confidential' 
 ```powershell
 configuration Sample_cFSRMClassificationRule
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -386,7 +386,7 @@ This configuration will assign the 'Block Some Files' file screen template to th
 ```powershell
 configuration Sample_cFSRMFileScreen_UsingTemplate
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -409,7 +409,7 @@ This configuration will assign an Active FSRM File Screen to the path 'D:\Users'
 ```powershell
 configuration Sample_cFSRMFileScreen
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -455,7 +455,7 @@ This configuration will create an Active FSRM File Screen Template called 'Block
 ```powershell
 configuration Sample_cFSRMFileScreenTemplate
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -501,7 +501,7 @@ This configuration add a File Screen Exception that Includes 'E-mail Files' to t
 ```powershell
 configuration Sample_cFSRMFileScreenException
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -523,7 +523,7 @@ This configuration will create a FSRM File Group called 'Archives'.
 ```powershell
 configuration Sample_cFSRMFileGroup
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -545,7 +545,7 @@ This configuration will assign the '100 MB Limit' template to the path 'D:\Users
 ```powershell
 configuration Sample_cFSRMQuota_UsingTemplate
 {
-    Import-DscResource -Module cFSRMQuotas
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -568,7 +568,7 @@ This configuration will assign an FSRM Quota to the path 'D:\Users', with a Hard
 ```powershell
 configuration Sample_cFSRMQuota
 {
-    Import-DscResource -Module cFSRMQuotas
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -631,7 +631,7 @@ This configuration will create a FSRM Quota Template called '5 GB Hard Limit', w
 ```powershell
 configuration Sample_cFSRMQuotaTemplate
 {
-    Import-DscResource -Module cFSRMQuotas
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
@@ -694,7 +694,7 @@ This configuration will assign an FSRM Auto Quota to the path 'd:\users' using t
 ```powershell
 configuration Sample_cFSRMAutoQuota
 {
-    Import-DscResource -Module cFSRMQuotas
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {

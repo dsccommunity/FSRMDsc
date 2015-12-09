@@ -1,6 +1,6 @@
 configuration Sample_cFSRMClassificationPropertyValue
 {
-    Import-DscResource -Module cFSRMClassifications
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {

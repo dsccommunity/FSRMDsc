@@ -1,6 +1,6 @@
 configuration Sample_cFSRMQuotaTemplate
 {
-    Import-DscResource -Module cFSRMQuotas
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {

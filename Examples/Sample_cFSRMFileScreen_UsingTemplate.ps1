@@ -1,6 +1,6 @@
 configuration Sample_cFSRMFileScreen_UsingTemplate
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {

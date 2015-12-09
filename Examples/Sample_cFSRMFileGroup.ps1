@@ -1,6 +1,6 @@
 configuration Sample_cFSRMFileGroup
 {
-    Import-DscResource -Module cFSRMFileScreens
+    Import-DscResource -Module cFSRM
 
     Node $NodeName
     {
