@@ -60,7 +60,7 @@ try
         }
         
         # Clean up
-        Remove-FSRMClassifictionRule `
+        Remove-FSRMClassificationRule `
             -Name $classificationRule.Name `
             -Confirm:$false
         Remove-FSRMClassificationPropertyDefinition `
