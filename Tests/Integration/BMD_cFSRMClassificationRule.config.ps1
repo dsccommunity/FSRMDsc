@@ -12,7 +12,7 @@ $classificationRule = @{
     ContentStringCaseSensitive = @( 'String1','String2' )
     Disabled                   = $false
     Flags                      = @( 1024 )
-    Namespace                  = @( '[FolderUsage_MS=User Files]','d:\Users' )
+    Namespace                  = @( '[FolderUsage_MS=User Files]',$ENV:Temp )
     Parameters                 = @( 'FileName=*.doc','FSRMClearruleInternal=0' )
     Property                   = $classificationProperty.Name
     PropertyValue              = $classificationProperty.PossibleValue[0]
