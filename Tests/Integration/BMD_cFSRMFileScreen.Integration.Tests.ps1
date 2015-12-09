@@ -40,7 +40,6 @@ try
             $fileScreenNew = Get-FSRMFileScreen -Path $fileScreen.Path
             $fileScreen.Path               | Should Be $fileScreenNew.Path
             $fileScreen.Description        | Should Be $fileScreenNew.Description
-            $fileScreen.Ensure             | Should Be $fileScreenNew.Ensure
             $fileScreen.Active             | Should Be $fileScreenNew.Active
             $fileScreen.IncludeGroup       | Should Be $fileScreenNew.IncludeGroup
             $fileScreen.Template           | Should Be $fileScreenNew.Template
