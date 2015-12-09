@@ -43,7 +43,7 @@ try
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
-            $classificationRuleNew = Get-FSRMFileGroup -Name $classificationRule.Name
+            $classificationRuleNew = Get-FSRMclassificationRule -Name $classificationRule.Name
             $classificationRule.Name                       | Should Be  $classificationRuleNew.Name
             $classificationRule.Description                | Should Be  $classificationRuleNew.Description
             $classificationRule.ClassificationMechanism    | Should Be  $classificationRuleNew.ClassificationMechanism

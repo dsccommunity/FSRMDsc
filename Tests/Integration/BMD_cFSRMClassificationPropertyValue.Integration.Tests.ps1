@@ -26,7 +26,7 @@ try
         New-FSRMClassificationPropertyDefinition `
             -Name $classificationProperty.Name `
             -Type $classificationProperty.Type `
-            -PossibleValue @(New-FSRMClassificationPropertyValue -Name $classificationProperty.PossibleValue[0])
+            -PossibleValue @(New-FSRMClassificationPropertyValue -Name 'None')
     
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
