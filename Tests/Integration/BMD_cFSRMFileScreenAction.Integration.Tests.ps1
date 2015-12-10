@@ -45,12 +45,12 @@ try
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $fileScreenNew = Get-FSRMFileScreen -Path $fileScreen.Path
-            $fileScreenNew.Notification[2].Type               | Should Be $fileScreenAction.Type
-            $fileScreenNew.Notification[2].Subject            | Should Be $fileScreenAction.Subject
-            $fileScreenNew.Notification[2].Body               | Should Be $fileScreenAction.Body
-            $fileScreenNew.Notification[2].MailBCC            | Should Be $fileScreenAction.MailBCC
-            $fileScreenNew.Notification[2].MailCC             | Should Be $fileScreenAction.MailCC
-            $fileScreenNew.Notification[2].MailTo             | Should Be $fileScreenAction.MailTo
+            $fileScreenNew.Notification[1].Type               | Should Be $fileScreenAction.Type
+            $fileScreenNew.Notification[1].Subject            | Should Be $fileScreenAction.Subject
+            $fileScreenNew.Notification[1].Body               | Should Be $fileScreenAction.Body
+            $fileScreenNew.Notification[1].MailBCC            | Should Be $fileScreenAction.MailBCC
+            $fileScreenNew.Notification[1].MailCC             | Should Be $fileScreenAction.MailCC
+            $fileScreenNew.Notification[1].MailTo             | Should Be $fileScreenAction.MailTo
         }
         
         # Clean up
