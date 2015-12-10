@@ -38,11 +38,6 @@ try
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $quotaNew = Get-FSRMQuota -Path $quota.Path
-            Size = $quota.Size
-            SoftLimit = $quota.SoftLimit
-            ThresholdPercentages = $quota.ThresholdPercentages
-            Disabled = $quota.Disabled
-
             $quota.Path               | Should Be $quotaNew.Path
             $quota.Description        | Should Be $quotaNew.Description
             $quota.Size               | Should Be $quotaNew.Size
