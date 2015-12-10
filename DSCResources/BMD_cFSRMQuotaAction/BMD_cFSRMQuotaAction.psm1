@@ -80,17 +80,6 @@ function Get-TargetResource
             $($LocalizedData.ActionExistsMessage) `
                 -f $Path,$Percentage,$Type
             ) -join '' )
-        if ($Result.SourceObjects -eq $null) {
-            Write-Verbose -Message "Result.SourceObjects is NULL!!!!!"
-        }
-        if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
-            Write-Verbose -Message "Result.SourceObjects[$($Result.SourceIndex)] is NULL!!!!!"
-        }
-        Write-Verbose -Message "Result.SourceObjects.Count is $($Result.SourceObjects.Count)"
-        if ($Result.SourceObjects[1] -eq $null) {
-            Write-Verbose -Message "Result.SourceObjects[1] is NULL!!!!!"
-        }
-
         $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
         $returnValue += @{
             Ensure = 'Present'
@@ -582,7 +571,6 @@ Function Get-Action {
                 $ResultObject.ActionIndex = $a
             }
         }
-        Write-Verbose -Message "Adding Source Object for $($Quota.Threshold[$t].Percentage)"
         $properties = @{'Percentage' = $Quota.Threshold[$t].Percentage;
             'Action' = $NewActions;}
         $NewSourceObject = New-Object -TypeName 'PSObject' -Property $properties

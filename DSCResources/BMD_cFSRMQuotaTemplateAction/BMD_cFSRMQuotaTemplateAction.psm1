@@ -557,7 +557,7 @@ Function Get-Action {
     # DO NOT change this behavior unless you are sure you know what you're doing.
     for ($t=0; $t -ilt $QuotaTemplate.Threshold.Count; $t++)
     {
-        $NewActions = New-Object 'System.Collections.ArrayList'
+        $NewActions = New-Object -TypeName 'System.Collections.ArrayList'
         if ($QuotaTemplate.Threshold[$t].Percentage -eq $Percentage)
         {
             $ResultObject.SourceIndex = $t
@@ -571,9 +571,10 @@ Function Get-Action {
                 $ResultObject.ActionIndex = $a
             }
         }
-        $ResultObject.SourceObjects += [PSObject]@{
-            Percentage = $QuotaTemplate.Threshold[$t].Percentage
-            Action = $NewActions}
+        $properties = @{'Percentage' = $Quota.Threshold[$t].Percentage;
+            'Action' = $NewActions;}
+        $NewSourceObject = New-Object -TypeName 'PSObject' -Property $properties
+        $ResultObject.SourceObjects += @($NewSourceObject)
     }
     if ($ResultObject.SourceIndex -eq $null)
     {
