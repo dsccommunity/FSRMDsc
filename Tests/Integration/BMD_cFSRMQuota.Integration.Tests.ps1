@@ -1,5 +1,5 @@
 $DSCModuleName      = 'cFSRM'
-$DSCResourceName    = 'BMD_cFSRMFileScreenTemplateAction'
+$DSCResourceName    = 'BMD_cFSRMFileScreen'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
@@ -22,12 +22,6 @@ try
     . $ConfigFile
 
     Describe "$($DSCResourceName)_Integration" {
-        # Create the File Screen that will be worked with 
-        New-FSRMFileScreenTemplate `
-            -Name $fileScreenTemplate.Name `
-            -Description $fileScreenTemplate.Description `
-            -IncludeGroup $fileScreenTemplate.IncludeGroup
-            
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
             {
@@ -43,18 +37,25 @@ try
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
-            $fileScreenTemplateNew = Get-FSRMFileScreenTemplate -Name $fileScreenTemplate.Name
-            $fileScreenTemplateNew.Notification[1].Type               | Should Be $fileScreenTemplateAction.Type
-            $fileScreenTemplateNew.Notification[1].Subject            | Should Be $fileScreenTemplateAction.Subject
-            $fileScreenTemplateNew.Notification[1].Body               | Should Be $fileScreenTemplateAction.Body
-            $fileScreenTemplateNew.Notification[1].MailBCC            | Should Be $fileScreenTemplateAction.MailBCC
-            $fileScreenTemplateNew.Notification[1].MailCC             | Should Be $fileScreenTemplateAction.MailCC
-            $fileScreenTemplateNew.Notification[1].MailTo             | Should Be $fileScreenTemplateAction.MailTo
+            $quotaNew = Get-FSRMQuota -Path $quota.Path
+            Size = $quota.Size
+            SoftLimit = $quota.SoftLimit
+            ThresholdPercentages = $quota.ThresholdPercentages
+            Disabled = $quota.Disabled
+
+            $quota.Path               | Should Be $quotaNew.Path
+            $quota.Description        | Should Be $quotaNew.Description
+            $quota.Size               | Should Be $quotaNew.Size
+            $quota.SoftLimit          | Should Be $quotaNew.SoftLimit
+            (Compare-Object `
+                -ReferenceObject $quota.ThresholdPercentages `
+                -DifferenceObject $quotaNew.ThresholdPercentages.Percentage).Count | Should Be 0
+            $quota.Disabled           | Should Be $quotaNew.Disabled            
         }
         
         # Clean up
-        Remove-FSRMFileScreenTemplate `
-            -Path $fileScreenTemplate.Name `
+        Remove-FSRMQuota `
+            -Path $quota.Path `
             -Confirm:$false
     }
     #endregion
