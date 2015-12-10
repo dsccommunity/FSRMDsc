@@ -583,9 +583,10 @@ Function Get-Action {
             }
         }
         Write-Verbose -Message "Adding Source Object for $($Quota.Threshold[$t].Percentage)"
-        $ResultObject.SourceObjects += @([PSObject]@{
-            Percentage = $Quota.Threshold[$t].Percentage
-            Action = $NewActions})
+        $properties = @{'Percentage' = $Quota.Threshold[$t].Percentage;
+            'Action' = $NewActions;}
+        $NewSourceObject = New-Object -TypeName PSObject -Properties $properties
+        $ResultObject.SourceObjects += @($NewSourceObject)
     }
     if ($ResultObject.SourceIndex -eq $null)
     {
