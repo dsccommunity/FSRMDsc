@@ -299,9 +299,6 @@ function Test-TargetResource
         [System.String]$WorkingDirectory,
         [System.String[]]$ReportTypes
     )
-    # Could check report types here
-    # @('DuplicateFiles','FilesByFileGroup','FilesByOwner','FilesByProperty','LargeFiles','LeastRecentlyAccessed','MostRecentlyAccessed','FileScreenUsage')
-
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 

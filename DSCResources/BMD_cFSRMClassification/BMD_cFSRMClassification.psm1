@@ -95,7 +95,8 @@ function Set-TargetResource
             # DSC does not support [System.Int32[]] types as parameters.
             # But the New-FSRMScheduledTask Monthly parameter only supports [System.Int32[]] types.
             # So this must be converted manually. Cast does not seem to work here.
-            $ConvertedScheduleMonthly = [System.Array]::CreateInstance([System.Int32],$ScheduleMonthly.Length)
+            $ConvertedScheduleMonthly = `
+                [System.Array]::CreateInstance([System.Int32],$ScheduleMonthly.Length)
             for ($i=0; $i -lt $ScheduleMonthly.Length; $i++) { 
                 $ConvertedScheduleMonthly[$i] = $ScheduleMonthly[$i]
             }

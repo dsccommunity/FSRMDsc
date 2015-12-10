@@ -131,8 +131,8 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
         
-        # Assemble an ArrayList of MSFT_FSRMClassificationPropertyDefinitionValue if the PossibleValue
-        # Parameter was passed
+        # Assemble an ArrayList of MSFT_FSRMClassificationPropertyDefinitionValue if
+        # the PossibleValue parameter was passed
         $NewPossibleValue = @()
         if ($PSBoundParameters.ContainsKey('PossibleValue'))
         {
@@ -167,9 +167,11 @@ function Set-TargetResource
             }
 
             # Is the type specified and different?
-            if ($PSBoundParameters.ContainsKey('Type') -and ($Type -ne $ClassificationProperty.Type))
+            if ($PSBoundParameters.ContainsKey('Type') `
+                -and ($Type -ne $ClassificationProperty.Type))
             {
-                # The type is different so the Classification Property needs to be removed and re-created.
+                # The type is different so the Classification Property needs to be removed
+                # and re-created.
                 Remove-FSRMClassificationPropertyDefinition -Name $Name -ErrorAction Stop
                 New-FSRMClassificationPropertyDefinition @PSBoundParameters -ErrorAction Stop
 
@@ -385,7 +387,9 @@ Function Get-ClassificationProperty {
     )
     try
     {
-        $ClassificationProperty = Get-FSRMClassificationPropertyDefinition -Name $Name -ErrorAction Stop
+        $ClassificationProperty = Get-FSRMClassificationPropertyDefinition `
+            -Name $Name `
+            -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {

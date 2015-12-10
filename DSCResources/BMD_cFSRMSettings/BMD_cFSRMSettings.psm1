@@ -128,7 +128,8 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($AdminEmailAddress) -and ($Settings.AdminEmailAddress -ne $AdminEmailAddress))
+    if (($AdminEmailAddress) `
+        -and ($Settings.AdminEmailAddress -ne $AdminEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -138,7 +139,8 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($FromEmailAddress) -and ($Settings.FromEmailAddress -ne $FromEmailAddress))
+    if (($FromEmailAddress) `
+        -and ($Settings.FromEmailAddress -ne $FromEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -148,7 +150,8 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($CommandNotificationLimit) -and ($Settings.CommandNotificationLimit -ne $CommandNotificationLimit))
+    if (($CommandNotificationLimit) `
+        -and ($Settings.CommandNotificationLimit -ne $CommandNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -158,7 +161,8 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($EmailNotificationLimit) -and ($Settings.EmailNotificationLimit -ne $EmailNotificationLimit))
+    if (($EmailNotificationLimit) `
+        -and ($Settings.EmailNotificationLimit -ne $EmailNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -168,7 +172,8 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($EventNotificationLimit) -and ($Settings.EventNotificationLimit -ne $EventNotificationLimit))
+    if (($EventNotificationLimit) `
+        -and ($Settings.EventNotificationLimit -ne $EventNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

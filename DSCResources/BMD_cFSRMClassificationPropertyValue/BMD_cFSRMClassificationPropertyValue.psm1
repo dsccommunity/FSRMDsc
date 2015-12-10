@@ -124,7 +124,8 @@ function Set-TargetResource
         -PropertyName $PropertyName
 
     # Convert the CIMInstance array into an Array List so it can be worked with
-    $ClassificationPropertyValues = [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
+    $ClassificationPropertyValues = `
+        [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
 
     # Find the index for the existing Value name (if it exists)
     $ClassificationPropertyValue = $null
@@ -146,7 +147,9 @@ function Set-TargetResource
                 -f $PropertyName,$Name
             ) -join '' )
         
-        $NewClassificationPropertyValue = New-FSRMClassificationPropertyValue @PSBoundParameters -ErrorAction Stop
+        $NewClassificationPropertyValue = New-FSRMClassificationPropertyValue `
+            @PSBoundParameters `
+            -ErrorAction Stop
 
         if ($ClassificationPropertyValueIndex -eq $null)
         {
@@ -248,7 +251,8 @@ function Test-TargetResource
         -PropertyName $PropertyName
 
     # Convert the CIMInstance array into an Array List so it can be worked with
-    $ClassificationPropertyValues = [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
+    $ClassificationPropertyValues = `
+        [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
 
     # Find the index for the existing Value name (if it exists)
     $ClassificationPropertyValue = $null
