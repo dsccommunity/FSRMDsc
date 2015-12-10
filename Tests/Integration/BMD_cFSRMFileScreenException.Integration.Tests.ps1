@@ -45,9 +45,9 @@ try
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $fileScreenExceptionNew = Get-FSRMFileScreenException -Path $fileScreenException.Path
-            $fileScreenException.Path               | Should Be $fileScreenNewException.Path
-            $fileScreenException.Description        | Should Be $fileScreenNewException.Description
-            $fileScreenException.IncludeGroup       | Should Be $fileScreenNewException.IncludeGroup
+            $fileScreenException.Path               | Should Be $fileScreenExceptionNew.Path
+            $fileScreenException.Description        | Should Be $fileScreenExceptionNew.Description
+            $fileScreenException.IncludeGroup       | Should Be $fileScreenExceptionNew.IncludeGroup
         }
         
         # Clean up
