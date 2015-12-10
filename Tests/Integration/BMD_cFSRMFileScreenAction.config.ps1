@@ -20,13 +20,13 @@ Configuration BMD_cFSRMFileScreenAction_Config {
     Import-DscResource -ModuleName cFSRM
     node localhost {
        cFSRMFileScreenAction Integration_Test {
-            Path            = $fileScreen.Path
-            Type            = $fileScreen.Type
-            Subject         = $fileScreen.Subject
-            Body            = $fileScreen.Body
-            MailBCC         = $fileScreen.MailBCC
-            MailCC          = $fileScreen.MailCC
-            MailTo          = $fileScreen.MailTo
+            Path            = $fileScreenAction.Path
+            Type            = $fileScreenAction.Type
+            Subject         = $fileScreenAction.Subject
+            Body            = $fileScreenAction.Body
+            MailBCC         = $fileScreenAction.MailBCC
+            MailCC          = $fileScreenAction.MailCC
+            MailTo          = $fileScreenAction.MailTo
         }
     }
 }
