@@ -87,6 +87,7 @@ function Get-TargetResource
             Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex] is NULL!!!!!"
         }
         Write-Verbose -Message "Result.SourceIndex is $($Result.SourceIndex)"
+        Write-Verbose -Message "Result.SourceObjects.Count is $($Result.SourceObjects.Count)"
         if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
             Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex].Action[Result.ActionIndex] is NULL!!!!!"
         }
