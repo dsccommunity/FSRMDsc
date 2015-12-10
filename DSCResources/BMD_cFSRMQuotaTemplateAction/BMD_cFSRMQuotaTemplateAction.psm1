@@ -90,13 +90,13 @@ function Get-TargetResource
             MailTo = $Action.MailTo
             Command = $Action.Command
             CommandParameters = $Action.CommandParameters
-            KillTimeOut = $Action.KillTimeOut
-            RunLimitInterval = $Action.RunLimitInterval
+            KillTimeOut = [System.Int32] $Action.KillTimeOut
+            RunLimitInterval = [System.Int32] $Action.RunLimitInterval
             SecurityLevel = $Action.SecurityLevel
             ShouldLogError = $Action.ShouldLogError
             WorkingDirectory = $Action.WorkingDirectory
             EventType = $Action.EventType
-            ReportTypes = $Action.ReportTypes
+            ReportTypes = [System.String[]] $Action.ReportTypes
         }
     }
 
