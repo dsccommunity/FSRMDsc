@@ -37,8 +37,8 @@ try
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
-            $quotaTemplateNew = Get-FSRMQuotaTemplate -Path $quotaTemplate.Path
-            $quotaTemplate.Name               | Should Be $quotaTemplateNew.Path
+            $quotaTemplateNew = Get-FSRMQuotaTemplate -Name $quotaTemplate.Name
+            $quotaTemplate.Name               | Should Be $quotaTemplateNew.Name
             $quotaTemplate.Description        | Should Be $quotaTemplateNew.Description
             $quotaTemplate.Size               | Should Be $quotaTemplateNew.Size
             $quotaTemplate.SoftLimit          | Should Be $quotaTemplateNew.SoftLimit

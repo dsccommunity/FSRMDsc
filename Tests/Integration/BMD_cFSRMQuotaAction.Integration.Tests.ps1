@@ -27,7 +27,6 @@ try
             -Path $quota.Path `
             -Description $quota.Description `
             -Size $quota.Size `
-            -SoftLimit $quota.SoftLimit `
             -Disabled $quota.Disabled `
             -Threshold (New-FSRMQuotaThreshold -Percentage $quota.ThresholdPercentages[0])
             
