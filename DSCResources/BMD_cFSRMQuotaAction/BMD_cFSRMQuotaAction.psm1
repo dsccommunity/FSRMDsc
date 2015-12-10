@@ -84,13 +84,9 @@ function Get-TargetResource
             Write-Verbose -Message "Result.SourceObjects is NULL!!!!!"
         }
         if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
-            Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex] is NULL!!!!!"
+            Write-Verbose -Message "Result.SourceObjects[$($Result.SourceIndex)] is NULL!!!!!"
         }
-        Write-Verbose -Message "Result.SourceIndex is $($Result.SourceIndex)"
         Write-Verbose -Message "Result.SourceObjects.Count is $($Result.SourceObjects.Count)"
-        if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
-            Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex].Action[Result.ActionIndex] is NULL!!!!!"
-        }
         $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
         $returnValue += @{
             Ensure = 'Present'
@@ -582,9 +578,10 @@ Function Get-Action {
                 $ResultObject.ActionIndex = $a
             }
         }
-        $ResultObject.SourceObjects += [PSObject]@{
+        Write-Verbose -Message "Adding Source Object for $($Quota.Threshold[$t].Percentage)"
+        $ResultObject.SourceObjects += @([PSObject]@{
             Percentage = $Quota.Threshold[$t].Percentage
-            Action = $NewActions}
+            Action = $NewActions})
     }
     if ($ResultObject.SourceIndex -eq $null)
     {
