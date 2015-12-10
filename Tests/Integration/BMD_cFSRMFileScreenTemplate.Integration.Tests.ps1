@@ -45,8 +45,8 @@ try
         }
         
         # Clean up
-        Remove-FSRMFileScreen `
-            -Path $fileScreen.Path `
+        Remove-FSRMFileScreenTemplate `
+            -Name $fileScreen.Name `
             -Confirm:$false
     }
     #endregion
