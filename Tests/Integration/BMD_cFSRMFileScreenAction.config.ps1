@@ -20,7 +20,7 @@ Configuration BMD_cFSRMFileScreenAction_Config {
     Import-DscResource -ModuleName cFSRM
     node localhost {
        cFSRMFileScreenAction Integration_Test {
-            Path            = $fileScreenAction.Path
+            Path            = $fileScreen.Path
             Type            = $fileScreenAction.Type
             Subject         = $fileScreenAction.Subject
             Body            = $fileScreenAction.Body
