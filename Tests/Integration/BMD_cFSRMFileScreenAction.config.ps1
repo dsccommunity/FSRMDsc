@@ -16,7 +16,7 @@ $fileScreenAction = @{
     MailTo = '[Source Io Owner Email]'
 }
 
-Configuration BMD_cFSRMFileScreen_Config {
+Configuration BMD_cFSRMFileScreenAction_Config {
     Import-DscResource -ModuleName cFSRM
     node localhost {
        cFSRMFileScreenAction Integration_Test {
