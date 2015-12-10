@@ -568,7 +568,7 @@ Function Get-Action {
     # DO NOT change this behavior unless you are sure you know what you're doing.
     for ($t=0; $t -ilt $Quota.Threshold.Count; $t++)
     {
-        $NewActions = New-Object 'System.Collections.ArrayList'
+        $NewActions = New-Object -TypeName 'System.Collections.ArrayList'
         if ($Quota.Threshold[$t].Percentage -eq $Percentage)
         {
             $ResultObject.SourceIndex = $t
@@ -585,7 +585,7 @@ Function Get-Action {
         Write-Verbose -Message "Adding Source Object for $($Quota.Threshold[$t].Percentage)"
         $properties = @{'Percentage' = $Quota.Threshold[$t].Percentage;
             'Action' = $NewActions;}
-        $NewSourceObject = New-Object -TypeName PSObject -Properties $properties
+        $NewSourceObject = New-Object -TypeName 'PSObject' -Property $properties
         $ResultObject.SourceObjects += @($NewSourceObject)
     }
     if ($ResultObject.SourceIndex -eq $null)
