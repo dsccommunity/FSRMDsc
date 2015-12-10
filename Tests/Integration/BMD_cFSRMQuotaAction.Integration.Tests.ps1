@@ -27,7 +27,6 @@ try
             -Path $quota.Path `
             -Description $quota.Description `
             -Size $quota.Size `
-            -Disabled $quota.Disabled `
             -Threshold (New-FSRMQuotaThreshold -Percentage $quota.ThresholdPercentages[0])
             
         #region DEFAULT TESTS
