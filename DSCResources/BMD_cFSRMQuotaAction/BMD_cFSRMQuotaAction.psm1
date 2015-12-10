@@ -86,6 +86,7 @@ function Get-TargetResource
         if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
             Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex] is NULL!!!!!"
         }
+        Write-Verbose -Message "Result.SourceIndex is $($Result.SourceIndex)"
         if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
             Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex].Action[Result.ActionIndex] is NULL!!!!!"
         }
