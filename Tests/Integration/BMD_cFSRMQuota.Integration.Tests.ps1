@@ -44,7 +44,7 @@ try
             $quota.SoftLimit          | Should Be $quotaNew.SoftLimit
             (Compare-Object `
                 -ReferenceObject $quota.ThresholdPercentages `
-                -DifferenceObject $quotaNew.ThresholdPercentages.Percentage).Count | Should Be 0
+                -DifferenceObject $quotaNew.Threshold.Percentage).Count | Should Be 0
             $quota.Disabled           | Should Be $quotaNew.Disabled            
         }
         
