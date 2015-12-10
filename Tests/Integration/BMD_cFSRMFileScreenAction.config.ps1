@@ -21,12 +21,12 @@ Configuration BMD_cFSRMFileScreen_Config {
     node localhost {
        cFSRMFileScreenAction Integration_Test {
             Path            = $fileScreen.Path
-            Description     = $fileScreen.Description
-            Ensure          = $fileScreen.Ensure
-            Active          = $fileScreen.Active
-            IncludeGroup    = $fileScreen.IncludeGroup
-            Template        = $fileScreen.Template
-            MatchesTemplate = $fileScreen.MatchesTemplate
+            Type            = $fileScreen.Type
+            Subject         = $fileScreen.Subject
+            Body            = $fileScreen.Body
+            MailBCC         = $fileScreen.MailBCC
+            MailCC          = $fileScreen.MailCC
+            MailTo          = $fileScreen.MailTo
         }
     }
 }
