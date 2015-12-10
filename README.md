@@ -225,8 +225,14 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ## Versions
 
+### 2.0.1.0
+* Integration tests included for all resources.
+* BMD_cFSRMFileScreenAction: Fix to Get-TargetResource.
+* BMD_cFSRMQuotaAction: Fix to Get-TargetResource.
+* BMD_cFSRMQuotaActionTemplate: Fix to Get-TargetResource.
+
 ### 2.0.0.0
-* Combined all FSRM Resources into this module
+* Combined all FSRM Resources into this module.
 
 ### 1.0.0.0
 

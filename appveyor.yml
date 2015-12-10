@@ -2,7 +2,7 @@
 #      environment configuration  # 
 #---------------------------------# 
 os: unstable
-version: 1.0.0.{build}
+version: 2.0.1.{build}
 install: 
   - cinst -y pester
   - git clone https://github.com/PlagueHO/DscResource.Tests
@@ -62,7 +62,7 @@ deploy_script:
       # Create Publish Script Artifact
       $PublishScriptName = $env:APPVEYOR_PROJECT_NAME + "." + $env:APPVEYOR_BUILD_VERSION + "_publish.ps1"
       $PublishScriptPath = Join-Path -Path $StagingDirectory -ChildPath $PublishScriptName
-      Set-Content -Path $PublishScriptPath -Value "Publish-Module -Name $ResourceName -RequiredVersion ${env:APPVEYOR_BUILD_VERSION}" 
+      Set-Content -Path $PublishScriptPath -Value "Publish-Module -Name $ResourceName -RequiredVersion ${env:APPVEYOR_BUILD_VERSION} -NuGetApiKey (Read-Host -Prompt 'NuGetApiKey')" 
       
       @(
           # You can add other artifacts here

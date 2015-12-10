@@ -571,7 +571,7 @@ Function Get-Action {
                 $ResultObject.ActionIndex = $a
             }
         }
-        $properties = @{'Percentage' = $Quota.Threshold[$t].Percentage;
+        $properties = @{'Percentage' = $QuotaTemplate.Threshold[$t].Percentage;
             'Action' = $NewActions;}
         $NewSourceObject = New-Object -TypeName 'PSObject' -Property $properties
         $ResultObject.SourceObjects += @($NewSourceObject)
