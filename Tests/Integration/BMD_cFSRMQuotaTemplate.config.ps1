@@ -5,7 +5,6 @@ $quotaTemplate = @{
     Size = 5GB
     SoftLimit = $false
     ThresholdPercentages = [System.Collections.ArrayList]@( 85, 100 )
-    Disabled = $false
 }
 
 Configuration BMD_cFSRMQuotaTemplate_Config {
@@ -18,7 +17,6 @@ Configuration BMD_cFSRMQuotaTemplate_Config {
             Size = $quotaTemplate.Size
             SoftLimit = $quotaTemplate.SoftLimit
             ThresholdPercentages = $quotaTemplate.ThresholdPercentages
-            Disabled = $quotaTemplate.Disabled
         }
     }
 }

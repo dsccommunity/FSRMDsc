@@ -45,7 +45,6 @@ try
             (Compare-Object `
                 -ReferenceObject $quotaTemplate.ThresholdPercentages `
                 -DifferenceObject $quotaTemplateNew.Threshold.Percentage).Count | Should Be 0
-            $quotaTemplate.Disabled           | Should Be $quotaTemplateNew.Disabled            
         }
         
         # Clean up
