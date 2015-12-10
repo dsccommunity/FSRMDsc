@@ -81,7 +81,13 @@ function Get-TargetResource
                 -f $Path,$Percentage,$Type
             ) -join '' )
         if ($Result.SourceObjects -eq $null) {
-            Write-Verbose -Message "Source Objects is NULL!!!!!"
+            Write-Verbose -Message "Result.SourceObjects is NULL!!!!!"
+        }
+        if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
+            Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex] is NULL!!!!!"
+        }
+        if ($Result.SourceObjects[$Result.SourceIndex] -eq $null) {
+            Write-Verbose -Message "Result.SourceObjects[Result.SourceIndex].Action[Result.ActionIndex] is NULL!!!!!"
         }
         $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
         $returnValue += @{
