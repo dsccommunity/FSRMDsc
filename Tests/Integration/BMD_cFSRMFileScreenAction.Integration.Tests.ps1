@@ -26,10 +26,8 @@ try
         New-FSRMFileScreen `
             -Path $fileScreen.Path `
             -Description $fileScreen.Description `
-            -Active $fileScreen.Active `
             -IncludeGroup $fileScreen.IncludeGroup `
-            -Template $fileScreen.Template `
-            -MatchesTemplate $fileScreen.MatchesTemplate 
+            -Template $fileScreen.Template
             
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
