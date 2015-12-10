@@ -87,6 +87,10 @@ function Get-TargetResource
             Write-Verbose -Message "Result.SourceObjects[$($Result.SourceIndex)] is NULL!!!!!"
         }
         Write-Verbose -Message "Result.SourceObjects.Count is $($Result.SourceObjects.Count)"
+        if ($Result.SourceObjects[1] -eq $null) {
+            Write-Verbose -Message "Result.SourceObjects[1] is NULL!!!!!"
+        }
+
         $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
         $returnValue += @{
             Ensure = 'Present'
