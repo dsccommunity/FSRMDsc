@@ -80,6 +80,9 @@ function Get-TargetResource
             $($LocalizedData.ActionExistsMessage) `
                 -f $Path,$Percentage,$Type
             ) -join '' )
+        if ($Result.SourceObjects -eq $null) {
+            Write-Verbose -Message "Source Objects is NULL!!!!!"
+        }
         $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
         $returnValue += @{
             Ensure = 'Present'
