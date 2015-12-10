@@ -1,5 +1,5 @@
 $DSCModuleName      = 'cFSRM'
-$DSCResourceName    = 'BMD_cFSRMFileScreen'
+$DSCResourceName    = 'BMD_cFSRMQuota'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
