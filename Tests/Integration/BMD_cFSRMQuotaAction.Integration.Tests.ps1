@@ -24,12 +24,12 @@ try
     Describe "$($DSCResourceName)_Integration" {
         # Create the File Screen that will be worked with 
         New-FSRMQuota `
-            Path = $quota.Path
-            Description = $quota.Path
-            Size = $quota.Path
-            SoftLimit = $quota.Path
-            Disabled = $false
-            Threshold = (New-FSRMQuotaThreshold -Percentage $quota.ThresholdPercentages[0])
+            -Path $quota.Path `
+            -Description $quota.Description `
+            -Size $quota.Size `
+            -SoftLimit $quota.SoftLimit `
+            -Disabled $quota.Disabled `
+            -Threshold (New-FSRMQuotaThreshold -Percentage $quota.ThresholdPercentages[0])
             
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
