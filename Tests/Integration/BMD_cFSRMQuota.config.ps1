@@ -4,7 +4,7 @@ $quota = @{
     Ensure = 'Present'
     Size = 5GB
     SoftLimit = $false
-    ThresholdPercentages = [System.Collections.ArrayList]@( 85, 100 )
+    ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
     Disabled = $false
 }
 
