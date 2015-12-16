@@ -27,7 +27,7 @@ CompanyName = 'Unknown'
 Copyright = '(c) 2015 Daniel Scott-Raynsford. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'Module with DSC Resources for File Server Resource Manager configuration'
+Description = 'DSC Resources for File Server Resource Manager configuration'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '4.0'
