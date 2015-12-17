@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMAutoQuota'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMAutoQuota'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:TestAutoQuota = [PSObject]@{
@@ -34,7 +34,7 @@ try
             Template = $Global:TestAutoQuota.Template
         }
     
-        Describe 'BMD_cFSRMAutoQuota\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'No auto quotas exist' {
                 
@@ -68,7 +68,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMAutoQuota\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'auto quota does not exist but should' {
                 
@@ -182,7 +182,7 @@ try
     
     
     
-        Describe 'BMD_cFSRMAutoQuota\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
     
             Context 'auto quota path does not exist' {
                 Mock Get-FsrmQuotaTemplate

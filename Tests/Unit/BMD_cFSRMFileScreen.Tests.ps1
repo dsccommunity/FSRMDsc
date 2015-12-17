@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMFileScreen'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMFileScreen'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:TestFileScreen = [PSObject]@{
@@ -42,7 +42,7 @@ try
         $Global:MockFileScreenMatch= $Global:MockFileScreen.Clone()
         $Global:MockFileScreenMatch.MatchesTemplate = $true
     
-        Describe 'BMD_cFSRMFileScreen\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'No File Screens exist' {
                 
@@ -79,7 +79,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMFileScreen\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'File Screen does not exist but should' {
                 
@@ -213,7 +213,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMFileScreen\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'File Screen path does not exist' {
                 Mock Get-FsrmFileScreenTemplate
                 Mock Test-Path -MockWith { $false }

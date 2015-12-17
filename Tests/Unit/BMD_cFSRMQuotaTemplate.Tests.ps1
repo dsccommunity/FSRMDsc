@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMQuotaTemplate'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMQuotaTemplate'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
 
         # Create the Mock Objects that will be used for running tests
         $Global:TestQuotaTemplate = [PSObject]@{
@@ -53,7 +53,7 @@ try
             )
         }
     
-        Describe 'BMD_cFSRMQuotaTemplate\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'No quota templates exist' {
                 
@@ -87,7 +87,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMQuotaTemplate\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'Quota template does not exist but should' {
                 
@@ -265,7 +265,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMQuotaTemplate\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Quota template does not exist but should' {
                 
                 Mock Get-FsrmQuotaTemplate

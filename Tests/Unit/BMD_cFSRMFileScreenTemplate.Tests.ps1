@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMFileScreenTemplate'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMFileScreenTemplate'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:TestFileScreenTemplate = [PSObject]@{
@@ -35,7 +35,7 @@ try
             IncludeGroup = $TestFileScreenTemplate.IncludeGroup
         }
     
-        Describe 'BMD_cFSRMFileScreenTemplate\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'No File Screen templates exist' {
                 
@@ -70,9 +70,7 @@ try
             }
         }
     
-    
-    
-        Describe 'BMD_cFSRMFileScreenTemplate\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'File Screen template does not exist but should' {
                 
@@ -206,7 +204,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMFileScreenTemplate\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'File Screen template does not exist but should' {
                 
                 Mock Get-FsrmFileScreenTemplate

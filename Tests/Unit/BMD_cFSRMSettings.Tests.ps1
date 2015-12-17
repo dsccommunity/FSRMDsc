@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMSettings'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMSettings'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -19,7 +19,7 @@ try
 {
     #region Pester Tests
 
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
         # Create the Mock Objects that will be used for running tests
         $Global:Settings = [PSObject] @{
             Id = 'Default'
@@ -44,7 +44,7 @@ try
                 EventNotificationLimit = $Global:Settings.EventNotificationLimit
             }
 
-        Describe 'BMD_cFSRMSettings\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
 
             Context 'Settings Exist' {
             
@@ -65,7 +65,7 @@ try
             }
         }
 
-        Describe 'BMD_cFSRMSettings\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
 
             Context 'Settings has a different SmtpServer property' {
             
@@ -164,7 +164,7 @@ try
             }
         }
 
-        Describe 'BMD_cFSRMSettings\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Settings has no property differences' {
             
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }

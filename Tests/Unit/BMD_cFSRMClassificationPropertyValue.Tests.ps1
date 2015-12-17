@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMClassificationPropertyValue'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMClassificationPropertyValue'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:MockClassificationPossibleValue1 = New-CimInstance `
@@ -86,7 +86,7 @@ try
             Description = $Global:MockClassificationPossibleValue3.Description
         }
     
-        Describe 'BMD_cFSRMClassificationPropertyValue\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'Classification Property does not exist' {
                 
@@ -145,7 +145,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMClassificationPropertyValue\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'Classification Property does not exist' {
                 
@@ -218,7 +218,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMClassificationPropertyValue\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Classification Property does not exist' {
                 
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }

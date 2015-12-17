@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMClassification'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMClassification'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:ClassificationMonthly = [PSObject] @{
@@ -87,7 +87,7 @@ try
                 Schedule = $Global:MockScheduledTaskWeekly
             }
     
-        Describe 'BMD_cFSRMClassification\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'Monthly schedule configuration' {
                 
@@ -130,7 +130,7 @@ try
     
     
     
-        Describe 'BMD_cFSRMClassification\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'classification has a different Continuous property' {
                 
@@ -277,9 +277,7 @@ try
             }
         }
     
-    
-    
-        Describe 'BMD_cFSRMClassification\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'classification has no property differences' {
                 
                 Mock Get-FSRMClassification -MockWith { $Global:MockClassificationMonthly }

@@ -1,16 +1,16 @@
-$DSCResourceName = 'BMD_cFSRMClassificationProperty'
-$DSCModuleName   = 'cFSRM'
+$Global:DSCModuleName   = 'cFSRM'
+$Global:DSCResourceName = 'BMD_cFSRMClassificationProperty'
 
 #region HEADER
 if ( (-not (Test-Path -Path '.\DSCResource.Tests\')) -or `
      (-not (Test-Path -Path '.\DSCResource.Tests\TestHelper.psm1')) )
 {
-    & git @('clone','https://github.com/PlagueHO/DscResource.Tests.git')
+    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git')
 }
 Import-Module .\DSCResource.Tests\TestHelper.psm1 -Force
 $TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $DSCModuleName `
-    -DSCResourceName $DSCResourceName `
+    -DSCModuleName $Global:DSCModuleName `
+    -DSCResourceName $Global:DSCResourceName `
     -TestType Unit 
 #endregion
 
@@ -18,7 +18,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-    InModuleScope $DSCResourceName {
+    InModuleScope $Global:DSCResourceName {
     
         # Create the Mock Objects that will be used for running tests
         $Global:MockClassificationPossibleValue1 = New-CimInstance `
@@ -68,7 +68,7 @@ try
                 PossibleValue = [Microsoft.Management.Infrastructure.CimInstance[]]@( $Global:MockClassificationPossibleValue1, $Global:MockClassificationPossibleValue2, $Global:MockClassificationPossibleValue3 )
             }
     
-        Describe 'BMD_cFSRMClassificationProperty\Get-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Get-TargetResource" {
     
             Context 'No classification properties exist' {
                 
@@ -107,7 +107,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMClassificationProperty\Set-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Set-TargetResource" {
     
             Context 'classification property does not exist but should' {
                 
@@ -285,7 +285,7 @@ try
             }
         }
     
-        Describe 'BMD_cFSRMClassificationProperty\Test-TargetResource' {
+        Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'classification property does not exist but should' {
                 
                 Mock Get-FSRMClassificationPropertyDefinition
