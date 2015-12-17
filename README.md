@@ -1,10 +1,10 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7n1yr63x7ptneyc5/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/cfsrm/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/7n1yr63x7ptneyc5/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/xFSRM/branch/master)
 
-# cFSRM
-
-The **cFSRM** module contains DSC resources for configuring Windows File Server Resource Manager.
+# xFSRM
+The **xFSRM** module contains DSC resources for configuring Windows File Server Resource Manager.
 
 Note: This module contains DSC resources that used to exist in the following modules:
+- cFSRM
 - cFSRMQuotas
 - cFSRMClassifications
 - cFSRMFileScreens
@@ -16,26 +16,24 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 
 ## Resources
+* **xFSRMSettings** configures FSRM settings.
+* **xFSRMClassification** configures FSRM Classification settings.
+* **xFSRMClassificationProperty** configures FSRM Classification Property Definitions.
+* **xFSRMClassificationPropertyValue** configures FSRM Classification Property Definition Values. This resource only needs to be used if the Description of a Classification Property Definition Value must be set.
+* **xFSRMClassificationRule** configures FSRM Classification Rules.
+* **xFSRMFileScreen** configures FSRM File Screen.
+* **xFSRMFileScreenAction** configures FSRM File Screen Actions for File Screens.
+* **xFSRMFileScreenTemplate** configures FSRM File Screen Templates.
+* **xFSRMFileScreenTemplateAction** configures FSRM File Screen Template Actions for File Screen Templates.
+* **xFSRMFileScreenExclusion** configures FSRM File Screen Exclusions.
+* **xFSRMFileGroup** configures FSRM File Groups.
+* **xFSRMQuota** configures FSRM Quotas.
+* **xFSRMQuotaAction** configures FSRM Quota Actions for Quotas.
+* **xFSRMQuotaTemplate** configures FSRM Quota Templates.
+* **xFSRMQuotaTemplateAction** configures FSRM Quota Template Actions for Quota Templates.
+* **xFSRMAutoQuota** configures FSRM Auto Quotas.
 
-* **cFSRMSettings** configures FSRM settings.
-* **cFSRMClassification** configures FSRM Classification settings.
-* **cFSRMClassificationProperty** configures FSRM Classification Property Definitions.
-* **cFSRMClassificationPropertyValue** configures FSRM Classification Property Definition Values. This resource only needs to be used if the Description of a Classification Property Definition Value must be set.
-* **cFSRMClassificationRule** configures FSRM Classification Rules.
-* **cFSRMFileScreen** configures FSRM File Screen.
-* **cFSRMFileScreenAction** configures FSRM File Screen Actions for File Screens.
-* **cFSRMFileScreenTemplate** configures FSRM File Screen Templates.
-* **cFSRMFileScreenTemplateAction** configures FSRM File Screen Template Actions for File Screen Templates.
-* **cFSRMFileScreenExclusion** configures FSRM File Screen Exclusions.
-* **cFSRMFileGroup** configures FSRM File Groups.
-* **cFSRMQuota** configures FSRM Quotas.
-* **cFSRMQuotaAction** configures FSRM Quota Actions for Quotas.
-* **cFSRMQuotaTemplate** configures FSRM Quota Templates.
-* **cFSRMQuotaTemplateAction** configures FSRM Quota Template Actions for Quota Templates.
-* **cFSRMAutoQuota** configures FSRM Auto Quotas.
-
-### cFSRMSettings
-
+### xFSRMSettings
 * **[String]Id**: This is a unique identifier for this resource. Required.
 * **[String]SmtpServer**: Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that FSRM uses to send email. Optional.
 * **[String]AdminEmailAddress**: Specifies a semicolon-separated list of email addresses for the recipients of any email that the server sends to the administrator. Optional.
@@ -44,8 +42,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **[Uint32]EmailNotificationLimit**: Specifies the minimum number of seconds between individual running events of an email-type notification. Optional.
 * **[Uint32]EventNotificationLimit**: Specifies the minimum number of seconds between individual running events of an event-type notification. Optional.
 
-### cFSRMClassification
-
+### xFSRMClassification
 * **Id**: This is a unique resource identifier. It can be set to any unique string. It does not matter what this parameter is set to, as long as it is set. The parameter is only included because a key propert is always required. Required.
 * **Continuous**: Enable FSRM Classification continuous mode for new files. Optional.
 * **ContinuousLog**: Enable FSRM Classification continuous mode logging. Optional.
@@ -56,25 +53,22 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **ScheduleRunDuration**: The maximum number of hours the FSRM Classification can run for. Setting this to -1 will disable this. Optional.
 * **ScheduleTime**: A string containing the time of day the FSRM Classification should run at. Optional.
 
-### cFSRMClassificationProperty
-
+### xFSRMClassificationProperty
 * **Name**: The name of the FSRM Classification Property. Required.
 * **Type**: The type of the FSRM Classification Property. Values: { OrderedList | MultiChoice | SingleChoice | String | MultiString | Integer | YesNo | DateTime }. Required.
 * **DisplayName**: The display name for the FSRM Classification Property. If not specified the DisplayName will default to the same value as Name. Optional.
 * **Description**: The description for the FSRM Classification Property. Optional.
 * **Ensure**: Specifies whether the FSRM Classification Property should exist. Values: { Absent | Present }. Default: Present
-* **PossibleValue**: An array of possible values that this FSRM Classification Property can take on. These can also be configured via the cFSRMClassificationPropertValue resource. Optional.
+* **PossibleValue**: An array of possible values that this FSRM Classification Property can take on. These can also be configured via the xFSRMClassificationPropertValue resource. Optional.
 * **Parameters**: An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure. Optional.
 
-### cFSRMClassificationPropertyValue
-
+### xFSRMClassificationPropertyValue
 * **Name**: The FSRM Classification Property value Name. Required.
 * **PropertyName**: The name of the FSRM Classification Property the value applies to. Required.
 * **Ensure**: Specifies whether the FSRM Classification Property Value should exist. Values: { Absent | Present }. Default: Present
 * **Description**: The description for the FSRM Classification Property Value. Optional.
 
-### cFSRMClassificationRule
-
+### xFSRMClassificationRule
 * **Name**: The name of the FSRM Classification Rule. Required.
 * **Description**: The description for the FSRM Classification Rule. Optional.
 * **Ensure**: Specifies whether the FSRM Classification Rule should exist. Values: { Absent | Present }. Default: Present
@@ -90,7 +84,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Namespace**: An array of namespaces where the rule is applied. Optional.
 * **ReevaluateProperty**: Specifies the evaluation policy of the rule. Values: { Never | Overwrite | Aggregate }. Optional.
 
-### cFSRMFileScreen
+### xFSRMFileScreen
 * **Path**: The path the File Screen is applied to. Required.
 * **Description**: The optional description of the File Screen. Optional.
 * **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
@@ -99,7 +93,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Template**: The name of the File Screen Template that should be used to create this File Screen. Optional.
 * **MatchesTemplate**: This parameter causes the resource to ignore the Active and IncludeGroup parameters and maintain the File Screen only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
 
-### cFSRMFileScreenAction
+### xFSRMFileScreenAction
 * **Path**: The path the File Screen is applied to for the action. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen action exist. Optional. Values: { Absent | Present }. Default: Present
@@ -118,14 +112,14 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
-### cFSRMFileScreenTemplate
+### xFSRMFileScreenTemplate
 * **Name**: The name of the File Screen template. Required.
 * **Description**: The optional description of the File Screen template. Optional.
 * **Ensure**: Should this File Screen template exist. Optional. Values: { Absent | Present }. Default: Present
 * **Active**: Boolean setting that controls if server should fail any I/O operations if the File Screen is violated. Default: True.
 * **IncludeGroup**: Contains an array of File Groups to include in this File Screen template. Optional.
 
-### cFSRMFileScreenTemplateAction
+### xFSRMFileScreenTemplateAction
 * **Name**: The name of the File Screen template for the action. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen template action exist. Optional. Values: { Absent | Present }. Default: Present
@@ -144,13 +138,13 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
-### cFSRMFileScreenExclusion
+### xFSRMFileScreenExclusion
 * **Path**: The path the File Screen Exclusion is applied to. Required.
 * **Description**: The optional description of the File Screen. Optional.
 * **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
 * **IncludeGroup**: Contains an array of File Groups to include in this File Screen Exclusion. Optional.
 
-### cFSRMFileGroup
+### xFSRMFileGroup
 
 * **Name**: The name of the FSRM File Groups. Required.
 * **Description**: The optional description of the FSRM File Group. Optional.
@@ -158,7 +152,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **IncludePattern**: An array of file patterns to include in this FSRM File Group. Optional.
 * **ExcludePattern**: An array of file patterns to exclude in this FSRM File Group. Optional.
 
-### cFSRMQuota
+### xFSRMQuota
 * **Path**: The path the quota is applied to. Required.
 * **Description**: The optional description of the quota. Optional.
 * **Ensure**: Should this quota exist. Optional. Values: { Absent | Present }. Default: Present
@@ -169,7 +163,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Template**: The name of the Quota Template that should be used to create this quota. Optional.
 * **MatchesTemplate**: This parameter causes the resource to ignore the Size, Softlimit and ThresholdPercentages parameters and maintain the quota only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
 
-### cFSRMQuotaAction
+### xFSRMQuotaAction
 * **Path**: The path the quota is applied to for the action. Required.
 * **Percentage**: The threshold percentage that this action is assigned to. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
@@ -189,7 +183,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
-### cFSRMQuotaTemplate
+### xFSRMQuotaTemplate
 * **Name**: The name of the quota template. Required.
 * **Description**: The optional description of the quota template. Optional.
 * **Ensure**: Should this quota template exist. Optional. Values: { Absent | Present }. Default: Present
@@ -197,7 +191,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **SoftLimit**: Specify if the limit is hard or soft. Optional. Detault: $Ture
 * **ThresholdPercentages**: An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage. Optional.
 
-### cFSRMQuotaTemplateAction
+### xFSRMQuotaTemplateAction
 * **Name**: The name of the quota template for the action. Required.
 * **Percentage**: The threshold percentage that this action is assigned to. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
@@ -217,7 +211,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
-### cFSRMAutoQuota
+### xFSRMAutoQuota
 * **Path**: The path the auto quota is applied to. Required.
 * **Ensure**: Should this auto quota exist. Optional. Values: { Absent | Present }. Default: Present
 * **Disabled**: Allows the auto quota to be disabled. Optional.
@@ -225,11 +219,14 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 
 ## Versions
 
+### 2.1.0.0
+* DSC Module moved to MSFT.
+
 ### 2.0.1.0
 * Integration tests included for all resources.
-* BMD_cFSRMFileScreenAction: Fix to Get-TargetResource.
-* BMD_cFSRMQuotaAction: Fix to Get-TargetResource.
-* BMD_cFSRMQuotaActionTemplate: Fix to Get-TargetResource.
+* MSFT_xFSRMFileScreenAction: Fix to Get-TargetResource.
+* MSFT_xFSRMQuotaAction: Fix to Get-TargetResource.
+* MSFT_xFSRMQuotaActionTemplate: Fix to Get-TargetResource.
 
 ### 2.0.0.0
 * Combined all FSRM Resources into this module.
@@ -245,13 +242,13 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 This configuration will configure the FSRM Settings on a server.
 
 ```powershell
-configuration Sample_cFSRMSettings
+configuration Sample_xFSRMSettings
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMSettings FSRMSettings
+        xFSRMSettings FSRMSettings
         {
             Id = 'Default'
             SmtpServer = 'smtp.contoso.com'
@@ -260,7 +257,7 @@ configuration Sample_cFSRMSettings
             CommandNotificationLimit = 90
             EmailNotificationLimit = 90
             EventNotificationLimit = 90
-        } # End of cFSRMSettings Resource
+        } # End of xFSRMSettings Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -270,13 +267,13 @@ configuration Sample_cFSRMSettings
 This will configure the FSRM Classification settings on this server. It enables Continous Mode, Logging and sets the maximum Log size to 2 MB. The Classification schedule is also set to Monday through Wednesday at 11:30pm and will run a maximum of 4 hours. 
 
 ```powershell
-configuration Sample_cFSRMClassification
+configuration Sample_xFSRMClassification
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMClassification FSRMClassificationSettings
+        xFSRMClassification FSRMClassificationSettings
         {
             Id = 'Default'
             Continuous = $True
@@ -285,7 +282,7 @@ configuration Sample_cFSRMClassification
             ScheduleWeekly = 'Monday','Tuesday','Wednesday'
             ScheduleRunDuration = 4
             ScheduleTime = '23:30'
-        } # End of cFSRMClassification Resource
+        } # End of xFSRMClassification Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -295,19 +292,19 @@ configuration Sample_cFSRMClassification
 This configuration will create a FSRM Yes/No Classification Property called Confidential.
 
 ```powershell
-configuration Sample_cFSRMClassificationProperty_YesNo
+configuration Sample_xFSRMClassificationProperty_YesNo
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMClassificationProperty ConfidentialFiles
+        xFSRMClassificationProperty ConfidentialFiles
         {
             Name = 'Confidential'
             Type = 'YesNo'
             Description = 'Is this file a confidential file'
             Ensure = 'Present'
-        } # End of cFSRMClassificationProperty Resource
+        } # End of xFSRMClassificationProperty Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -317,13 +314,13 @@ configuration Sample_cFSRMClassificationProperty_YesNo
 This configuration will create a FSRM Single Choice Classification Property called Privacy.
 
 ```powershell
-configuration Sample_cFSRMClassificationProperty_SingleChoice
+configuration Sample_xFSRMClassificationProperty_SingleChoice
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMClassificationProperty PrivacyClasificationProperty
+        xFSRMClassificationProperty PrivacyClasificationProperty
         {
             Name = 'Privacy'
             Type = 'SingleChoice'
@@ -331,7 +328,7 @@ configuration Sample_cFSRMClassificationProperty_SingleChoice
             Description = 'File Privacy Property'
             Ensure = 'Present'
             PossibleValue = 'Top Secret','Secret','Confidential'
-        } # End of cFSRMClassificationProperty Resource
+        } # End of xFSRMClassificationProperty Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -341,19 +338,19 @@ configuration Sample_cFSRMClassificationProperty_SingleChoice
 This configuration will create a FSRM Classification Property Value called 'Public' assigned to the Classification Property called 'Privacy'.
 
 ```powershell
-configuration Sample_cFSRMClassificationPropertyValue
+configuration Sample_xFSRMClassificationPropertyValue
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMClassificationPropertyValue PublicClasificationPropertyValue
+        xFSRMClassificationPropertyValue PublicClasificationPropertyValue
         {
             Name = 'Public'
             PropertyName = 'Privacy'
             Description = 'Publically accessible files.'
             Ensure = 'Present'
-        } # End of cFSRMClassificationPropertyValue Resource
+        } # End of xFSRMClassificationPropertyValue Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -363,13 +360,13 @@ configuration Sample_cFSRMClassificationPropertyValue
 This configuration will create a FSRM Classification Rule called 'Confidential' that will assign a Privacy value of Confidential to any files containing the text Confidential in the folder d:\users or any folder categorized as 'User Files'.
 
 ```powershell
-configuration Sample_cFSRMClassificationRule
+configuration Sample_xFSRMClassificationRule
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMClassificationRule ConfidentialPrivacyClasificationRule
+        xFSRMClassificationRule ConfidentialPrivacyClasificationRule
         {
             Name = 'Confidential'
             Description = 'Set Confidential'
@@ -380,7 +377,7 @@ configuration Sample_cFSRMClassificationRule
             ContentString = 'Confidential'
             Namespace = '[FolderUsage_MS=User Files]','d:\Users'
             ReevaluateProperty = 'Overwrite'                
-        } # End of cFSRMClassificationRule Resource
+        } # End of xFSRMClassificationRule Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -390,20 +387,20 @@ configuration Sample_cFSRMClassificationRule
 This configuration will assign the 'Block Some Files' file screen template to the path 'D:\Users'. It will also force the File Screen assigned to this path to exactly match the 'Block Some Files' template. Any changes to the actions, include groups or active setting on the File Screen assigned to this path will cause the File Screen to be removed and reapplied.
 
 ```powershell
-configuration Sample_cFSRMFileScreen_UsingTemplate
+configuration Sample_xFSRMFileScreen_UsingTemplate
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMFileScreen DUsersFileScreens
+        xFSRMFileScreen DUsersFileScreens
         {
             Path = 'd:\users'
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Template = 'Block Some Files'
             MatchesTemplate = $true 
-        } # End of cFSRMFileScreen Resource
+        } # End of xFSRMFileScreen Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -413,22 +410,22 @@ configuration Sample_cFSRMFileScreen_UsingTemplate
 This configuration will assign an Active FSRM File Screen to the path 'D:\Users' with three include groups. An e-mail and event action is bound to the File Screen.
 
 ```powershell
-configuration Sample_cFSRMFileScreen
+configuration Sample_xFSRMFileScreen
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMFileScreen DUsersFileScreen
+        xFSRMFileScreen DUsersFileScreen
         {
             Path = 'd:\users'
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Active = $true
             IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files' 
-        } # End of cFSRMFileScreen Resource
+        } # End of xFSRMFileScreen Resource
 
-        cFSRMFileScreenAction DUsersFileScreenSomeFilesEmail
+        xFSRMFileScreenAction DUsersFileScreenSomeFilesEmail
         {
             Path = 'd:\users'
             Ensure = 'Present'
@@ -438,18 +435,18 @@ configuration Sample_cFSRMFileScreen
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[cFSRMFileScreen]DUsersFileScreen" 
-        } # End of cFSRMFileScreenAction Resource
+            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
+        } # End of xFSRMFileScreenAction Resource
 
-        cFSRMFileScreenAction DUsersFileScreenSomeFilesEvent
+        xFSRMFileScreenAction DUsersFileScreenSomeFilesEvent
         {
             Path = 'd:\users'
             Ensure = 'Present'
             Type = 'Event'
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             EventType = 'Warning'
-            DependsOn = "[cFSRMFileScreen]DUsersFileScreen" 
-        } # End of cFSRMFileScreenAction Resource
+            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
+        } # End of xFSRMFileScreenAction Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -459,22 +456,22 @@ configuration Sample_cFSRMFileScreen
 This configuration will create an Active FSRM File Screen Template called 'Block Some Files', with three include groups. An e-mail and event action is bound to the File Screen Template.
 
 ```powershell
-configuration Sample_cFSRMFileScreenTemplate
+configuration Sample_xFSRMFileScreenTemplate
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMFileScreenTemplate FileScreenSomeFiles
+        xFSRMFileScreenTemplate FileScreenSomeFiles
         {
             Name = 'Block Some Files'
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Active = $true
             IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files' 
-        } # End of cFSRMFileScreenTemplate Resource
+        } # End of xFSRMFileScreenTemplate Resource
 
-        cFSRMFileScreenTemplateAction FileScreenSomeFilesEmail
+        xFSRMFileScreenTemplateAction FileScreenSomeFilesEmail
         {
             Name = 'Block Some Files'
             Ensure = 'Present'
@@ -484,18 +481,18 @@ configuration Sample_cFSRMFileScreenTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[cFSRMFileScreenTemplate]FileScreenSomeFiles" 
-        } # End of cFSRMFileScreenTemplateAction Resource
+            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles" 
+        } # End of xFSRMFileScreenTemplateAction Resource
 
-        cFSRMFileScreenTemplateAction FileScreenSomeFilesEvent
+        xFSRMFileScreenTemplateAction FileScreenSomeFilesEvent
         {
             Name = 'Block Some Files'
             Ensure = 'Present'
             Type = 'Event'
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             EventType = 'Warning'
-            DependsOn = "[cFSRMFileScreenTemplate]FileScreenSomeFiles" 
-        } # End of cFSRMFileScreenTemplateAction Resource
+            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles" 
+        } # End of xFSRMFileScreenTemplateAction Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -505,19 +502,19 @@ configuration Sample_cFSRMFileScreenTemplate
 This configuration add a File Screen Exception that Includes 'E-mail Files' to the path 'D:\Users'.
 
 ```powershell
-configuration Sample_cFSRMFileScreenException
+configuration Sample_xFSRMFileScreenException
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMFileScreenException DUsersFileScreenException
+        xFSRMFileScreenException DUsersFileScreenException
         {
             Path = 'd:\users'
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             IncludeGroup = 'E-mail Files'
-        } # End of cFSRMFileScreenException Resource
+        } # End of xFSRMFileScreenException Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -527,19 +524,19 @@ configuration Sample_cFSRMFileScreenException
 This configuration will create a FSRM File Group called 'Archives'.
 
 ```powershell
-configuration Sample_cFSRMFileGroup
+configuration Sample_xFSRMFileGroup
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMFileGroup FSRMFileGroupPortableFiles
+        xFSRMFileGroup FSRMFileGroupPortableFiles
         {
             Name = 'Portable Document Files'
             Description = 'Files containing portable document formats'
             Ensure = 'Present'
             IncludePattern = '*.eps','*.pdf','*.xps'
-        } # End of cFSRMFileGroup Resource
+        } # End of xFSRMFileGroup Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -549,20 +546,20 @@ configuration Sample_cFSRMFileGroup
 This configuration will assign the '100 MB Limit' template to the path 'D:\Users'. It will also force the quota assigned to this path to exactly match the '100 MB Limit' template. Any changes to the thresholds or actions on the quota assigned to this path will cause the template to be removed and reapplied.
 
 ```powershell
-configuration Sample_cFSRMQuota_UsingTemplate
+configuration Sample_xFSRMQuota_UsingTemplate
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMQuota DUsers
+        xFSRMQuota DUsers
         {
             Path = 'd:\Users'
             Description = '100 MB Limit'
             Ensure = 'Present'
             Template = '100 MB Limit'
             MatchesTemplate = $true
-        } # End of cFSRMQuota Resource
+        } # End of xFSRMQuota Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -572,13 +569,13 @@ configuration Sample_cFSRMQuota_UsingTemplate
 This configuration will assign an FSRM Quota to the path 'D:\Users', with a Hard Limit of 5GB and threshold percentages of 85 and 100. An e-mail action is bound to each threshold. An event action is also bound to the 85 percent threshold.
 
 ```powershell
-configuration Sample_cFSRMQuota
+configuration Sample_xFSRMQuota
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMQuota DUsers
+        xFSRMQuota DUsers
         {
             Path = 'd:\Users'
             Description = '5 GB Hard Limit'
@@ -586,9 +583,9 @@ configuration Sample_cFSRMQuota
             Size = 5GB
             SoftLimit = $False
             ThresholdPercentages = @( 85, 100 )
-        } # End of cFSRMQuota Resource
+        } # End of xFSRMQuota Resource
 
-        cFSRMQuotaAction DUsersEmail85
+        xFSRMQuotaAction DUsersEmail85
         {
             Path = 'd:\Users'
             Percentage = 85
@@ -599,10 +596,10 @@ configuration Sample_cFSRMQuota
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[cFSRMQuota]DUsers" 
-        } # End of cFSRMQuotaAction Resource
+            DependsOn = "[xFSRMQuota]DUsers" 
+        } # End of xFSRMQuotaAction Resource
 
-        cFSRMQuotaAction DUsersEvent85
+        xFSRMQuotaAction DUsersEvent85
         {
             Path = 'd:\Users'
             Percentage = 85
@@ -610,10 +607,10 @@ configuration Sample_cFSRMQuota
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             EventType = 'Warning'
-            DependsOn = "[cFSRMQuotaTemplate]DUsers" 
-        } # End of cFSRMQuotaAction Resource
+            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
+        } # End of xFSRMQuotaAction Resource
 
-        cFSRMQuotaAction DUsersEmail100
+        xFSRMQuotaAction DUsersEmail100
         {
             Path = 'd:\Users'
             Percentage = 100
@@ -624,8 +621,8 @@ configuration Sample_cFSRMQuota
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-            DependsOn = "[cFSRMQuotaTemplate]DUsers" 
-        } # End of cFSRMQuotaAction Resource
+            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
+        } # End of xFSRMQuotaAction Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -635,13 +632,13 @@ configuration Sample_cFSRMQuota
 This configuration will create a FSRM Quota Template called '5 GB Hard Limit', with a Hard Limit of 5GB and threshold percentages of 85 and 100. An e-mail action is bound to each threshold. An event action is also bound to the 85 percent threshold.
 
 ```powershell
-configuration Sample_cFSRMQuotaTemplate
+configuration Sample_xFSRMQuotaTemplate
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMQuotaTemplate HardLimit5GB
+        xFSRMQuotaTemplate HardLimit5GB
         {
             Name = '5 GB Limit'
             Description = '5 GB Hard Limit'
@@ -649,9 +646,9 @@ configuration Sample_cFSRMQuotaTemplate
             Size = 5GB
             SoftLimit = $False
             ThresholdPercentages = @( 85, 100 )
-        } # End of cFSRMQuotaTemplate Resource
+        } # End of xFSRMQuotaTemplate Resource
 
-        cFSRMQuotaTemplateAction HardLimit5GBEmail85
+        xFSRMQuotaTemplateAction HardLimit5GBEmail85
         {
             Name = '5 GB Limit'
             Percentage = 85
@@ -662,10 +659,10 @@ configuration Sample_cFSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'           
-			DependsOn = "[cFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of cFSRMQuotaTemplateAction Resource
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+        } # End of xFSRMQuotaTemplateAction Resource
 
-        cFSRMQuotaTemplateAction HardLimit5GBEvent85
+        xFSRMQuotaTemplateAction HardLimit5GBEvent85
         {
             Name = '5 GB Limit'
             Percentage = 85
@@ -673,10 +670,10 @@ configuration Sample_cFSRMQuotaTemplate
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
 			EventType = 'Warning'
-			DependsOn = "[cFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of cFSRMQuotaTemplateAction Resource
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+        } # End of xFSRMQuotaTemplateAction Resource
 
-        cFSRMQuotaTemplateAction HardLimit5GBEmail100
+        xFSRMQuotaTemplateAction HardLimit5GBEmail100
         {
             Name = '5 GB Limit'
             Percentage = 100
@@ -687,8 +684,8 @@ configuration Sample_cFSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-			DependsOn = "[cFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of cFSRMQuotaTemplateAction Resource
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+        } # End of xFSRMQuotaTemplateAction Resource
     } # End of Node
 } # End of Configuration
 ```
@@ -698,24 +695,21 @@ configuration Sample_cFSRMQuotaTemplate
 This configuration will assign an FSRM Auto Quota to the path 'd:\users' using the template '5 GB Limit'.
 
 ```powershell
-configuration Sample_cFSRMAutoQuota
+configuration Sample_xFSRMAutoQuota
 {
-    Import-DscResource -Module cFSRM
+    Import-DscResource -Module xFSRM
 
     Node $NodeName
     {
-        cFSRMAutoQuota DUsers
+        xFSRMAutoQuota DUsers
         {
             Path = 'd:\Users'
             Ensure = 'Present'
             Disabled = $false
             Template = '5 GB Limit'
-        } # End of cFSRMAutoQuota Resource
+        } # End of xFSRMAutoQuota Resource
     } # End of Node
 } # End of Configuration
 ```
 
-## Links
-* **[GitHub Repo](https://github.com/PlagueHO/cFSRM)**: Raise any issues, requests or PRs here.
-* **[My Blog](https://dscottraynsford.wordpress.com)**: See my PowerShell and Programming Blog.
 
