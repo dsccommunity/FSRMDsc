@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/7n1yr63x7ptneyc5/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/xFSRM/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/m8nqdbu8pkdenv68/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/xfsrm/branch/master)
 
 # xFSRM
 The **xFSRM** module contains DSC resources for configuring Windows File Server Resource Manager.
