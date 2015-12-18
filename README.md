@@ -3,14 +3,6 @@
 # xFSRM
 The **xFSRM** module contains DSC resources for configuring Windows File Server Resource Manager.
 
-Note: This module contains DSC resources that used to exist in the following modules:
-- cFSRM
-- cFSRMQuotas
-- cFSRMClassifications
-- cFSRMFileScreens
-
-The above modules will no longer be maintained. Any configurations using the above modules should be converted to use this resource. The resource names/parameters have not changed so to convert a config change the module name in the Import-DSCResource.
-
 ## Contributing
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
 
