@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMFileGroup'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         $Global:FileGroup = [PSObject]@{
             Name = 'Test Group'
@@ -33,13 +31,13 @@ try
             IncludePattern = @('*.eps','*.pdf','*.xps')
             ExcludePattern = @('*.epsx')
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'No file groups exist' {
-                
+
                 Mock Get-FsrmFileGroup
-    
+
                 It 'should return absent file group' {
                     $Result = Get-TargetResource `
                         -Name $Global:FileGroup.Name
@@ -49,11 +47,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'Requested file group does exist' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { return @($Global:FileGroup) }
-    
+
                 It 'should return correct file group' {
                     $Result = Get-TargetResource `
                         -Name $Global:FileGroup.Name
@@ -68,18 +66,18 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'File Group does not exist but should' {
-                
+
                 Mock Get-FsrmFileGroup
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         Set-TargetResource @Splat
                     } | Should Not Throw
@@ -91,16 +89,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
-    
+
             Context 'File Group exists and should but has a different Description' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
@@ -113,16 +111,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
-    
+
             Context 'File Group exists and should but has a different IncludePattern' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
                         Set-TargetResource @Splat
@@ -135,16 +133,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
-    
+
             Context 'File Group exists and should but has a different ExcludePattern' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
                         Set-TargetResource @Splat
@@ -157,16 +155,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
-    
+
             Context 'File Group exists and but should not' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -179,16 +177,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group does not exist and should not' {
-                
+
                 Mock Get-FsrmFileGroup
                 Mock New-FsrmFileGroup
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -202,28 +200,28 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'File Group does not exist but should' {
-                
+
                 Mock Get-FsrmFileGroup
-    
+
                 It 'should return false' {
                     $Splat = $Global:FileGroup.Clone()
                     Test-TargetResource @Splat | Should Be $False
-                    
+
                 }
                 It 'should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group exists and should but has a different Description' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Description = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -233,13 +231,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group exists and should but has a different IncludePattern' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
                         Test-TargetResource @Splat | Should Be $False
@@ -249,13 +247,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group exists and should but has a different ExcludePattern' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
                         Test-TargetResource @Splat | Should Be $False
@@ -265,13 +263,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group exists and should and all parameters match' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         Test-TargetResource @Splat | Should Be $True
                     } | Should Not Throw
@@ -280,13 +278,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group exists and but should not' {
-                
+
                 Mock Get-FsrmFileGroup -MockWith { $Global:FileGroup }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                     Test-TargetResource @Splat | Should Be $False
@@ -296,13 +294,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
                 }
             }
-    
+
             Context 'File Group does not exist and should not' {
-                
+
                 Mock Get-FsrmFileGroup
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                         Test-TargetResource @Splat | Should Be $True

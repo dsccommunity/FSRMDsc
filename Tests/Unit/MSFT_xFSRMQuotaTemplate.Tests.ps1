@@ -2,22 +2,20 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMQuotaTemplate'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
@@ -57,13 +55,13 @@ try
                 $Global:Threshold1, $Global:Threshold2
             )
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'No quota templates exist' {
-                
+
                 Mock Get-FsrmQuotaTemplate
-    
+
                 It 'should return absent quota template' {
                     $Result = Get-TargetResource `
                         -Name $Global:TestQuotaTemplate.Name
@@ -73,11 +71,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Requested quota template does exist' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return correct quota template' {
                     $Result = Get-TargetResource `
                         -Name $Global:TestQuotaTemplate.Name
@@ -91,18 +89,18 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'Quota template does not exist but should' {
-                
+
                 Mock Get-FsrmQuotaTemplate
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         Set-TargetResource @Splat
                     } | Should Not Throw
@@ -114,16 +112,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different Description' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
@@ -136,16 +134,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different Size' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Size = $Splat.Size + 1GB
                         Set-TargetResource @Splat
@@ -158,16 +156,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different SoftLimit' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.SoftLimit = (-not $Splat.SoftLimit)
                         Set-TargetResource @Splat
@@ -180,16 +178,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and should but has an additional threshold percentage' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
                         Set-TargetResource @Splat
@@ -202,16 +200,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and should but is missing a threshold percentage' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
                         Set-TargetResource @Splat
@@ -224,16 +222,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists and but should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -246,16 +244,16 @@ try
                     Assert-MockCalled -commandName Remove-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template does not exist and should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate
                 Mock New-FsrmQuotaTemplate
                 Mock Set-FsrmQuotaTemplate
                 Mock Remove-FsrmQuotaTemplate
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -269,28 +267,28 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Quota template does not exist but should' {
-                
+
                 Mock Get-FsrmQuotaTemplate
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplate.Clone()
                     Test-TargetResource @Splat | Should Be $False
-                    
+
                 }
                 It 'should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different Description' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Description = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -300,13 +298,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different Size' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Size = $Splat.Size + 1GB
                         Test-TargetResource @Splat | Should Be $False
@@ -316,13 +314,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should but has a different SoftLimit' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.SoftLimit = (-not $Splat.SoftLimit)
                         Test-TargetResource @Splat | Should Be $False
@@ -332,13 +330,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should but has an additional threshold percentage' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
                         Test-TargetResource @Splat | Should Be $False
@@ -348,13 +346,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should but is missing a threshold percentage' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
                         Test-TargetResource @Splat | Should Be $False
@@ -364,13 +362,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and should and all parameters match' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         Test-TargetResource @Splat | Should Be $True
                     } | Should Not Throw
@@ -379,13 +377,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and but should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { $Global:MockQuotaTemplate }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                     Test-TargetResource @Splat | Should Be $False
@@ -395,13 +393,13 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template does not exist and should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Test-TargetResource @Splat | Should Be $True

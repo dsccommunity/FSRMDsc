@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMQuotaTemplateAction'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         # General purpose Action Mocks
         $Global:MockEmail = New-CimInstance `
@@ -70,7 +68,7 @@ try
                 Type = 'Report'
                 ReportTypes = @('DuplicateFiles','LargeFiles','QuotaUsage')
             }
-        
+
         # Quota Template mocks
         $Global:MockThreshold1 = New-CimInstance `
             -ClassName 'MSFT_FSRMQuotaThreshold' `
@@ -92,7 +90,7 @@ try
                     $Global:MockEvent, $Global:MockReport
                 )
             }
-    
+
         # Quota Template mocks
         $Global:MockQuotaTemplate = New-CimInstance `
             -ClassName 'MSFT_FSRMQuotaTemplate' `
@@ -108,7 +106,7 @@ try
                     $Global:MockThreshold1, $Global:MockThreshold2
                 )
             }
-    
+
         $Global:TestQuotaTemplateActionEmail = [PSObject]@{
             Name = $Global:MockQuotaTemplate.Name
             Percentage = $Global:MockQuotaTemplate.Threshold[0].Percentage
@@ -123,7 +121,7 @@ try
             MailCC = $Global:MockEmail.MailCC
             MailTo = $Global:MockEmail.MailTo
         }
-    
+
         $Global:TestQuotaTemplateActionEvent = [PSObject]@{
             Name = $Global:MockQuotaTemplate.Name
             Percentage = $Global:MockQuotaTemplate.Threshold[0].Percentage
@@ -135,7 +133,7 @@ try
             Body = $Global:MockEvent.Body
             EventType = $Global:MockEvent.EventType
         }
-    
+
         $Global:TestQuotaTemplateActionCommand = [PSObject]@{
             Name = $Global:MockQuotaTemplate.Name
             Percentage = $Global:MockQuotaTemplate.Threshold[0].Percentage
@@ -152,7 +150,7 @@ try
             ShouldLogError = $Global:MockCommand.ShouldLogError
             WorkingDirectory = $Global:MockCommand.WorkingDirectory
         }
-    
+
         $Global:TestQuotaTemplateActionReport = [PSObject]@{
             Name = $Global:MockQuotaTemplate.Name
             Percentage = $Global:MockQuotaTemplate.Threshold[0].Percentage
@@ -163,13 +161,13 @@ try
             Ensure = 'Present'
             ReportTypes = $Global:MockReport.ReportTypes
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'Quota template does not exist' {
-                
+
                 Mock Get-FsrmQuotaTemplate { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $errorId = 'QuotaTemplateNotFound'
@@ -186,11 +184,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists but threshold does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-                        
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $Splat.Percentage = 99
@@ -208,11 +206,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists but action does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return absent quota template action' {
                     $Splat = $Global:TestQuotaTemplateActionEvent.Clone()
                     $Result = Get-TargetResource @Splat
@@ -222,11 +220,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template and action exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return correct quota template action' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $Result = Get-TargetResource @Splat
@@ -243,14 +241,14 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'Quota template does not exist' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
                 Mock Set-FsrmQuotaTemplate
-    
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $errorId = 'QuotaTemplateNotFound'
@@ -268,12 +266,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists but threshold does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
                 Mock Set-FsrmQuotaTemplate
-    
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $Splat.Percentage = 99
@@ -292,12 +290,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmQuotaTemplate -Exactly 0
                 }
             }
-    
+
             Context 'Quota template exists but action does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
                 Mock Set-FsrmQuotaTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestQuotaTemplateActionSetEvent.Clone()
                     $Splat.Type = 'Event'
@@ -308,12 +306,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
                 Mock Set-FsrmQuotaTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     { Set-TargetResource @Splat } | Should Not Throw
@@ -323,12 +321,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action exists but should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
                 Mock Set-FsrmQuotaTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'
@@ -340,12 +338,12 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Quota template does not exist' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $errorId = 'QuotaTemplateNotFound'
@@ -362,11 +360,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists but threshold does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should throw QuotaTemplateNotFound exception' {
                     $Splat = $Global:TestQuotaTemplateActionEmail.Clone()
                     $Splat.Percentage = 99
@@ -384,11 +382,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists but action does not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEvent.Clone()
                     $Splat.Type = 'Event'
@@ -398,11 +396,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and matching action exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return true' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     Test-TargetResource @Splat | Should Be $true
@@ -411,11 +409,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Subject exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.Subject = 'Different'
@@ -425,11 +423,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Body exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.Body = 'Different'
@@ -439,11 +437,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Mail BCC exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.MailBCC = 'Different'
@@ -453,11 +451,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Mail CC exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.MailCC = 'Different'
@@ -467,11 +465,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Mail To exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.MailTo = 'Different'
@@ -481,11 +479,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different Command exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.Command = 'Different'
@@ -495,11 +493,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different CommandParameters exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.CommandParameters = 'Different'
@@ -509,11 +507,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different KillTimeOut exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.KillTimeOut = $Splat.KillTimeOut+1
@@ -523,11 +521,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different RunLimitInterval exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.RunLimitInterval = $Splat.RunLimitInterval+1
@@ -537,11 +535,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different SecurityLevel exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.SecurityLevel = 'NetworkService'
@@ -551,11 +549,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different ShouldLogError exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.ShouldLogError = (-not $Splat.ShouldLogError)
@@ -565,11 +563,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different WorkingDirectory exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetCommand.Clone()
                     $Splat.WorkingDirectory = 'Different'
@@ -579,11 +577,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action with different ReportTypes exists' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetReport.Clone()
                     $Splat.ReportTypes = @( 'LeastRecentlyAccessed' )
@@ -593,11 +591,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
                 }
             }
-    
+
             Context 'Quota template exists and action exists but should not' {
-                
+
                 Mock Get-FsrmQuotaTemplate -MockWith { return @($Global:MockQuotaTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestQuotaTemplateActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'

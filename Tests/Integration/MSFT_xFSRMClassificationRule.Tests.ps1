@@ -2,22 +2,20 @@ $Global:DSCModuleName      = 'xFSRM'
 $Global:DSCResourceName    = 'MSFT_xFSRMclassificationRule'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Integration 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Using try/finally to always cleanup even if something awful happens.
 try
@@ -27,7 +25,7 @@ try
     . $ConfigFile
 
     Describe "$($Global:DSCResourceName)_Integration" {
-        # Create the Classification Property that will be worked with 
+        # Create the Classification Property that will be worked with
         New-FSRMClassificationPropertyDefinition `
             -Name $classificationProperty.Name `
             -Type $classificationProperty.Type `
@@ -63,7 +61,7 @@ try
             $classificationRule.PropertyValue              | Should Be  $classificationRuleNew.PropertyValue
             $classificationRule.ReevaluateProperty         | Should Be  $classificationRuleNew.ReevaluateProperty
         }
-        
+
         # Clean up
         Remove-FSRMClassificationRule `
             -Name $classificationRule.Name `

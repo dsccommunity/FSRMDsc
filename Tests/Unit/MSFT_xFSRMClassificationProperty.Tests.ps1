@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMClassificationProperty'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         $Global:MockClassificationPossibleValue1 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
@@ -50,7 +48,7 @@ try
                 Name = 'Confidential'
                 Description = ''
             }
-    
+
         $Global:ClassificationProperty = [PSObject]@{
             Name = 'Privacy'
             DisplayName = 'File Privacy'
@@ -72,13 +70,13 @@ try
                 Parameters = $Global:ClassificationProperty.Parameters
                 PossibleValue = [Microsoft.Management.Infrastructure.CimInstance[]]@( $Global:MockClassificationPossibleValue1, $Global:MockClassificationPossibleValue2, $Global:MockClassificationPossibleValue3 )
             }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'No classification properties exist' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition
-    
+
                 It 'should return absent classification property' {
                     $Result = Get-TargetResource `
                         -Name $Global:ClassificationProperty.Name `
@@ -89,15 +87,15 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'Requested classification property does exist' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return correct classification property' {
                     $Result = Get-TargetResource `
                         -Name $Global:ClassificationProperty.Name `
-                        -Type $Global:ClassificationProperty.Type                    
+                        -Type $Global:ClassificationProperty.Type
                     $Result.Ensure | Should Be 'Present'
                     $Result.Name | Should Be $Global:ClassificationProperty.Name
                     $Result.DisplayName | Should Be $Global:ClassificationProperty.DisplayName
@@ -111,18 +109,18 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'classification property does not exist but should' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         Set-TargetResource @Splat
                     } | Should Not Throw
@@ -134,16 +132,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'classification property exists and should but has a different DisplayName' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.DisplayName = 'Different'
                         Set-TargetResource @Splat
@@ -156,16 +154,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Description' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
@@ -178,16 +176,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Type' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Type = 'YesNo'
                         Set-TargetResource @Splat
@@ -200,16 +198,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different PossibleValue' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.PossibleValue = @( $Global:MockClassificationPossibleValue1.Name, $Global:MockClassificationPossibleValue2.Name )
                         Set-TargetResource @Splat
@@ -222,16 +220,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Parameters' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Set-TargetResource @Splat
@@ -244,16 +242,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'classification property exists and but should not' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -266,16 +264,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property does not exist and should not' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
                 Mock Remove-FSRMClassificationPropertyDefinition
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -289,28 +287,28 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'classification property does not exist but should' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition
-    
+
                 It 'should return false' {
                     $Splat = $Global:ClassificationProperty.Clone()
                     Test-TargetResource @Splat | Should Be $False
-                    
+
                 }
                 It 'should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different DisplayName' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.DisplayName = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -320,13 +318,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Description' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Description = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -336,13 +334,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Type' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Type = 'YesNo'
                         Test-TargetResource @Splat | Should Be $False
@@ -352,13 +350,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different PossibleValue' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.PossibleValue = @( $Global:MockClassificationPossibleValue1.Name, $Global:MockClassificationPossibleValue2.Name )
                         Test-TargetResource @Splat | Should Be $False
@@ -368,13 +366,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should but has a different Parameters' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Test-TargetResource @Splat | Should Be $False
@@ -384,13 +382,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and should and all parameters match' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         Test-TargetResource @Splat | Should Be $True
                     } | Should Not Throw
@@ -399,13 +397,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property exists and but should not' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $Global:MockClassificationProperty }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
                     Test-TargetResource @Splat | Should Be $False
@@ -415,13 +413,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'classification property does not exist and should not' {
-                
+
                 Mock Get-FSRMClassificationPropertyDefinition
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
                         Test-TargetResource @Splat | Should Be $True

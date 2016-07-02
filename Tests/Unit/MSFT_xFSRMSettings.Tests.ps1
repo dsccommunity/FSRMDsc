@@ -2,22 +2,20 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMSettings'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
@@ -52,7 +50,7 @@ try
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
 
             Context 'Settings Exist' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return correct Settings properties' {
@@ -73,11 +71,11 @@ try
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
 
             Context 'Settings has a different SmtpServer property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.SmtpServer = 'someotherserver.contoso.com'
                         Set-TargetResource @Splat
@@ -89,11 +87,11 @@ try
             }
 
             Context 'Settings has a different AdminEmailAddress property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.AdminEmailAddress = 'someoneelse@contoso.com'
                         Set-TargetResource @Splat
@@ -105,11 +103,11 @@ try
             }
 
             Context 'Settings has a different FromEmailAddress property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.FromEmailAddress = 'someoneelse@contoso.com'
                         Set-TargetResource @Splat
@@ -121,11 +119,11 @@ try
             }
 
             Context 'Settings has a different CommandNotificationLimit property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.CommandNotificationLimit = $Splat.CommandNotificationLimit + 1
                         Set-TargetResource @Splat
@@ -137,11 +135,11 @@ try
             }
 
             Context 'Settings has a different EmailNotificationLimit property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.EmailNotificationLimit = $Splat.EmailNotificationLimit + 1
                         Set-TargetResource @Splat
@@ -153,11 +151,11 @@ try
             }
 
             Context 'Settings has a different EventNotificationLimit property' {
-            
+
                 Mock Set-FSRMSetting
 
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:Settings.Clone()
                         $Splat.EventNotificationLimit = $Splat.EventNotificationLimit + 1
                         Set-TargetResource @Splat
@@ -171,7 +169,7 @@ try
 
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Settings has no property differences' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return true' {
@@ -184,7 +182,7 @@ try
             }
 
             Context 'Settings has a different SmtpServer property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {
@@ -198,7 +196,7 @@ try
             }
 
             Context 'Settings has a different AdminEmailAddress property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {
@@ -212,7 +210,7 @@ try
             }
 
             Context 'Settings has a different FromEmailAddress property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {
@@ -226,7 +224,7 @@ try
             }
 
             Context 'Settings has a different CommandNotificationLimit property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {
@@ -240,7 +238,7 @@ try
             }
 
             Context 'Settings has a different EmailNotificationLimit property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {
@@ -254,7 +252,7 @@ try
             }
 
             Context 'Settings has a different EventNotificationLimit property' {
-            
+
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return false' {

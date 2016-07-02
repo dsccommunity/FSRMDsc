@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMFileScreenTemplateAction'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         # General purpose Action Mocks
         $Global:MockEmail = New-CimInstance `
@@ -70,7 +68,7 @@ try
                 Type = 'Report'
                 ReportTypes = @('DuplicateFiles','LargeFiles','FileScreenUsage')
             }
-        
+
         # File Screen Template mocks
         $Global:MockFileScreenTemplate = New-CimInstance `
             -ClassName 'MSFT_FSRMFileScreenTemplate' `
@@ -86,7 +84,7 @@ try
                     $Global:MockEmail,$Global:MockCommand,$Global:MockEvent
                 )
             }
-    
+
         $Global:TestFileScreenTemplateActionEmail = [PSObject]@{
             Name = $Global:MockFileScreenTemplate.Name
             Type = 'Email'
@@ -100,7 +98,7 @@ try
             MailCC = $Global:MockEmail.MailCC
             MailTo = $Global:MockEmail.MailTo
         }
-    
+
         $Global:TestFileScreenTemplateActionEvent = [PSObject]@{
             Name = $Global:MockFileScreenTemplate.Name
             Type = 'Event'
@@ -111,7 +109,7 @@ try
             Body = $Global:MockEvent.Body
             EventType = $Global:MockEvent.EventType
         }
-    
+
         $Global:TestFileScreenTemplateActionCommand = [PSObject]@{
             Name = $Global:MockFileScreenTemplate.Name
             Type = 'Command'
@@ -127,7 +125,7 @@ try
             ShouldLogError = $Global:MockCommand.ShouldLogError
             WorkingDirectory = $Global:MockCommand.WorkingDirectory
         }
-    
+
         $Global:TestFileScreenTemplateActionReport = [PSObject]@{
             Name = $Global:MockFileScreenTemplate.Name
             Type = 'Report'
@@ -137,13 +135,13 @@ try
             Ensure = 'Present'
             ReportTypes = $Global:MockReport.ReportTypes
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'File Screen template does not exist' {
-                
+
                 Mock Get-FsrmFileScreenTemplate { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
                     $errorId = 'FileScreenTemplateNotFound'
@@ -160,11 +158,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists but action does not' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return absent File Screen template action' {
                     $Splat = $Global:TestFileScreenTemplateActionReport.Clone()
                     $Result = Get-TargetResource @Splat
@@ -174,11 +172,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template and action exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return correct File Screen template action' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
                     $Result = Get-TargetResource @Splat
@@ -195,14 +193,14 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'File Screen template does not exist' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
                 Mock Set-FsrmFileScreenTemplate
-    
+
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
                     $errorId = 'FileScreenTemplateNotFound'
@@ -220,12 +218,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 0
                 }
             }
-    
+
             Context 'File Screen template exists but action does not' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
                 Mock Set-FsrmFileScreenTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEvent.Clone()
                     $Splat.Type = 'Event'
@@ -236,12 +234,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
                 Mock Set-FsrmFileScreenTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     { Set-TargetResource @Splat } | Should Not Throw
@@ -251,12 +249,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action exists but should not' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
                 Mock Set-FsrmFileScreenTemplate
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'
@@ -268,12 +266,12 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'File Screen template does not exist' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
                     $errorId = 'FileScreenTemplateNotFound'
@@ -290,11 +288,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists but action does not' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetReport.Clone()
                     Test-TargetResource @Splat | Should Be $False
@@ -303,11 +301,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and matching action exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return true' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     Test-TargetResource @Splat | Should Be $true
@@ -316,11 +314,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Subject exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.Subject = 'Different'
@@ -330,11 +328,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Body exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.Body = 'Different'
@@ -344,11 +342,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Mail BCC exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.MailBCC = 'Different'
@@ -358,11 +356,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Mail CC exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.MailCC = 'Different'
@@ -372,11 +370,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Mail To exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.MailTo = 'Different'
@@ -386,11 +384,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different Command exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.Command = 'Different'
@@ -400,11 +398,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different CommandParameters exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.CommandParameters = 'Different'
@@ -414,11 +412,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different KillTimeOut exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.KillTimeOut = $Splat.KillTimeOut+1
@@ -428,11 +426,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different RunLimitInterval exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.RunLimitInterval = $Splat.RunLimitInterval+1
@@ -442,11 +440,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different SecurityLevel exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.SecurityLevel = 'NetworkService'
@@ -456,11 +454,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different ShouldLogError exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.ShouldLogError = (-not $Splat.ShouldLogError)
@@ -470,11 +468,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different WorkingDirectory exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetCommand.Clone()
                     $Splat.WorkingDirectory = 'Different'
@@ -484,11 +482,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action with different ReportTypes exists' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetReport.Clone()
                     $Splat.ReportTypes = @( 'LeastRecentlyAccessed' )
@@ -498,11 +496,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
-    
+
             Context 'File Screen template exists and action exists but should not' {
-                
+
                 Mock Get-FsrmFileScreenTemplate -MockWith { return @($Global:MockFileScreenTemplate) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:TestFileScreenTemplateActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'

@@ -2,22 +2,20 @@ $Global:DSCModuleName      = 'xFSRM'
 $Global:DSCResourceName    = 'MSFT_xFSRMFileScreenTemplateAction'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Integration 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Using try/finally to always cleanup even if something awful happens.
 try
@@ -27,12 +25,12 @@ try
     . $ConfigFile
 
     Describe "$($Global:DSCResourceName)_Integration" {
-        # Create the File Screen that will be worked with 
+        # Create the File Screen that will be worked with
         New-FSRMFileScreenTemplate `
             -Name $fileScreenTemplate.Name `
             -Description $fileScreenTemplate.Description `
             -IncludeGroup $fileScreenTemplate.IncludeGroup
-            
+
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
             {
@@ -56,7 +54,7 @@ try
             $fileScreenTemplateNew.Notification[0].MailCC             | Should Be $fileScreenTemplateAction.MailCC
             $fileScreenTemplateNew.Notification[0].MailTo             | Should Be $fileScreenTemplateAction.MailTo
         }
-        
+
         # Clean up
         Remove-FSRMFileScreenTemplate `
             -Name $fileScreenTemplate.Name `

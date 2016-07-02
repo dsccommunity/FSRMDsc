@@ -2,22 +2,20 @@ $Global:DSCModuleName      = 'xFSRM'
 $Global:DSCResourceName    = 'MSFT_xFSRMQuota'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Integration 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Using try/finally to always cleanup even if something awful happens.
 try
@@ -50,9 +48,9 @@ try
             (Compare-Object `
                 -ReferenceObject $quota.ThresholdPercentages `
                 -DifferenceObject $quotaNew.Threshold.Percentage).Count | Should Be 0
-            $quota.Disabled           | Should Be $quotaNew.Disabled            
+            $quota.Disabled           | Should Be $quotaNew.Disabled
         }
-        
+
         # Clean up
         Remove-FSRMQuota `
             -Path $quota.Path `

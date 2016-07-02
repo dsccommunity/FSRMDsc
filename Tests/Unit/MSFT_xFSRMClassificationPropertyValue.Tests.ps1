@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMClassificationPropertyValue'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         $Global:MockClassificationPossibleValue1 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
@@ -53,7 +51,7 @@ try
                 DisplayName = 'Confidential'
                 Description = 'Confidential Description'
             }
-    
+
         $Global:ClassificationProperty = [PSObject]@{
             Name = 'Privacy'
             DisplayName = 'File Privacy'
@@ -90,13 +88,13 @@ try
             PropertyName = $Global:ClassificationProperty.Name
             Description = $Global:MockClassificationPossibleValue3.Description
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'Classification Property does not exist' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw ClassificationPropertyNotFoundError exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $null = $Splat.Remove('Description')
@@ -114,11 +112,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'ClassificationProperty exists but value does not' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return absent Classification Property value' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $null = $Splat.Remove('Description')
@@ -130,11 +128,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'ClassificationProperty and value exists' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return correct Classification Property value' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $null = $Splat.Remove('Description')
@@ -149,14 +147,14 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'Classification Property does not exist' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
                 Mock Set-FsrmClassificationPropertyDefinition
-    
+
                 It 'should throw ClassificationPropertyNotFound exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $errorId = 'ClassificationPropertyNotFound'
@@ -174,12 +172,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmClassificationPropertyDefinition -Exactly 0
                 }
             }
-    
+
             Context 'Classification Property exists but value does not' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
                 Mock Set-FsrmClassificationPropertyDefinition
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
@@ -190,12 +188,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'ClassificationProperty exists and value exists' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
                 Mock Set-FsrmClassificationPropertyDefinition
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     { Set-TargetResource @Splat } | Should Not Throw
@@ -205,12 +203,12 @@ try
                     Assert-MockCalled -commandName Set-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'ClassificationProperty exists and value exists but should not' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
                 Mock Set-FsrmClassificationPropertyDefinition
-    
+
                 It 'should not throw exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $Splat.Ensure = 'Absent'
@@ -222,12 +220,12 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'Classification Property does not exist' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-    
+
                 It 'should throw ClassificationPropertyNotFound exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $errorId = 'ClassificationPropertyNotFound'
@@ -244,11 +242,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'Classification Property exists but value does not' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
@@ -258,11 +256,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'Classification Property exists and matching value exists' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return true' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     Test-TargetResource @Splat | Should Be $true
@@ -271,11 +269,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'Classification Property exists and value with different Description exists' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $Splat.Description = 'Different'
@@ -286,11 +284,11 @@ try
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
-    
+
             Context 'Classification Property exists and value exists but should not' {
-                
+
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($Global:MockClassificationProperty) }
-    
+
                 It 'should return false' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $Splat.Ensure = 'Absent'

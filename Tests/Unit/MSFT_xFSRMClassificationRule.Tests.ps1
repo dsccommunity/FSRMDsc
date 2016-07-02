@@ -2,29 +2,27 @@ $Global:DSCModuleName   = 'xFSRM'
 $Global:DSCResourceName = 'MSFT_xFSRMClassificationRule'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Begin Testing
 try
 {
     #region Pester Tests
     InModuleScope $Global:DSCResourceName {
-    
+
         # Create the Mock Objects that will be used for running tests
         $Global:MockClassificationRule = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationRule' `
@@ -45,7 +43,7 @@ try
                 PropertyValue = 'Confidential'
                 ReevaluateProperty = 'Never'
             }
-    
+
         $Global:ClassificationRule = [PSObject]@{
             Name = $MockClassificationRule.Name
             Description = $MockClassificationRule.Description
@@ -61,13 +59,13 @@ try
             PropertyValue = $MockClassificationRule.PropertyValue
             ReevaluateProperty = $MockClassificationRule.ReevaluateProperty
         }
-    
+
         Describe "$($Global:DSCResourceName)\Get-TargetResource" {
-    
+
             Context 'No classification rules exist' {
-                
+
                 Mock Get-FSRMClassificationRule
-    
+
                 It 'should return absent classification rule' {
                     $Result = Get-TargetResource `
                         -Name $Global:ClassificationRule.Name
@@ -77,11 +75,11 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'Requested classification rule does exist' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return correct classification rule' {
                     $Result = Get-TargetResource `
                         -Name $Global:ClassificationRule.Name
@@ -105,18 +103,18 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Set-TargetResource" {
-    
+
             Context 'classification rule does not exist but should' {
-                
+
                 Mock Get-FSRMClassificationRule
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         Set-TargetResource @Splat
                     } | Should Not Throw
@@ -128,16 +126,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Description' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
@@ -150,16 +148,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
                         Set-TargetResource @Splat
@@ -172,16 +170,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression = @( 'Regex3','Regex4' )
                         Set-TargetResource @Splat
@@ -194,16 +192,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentString' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentString = @( 'String3','String4' )
                         Set-TargetResource @Splat
@@ -216,16 +214,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive = @( 'String3','String4' )
                         Set-TargetResource @Splat
@@ -238,16 +236,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Disabled' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
                         Set-TargetResource @Splat
@@ -260,16 +258,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Flags' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
                         Set-TargetResource @Splat
@@ -282,16 +280,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Namespace' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
                         Set-TargetResource @Splat
@@ -304,16 +302,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Parameters' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Set-TargetResource @Splat
@@ -326,16 +324,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Property' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
                         Set-TargetResource @Splat
@@ -348,16 +346,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different PropertyValue' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
                         Set-TargetResource @Splat
@@ -370,16 +368,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
                         Set-TargetResource @Splat
@@ -392,16 +390,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
-    
+
             Context 'classification rule exists and but should not' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -414,16 +412,16 @@ try
                     Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule does not exist and should not' {
-                
+
                 Mock Get-FSRMClassificationRule
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
-    
+
                 It 'should not throw error' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
@@ -437,28 +435,28 @@ try
                 }
             }
         }
-    
+
         Describe "$($Global:DSCResourceName)\Test-TargetResource" {
             Context 'classification rule does not exist but should' {
-                
+
                 Mock Get-FSRMClassificationRule
-    
+
                 It 'should return false' {
                     $Splat = $Global:ClassificationRule.Clone()
                     Test-TargetResource @Splat | Should Be $False
-                    
+
                 }
                 It 'should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Description' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -468,13 +466,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
                         Test-TargetResource @Splat | Should Be $False
@@ -484,13 +482,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression =  @( 'Regex3','Regex4' )
                         Test-TargetResource @Splat | Should Be $False
@@ -500,13 +498,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentString' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentString =  @( 'String3','String4' )
                         Test-TargetResource @Splat | Should Be $False
@@ -516,13 +514,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive =  @( 'String3','String4' )
                         Test-TargetResource @Splat | Should Be $False
@@ -532,13 +530,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Disabled' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
                         Test-TargetResource @Splat | Should Be $False
@@ -548,13 +546,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Flags' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
                         Test-TargetResource @Splat | Should Be $False
@@ -564,13 +562,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Namespace' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
                         Test-TargetResource @Splat | Should Be $False
@@ -580,13 +578,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Parameters' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Test-TargetResource @Splat | Should Be $False
@@ -596,13 +594,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different Property' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -612,13 +610,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different PropertyValue' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
                         Test-TargetResource @Splat | Should Be $False
@@ -628,13 +626,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
                         Test-TargetResource @Splat | Should Be $False
@@ -644,13 +642,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and should and all parameters match' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         Test-TargetResource @Splat | Should Be $True
                     } | Should Not Throw
@@ -659,13 +657,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule exists and but should not' {
-                
+
                 Mock Get-FSRMClassificationRule -MockWith { $Global:MockClassificationRule }
-    
+
                 It 'should return false' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                     Test-TargetResource @Splat | Should Be $False
@@ -675,13 +673,13 @@ try
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
-    
+
             Context 'classification rule does not exist and should not' {
-                
+
                 Mock Get-FSRMClassificationRule
-    
+
                 It 'should return true' {
-                    { 
+                    {
                         $Splat = $Global:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                         Test-TargetResource @Splat | Should Be $True

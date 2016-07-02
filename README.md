@@ -40,7 +40,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **ContinuousLog**: Enable FSRM Classification continuous mode logging. Optional.
 * **ContinuousLogSize**: The maximum number of KB that can be used for the continuous mode log file. Optional.
 * **ExcludeNamespace**: An array of Namespaces that will be excluded from FSRM Classification. Optional.
-* **ScheduleMonthly**: An array of days of the month the FSRM Classification should run on. Optional. 
+* **ScheduleMonthly**: An array of days of the month the FSRM Classification should run on. Optional.
 * **ScheduleWeekly**: An array of named days of the week the FSRM Classification should run on. Optional.
 * **ScheduleRunDuration**: The maximum number of hours the FSRM Classification can run for. Setting this to -1 will disable this. Optional.
 * **ScheduleTime**: A string containing the time of day the FSRM Classification should run at. Optional.
@@ -90,7 +90,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen action exist. Optional. Values: { Absent | Present }. Default: Present
 * **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event. 
+* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
 * **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
 * **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
 * **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
@@ -116,7 +116,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen template action exist. Optional. Values: { Absent | Present }. Default: Present
 * **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event. 
+* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
 * **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
 * **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
 * **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
@@ -161,7 +161,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this quota/quota template action exist. Optional. Values: { Absent | Present }. Default: Present
 * **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event. 
+* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
 * **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
 * **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
 * **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
@@ -189,7 +189,7 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this quota template action exist. Optional. Values: { Absent | Present }. Default: Present
 * **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event. 
+* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
 * **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
 * **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
 * **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
@@ -210,6 +210,10 @@ Please check out common DSC Resources [contributing guidelines](https://github.c
 * **Template**: The name of the Quota Template that should be used to create this auto quota. Optional.
 
 ## Versions
+### Unreleased
+* Unit and Integration test headers updated to v1.1.0
+* Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
+* Changed AppVeyor.yml to use default image
 
 ### 2.1.0.0
 * DSC Module moved to MSFT.
@@ -256,7 +260,7 @@ configuration Sample_xFSRMSettings
 
 ### Configure the FSRM Classification Settings
 
-This will configure the FSRM Classification settings on this server. It enables Continous Mode, Logging and sets the maximum Log size to 2 MB. The Classification schedule is also set to Monday through Wednesday at 11:30pm and will run a maximum of 4 hours. 
+This will configure the FSRM Classification settings on this server. It enables Continous Mode, Logging and sets the maximum Log size to 2 MB. The Classification schedule is also set to Monday through Wednesday at 11:30pm and will run a maximum of 4 hours.
 
 ```powershell
 configuration Sample_xFSRMClassification
@@ -368,7 +372,7 @@ configuration Sample_xFSRMClassificationRule
             ClassificationMechanism = ''
             ContentString = 'Confidential'
             Namespace = '[FolderUsage_MS=User Files]','d:\Users'
-            ReevaluateProperty = 'Overwrite'                
+            ReevaluateProperty = 'Overwrite'
         } # End of xFSRMClassificationRule Resource
     } # End of Node
 } # End of Configuration
@@ -391,7 +395,7 @@ configuration Sample_xFSRMFileScreen_UsingTemplate
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Template = 'Block Some Files'
-            MatchesTemplate = $true 
+            MatchesTemplate = $true
         } # End of xFSRMFileScreen Resource
     } # End of Node
 } # End of Configuration
@@ -414,7 +418,7 @@ configuration Sample_xFSRMFileScreen
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Active = $true
-            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files' 
+            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files'
         } # End of xFSRMFileScreen Resource
 
         xFSRMFileScreenAction DUsersFileScreenSomeFilesEmail
@@ -426,8 +430,8 @@ configuration Sample_xFSRMFileScreen
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[xFSRMFileScreen]DUsersFileScreen"
         } # End of xFSRMFileScreenAction Resource
 
         xFSRMFileScreenAction DUsersFileScreenSomeFilesEvent
@@ -437,7 +441,7 @@ configuration Sample_xFSRMFileScreen
             Type = 'Event'
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             EventType = 'Warning'
-            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
+            DependsOn = "[xFSRMFileScreen]DUsersFileScreen"
         } # End of xFSRMFileScreenAction Resource
     } # End of Node
 } # End of Configuration
@@ -460,7 +464,7 @@ configuration Sample_xFSRMFileScreenTemplate
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Active = $true
-            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files' 
+            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files'
         } # End of xFSRMFileScreenTemplate Resource
 
         xFSRMFileScreenTemplateAction FileScreenSomeFilesEmail
@@ -472,8 +476,8 @@ configuration Sample_xFSRMFileScreenTemplate
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles" 
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles"
         } # End of xFSRMFileScreenTemplateAction Resource
 
         xFSRMFileScreenTemplateAction FileScreenSomeFilesEvent
@@ -483,7 +487,7 @@ configuration Sample_xFSRMFileScreenTemplate
             Type = 'Event'
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             EventType = 'Warning'
-            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles" 
+            DependsOn = "[xFSRMFileScreenTemplate]FileScreenSomeFiles"
         } # End of xFSRMFileScreenTemplateAction Resource
     } # End of Node
 } # End of Configuration
@@ -587,8 +591,8 @@ configuration Sample_xFSRMQuota
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMQuota]DUsers" 
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[xFSRMQuota]DUsers"
         } # End of xFSRMQuotaAction Resource
 
         xFSRMQuotaAction DUsersEvent85
@@ -599,7 +603,7 @@ configuration Sample_xFSRMQuota
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             EventType = 'Warning'
-            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
+            DependsOn = "[xFSRMQuotaTemplate]DUsers"
         } # End of xFSRMQuotaAction Resource
 
         xFSRMQuotaAction DUsersEmail100
@@ -613,7 +617,7 @@ configuration Sample_xFSRMQuota
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
+            DependsOn = "[xFSRMQuotaTemplate]DUsers"
         } # End of xFSRMQuotaAction Resource
     } # End of Node
 } # End of Configuration
@@ -650,8 +654,8 @@ configuration Sample_xFSRMQuotaTemplate
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+            MailTo = '[Source Io Owner Email]'
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB"
         } # End of xFSRMQuotaTemplateAction Resource
 
         xFSRMQuotaTemplateAction HardLimit5GBEvent85
@@ -662,7 +666,7 @@ configuration Sample_xFSRMQuotaTemplate
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
 			EventType = 'Warning'
-			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB"
         } # End of xFSRMQuotaTemplateAction Resource
 
         xFSRMQuotaTemplateAction HardLimit5GBEmail100
@@ -676,7 +680,7 @@ configuration Sample_xFSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
+			DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB"
         } # End of xFSRMQuotaTemplateAction Resource
     } # End of Node
 } # End of Configuration

@@ -2,22 +2,20 @@ $Global:DSCModuleName      = 'xFSRM'
 $Global:DSCResourceName    = 'MSFT_xFSRMFileScreen'
 
 #region HEADER
+# Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
 if ( (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
      (-not (Test-Path -Path (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
     & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
-else
-{
-    & git @('-C',(Join-Path -Path $moduleRoot -ChildPath '\DSCResource.Tests\'),'pull')
-}
+
 Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Integration 
-#endregion
+    -TestType Unit
+#endregion HEADER
 
 # Using try/finally to always cleanup even if something awful happens.
 try
@@ -48,9 +46,9 @@ try
             $fileScreen.Active             | Should Be $fileScreenNew.Active
             $fileScreen.IncludeGroup       | Should Be $fileScreenNew.IncludeGroup
             $fileScreen.Template           | Should Be $fileScreenNew.Template
-            $fileScreen.MatchesTemplate    | Should Be $fileScreenNew.MatchesTemplate            
+            $fileScreen.MatchesTemplate    | Should Be $fileScreenNew.MatchesTemplate
         }
-        
+
         # Clean up
         Remove-FSRMFileScreen `
             -Path $fileScreen.Path `
