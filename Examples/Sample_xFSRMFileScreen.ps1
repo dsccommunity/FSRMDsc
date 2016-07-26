@@ -1,19 +1,19 @@
-configuration Sample_xFSRMFileScreen
+configuration Sample_FSRMFileScreen
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMFileScreen DUsersFileScreen
+        FSRMFileScreen DUsersFileScreen
         {
             Path = 'd:\users'
             Description = 'File Screen for Blocking Some Files'
             Ensure = 'Present'
             Active = $true
-            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files' 
-        } # End of xFSRMFileScreen Resource
+            IncludeGroup = 'Audio and Video Files','Executable Files','Backup Files'
+        } # End of FSRMFileScreen Resource
 
-        xFSRMFileScreenAction DUsersFileScreenSomeFilesEmail
+        FSRMFileScreenAction DUsersFileScreenSomeFilesEmail
         {
             Path = 'd:\users'
             Ensure = 'Present'
@@ -22,18 +22,18 @@ configuration Sample_xFSRMFileScreen
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
-        } # End of xFSRMFileScreenAction Resource
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[FSRMFileScreen]DUsersFileScreen"
+        } # End of FSRMFileScreenAction Resource
 
-        xFSRMFileScreenAction DUsersFileScreenSomeFilesEvent
+        FSRMFileScreenAction DUsersFileScreenSomeFilesEvent
         {
             Path = 'd:\users'
             Ensure = 'Present'
             Type = 'Event'
             Body = 'The system detected that user [Source Io Owner] attempted to save [Source File Path] on [File Screen Path] on server [Server]. This file matches the [Violated File Group] file group which is not permitted on the system.'
             EventType = 'Warning'
-            DependsOn = "[xFSRMFileScreen]DUsersFileScreen" 
-        } # End of xFSRMFileScreenAction Resource
+            DependsOn = "[FSRMFileScreen]DUsersFileScreen"
+        } # End of FSRMFileScreenAction Resource
     } # End of Node
 } # End of Configuration

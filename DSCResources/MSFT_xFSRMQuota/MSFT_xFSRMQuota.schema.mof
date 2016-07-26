@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMQuota")]
-class MSFT_xFSRMQuota : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMQuota")]
+class MSFT_FSRMQuota : OMI_BaseResource
 {
     [Key, Description("The path this FSRM Quota applies to.")] String Path;
     [Write, Description("An optional description for this FSRM Quota.")] String Description;

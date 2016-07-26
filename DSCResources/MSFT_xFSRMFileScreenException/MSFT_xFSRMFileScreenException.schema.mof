@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMFileScreenException")]
-class MSFT_xFSRMFileScreenException : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenException")]
+class MSFT_FSRMFileScreenException : OMI_BaseResource
 {
     [Key, Description("The path this FSRM File Screen applies to.")] String Path;
     [Write, Description("An optional description for this FSRM File Screen.")] String Description;

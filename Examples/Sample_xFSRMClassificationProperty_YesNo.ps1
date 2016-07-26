@@ -1,15 +1,15 @@
-configuration Sample_xFSRMClassificationProperty_YesNo
+configuration Sample_FSRMClassificationProperty_YesNo
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMClassificationProperty ConfidentialFiles
+        FSRMClassificationProperty ConfidentialFiles
         {
             Name = 'Confidential'
             Type = 'YesNo'
             Description = 'Is this file a confidential file'
             Ensure = 'Present'
-        } # End of xFSRMClassificationProperty Resource
+        } # End of FSRMClassificationProperty Resource
     } # End of Node
 } # End of Configuration

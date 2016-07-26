@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMFileGroup")]
-class MSFT_xFSRMFileGroup : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileGroup")]
+class MSFT_FSRMFileGroup : OMI_BaseResource
 {
     [Key, Description("The name of the FSRM File Group.")] String Name;
     [Write, Description("The description for the FSRM File Group.")] String Description;

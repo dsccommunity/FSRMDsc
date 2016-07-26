@@ -1,10 +1,10 @@
-configuration Sample_xFSRMSettings
+configuration Sample_FSRMSettings
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMSettings FSRMSettings
+        FSRMSettings FSRMSettings
         {
             Id = 'Default'
             SmtpServer = 'smtp.contoso.com'
@@ -13,6 +13,6 @@ configuration Sample_xFSRMSettings
             CommandNotificationLimit = 90
             EmailNotificationLimit = 90
             EventNotificationLimit = 90
-        } # End of xFSRMSettings Resource
+        } # End of FSRMSettings Resource
     } # End of Node
 } # End of Configuration

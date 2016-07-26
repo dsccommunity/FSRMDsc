@@ -1,10 +1,10 @@
-configuration Sample_xFSRMQuotaTemplate
+configuration Sample_FSRMQuotaTemplate
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMQuotaTemplate HardLimit5GB
+        FSRMQuotaTemplate HardLimit5GB
         {
             Name = '5 GB Limit'
             Description = '5 GB Hard Limit'
@@ -12,9 +12,9 @@ configuration Sample_xFSRMQuotaTemplate
             Size = 5GB
             SoftLimit = $False
             ThresholdPercentages = @( 85, 100 )
-        } # End of xFSRMQuotaTemplate Resource
+        } # End of FSRMQuotaTemplate Resource
 
-        xFSRMQuotaTemplateAction HardLimit5GBEmail85
+        FSRMQuotaTemplateAction HardLimit5GBEmail85
         {
             Name = '5 GB Limit'
             Percentage = 85
@@ -24,11 +24,11 @@ configuration Sample_xFSRMQuotaTemplate
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of xFSRMQuotaTemplateAction Resource
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+        } # End of FSRMQuotaTemplateAction Resource
 
-        xFSRMQuotaTemplateAction HardLimit5GBEvent85
+        FSRMQuotaTemplateAction HardLimit5GBEvent85
         {
             Name = '5 GB Limit'
             Percentage = 85
@@ -36,10 +36,10 @@ configuration Sample_xFSRMQuotaTemplate
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             EventType = 'Warning'
-            DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of xFSRMQuotaTemplateAction Resource
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+        } # End of FSRMQuotaTemplateAction Resource
 
-        xFSRMQuotaTemplateAction HardLimit5GBEmail100
+        FSRMQuotaTemplateAction HardLimit5GBEmail100
         {
             Name = '5 GB Limit'
             Percentage = 100
@@ -50,7 +50,7 @@ configuration Sample_xFSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-            DependsOn = "[xFSRMQuotaTemplate]HardLimit5GB" 
-        } # End of xFSRMQuotaTemplateAction Resource
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+        } # End of FSRMQuotaTemplateAction Resource
     } # End of Node
 } # End of Configuration

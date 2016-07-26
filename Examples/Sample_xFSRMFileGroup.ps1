@@ -1,15 +1,15 @@
-configuration Sample_xFSRMFileGroup
+configuration Sample_FSRMFileGroup
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDSc
 
     Node $NodeName
     {
-        xFSRMFileGroup FSRMFileGroupPortableFiles
+        FSRMFileGroup FSRMFileGroupPortableFiles
         {
             Name = 'Portable Document Files'
             Description = 'Files containing portable document formats'
             Ensure = 'Present'
             IncludePattern = '*.eps','*.pdf','*.xps'
-        } # End of xFSRMFileGroup Resource
+        } # End of FSRMFileGroup Resource
     } # End of Node
 } # End of Configuration

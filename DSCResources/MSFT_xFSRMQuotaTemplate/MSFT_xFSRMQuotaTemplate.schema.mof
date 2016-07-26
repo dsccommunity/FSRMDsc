@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMQuotaTemplate")]
-class MSFT_xFSRMQuotaTemplate : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMQuotaTemplate")]
+class MSFT_FSRMQuotaTemplate : OMI_BaseResource
 {
     [Key, Description("The unique name for this FSRM Quota Template.")] String Name;
     [Write, Description("An optional description for this FSRM Quota Template.")] String Description;

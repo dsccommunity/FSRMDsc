@@ -1,15 +1,15 @@
-configuration Sample_xFSRMClassificationPropertyValue
+configuration Sample_FSRMClassificationPropertyValue
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMClassificationPropertyValue PublicClasificationPropertyValue
+        FSRMClassificationPropertyValue PublicClasificationPropertyValue
         {
             Name = 'Public'
             PropertyName = 'Privacy'
             Description = 'Publically accessible files.'
             Ensure = 'Present'
-        } # End of xFSRMClassificationPropertyValue Resource
+        } # End of FSRMClassificationPropertyValue Resource
     } # End of Node
 } # End of Configuration

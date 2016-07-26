@@ -1,10 +1,10 @@
-configuration Sample_xFSRMClassificationRule
+configuration Sample_FSRMClassificationRule
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMClassificationRule ConfidentialPrivacyClasificationRule
+        FSRMClassificationRule ConfidentialPrivacyClasificationRule
         {
             Name = 'Confidential'
             Description = 'Set Confidential'
@@ -14,7 +14,7 @@ configuration Sample_xFSRMClassificationRule
             ClassificationMechanism = ''
             ContentString = 'Confidential'
             Namespace = '[FolderUsage_MS=User Files]','d:\Users'
-            ReevaluateProperty = 'Overwrite'                
-        } # End of xFSRMClassificationRule Resource
+            ReevaluateProperty = 'Overwrite'
+        } # End of FSRMClassificationRule Resource
     } # End of Node
 } # End of Configuration

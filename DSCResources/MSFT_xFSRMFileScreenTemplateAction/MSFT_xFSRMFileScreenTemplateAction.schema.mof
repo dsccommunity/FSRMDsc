@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMFileScreenTemplateAction")]
-class MSFT_xFSRMFileScreenTemplateAction : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenTemplateAction")]
+class MSFT_FSRMFileScreenTemplateAction : OMI_BaseResource
 {
   [Key,  Description("The name of the FSRM File Screen Template that this Action is attached to.")] string Name;
   [Key,  Description("The type of FSRM Action."), ValueMap{"Email","Event","Command","Report"}, Values{"Email","Event","Command","Report"}] string Type;

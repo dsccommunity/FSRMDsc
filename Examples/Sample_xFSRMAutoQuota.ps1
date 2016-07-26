@@ -1,15 +1,15 @@
-configuration Sample_xFSRMAutoQuota
+configuration Sample_FSRMAutoQuota
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMAutoQuota DUsers
+        FSRMAutoQuota DUsers
         {
             Path = 'd:\Users'
             Ensure = 'Present'
             Disabled = $false
             Template = '5 GB Limit'
-        } # End of xFSRMAutoQuota Resource
+        } # End of FSRMAutoQuota Resource
     } # End of Node
 } # End of Configuration

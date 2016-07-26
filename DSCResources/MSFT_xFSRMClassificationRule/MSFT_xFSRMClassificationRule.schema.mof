@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMClassificationRule")]
-class MSFT_xFSRMClassificationRule : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationRule")]
+class MSFT_FSRMClassificationRule : OMI_BaseResource
 {
     [Key, Description("The name of the FSRM Classification Rule.")] String Name;
     [Write, Description("The description for the FSRM Classification Rule.")] String Description;

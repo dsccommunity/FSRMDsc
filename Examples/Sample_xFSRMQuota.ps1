@@ -1,10 +1,10 @@
-configuration Sample_xFSRMQuota
+configuration Sample_FSRMQuota
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMQuota DUsers
+        FSRMQuota DUsers
         {
             Path = 'd:\Users'
             Description = '5 GB Hard Limit'
@@ -12,9 +12,9 @@ configuration Sample_xFSRMQuota
             Size = 5GB
             SoftLimit = $False
             ThresholdPercentages = @( 85, 100 )
-        } # End of xFSRMQuota Resource
+        } # End of FSRMQuota Resource
 
-        xFSRMQuotaAction DUsersEmail85
+        FSRMQuotaAction DUsersEmail85
         {
             Path = 'd:\Users'
             Percentage = 85
@@ -24,11 +24,11 @@ configuration Sample_xFSRMQuota
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
-            MailTo = '[Source Io Owner Email]'           
-            DependsOn = "[xFSRMQuota]DUsers" 
-        } # End of xFSRMQuotaAction Resource
+            MailTo = '[Source Io Owner Email]'
+            DependsOn = "[FSRMQuota]DUsers"
+        } # End of FSRMQuotaAction Resource
 
-        xFSRMQuotaAction DUsersEvent85
+        FSRMQuotaAction DUsersEvent85
         {
             Path = 'd:\Users'
             Percentage = 85
@@ -36,10 +36,10 @@ configuration Sample_xFSRMQuota
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             EventType = 'Warning'
-            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
-        } # End of xFSRMQuotaAction Resource
+            DependsOn = "[FSRMQuotaTemplate]DUsers"
+        } # End of FSRMQuotaAction Resource
 
-        xFSRMQuotaAction DUsersEmail100
+        FSRMQuotaAction DUsersEmail100
         {
             Path = 'd:\Users'
             Percentage = 100
@@ -50,7 +50,7 @@ configuration Sample_xFSRMQuota
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-            DependsOn = "[xFSRMQuotaTemplate]DUsers" 
-        } # End of xFSRMQuotaAction Resource
+            DependsOn = "[FSRMQuotaTemplate]DUsers"
+        } # End of FSRMQuotaAction Resource
     } # End of Node
 } # End of Configuration

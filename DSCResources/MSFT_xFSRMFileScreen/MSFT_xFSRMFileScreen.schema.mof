@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMFileScreen")]
-class MSFT_xFSRMFileScreen : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreen")]
+class MSFT_FSRMFileScreen : OMI_BaseResource
 {
     [Key, Description("The path this FSRM File Screen applies to.")] String Path;
     [Write, Description("An optional description for this FSRM File Screen.")] String Description;

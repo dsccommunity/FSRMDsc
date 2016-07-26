@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMFileScreenTemplate")]
-class MSFT_xFSRMFileScreenTemplate : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenTemplate")]
+class MSFT_FSRMFileScreenTemplate : OMI_BaseResource
 {
     [Key, Description("The unique name for this FSRM File Screen Template.")] String Name;
     [Write, Description("An optional description for this FSRM File Screen Template.")] String Description;

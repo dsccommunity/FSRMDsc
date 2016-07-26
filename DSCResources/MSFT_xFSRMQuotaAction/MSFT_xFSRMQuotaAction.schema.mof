@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMQuotaAction")]
-class MSFT_xFSRMQuotaAction : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMQuotaAction")]
+class MSFT_FSRMQuotaAction : OMI_BaseResource
 {
   [Key,  Description("The path of the FSRM Quota the action applies to.")] string Path;
   [Key,  Description("This is the threshold percentage the action is attached to.")] uint32 Percentage;

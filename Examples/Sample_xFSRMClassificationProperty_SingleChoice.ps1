@@ -1,10 +1,10 @@
-configuration Sample_xFSRMClassificationProperty_SingleChoice
+configuration Sample_FSRMClassificationProperty_SingleChoice
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRM
 
     Node $NodeName
     {
-        xFSRMClassificationProperty PrivacyClasificationProperty
+        FSRMClassificationProperty PrivacyClasificationProperty
         {
             Name = 'Privacy'
             Type = 'SingleChoice'
@@ -12,6 +12,6 @@ configuration Sample_xFSRMClassificationProperty_SingleChoice
             Description = 'File Privacy Property'
             Ensure = 'Present'
             PossibleValue = 'Top Secret','Secret','Confidential'
-        } # End of xFSRMClassificationProperty Resource
+        } # End of FSRMClassificationProperty Resource
     } # End of Node
 } # End of Configuration

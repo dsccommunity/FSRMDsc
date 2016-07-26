@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMClassificationPropertyValue")]
-class MSFT_xFSRMClassificationPropertyValue : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationPropertyValue")]
+class MSFT_FSRMClassificationPropertyValue : OMI_BaseResource
 {
   [Key, Description("The FSRM Classification Property value Name.")] string Name;
   [Key, Description("The name of the FSRM Classification Property the value applies to.")] string PropertyName;

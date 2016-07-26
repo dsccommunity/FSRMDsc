@@ -1,5 +1,5 @@
-[ClassVersion("1.0.0.0"), FriendlyName("xFSRMClassificationProperty")]
-class MSFT_xFSRMClassificationProperty : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationProperty")]
+class MSFT_FSRMClassificationProperty : OMI_BaseResource
 {
     [Key, Description("The name of the FSRM Classification Property.")] String Name;
     [Required, Description("The type of the FSRM Classification Property."), ValueMap{"OrderedList","MultiChoice","SingleChoice","String","MultiString","Integer","YesNo","DateTime"}, Values{"OrderedList","MultiChoice","SingleChoice","String","MultiString","Integer","YesNo","DateTime"}] String Type;
@@ -10,4 +10,3 @@ class MSFT_xFSRMClassificationProperty : OMI_BaseResource
     [Write, Description("An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.")] String Parameters[];
 };
 
- 

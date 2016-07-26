@@ -1,10 +1,10 @@
-configuration Sample_xFSRMClassification
+configuration Sample_FSRMClassification
 {
-    Import-DscResource -Module xFSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
-        xFSRMClassification FSRMClassificationSettings
+        FSRMClassification FSRMClassificationSettings
         {
             Id = 'Default'
             Continuous = $True
@@ -13,6 +13,6 @@ configuration Sample_xFSRMClassification
             ScheduleWeekly = 'Monday','Tuesday','Wednesday'
             ScheduleRunDuration = 4
             ScheduleTime = '23:30'
-        } # End of xFSRMClassification Resource
+        } # End of FSRMClassification Resource
     } # End of Node
 } # End of Configuration
