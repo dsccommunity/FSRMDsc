@@ -34,7 +34,7 @@ function Get-TargetResource
         [System.String]
         $Path
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingFileScreenMessage) `
@@ -252,7 +252,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenDoesNotMatchTemplateNeedsUpdateMessage) `
                             -f $Path,'Description'
                         ) -join '' )
-                    $desiredConfigurationMatch = $false                    
+                    $desiredConfigurationMatch = $false
                 }
             }
             else
@@ -267,7 +267,7 @@ function Test-TargetResource
                         ) -join '' )
                     $desiredConfigurationMatch = $false
                 }
-            
+
                 if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                     -and (Compare-Object `
                     -ReferenceObject $IncludeGroup `

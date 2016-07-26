@@ -32,19 +32,19 @@ function Get-TargetResource
         [parameter(Mandatory = $true)]
         [System.String]
         $Name,
-       
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingActionMessage) `
             -f $Name,$Type
         ) -join '' )
-   
+
     try
     {
         $Actions = (Get-FSRMFileScreenTemplate -Name $Name -ErrorAction Stop).Notification

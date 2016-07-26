@@ -36,7 +36,7 @@ function Get-TargetResource
         [System.String]
         $Path
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingQuotaMessage) `
@@ -147,7 +147,7 @@ function Set-TargetResource
             {
                 $Thresholds = [System.Collections.ArrayList]@()
             }
-        
+
             # Scan through the required thresholds and add any that are misssing
             foreach ($ThresholdPercentage in $ThresholdPercentages)
             {
@@ -155,7 +155,7 @@ function Set-TargetResource
                 {
                     # The threshold percentage is missing so add it
                     $Thresholds += New-FSRMQuotaThreshold -Percentage $ThresholdPercentage
-                
+
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
                         $($LocalizedData.QuotaThresholdAddedMessage) `
@@ -163,7 +163,7 @@ function Set-TargetResource
                         ) -join '' )
                 }
             }
-        
+
             # Only remove thresholds that aren't passed IF a template isn't specified
             # because otherwise thresholds assigned by the template will get removed.
             if (-not $Quota.Template)
@@ -175,7 +175,7 @@ function Set-TargetResource
                     {
                         # The threshold percentage exists but shouldn not so remove it
                         $Thresholds.Remove($i)
-                
+
                         Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
                             $($LocalizedData.QuotaThresholdRemovedMessage) `
@@ -189,7 +189,7 @@ function Set-TargetResource
             {
                 $PSBoundParameters.Add('Threshold',$Thresholds)
             }
-        }       
+        }
 
         if ($Quota)
         {
@@ -326,7 +326,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaDoesNotMatchTemplateNeedsUpdateMessage) `
                             -f $Path,'Description'
                         ) -join '' )
-                    $desiredConfigurationMatch = $false                    
+                    $desiredConfigurationMatch = $false
                 }
             }
             else
@@ -352,7 +352,7 @@ function Test-TargetResource
                         ) -join '' )
                     $desiredConfigurationMatch = $false
                 }
-            
+
                 # Check the threshold percentages
                 if (($PSBoundParameters.ContainsKey('ThresholdPercentages')) `
                     -and (Compare-Object `

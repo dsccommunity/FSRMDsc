@@ -31,7 +31,7 @@ function Get-TargetResource
         [System.String]
         $Name
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingQuotaTemplateMessage) `
@@ -127,7 +127,7 @@ function Set-TargetResource
         {
             $Thresholds = [System.Collections.ArrayList]@()
         }
-        
+
         # Scan through the required thresholds and add any that are misssing
         foreach ($ThresholdPercentage in $ThresholdPercentages)
         {
@@ -135,7 +135,7 @@ function Set-TargetResource
             {
                 # The threshold percentage is missing so add it
                 $Thresholds += New-FSRMQuotaThreshold -Percentage $ThresholdPercentage
-                
+
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.QuotaTemplateThresholdAddedMessage) `
@@ -143,7 +143,7 @@ function Set-TargetResource
                     ) -join '' )
             }
         }
-        
+
         # Scan through the existing thresholds and remove any that are misssing
         for ($i = $Thresholds.Count-1; $i -ge 0; $i--)
         {
@@ -151,7 +151,7 @@ function Set-TargetResource
             {
                 # The threshold percentage exists but shouldn not so remove it
                 $Thresholds.Remove($i)
-                
+
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.QuotaTemplateThresholdRemovedMessage) `
@@ -185,7 +185,7 @@ function Set-TargetResource
                 $($LocalizedData.QuotaTemplateCreatedMessage) `
                     -f $Name
                 ) -join '' )
-        }        
+        }
     }
     else
     {
@@ -286,7 +286,7 @@ function Test-TargetResource
                     ) -join '' )
                 $desiredConfigurationMatch = $false
             }
-            
+
             # Check the threshold percentages
             if (($PSBoundParameters.ContainsKey('ThresholdPercentages')) `
                 -and (Compare-Object `

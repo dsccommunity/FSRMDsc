@@ -21,7 +21,7 @@ function Get-TargetResource
         [System.String]
         $Id
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingClassificationMessage) `
@@ -97,7 +97,7 @@ function Set-TargetResource
             # So this must be converted manually. Cast does not seem to work here.
             $ConvertedScheduleMonthly = `
                 [System.Array]::CreateInstance([System.Int32],$ScheduleMonthly.Length)
-            for ($i=0; $i -lt $ScheduleMonthly.Length; $i++) { 
+            for ($i=0; $i -lt $ScheduleMonthly.Length; $i++) {
                 $ConvertedScheduleMonthly[$i] = $ScheduleMonthly[$i]
             }
             $Splat += @{ Monthly = $ConvertedScheduleMonthly }
@@ -106,7 +106,7 @@ function Set-TargetResource
         {
             $Splat += @{ Monthly = $Schedule.Monthly }
         }
-        
+
         if ($PSBoundParameters.ContainsKey('ScheduleWeekly'))
         {
             $Splat += @{ Weekly = $ScheduleWeekly }
@@ -135,14 +135,14 @@ function Set-TargetResource
         }
 
         # Remove the schedule parameters
-        $null = $PSBoundParameters.Remove('ScheduleMonthly')        
-        $null = $PSBoundParameters.Remove('ScheduleWeekly')        
-        $null = $PSBoundParameters.Remove('ScheduleRunDuration')        
+        $null = $PSBoundParameters.Remove('ScheduleMonthly')
+        $null = $PSBoundParameters.Remove('ScheduleWeekly')
+        $null = $PSBoundParameters.Remove('ScheduleRunDuration')
         $null = $PSBoundParameters.Remove('ScheduleTime')
 
         # Add the new scheduled task parameter
         $NewSchedule = New-FSRMScheduledTask @Splat
-        $null = $PSBoundParameters.Add('Schedule',$NewSchedule)        
+        $null = $PSBoundParameters.Add('Schedule',$NewSchedule)
 
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -158,7 +158,7 @@ function Set-TargetResource
         $($LocalizedData.ClassificationUpdatedMessage) `
             -f $Id
         ) -join '' )
-        
+
 } # Set-TargetResource
 
 function Test-TargetResource

@@ -31,19 +31,19 @@ function Get-TargetResource
         [parameter(Mandatory = $true)]
         [System.String]
         $Path,
-       
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingActionMessage) `
             -f $Path,$Type
         ) -join '' )
-    
+
     try
     {
         $Actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
@@ -172,7 +172,7 @@ function Set-TargetResource
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
-    
+
     $NewActions = New-Object 'System.Collections.ArrayList'
     $ActionIndex = $null
     # Assemble the Result Object so that it contains an array of Actions

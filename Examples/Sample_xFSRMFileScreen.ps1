@@ -37,3 +37,4 @@ configuration Sample_FSRMFileScreen
         } # End of FSRMFileScreenAction Resource
     } # End of Node
 } # End of Configuration
+

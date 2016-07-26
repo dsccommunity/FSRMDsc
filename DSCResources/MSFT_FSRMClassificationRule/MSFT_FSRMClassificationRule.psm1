@@ -31,7 +31,7 @@ function Get-TargetResource
         [System.String]
         $Name
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingClassificationRuleMessage) `
@@ -101,34 +101,34 @@ function Set-TargetResource
 
         [System.String]
         $Property,
-        
+
         [System.String]
         $PropertyValue,
-        
+
         [System.String]
         $ClassificationMechanism,
-        
+
         [System.String[]]
         $ContentRegularExpression,
-        
+
         [System.String[]]
         $ContentString,
-        
+
         [System.String[]]
         $ContentStringCaseSensitive,
-        
+
         [System.Boolean]
         $Disabled,
-        
+
         [System.String[]]
         $Flags,
-        
+
         [System.String[]]
         $Parameters,
-        
+
         [System.String[]]
         $Namespace,
-        
+
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty
@@ -153,17 +153,17 @@ function Set-TargetResource
             $($LocalizedData.EnsureClassificationRuleExistsMessage) `
                 -f $Name
             ) -join '' )
-        
+
         if ($ClassificationRule)
         {
-            # The Classification Rule exists           
+            # The Classification Rule exists
             Set-FSRMClassificationRule @PSBoundParameters -ErrorAction Stop
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.ClassificationRuleUpdatedMessage) `
                     -f $Name
-                ) -join '' )                
+                ) -join '' )
         }
         else
         {
@@ -218,34 +218,34 @@ function Test-TargetResource
 
         [System.String]
         $Property,
-        
+
         [System.String]
         $PropertyValue,
-        
+
         [System.String]
         $ClassificationMechanism,
-        
+
         [System.String[]]
         $ContentRegularExpression,
-        
+
         [System.String[]]
         $ContentString,
-        
+
         [System.String[]]
         $ContentStringCaseSensitive,
-        
+
         [System.Boolean]
         $Disabled,
-        
+
         [System.String[]]
         $Flags,
-        
+
         [System.String[]]
         $Parameters,
-        
+
         [System.String[]]
         $Namespace,
-        
+
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty

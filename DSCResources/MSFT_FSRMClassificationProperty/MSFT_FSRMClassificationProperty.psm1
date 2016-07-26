@@ -29,13 +29,13 @@ function Get-TargetResource
         [parameter(Mandatory = $true)]
         [System.String]
         $Name,
-        
+
         [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
         [System.String]
-        $Type        
+        $Type
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingClassificationPropertyMessage) `
@@ -130,7 +130,7 @@ function Set-TargetResource
             $($LocalizedData.EnsureClassificationPropertyExistsMessage) `
                 -f $Name
             ) -join '' )
-        
+
         # Assemble an ArrayList of MSFT_FSRMClassificationPropertyDefinitionValue if
         # the PossibleValue parameter was passed
         $NewPossibleValue = @()
@@ -145,7 +145,7 @@ function Set-TargetResource
 
         if ($ClassificationProperty) {
             # The Classification Property exists
-            
+
             # Copy the descriptions from any existing Possible Value items into the
             # Descriptions of any of the matching Possible Values that were passed
             foreach ($p in $NewPossibleValue)
@@ -179,7 +179,7 @@ function Set-TargetResource
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.ClassificationPropertyRecreatedMessage) `
                         -f $Name
-                    ) -join '' )                
+                    ) -join '' )
             }
             else
             {
@@ -189,7 +189,7 @@ function Set-TargetResource
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.ClassificationPropertyUpdatedMessage) `
                         -f $Name
-                    ) -join '' )                
+                    ) -join '' )
             }
         }
         else
@@ -199,7 +199,7 @@ function Set-TargetResource
             {
                 $null = $PSBoundParameters.Add('PossibleValue',$NewPossibleValue)
             }
-            
+
             # Create the Classification Property
             New-FSRMClassificationPropertyDefinition @PSBoundParameters -ErrorAction Stop
 

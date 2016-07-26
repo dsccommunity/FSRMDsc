@@ -37,20 +37,20 @@ function Get-TargetResource
         [ValidateRange(0,100)]
         [System.Uint32]
         $Percentage,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingActionMessage) `
             -f $Path,$Percentage,$Type
         ) -join '' )
 
-    
+
     $Result = Get-Action `
         -Path $Path `
         -Percentage $Percentage `
@@ -116,7 +116,7 @@ function Set-TargetResource
         [ValidateRange(0,100)]
         [System.Uint32]
         $Percentage,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
@@ -250,7 +250,7 @@ function Test-TargetResource
         [ValidateRange(0,100)]
         [System.Uint32]
         $Percentage,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
@@ -518,7 +518,7 @@ Function Get-Action {
         [ValidateRange(0,100)]
         [System.Int32]
         $Percentage,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
@@ -584,7 +584,7 @@ Function Get-Action {
         $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
-        $PSCmdlet.ThrowTerminatingError($errorRecord)                
+        $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
 
     # Return the result

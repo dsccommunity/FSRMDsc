@@ -29,7 +29,7 @@ function Get-TargetResource
         [System.String]
         $Name
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingFileScreenTemplateMessage) `
@@ -109,7 +109,7 @@ function Set-TargetResource
             $($LocalizedData.EnsureFileScreenTemplateExistsMessage) `
                 -f $Name
             ) -join '' )
-       
+
         if ($FileScreenTemplate)
         {
             # The File Screen template exists
@@ -122,7 +122,7 @@ function Set-TargetResource
                     -f $Name
                 ) -join '' )
         }
-        else 
+        else
         {
             # Create the FileScreen Template
             New-FSRMFileScreenTemplate @PSBoundParameters `
@@ -133,7 +133,7 @@ function Set-TargetResource
                 $($LocalizedData.FileScreenTemplateCreatedMessage) `
                     -f $Name
                 ) -join '' )
-        }        
+        }
     }
     else
     {
@@ -233,7 +233,7 @@ function Test-TargetResource
                         -f $Name,'IncludeGroup'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }           
+            }
         }
         else
         {

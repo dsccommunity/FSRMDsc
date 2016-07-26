@@ -33,7 +33,7 @@ function Get-TargetResource
         [System.String]
         $Path
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingFileScreenExceptionMessage) `
@@ -197,7 +197,7 @@ function Test-TargetResource
         # The FileScreenException should exist
         if ($FileScreenException)
         {
-            # The FileScreenException exists already - check the parameters           
+            # The FileScreenException exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                 -and (Compare-Object `
                 -ReferenceObject $IncludeGroup `

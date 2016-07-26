@@ -31,7 +31,7 @@ function Get-TargetResource
         [System.String]
         $Name
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingFileGroupMessage) `

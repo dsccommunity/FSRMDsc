@@ -33,7 +33,7 @@ function Get-TargetResource
         [System.String]
         $Path
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingAutoQuotaMessage) `

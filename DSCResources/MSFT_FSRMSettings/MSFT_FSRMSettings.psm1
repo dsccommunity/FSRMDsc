@@ -20,7 +20,7 @@ function Get-TargetResource
         [System.String]
         $Id
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingSettingsMessage) `
@@ -80,7 +80,7 @@ Function Set-TargetResource
         $($LocalizedData.SettingsUpdatedMessage) `
             -f $Id
         ) -join '' )
-        
+
 } # Set-TargetResource
 
 function Test-TargetResource

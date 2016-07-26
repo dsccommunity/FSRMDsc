@@ -36,7 +36,7 @@ function Get-TargetResource
         [System.String]
         $PropertyName
     )
-    
+
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingClassificationPropertyValueMessage) `
@@ -101,7 +101,7 @@ function Set-TargetResource
         [parameter(Mandatory = $true)]
         [System.String]
         $PropertyName,
-        
+
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
@@ -146,7 +146,7 @@ function Set-TargetResource
             $($LocalizedData.EnsureClassificationPropertyValueExistsMessage) `
                 -f $PropertyName,$Name
             ) -join '' )
-        
+
         $NewClassificationPropertyValue = New-FSRMClassificationPropertyValue `
             @PSBoundParameters `
             -ErrorAction Stop
@@ -230,7 +230,7 @@ function Test-TargetResource
         [parameter(Mandatory = $true)]
         [System.String]
         $PropertyName,
-        
+
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
@@ -273,7 +273,7 @@ function Test-TargetResource
             $($LocalizedData.EnsureClassificationPropertyValueExistsMessage) `
                 -f $PropertyName,$Name
             ) -join '' )
-        
+
         if ($ClassificationPropertyValueIndex -eq $null)
         {
             # The Classification Property Value does not exist but should
@@ -353,7 +353,7 @@ Function Get-ClassificationProperty {
         $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
-        $PSCmdlet.ThrowTerminatingError($errorRecord)        
+        $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
     catch
     {
