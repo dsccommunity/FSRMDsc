@@ -14,7 +14,7 @@ Import-Module (Join-Path -Path $moduleRoot -ChildPath 'DSCResource.Tests\TestHel
 $TestEnvironment = Initialize-TestEnvironment `
     -DSCModuleName $Global:DSCModuleName `
     -DSCResourceName $Global:DSCResourceName `
-    -TestType Unit
+    -TestType Integration
 #endregion HEADER
 
 # Using try/finally to always cleanup even if something awful happens.
