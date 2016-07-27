@@ -1,0 +1,21 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenAction")]
+class MSFT_FSRMFileScreenAction : OMI_BaseResource
+{
+  [Key, Description("The path of the FSRM File Screen the action applies to.")] string Path;
+  [Key, Description("The type of FSRM Action."), ValueMap{"Email","Event","Command","Report"}, Values{"Email","Event","Command","Report"}] string Type;
+  [Write, Description("Specifies whether the FSRM Action should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+  [Write] string Subject;
+  [Write] string Body;
+  [Write] string MailTo;
+  [Write] string MailCC;
+  [Write] string MailBCC;
+  [Write, ValueMap{"None","Information","Warning","Error"}, Values{"None","Information","Warning","Error"}] string EventType;
+  [Write] string Command;
+  [Write] string CommandParameters;
+  [Write] sint32 KillTimeOut;
+  [Write] sint32 RunLimitInterval;
+  [Write, ValueMap{"None","LocalService","NetworkService","LocalSystem"}, Values{"None","LocalService","NetworkService","LocalSystem"}] string SecurityLevel;
+  [Write] boolean ShouldLogError;
+  [Write] string WorkingDirectory;
+  [Write] string ReportTypes[];
+};
