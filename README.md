@@ -6,6 +6,8 @@ The **FSRMDsc** module contains DSC resources for configuring Windows File Serve
 ## Contributing
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
 
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Resources
 * **FSRMSettings** configures FSRM settings.
@@ -655,7 +657,7 @@ configuration Sample_FSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-			DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
         } # End of FSRMQuotaTemplateAction Resource
 
         FSRMQuotaTemplateAction HardLimit5GBEvent85
@@ -665,8 +667,8 @@ configuration Sample_FSRMQuotaTemplate
             Ensure = 'Present'
             Type = 'Event'
             Body = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
-			EventType = 'Warning'
-			DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+            EventType = 'Warning'
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
         } # End of FSRMQuotaTemplateAction Resource
 
         FSRMQuotaTemplateAction HardLimit5GBEmail100
@@ -680,7 +682,7 @@ configuration Sample_FSRMQuotaTemplate
             MailBCC = ''
             MailCC = 'fileserveradmins@contoso.com'
             MailTo = '[Source Io Owner Email]'
-			DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
+            DependsOn = "[FSRMQuotaTemplate]HardLimit5GB"
         } # End of FSRMQuotaTemplateAction Resource
     } # End of Node
 } # End of Configuration
