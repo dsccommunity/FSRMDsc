@@ -1,15 +1,18 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/9rjyjap2wl48xels/branch/dev?svg=true)](https://ci.appveyor.com/project/PlagueHO/fsrmdsc/branch/dev)
 
 # FSRMDsc
+
 The **FSRMDsc** module contains DSC resources for configuring Windows File Server Resource Manager.
 
 ## Contributing
+
 Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Resources
+
 * **FSRMSettings** configures FSRM settings.
 * **FSRMClassification** configures FSRM Classification settings.
 * **FSRMClassificationProperty** configures FSRM Classification Property Definitions.
@@ -28,57 +31,63 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **FSRMAutoQuota** configures FSRM Auto Quotas.
 
 ### FSRMSettings
-* **[String]Id**: This is a unique identifier for this resource. Required.
-* **[String]SmtpServer**: Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that FSRM uses to send email. Optional.
-* **[String]AdminEmailAddress**: Specifies a semicolon-separated list of email addresses for the recipients of any email that the server sends to the administrator. Optional.
-* **[String]FromEmailAddress**: Specifies the default email address from which FSRM sends email messages. Optional.
-* **[Uint32]CommandNotificationLimit**: Specifies the minimum number of seconds between individual running events of a command-type notification. Optional.
-* **[Uint32]EmailNotificationLimit**: Specifies the minimum number of seconds between individual running events of an email-type notification. Optional.
-* **[Uint32]EventNotificationLimit**: Specifies the minimum number of seconds between individual running events of an event-type notification. Optional.
+
+* **`[String]` Id** (_Key_): This is a unique identifier for this resource.
+* **`[String]` SmtpServer** (_Write_): Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that FSRM uses to send email.
+* **`[String]` AdminEmailAddress** (_Write_): Specifies a semicolon-separated list of email addresses for the recipients of any email that the server sends to the administrator.
+* **`[String]` FromEmailAddress** (_Write_): Specifies the default email address from which FSRM sends email messages.
+* **`[Uint32]` CommandNotificationLimit** (_Write_): Specifies the minimum number of seconds between individual running events of a command-type notification.
+* **`[Uint32]` EmailNotificationLimit** (_Write_): Specifies the minimum number of seconds between individual running events of an email-type notification.
+* **`[Uint32]` EventNotificationLimit** (_Write_): Specifies the minimum number of seconds between individual running events of an event-type notification.
 
 ### FSRMClassification
-* **Id**: This is a unique resource identifier. It can be set to any unique string. It does not matter what this parameter is set to, as long as it is set. The parameter is only included because a key propert is always required. Required.
-* **Continuous**: Enable FSRM Classification continuous mode for new files. Optional.
-* **ContinuousLog**: Enable FSRM Classification continuous mode logging. Optional.
-* **ContinuousLogSize**: The maximum number of KB that can be used for the continuous mode log file. Optional.
-* **ExcludeNamespace**: An array of Namespaces that will be excluded from FSRM Classification. Optional.
-* **ScheduleMonthly**: An array of days of the month the FSRM Classification should run on. Optional.
-* **ScheduleWeekly**: An array of named days of the week the FSRM Classification should run on. Optional.
-* **ScheduleRunDuration**: The maximum number of hours the FSRM Classification can run for. Setting this to -1 will disable this. Optional.
-* **ScheduleTime**: A string containing the time of day the FSRM Classification should run at. Optional.
+
+* **`[String]` Id** (_Key_): This is a unique resource identifier. It can be set to any unique string. It does not matter what this parameter is set to, as long as it is set. The parameter is only included because a key propert is always required.
+* **`[Boolean]` Continuous** (_Write_): Enable FSRM Classification continuous mode for new files.
+* **`[Boolean]` ContinuousLog** (_Write_): Enable FSRM Classification continuous mode logging.
+* **`[Uint32]` ContinuousLogSize** (_Write_): The maximum number of KB that can be used for the continuous mode log file.
+* **`[String[]]` ExcludeNamespace** (_Write_): An array of Namespaces that will be excluded from FSRM Classification.
+* **`[Uint32[]]` ScheduleMonthly** (_Write_): An array of days of the month the FSRM Classification should run on.
+* **`[String[]]` ScheduleWeekly** (_Write_): An array of named days of the week the FSRM Classification should run on.
+* **`[Sint32]` ScheduleRunDuration** (_Write_): The maximum number of hours the FSRM Classification can run for. Setting this to -1 will disable this.
+* **`[String]` ScheduleTime** (_Write_): A string containing the time of day the FSRM Classification should run at.
 
 ### FSRMClassificationProperty
-* **Name**: The name of the FSRM Classification Property. Required.
-* **Type**: The type of the FSRM Classification Property. Values: { OrderedList | MultiChoice | SingleChoice | String | MultiString | Integer | YesNo | DateTime }. Required.
-* **DisplayName**: The display name for the FSRM Classification Property. If not specified the DisplayName will default to the same value as Name. Optional.
-* **Description**: The description for the FSRM Classification Property. Optional.
-* **Ensure**: Specifies whether the FSRM Classification Property should exist. Values: { Absent | Present }. Default: Present
-* **PossibleValue**: An array of possible values that this FSRM Classification Property can take on. These can also be configured via the FSRMClassificationPropertValue resource. Optional.
-* **Parameters**: An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure. Optional.
+
+* **`[String]` Name** (_Key_): The name of the FSRM Classification Property. Required.
+* **`[String]` Type** (_Required_): The type of the FSRM Classification Property. { OrderedList | MultiChoice | SingleChoice | String | MultiString | Integer | YesNo | DateTime }
+* **`[String]` DisplayName** (_Write_): The display name for the FSRM Classification Property. If not specified the DisplayName will default to the same value as Name.
+* **`[String]` Description** (_Write_): The description for the FSRM Classification Property.
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property should exist. { Absent | *Present* }
+* **`[String[]]` PossibleValue** (_Write_): An array of possible values that this FSRM Classification Property can take on. These can also be configured via the FSRMClassificationPropertValue resource.
+* **`[String[]]` Parameters** (_Write_): An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.
 
 ### FSRMClassificationPropertyValue
-* **Name**: The FSRM Classification Property value Name. Required.
-* **PropertyName**: The name of the FSRM Classification Property the value applies to. Required.
-* **Ensure**: Specifies whether the FSRM Classification Property Value should exist. Values: { Absent | Present }. Default: Present
-* **Description**: The description for the FSRM Classification Property Value. Optional.
+
+* **`[String]` Name** (_Key_): The FSRM Classification Property value Name.
+* **`[String]` PropertyName** (_Key_): The name of the FSRM Classification Property the value applies to.
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property Value should exist. { Absent | *Present* }
+* **`[String]` Description** (_Write_): The description for the FSRM Classification Property Value.
 
 ### FSRMClassificationRule
-* **Name**: The name of the FSRM Classification Rule. Required.
-* **Description**: The description for the FSRM Classification Rule. Optional.
-* **Ensure**: Specifies whether the FSRM Classification Rule should exist. Values: { Absent | Present }. Default: Present
-* **Property**: Specifies the name of a classification property definition to set. Optional.
-* **PropertyValue**: Specifies the property value that the rule will assign. Optional.
-* **ClassificationMechanism**: Specifies the name of a valid classification mechanism available on the server for assigning the property value. Optional.
-* **ContentRegularExpression**: An array of regular expressions for pattern matching. Optional.
-* **ContentString**: An array of strings for the content classifier to search for. Optional.
-* **ContentStringCaseSensitive**: An array of case sensitive strings for the content classifier to search for. Optional.
-* **Disabled**: Indicates that the classification rule is disabled. Optional.
-* **Flags**: An array of flags that defines the possible states of the rule. Values: { ClearAutomaticallyClassifiedProperty | ClearManuallyClassifiedProperty }. Optional.
-* **Parameters**: An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure. Optional.
-* **Namespace**: An array of namespaces where the rule is applied. Optional.
-* **ReevaluateProperty**: Specifies the evaluation policy of the rule. Values: { Never | Overwrite | Aggregate }. Optional.
+
+* **`[String]` Name** (_Key_): The name of the FSRM Classification Rule.
+* **`[String]` Description** (_Write_): The description for the FSRM Classification Rule.
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Rule should exist. Values: { Absent | *Present* }
+* **`[String]` Property** (_Write_): Specifies the name of a classification property definition to set.
+* **`[String]` PropertyValue** (_Write_): Specifies the property value that the rule will assign.
+* **`[String]` ClassificationMechanism** (_Write_): Specifies the name of a valid classification mechanism available on the server for assigning the property value.
+* **`[String[]]` ContentRegularExpression** (_Write_): An array of regular expressions for pattern matching.
+* **`[String[]]` ContentString** (_Write_): An array of strings for the content classifier to search for.
+* **`[String[]]` ContentStringCaseSensitive** (_Write_): An array of case sensitive strings for the content classifier to search for.
+* **`[Boolean]` Disabled** (_Write_): Indicates that the classification rule is disabled.
+* **`[String[]]` Flags** (_Write_): An array of flags that defines the possible states of the rule. { ClearAutomaticallyClassifiedProperty | ClearManuallyClassifiedProperty }.
+* **`[String[]]` Parameters** (_Write_): An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.
+* **`[String[]]` Namespace** (_Write_): An array of namespaces where the rule is applied.
+* **`[String]` ReevaluateProperty** (_Write_): Specifies the evaluation policy of the rule. { Never | Overwrite | Aggregate }.
 
 ### FSRMFileScreen
+
 * **Path**: The path the File Screen is applied to. Required.
 * **Description**: The optional description of the File Screen. Optional.
 * **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
@@ -88,6 +97,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **MatchesTemplate**: This parameter causes the resource to ignore the Active and IncludeGroup parameters and maintain the File Screen only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
 
 ### FSRMFileScreenAction
+
 * **Path**: The path the File Screen is applied to for the action. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen action exist. Optional. Values: { Absent | Present }. Default: Present
@@ -107,6 +117,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
 ### FSRMFileScreenTemplate
+
 * **Name**: The name of the File Screen template. Required.
 * **Description**: The optional description of the File Screen template. Optional.
 * **Ensure**: Should this File Screen template exist. Optional. Values: { Absent | Present }. Default: Present
@@ -114,6 +125,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **IncludeGroup**: Contains an array of File Groups to include in this File Screen template. Optional.
 
 ### FSRMFileScreenTemplateAction
+
 * **Name**: The name of the File Screen template for the action. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
 * **Ensure**: Should this File Screen template action exist. Optional. Values: { Absent | Present }. Default: Present
@@ -133,12 +145,14 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
 ### FSRMFileScreenExclusion
+
 * **Path**: The path the File Screen Exclusion is applied to. Required.
 * **Description**: The optional description of the File Screen. Optional.
 * **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
 * **IncludeGroup**: Contains an array of File Groups to include in this File Screen Exclusion. Optional.
 
 ### FSRMFileGroup
+
 * **Name**: The name of the FSRM File Groups. Required.
 * **Description**: The optional description of the FSRM File Group. Optional.
 * **Ensure**: Should this FSRM Group exist. Optional. Values: { Absent | Present }. Default: Present
@@ -146,6 +160,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ExcludePattern**: An array of file patterns to exclude in this FSRM File Group. Optional.
 
 ### FSRMQuota
+
 * **Path**: The path the quota is applied to. Required.
 * **Description**: The optional description of the quota. Optional.
 * **Ensure**: Should this quota exist. Optional. Values: { Absent | Present }. Default: Present
@@ -157,6 +172,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **MatchesTemplate**: This parameter causes the resource to ignore the Size, Softlimit and ThresholdPercentages parameters and maintain the quota only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
 
 ### FSRMQuotaAction
+
 * **Path**: The path the quota is applied to for the action. Required.
 * **Percentage**: The threshold percentage that this action is assigned to. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
@@ -177,6 +193,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
 ### FSRMQuotaTemplate
+
 * **Name**: The name of the quota template. Required.
 * **Description**: The optional description of the quota template. Optional.
 * **Ensure**: Should this quota template exist. Optional. Values: { Absent | Present }. Default: Present
@@ -185,6 +202,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ThresholdPercentages**: An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage. Optional.
 
 ### FSRMQuotaTemplateAction
+
 * **Name**: The name of the quota template for the action. Required.
 * **Percentage**: The threshold percentage that this action is assigned to. Required.
 * **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
@@ -205,28 +223,34 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **ReportTypes**: Array of Reports to create. Required when Type is Report.
 
 ### FSRMAutoQuota
+
 * **Path**: The path the auto quota is applied to. Required.
 * **Ensure**: Should this auto quota exist. Optional. Values: { Absent | Present }. Default: Present
 * **Disabled**: Allows the auto quota to be disabled. Optional.
 * **Template**: The name of the Quota Template that should be used to create this auto quota. Optional.
 
 ## Versions
+
 ### Unreleased
+
 * Unit and Integration test headers updated to v1.1.0
 * Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
 * Changed AppVeyor.yml to use default image.
 * Converted to HQRM and prepared for transfer to PowerShell Team.
 
 ### 2.1.0.0
+
 * DSC Module moved to MSFT.
 
 ### 2.0.1.0
+
 * Integration tests included for all resources.
 * MSFT_xFSRMFileScreenAction: Fix to Get-TargetResource.
 * MSFT_xFSRMQuotaAction: Fix to Get-TargetResource.
 * MSFT_xFSRMQuotaActionTemplate: Fix to Get-TargetResource.
 
 ### 2.0.0.0
+
 * Combined all FSRM Resources into this module.
 
 ### 1.0.0.0
@@ -709,5 +733,3 @@ configuration Sample_FSRMAutoQuota
     } # End of Node
 } # End of Configuration
 ```
-
-
