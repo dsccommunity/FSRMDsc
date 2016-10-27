@@ -58,7 +58,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * **`[String]` Type** (_Required_): The type of the FSRM Classification Property. { OrderedList | MultiChoice | SingleChoice | String | MultiString | Integer | YesNo | DateTime }
 * **`[String]` DisplayName** (_Write_): The display name for the FSRM Classification Property. If not specified the DisplayName will default to the same value as Name.
 * **`[String]` Description** (_Write_): The description for the FSRM Classification Property.
-* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property should exist. { Absent | *Present* }
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property should exist. { Absent | *Present* }. Default: Present.
 * **`[String[]]` PossibleValue** (_Write_): An array of possible values that this FSRM Classification Property can take on. These can also be configured via the FSRMClassificationPropertValue resource.
 * **`[String[]]` Parameters** (_Write_): An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.
 
@@ -66,14 +66,14 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 
 * **`[String]` Name** (_Key_): The FSRM Classification Property value Name.
 * **`[String]` PropertyName** (_Key_): The name of the FSRM Classification Property the value applies to.
-* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property Value should exist. { Absent | *Present* }
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Property Value should exist. { Absent | *Present* }.  Default: Present.
 * **`[String]` Description** (_Write_): The description for the FSRM Classification Property Value.
 
 ### FSRMClassificationRule
 
 * **`[String]` Name** (_Key_): The name of the FSRM Classification Rule.
 * **`[String]` Description** (_Write_): The description for the FSRM Classification Rule.
-* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Rule should exist. Values: { Absent | *Present* }
+* **`[String]` Ensure** (_Write_): Specifies whether the FSRM Classification Rule should exist. { Absent | *Present* }. Default: Present.
 * **`[String]` Property** (_Write_): Specifies the name of a classification property definition to set.
 * **`[String]` PropertyValue** (_Write_): Specifies the property value that the rule will assign.
 * **`[String]` ClassificationMechanism** (_Write_): Specifies the name of a valid classification mechanism available on the server for assigning the property value.
@@ -88,146 +88,147 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 
 ### FSRMFileScreen
 
-* **Path**: The path the File Screen is applied to. Required.
-* **Description**: The optional description of the File Screen. Optional.
-* **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
-* **Active**: Boolean setting that controls if server should fail any I/O operations if the File Screen is violated. Default: True.
-* **IncludeGroup**: Contains an array of File Groups to include in this File Screen. Optional.
-* **Template**: The name of the File Screen Template that should be used to create this File Screen. Optional.
-* **MatchesTemplate**: This parameter causes the resource to ignore the Active and IncludeGroup parameters and maintain the File Screen only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
+* **`[String]` Path** (_Key_): The path the File Screen is applied to. Required.
+* **`[String]` Description** (_Write_): The optional description of the File Screen.
+* **`[String]` Ensure** (_Write_): Should this File Screen exist. Optional. { Absent | *Present* }. Default: Present.
+* **`[Boolean]` Active** (_Write_): Boolean setting that controls if server should fail any I/O operations if the File Screen is violated. Default: True.
+* **`[String[]]` IncludeGroup** (_Write_): Contains an array of File Groups to include in this File Screen.
+* **`[String]` Template** (_Write_): The name of the File Screen Template that should be used to create this File Screen.
+* **`[Boolean]` MatchesTemplate** (_Write_): This parameter causes the resource to ignore the Active and IncludeGroup parameters and maintain the File Screen only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template.
 
 ### FSRMFileScreenAction
 
-* **Path**: The path the File Screen is applied to for the action. Required.
-* **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
-* **Ensure**: Should this File Screen action exist. Optional. Values: { Absent | Present }. Default: Present
-* **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
-* **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
-* **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
-* **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
-* **Command**: The Command to execute. Required when Type is Command.
-* **CommandParameters**: The Command Parameters. Required when Type is Command.
-* **KillTimeOut**: Int containing kill timeout of the command. Required when Type is Command.
-* **RunLimitInterval**: Int containing the run limit interval of the command. Required when Type is Command.
-* **SecurityLevel**: The security level the command runs under. Required when Type is Command. Values: { None | LocalService | NetworkService | LocalSystem }.
-* **ShouldLogError**: Boolean specifying if command errors should be logged . Required when Type is Command.
-* **WorkingDirectory**: The working directory of the command. Required when Type is Command.
-* **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
-* **ReportTypes**: Array of Reports to create. Required when Type is Report.
+* **`[String]` Path** (_Key_): The path the File Screen is applied to for the action.
+* **`[String]` Type** (_Key_): The type of action. { Email | Event | Command | Report }.
+* **`[String]` Ensure** (_Write_): Should this File Screen action exist. Values: { Absent | *Present* }. Default: Present
+* **`[String]` Subject** (_Write_): The subject of the e-mail sent. Required when Type is Email.
+* **`[String]` Body** (_Write_): The body text of the e-mail or event. Required when Type is Email or Event.
+* **`[String]` MailTo** (_Write_): The mail to of the e-mail sent. Required when Type is Email.
+* **`[String]` MailCC** (_Write_): The mail CC of the e-mail sent. Required when Type is Email.
+* **`[String]` MailBCC** (_Write_): The mail BCC of the e-mail sent. Required when Type is Email.
+* **`[String]` EventType** (_Write_): The type of event created. Required when Type is Event. { None | Information | Warning | Error }
+* **`[String]` Command** (_Write_): The Command to execute. Required when Type is Command.
+* **`[String]` CommandParameters** (_Write_): The Command Parameters. Required when Type is Command.
+* **`[String]` KillTimeOut** (_Write_): Int containing kill timeout of the command. Required when Type is Command.
+* **`[Sint32]` RunLimitInterval** (_Write_): Int containing the run limit interval of the command. Required when Type is Command.
+* **`[Sint32]` SecurityLevel** (_Write_): The security level the command runs under. Required when Type is Command. { None | LocalService | NetworkService | LocalSystem }
+* **`[Boolean]` ShouldLogError** (_Write_): Boolean specifying if command errors should be logged. Required when Type is Command.
+* **`[String]` WorkingDirectory** (_Write_): The working directory of the command. Required when Type is Command.
+* **`[String[]]` ReportTypes** (_Write_): Array of Reports to create. Required when Type is Report.
 
 ### FSRMFileScreenTemplate
 
-* **Name**: The name of the File Screen template. Required.
-* **Description**: The optional description of the File Screen template. Optional.
-* **Ensure**: Should this File Screen template exist. Optional. Values: { Absent | Present }. Default: Present
-* **Active**: Boolean setting that controls if server should fail any I/O operations if the File Screen is violated. Default: True.
-* **IncludeGroup**: Contains an array of File Groups to include in this File Screen template. Optional.
+* **`[String]` Name** (_Key_): The name of the File Screen template.
+* **`[String]` Description** (_Write_): The optional description of the File Screen template.
+* **`[String]` Ensure** (_Write_): Should this File Screen template exist. Optional. { Absent | *Present* }. Default: Present
+* **`[Boolean]` Active** (_Write_): Boolean setting that controls if server should fail any I/O operations if the File Screen is violated. Default: True.
+* **`[String[]]` IncludeGroup** (_Write_): Contains an array of File Groups to include in this File Screen template.
 
 ### FSRMFileScreenTemplateAction
 
-* **Name**: The name of the File Screen template for the action. Required.
-* **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
-* **Ensure**: Should this File Screen template action exist. Optional. Values: { Absent | Present }. Default: Present
-* **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
-* **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
-* **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
-* **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
-* **Command**: The Command to execute. Required when Type is Command.
-* **CommandParameters**: The Command Parameters. Required when Type is Command.
-* **KillTimeOut**: Int containing kill timeout of the command. Required when Type is Command.
-* **RunLimitInterval**: Int containing the run limit interval of the command. Required when Type is Command.
-* **SecurityLevel**: The security level the command runs under. Required when Type is Command. Values: { None | LocalService | NetworkService | LocalSystem }.
-* **ShouldLogError**: Boolean specifying if command errors should be logged . Required when Type is Command.
-* **WorkingDirectory**: The working directory of the command. Required when Type is Command.
-* **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
-* **ReportTypes**: Array of Reports to create. Required when Type is Report.
+* **`[String]` Name** (_Key_): The name of the File Screen template for the action.
+* **`[Uint32]` Percentage** (_Key_): This is the threshold percentage the action is attached to.
+* **`[String]` Type** (_Key_): The type of action. Required. { Email | Event | Command | Report }.
+* **`[String]` Ensure** (_Write_): Should this File Screen template action exist. Optional. { Absent | *Present* }. Default: Present
+* **`[String]` Subject** (_Write_): The subject of the e-mail sent. Required when Type is Email.
+* **`[String]` Body** (_Write_): The body text of the e-mail or event. Required when Type is Email or Event.
+* **`[String]` MailTo** (_Write_): The mail to of the e-mail sent. Required when Type is Email.
+* **`[String]` MailCC** (_Write_): The mail CC of the e-mail sent. Required when Type is Email.
+* **`[String]` MailBCC** (_Write_): The mail BCC of the e-mail sent. Required when Type is Email.
+* **`[String]` EventType** (_Write_): The type of event created. Required when Type is Event. { None | Information | Warning | Error }.
+* **`[String]` Command** (_Write_): The Command to execute. Required when Type is Command.
+* **`[String]` CommandParameters** (_Write_): The Command Parameters. Required when Type is Command.
+* **`[Sint32]` KillTimeOut** (_Write_): Int containing kill timeout of the command. Required when Type is Command.
+* **`[Sint32]` RunLimitInterval** (_Write_): Int containing the run limit interval of the command. Required when Type is Command.
+* **`[String]` SecurityLevel** (_Write_): The security level the command runs under. Required when Type is Command. { None | LocalService | NetworkService | LocalSystem }.
+* **`[Boolean]` ShouldLogError** (_Write_): Boolean specifying if command errors should be logged. Required when Type is Command.
+* **`[String]` WorkingDirectory** (_Write_): The working directory of the command. Required when Type is Command.
+* **`[String[]]` ReportTypes** (_Write_): Array of Reports to create. Required when Type is Report.
 
-### FSRMFileScreenExclusion
+### FSRMFileScreenException
 
-* **Path**: The path the File Screen Exclusion is applied to. Required.
-* **Description**: The optional description of the File Screen. Optional.
-* **Ensure**: Should this File Screen exist. Optional. Values: { Absent | Present }. Default: Present.
-* **IncludeGroup**: Contains an array of File Groups to include in this File Screen Exclusion. Optional.
+* **`[String]` Path** (_Key_): The path the File Screen Exclusion is applied to.
+* **`[String]` Description** (_Write_): The optional description of the File Screen.
+* **`[String]` Ensure** (_Write_): Should this File Screen exist. { Absent | *Present* }. Default: Present.
+* **`[String[]]` IncludeGroup** (_Write_): Contains an array of File Groups to include in this File Screen Exclusion.
 
 ### FSRMFileGroup
 
-* **Name**: The name of the FSRM File Groups. Required.
-* **Description**: The optional description of the FSRM File Group. Optional.
-* **Ensure**: Should this FSRM Group exist. Optional. Values: { Absent | Present }. Default: Present
-* **IncludePattern**: An array of file patterns to include in this FSRM File Group. Optional.
-* **ExcludePattern**: An array of file patterns to exclude in this FSRM File Group. Optional.
+* **`[String]` Name** (_Key_): The name of the FSRM File Groups.
+* **`[String]` Description** (_Write_): The optional description of the FSRM File Group.
+* **`[String]` Ensure** (_Write_): Should this FSRM Group exist. { Absent | *Present* }. Default: Present
+* **`[String[]]` IncludePattern** (_Write_): An array of file patterns to include in this FSRM File Group.
+* **`[String[]]` ExcludePattern** (_Write_): An array of file patterns to exclude in this FSRM File Group.
 
 ### FSRMQuota
 
-* **Path**: The path the quota is applied to. Required.
-* **Description**: The optional description of the quota. Optional.
-* **Ensure**: Should this quota exist. Optional. Values: { Absent | Present }. Default: Present
-* **Size**: Size of quota limit. Required.
-* **SoftLimit**: Specify if the limit is hard or soft. Optional. Detault: $Ture
-* **ThresholdPercentages**: An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage. Optional.
-* **Disabled**: Allows the quota to be disabled. Optional.
-* **Template**: The name of the Quota Template that should be used to create this quota. Optional.
-* **MatchesTemplate**: This parameter causes the resource to ignore the Size, Softlimit and ThresholdPercentages parameters and maintain the quota only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template. Optional.
+* **`[String]` Path** (_Key_): The path the quota is applied to.
+* **`[String]` Description** (_Write_): The optional description of the quota.
+* **`[String]` Ensure** (_Write_): Should this quota exist. Optional. { Absent | *Present* }. Default: Present
+* **`[Sint64]` Size** (_Write_): Size of quota limit.
+* **`[Boolean]` SoftLimit** (_Write_): Specify if the limit is hard or soft. Detault: $Ture
+* **`[Uint32]` ThresholdPercentages** (_Write_): An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage.
+* **`[Boolean]` Disabled** (_Write_): Allows the quota to be disabled.
+* **`[String]` Template** (_Write_): The name of the Quota Template that should be used to create this quota.
+* **`[Boolean]` MatchesTemplate** (_Write_): This parameter causes the resource to ignore the Size, Softlimit and ThresholdPercentages parameters and maintain the quota only using the Template. It should be enabled whenever possible as it simplifies the behaviour of the resource and will ensure the quota always matches the specified template.
 
 ### FSRMQuotaAction
 
-* **Path**: The path the quota is applied to for the action. Required.
-* **Percentage**: The threshold percentage that this action is assigned to. Required.
-* **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
-* **Ensure**: Should this quota/quota template action exist. Optional. Values: { Absent | Present }. Default: Present
-* **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
-* **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
-* **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
-* **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
-* **Command**: The Command to execute. Required when Type is Command.
-* **CommandParameters**: The Command Parameters. Required when Type is Command.
-* **KillTimeOut**: Int containing kill timeout of the command. Required when Type is Command.
-* **RunLimitInterval**: Int containing the run limit interval of the command. Required when Type is Command.
-* **SecurityLevel**: The security level the command runs under. Required when Type is Command. Values: { None | LocalService | NetworkService | LocalSystem }.
-* **ShouldLogError**: Boolean specifying if command errors should be logged . Required when Type is Command.
-* **WorkingDirectory**: The working directory of the command. Required when Type is Command.
-* **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
-* **ReportTypes**: Array of Reports to create. Required when Type is Report.
+* **`[String]` Path** (_Key_): The path the quota is applied to for the action. Required.
+* **`[Uint32]` Percentage** (_Key_): The threshold percentage that this action is assigned to. Required.
+* **`[String]` Type** (_Key_): The type of action. Required. Values: { Email | Event | Command | Report }
+* **`[String]` Ensure** (_Write_): Should this quota/quota template action exist. Optional. Values: { Absent | *Present* }. Default: Present
+* **`[String]` Subject** (_Write_): The subject of the e-mail sent. Required when Type is Email.
+* **`[String]` Body** (_Write_): The body text of the e-mail or event. Required when Type is Email or Event.
+* **`[String]` MailTo** (_Write_): The mail to of the e-mail sent. Required when Type is Email.
+* **`[String]` MailCC** (_Write_): The mail CC of the e-mail sent. Required when Type is Email.
+* **`[String]` MailBCC** (_Write_): The mail BCC of the e-mail sent. Required when Type is Email.
+* **`[String]` EventType** (_Write_): The type of event created. Required when Type is Event. { None | Information | Warning | Error }
+* **`[String]` Command** (_Write_): The Command to execute. Required when Type is Command.
+* **`[String]` CommandParameters** (_Write_): The Command Parameters. Required when Type is Command.
+* **`[Sint32]` KillTimeOut** (_Write_): Int containing kill timeout of the command. Required when Type is Command.
+* **`[Sint32]` RunLimitInterval** (_Write_): Int containing the run limit interval of the command. Required when Type is Command.
+* **`[String]` SecurityLevel** (_Write_): The security level the command runs under. Required when Type is Command. { None | LocalService | NetworkService | LocalSystem }
+* **`[Boolean]` ShouldLogError** (_Write_): Boolean specifying if command errors should be logged. Required when Type is Command.
+* **`[String]` WorkingDirectory** (_Write_): The working directory of the command. Required when Type is Command.
+* **`[String[]]` ReportTypes** (_Write_): Array of Reports to create. Required when Type is Report.
 
 ### FSRMQuotaTemplate
 
-* **Name**: The name of the quota template. Required.
-* **Description**: The optional description of the quota template. Optional.
-* **Ensure**: Should this quota template exist. Optional. Values: { Absent | Present }. Default: Present
-* **Size**: Size of quota limit. Required.
-* **SoftLimit**: Specify if the limit is hard or soft. Optional. Detault: $Ture
-* **ThresholdPercentages**: An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage. Optional.
+* **`[String]` Name** (_Key_): The name of the quota template.
+* **`[String]` Description** (_Write_): The optional description of the quota template.
+* **`[String]` Ensure** (_Write_): Should this quota template exist. { Absent | *Present* }. Default: Present
+* **`[Sin32]` Size** (_Write_): Size of quota limit.
+* **`[Boolean]` SoftLimit** (_Write_): Specify if the limit is hard or soft. Detault: $Ture
+* **`[Uint32]` ThresholdPercentages** (_Write_): An array of Threshold Percentages. Notifications can be assigned to each Threshold Percentage.
 
 ### FSRMQuotaTemplateAction
 
-* **Name**: The name of the quota template for the action. Required.
-* **Percentage**: The threshold percentage that this action is assigned to. Required.
-* **Type**: The type of action. Required. Values: { Email | Event | Command | Report }.
-* **Ensure**: Should this quota template action exist. Optional. Values: { Absent | Present }. Default: Present
-* **Subject**: The subject of the e-mail sent. Required when Type is Email.
-* **Body**: The body text of the e-mail or event. Required when Type is Email or Event.
-* **MailBCC**: The mail BCC of the e-mail sent. Required when Type is Email.
-* **MailCC**: The mail CC of the e-mail sent. Required when Type is Email.
-* **MailTo**: The mail to of the e-mail sent. Required when Type is Email.
-* **Command**: The Command to execute. Required when Type is Command.
-* **CommandParameters**: The Command Parameters. Required when Type is Command.
-* **KillTimeOut**: Int containing kill timeout of the command. Required when Type is Command.
-* **RunLimitInterval**: Int containing the run limit interval of the command. Required when Type is Command.
-* **SecurityLevel**: The security level the command runs under. Required when Type is Command. Values: { None | LocalService | NetworkService | LocalSystem }.
-* **ShouldLogError**: Boolean specifying if command errors should be logged . Required when Type is Command.
-* **WorkingDirectory**: The working directory of the command. Required when Type is Command.
-* **EventType**: The type of event created. Required when Type is Event. Values: { None | Information | Warning | Error }.
-* **ReportTypes**: Array of Reports to create. Required when Type is Report.
+* **`[String]` Name** (_Key_): The name of the quota template for the action.
+* **`[Uint32]` Percentage** (_Key_): The threshold percentage that this action is assigned to.
+* **`[String]` Type** (_Key_): The type of action. Required. { Email | Event | Command | Report }
+* **`[String]` Ensure** (_Write_): Should this quota template action exist. { Absent | *Present* }. Default: Present
+* **`[String]` Subject** (_Write_): The subject of the e-mail sent. Required when Type is Email.
+* **`[String]` Body** (_Write_): The body text of the e-mail or event. Required when Type is Email or Event.
+* **`[String]` MailTo** (_Write_): The mail to of the e-mail sent. Required when Type is Email.
+* **`[String]` MailCC** (_Write_): The mail CC of the e-mail sent. Required when Type is Email.
+* **`[String]` MailBCC** (_Write_): The mail BCC of the e-mail sent. Required when Type is Email.
+* **`[String]` EventType** (_Write_): The type of event created. Required when Type is Event. { None | Information | Warning | Error }
+* **`[String]` Command** (_Write_): The Command to execute. Required when Type is Command.
+* **`[String]` CommandParameters** (_Write_): The Command Parameters. Required when Type is Command.
+* **`[Sint32]` KillTimeOut** (_Write_): Int containing kill timeout of the command. Required when Type is Command.
+* **`[Sint32]` RunLimitInterval** (_Write_): Int containing the run limit interval of the command. Required when Type is Command.
+* **`[String]` SecurityLevel** (_Write_): The security level the command runs under. Required when Type is Command. { None | LocalService | NetworkService | LocalSystem }
+* **`[Boolean]` ShouldLogError** (_Write_): Boolean specifying if command errors should be logged . Required when Type is Command.
+* **`[String]` WorkingDirectory** (_Write_): The working directory of the command. Required when Type is Command.
+* **`[String]` ReportTypes** (_Write_): Array of Reports to create. Required when Type is Report.
 
 ### FSRMAutoQuota
 
-* **Path**: The path the auto quota is applied to. Required.
-* **Ensure**: Should this auto quota exist. Optional. Values: { Absent | Present }. Default: Present
-* **Disabled**: Allows the auto quota to be disabled. Optional.
-* **Template**: The name of the Quota Template that should be used to create this auto quota. Optional.
+* **`[String]` Path** (_Key_): The path the auto quota is applied to.
+* **`[String]` Ensure** (_Write_): Should this auto quota exist. { Absent | *Present* }. Default: Present
+* **`[Boolean]` Disabled** (_Write_): Allows the auto quota to be disabled.
+* **`[String]` Template** (_Write_): The name of the Quota Template that should be used to create this auto quota.
 
 ## Versions
 
@@ -237,6 +238,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
 * Changed AppVeyor.yml to use default image.
 * Converted to HQRM and prepared for transfer to PowerShell Team.
+* Changed parameter format in Readme.md to meet new standards.
 
 ### 2.1.0.0
 
