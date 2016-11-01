@@ -239,6 +239,8 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Changed AppVeyor.yml to use default image.
 * Converted to HQRM and prepared for transfer to PowerShell Team.
 * Changed parameter format in Readme.md to meet new standards.
+* Moved all localization strings into separate localization files.
+* Added CommonResourceHelper.psm1 module from PSDscResources.
 
 ### 2.1.0.0
 

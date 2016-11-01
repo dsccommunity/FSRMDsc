@@ -1,14 +1,7 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingSettingsMessage=Getting FSRM Settings "{0}".
-SettingSettingsMessage=Setting FSRM Settings "{0}".
-SettingsUpdatedMessage=FSRM Settings "{0}" Updated.
-TestingSettingsMessage=Testing FSRM Settings "{0}".
-SettingsNeedsUpdateMessage=FSRM Settings "{0}" {1} is different. Change required.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMSettings'
 
 function Get-TargetResource
 {
