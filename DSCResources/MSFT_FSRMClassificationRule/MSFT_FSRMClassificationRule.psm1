@@ -9,7 +9,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
@@ -70,47 +70,60 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String]
         $Property,
 
+        [Parameter()]
         [System.String]
         $PropertyValue,
 
+        [Parameter()]
         [System.String]
         $ClassificationMechanism,
 
+        [Parameter()]
         [System.String[]]
         $ContentRegularExpression,
 
+        [Parameter()]
         [System.String[]]
         $ContentString,
 
+        [Parameter()]
         [System.String[]]
         $ContentStringCaseSensitive,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String[]]
         $Flags,
 
+        [Parameter()]
         [System.String[]]
         $Parameters,
 
+        [Parameter()]
         [System.String[]]
         $Namespace,
 
+        [Parameter()]
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty
@@ -187,47 +200,60 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String]
         $Property,
 
+        [Parameter()]
         [System.String]
         $PropertyValue,
 
+        [Parameter()]
         [System.String]
         $ClassificationMechanism,
 
+        [Parameter()]
         [System.String[]]
         $ContentRegularExpression,
 
+        [Parameter()]
         [System.String[]]
         $ContentString,
 
+        [Parameter()]
         [System.String[]]
         $ContentStringCaseSensitive,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String[]]
         $Flags,
 
+        [Parameter()]
         [System.String[]]
         $Parameters,
 
+        [Parameter()]
         [System.String[]]
         $Namespace,
 
+        [Parameter()]
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty
@@ -438,7 +464,7 @@ function Test-TargetResource
 Function Get-ClassificationRule {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )

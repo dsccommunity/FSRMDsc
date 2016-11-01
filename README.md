@@ -241,6 +241,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Changed parameter format in Readme.md to meet new standards.
 * Moved all localization strings into separate localization files.
 * Added CommonResourceHelper.psm1 module from PSDscResources.
+* Update parameter format to meet HQRM guidelines.
 
 ### 2.1.0.0
 

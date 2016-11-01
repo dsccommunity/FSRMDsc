@@ -9,7 +9,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -61,17 +61,20 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )
@@ -143,17 +146,20 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )
@@ -238,7 +244,7 @@ function Test-TargetResource
 # Helper Functions
 Function Get-AutoQuota {
     param (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -254,6 +260,7 @@ Function Get-AutoQuota {
     }
     Return $AutoQuota
 }
+
 <#
 .Synopsis
     This function validates the parameters passed. Called by Test-Resource.
@@ -263,17 +270,20 @@ Function Test-ResourceProperty {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )

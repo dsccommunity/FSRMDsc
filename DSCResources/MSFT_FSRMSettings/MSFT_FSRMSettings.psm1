@@ -9,7 +9,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Id
     )
@@ -40,20 +40,33 @@ Function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
-        [System.String] $Id,
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Id,
 
-        [System.String] $SmtpServer,
+        [Parameter()]
+        [System.String]
+        $SmtpServer,
 
-        [System.String] $AdminEmailAddress,
+        [Parameter()]
+        [System.String]
+        $AdminEmailAddress,
 
-        [System.String] $FromEmailAddress,
+        [Parameter()]
+        [System.String]
+        $FromEmailAddress,
 
-        [System.Uint32] $CommandNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $CommandNotificationLimit,
 
-        [System.Uint32] $EmailNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $EmailNotificationLimit,
 
-        [System.Uint32] $EventNotificationLimit
+        [Parameter()]
+        [System.Uint32]
+        $EventNotificationLimit
     )
 
     Write-Verbose -Message ( @(
@@ -82,21 +95,33 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
 
-        [System.String] $SmtpServer,
+        [Parameter()]
+        [System.String]
+        $SmtpServer,
 
-        [System.String] $AdminEmailAddress,
+        [Parameter()]
+        [System.String]
+        $AdminEmailAddress,
 
-        [System.String] $FromEmailAddress,
+        [Parameter()]
+        [System.String]
+        $FromEmailAddress,
 
-        [System.Uint32] $CommandNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $CommandNotificationLimit,
 
-        [System.Uint32] $EmailNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $EmailNotificationLimit,
 
-        [System.Uint32] $EventNotificationLimit
+        [Parameter()]
+        [System.Uint32]
+        $EventNotificationLimit
     )
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true

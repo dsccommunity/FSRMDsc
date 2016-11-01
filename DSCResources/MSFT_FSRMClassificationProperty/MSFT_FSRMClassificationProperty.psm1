@@ -9,12 +9,12 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type
     )
@@ -68,28 +68,33 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [System.String]
         $DisplayName,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String[]]
         $PossibleValue,
 
+        [Parameter()]
         [System.String[]]
         $Parameters
     )
@@ -221,18 +226,20 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [System.String]
         $DisplayName,
 
+        [Parameter()]
         [System.String]
         $Description,
 
@@ -240,9 +247,11 @@ function Test-TargetResource
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String[]]
         $PossibleValue,
 
+        [Parameter()]
         [System.String[]]
         $Parameters
     )
@@ -364,7 +373,7 @@ function Test-TargetResource
 Function Get-ClassificationProperty {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )

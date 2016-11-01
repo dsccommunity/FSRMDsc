@@ -9,7 +9,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Id
     )
@@ -45,18 +45,41 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
 
-        [System.Boolean]$Continuous,
-        [System.Boolean]$ContinuousLog,
-        [System.Uint32]$ContinuousLogSize,
-        [System.String[]]$ExcludeNamespace,
-        [System.Uint32[]]$ScheduleMonthly,
-        [System.String[]]$ScheduleWeekly,
-        [System.Int32]$ScheduleRunDuration,
-        [System.String]$ScheduleTime
+        [Parameter()]
+        [System.Boolean]
+        $Continuous,
+
+        [Parameter()]
+        [System.Boolean]
+        $ContinuousLog,
+
+        [Parameter()]
+        [System.Uint32]
+        $ContinuousLogSize,
+
+        [Parameter()]
+        [System.String[]]
+        $ExcludeNamespace,
+
+        [Parameter()]
+        [System.Uint32[]]
+        $ScheduleMonthly,
+
+        [Parameter()]
+        [System.String[]]
+        $ScheduleWeekly,
+
+        [Parameter()]
+        [System.Int32]
+        $ScheduleRunDuration,
+
+        [Parameter()]
+        [System.String]
+        $ScheduleTime
     )
 
     Write-Verbose -Message ( @(
@@ -159,18 +182,41 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
 
-        [System.Boolean]$Continuous,
-        [System.Boolean]$ContinuousLog,
-        [System.Uint32]$ContinuousLogSize,
-        [System.String[]]$ExcludeNamespace,
-        [System.Uint32[]]$ScheduleMonthly,
-        [System.String[]]$ScheduleWeekly,
-        [System.Int32]$ScheduleRunDuration,
-        [System.String]$ScheduleTime
+        [Parameter()]
+        [System.Boolean]
+        $Continuous,
+
+        [Parameter()]
+        [System.Boolean]
+        $ContinuousLog,
+
+        [Parameter()]
+        [System.Uint32]
+        $ContinuousLogSize,
+
+        [Parameter()]
+        [System.String[]]
+        $ExcludeNamespace,
+
+        [Parameter()]
+        [System.Uint32[]]
+        $ScheduleMonthly,
+
+        [Parameter()]
+        [System.String[]]
+        $ScheduleWeekly,
+
+        [Parameter()]
+        [System.Int32]
+        $ScheduleRunDuration,
+
+        [Parameter()]
+        [System.String]
+        $ScheduleTime
     )
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true

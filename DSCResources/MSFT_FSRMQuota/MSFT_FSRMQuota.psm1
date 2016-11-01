@@ -9,7 +9,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -66,33 +66,41 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Int64]
         $Size,
 
+        [Parameter()]
         [System.Boolean]
         $SoftLimit,
 
+        [Parameter()]
         [ValidateRange(0,100)]
         [System.Uint32[]]
         $ThresholdPercentages,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )
@@ -242,33 +250,41 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Int64]
         $Size,
 
+        [Parameter()]
         [System.Boolean]
         $SoftLimit,
 
+        [Parameter()]
         [ValidateRange(0,100)]
         [System.Uint32[]]
         $ThresholdPercentages,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )
@@ -420,7 +436,7 @@ function Test-TargetResource
 Function Get-Quota {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -448,33 +464,41 @@ Function Test-ResourceProperty {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Int64]
         $Size,
 
+        [Parameter()]
         [System.Boolean]
         $SoftLimit,
 
+        [Parameter()]
         [ValidateRange(0,100)]
         [System.Uint32[]]
         $ThresholdPercentages,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )

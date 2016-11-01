@@ -9,11 +9,11 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type
@@ -94,35 +94,77 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
-        [System.String]$Subject,
-        [System.String]$Body,
-        [System.String]$MailTo,
-        [System.String]$MailCC,
-        [System.String]$MailBCC,
+        [Parameter()]
+        [System.String]
+        $Subject,
+
+        [Parameter()]
+        [System.String]
+        $Body,
+
+        [Parameter()]
+        [System.String]
+        $MailTo,
+
+        [Parameter()]
+        [System.String]
+        $MailCC,
+
+        [Parameter()]
         [ValidateSet('None','Information','Warning','Error')]
-        [System.String]$EventType,
-        [System.String]$Command,
-        [System.String]$CommandParameters,
-        [System.Int32]$KillTimeOut,
-        [System.Int32]$RunLimitInterval,
+        [System.String]
+        $MailBCC,
+
+        [Parameter()]
+        [System.String]
+        $EventType,
+
+        [Parameter()]
+        [System.String]
+        $Command,
+
+        [Parameter()]
+        [System.String]
+        $CommandParameters,
+
+        [Parameter()]
+        [System.Int32]
+        $KillTimeOut,
+
+        [Parameter()]
+        [System.Int32]
+        $RunLimitInterval,
+
+        [Parameter()]
         [ValidateSet('None','LocalService','NetworkService','LocalSystem')]
-        [System.String]$SecurityLevel,
-        [System.Boolean]$ShouldLogError,
-        [System.String]$WorkingDirectory,
-        [System.String[]]$ReportTypes
+        [System.String]
+        $SecurityLevel,
+
+        [Parameter()]
+        [System.Boolean]
+        $ShouldLogError,
+
+        [Parameter()]
+        [System.String]
+        $WorkingDirectory,
+
+        [Parameter()]
+        [System.String[]]
+        $ReportTypes
     )
 
     Write-Verbose -Message ( @(
@@ -250,35 +292,77 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Email','Event','Command','Report')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
-        [System.String]$Subject,
-        [System.String]$Body,
-        [System.String]$MailTo,
-        [System.String]$MailCC,
-        [System.String]$MailBCC,
+        [Parameter()]
+        [System.String]
+        $Subject,
+
+        [Parameter()]
+        [System.String]
+        $Body,
+
+        [Parameter()]
+        [System.String]
+        $MailTo,
+
+        [Parameter()]
+        [System.String]
+        $MailCC,
+
+        [Parameter()]
         [ValidateSet('None','Information','Warning','Error')]
-        [System.String]$EventType,
-        [System.String]$Command,
-        [System.String]$CommandParameters,
-        [System.Int32]$KillTimeOut,
-        [System.Int32]$RunLimitInterval,
+        [System.String]
+        $MailBCC,
+
+        [Parameter()]
+        [System.String]
+        $EventType,
+
+        [Parameter()]
+        [System.String]
+        $Command,
+
+        [Parameter()]
+        [System.String]
+        $CommandParameters,
+
+        [Parameter()]
+        [System.Int32]
+        $KillTimeOut,
+
+        [Parameter()]
+        [System.Int32]
+        $RunLimitInterval,
+
+        [Parameter()]
         [ValidateSet('None','LocalService','NetworkService','LocalSystem')]
-        [System.String]$SecurityLevel,
-        [System.Boolean]$ShouldLogError,
-        [System.String]$WorkingDirectory,
-        [System.String[]]$ReportTypes
+        [System.String]
+        $SecurityLevel,
+
+        [Parameter()]
+        [System.Boolean]
+        $ShouldLogError,
+
+        [Parameter()]
+        [System.String]
+        $WorkingDirectory,
+
+        [Parameter()]
+        [System.String[]]
+        $ReportTypes
     )
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
