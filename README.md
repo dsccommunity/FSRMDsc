@@ -1,6 +1,6 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/9rjyjap2wl48xels/branch/dev?svg=true)](https://ci.appveyor.com/project/PlagueHO/fsrmdsc/branch/dev)
-
 # FSRMDsc
+
+[![Build status](https://ci.appveyor.com/api/projects/status/9rjyjap2wl48xels/branch/dev?svg=true)](https://ci.appveyor.com/project/PlagueHO/fsrmdsc/branch/dev)
 
 The **FSRMDsc** module contains DSC resources for configuring Windows File Server Resource Manager.
 
