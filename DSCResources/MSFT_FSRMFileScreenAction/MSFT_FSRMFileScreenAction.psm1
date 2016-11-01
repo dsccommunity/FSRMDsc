@@ -125,11 +125,11 @@ function Set-TargetResource
         $MailCC,
 
         [Parameter()]
-        [ValidateSet('None','Information','Warning','Error')]
         [System.String]
         $MailBCC,
 
         [Parameter()]
+        [ValidateSet('None','Information','Warning','Error')]
         [System.String]
         $EventType,
 
@@ -323,11 +323,11 @@ function Test-TargetResource
         $MailCC,
 
         [Parameter()]
-        [ValidateSet('None','Information','Warning','Error')]
         [System.String]
         $MailBCC,
 
         [Parameter()]
+        [ValidateSet('None','Information','Warning','Error')]
         [System.String]
         $EventType,
 
