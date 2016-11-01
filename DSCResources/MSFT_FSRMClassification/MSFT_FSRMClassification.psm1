@@ -99,10 +99,10 @@ function Set-TargetResource
     {
 
         # There are so a scheduled task object needs to be modified or created
-        $Schedule = (Get-FSRMClassification).Schedule
+        $schedule = (Get-FSRMClassification).Schedule
 
         # Create a splat to use to create the new Scheduled Task
-        $Splat = @{}
+        $splat = @{}
 
         if ($PSBoundParameters.ContainsKey('ScheduleMonthly'))
         {
@@ -110,43 +110,43 @@ function Set-TargetResource
             # DSC does not support [System.Int32[]] types as parameters.
             # But the New-FSRMScheduledTask Monthly parameter only supports [System.Int32[]] types.
             # So this must be converted manually. Cast does not seem to work here.
-            $ConvertedScheduleMonthly = `
+            $convertedScheduleMonthly = `
                 [System.Array]::CreateInstance([System.Int32],$ScheduleMonthly.Length)
             for ($i=0; $i -lt $ScheduleMonthly.Length; $i++) {
-                $ConvertedScheduleMonthly[$i] = $ScheduleMonthly[$i]
+                $convertedScheduleMonthly[$i] = $ScheduleMonthly[$i]
             }
-            $Splat += @{ Monthly = $ConvertedScheduleMonthly }
+            $splat += @{ Monthly = $convertedScheduleMonthly }
         }
-        elseif ( $Schedule.Monthly )
+        elseif ( $schedule.Monthly )
         {
-            $Splat += @{ Monthly = $Schedule.Monthly }
+            $splat += @{ Monthly = $schedule.Monthly }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleWeekly'))
         {
-            $Splat += @{ Weekly = $ScheduleWeekly }
+            $splat += @{ Weekly = $ScheduleWeekly }
         }
-        elseif ( $Schedule.Weekly )
+        elseif ( $schedule.Weekly )
         {
-            $Splat += @{ Weekly = $Schedule.Weekly }
+            $splat += @{ Weekly = $schedule.Weekly }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleRunDuration'))
         {
-            $Splat += @{ RunDuration = $ScheduleRunDuration }
+            $splat += @{ RunDuration = $ScheduleRunDuration }
         }
-        elseif ( $Schedule.RunDuration )
+        elseif ( $schedule.RunDuration )
         {
-            $Splat += @{ RunDuration = $Schedule.RunDuration }
+            $splat += @{ RunDuration = $schedule.RunDuration }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleTime'))
         {
-            $Splat += @{ Time = $ScheduleTime }
+            $splat += @{ Time = $ScheduleTime }
         }
-        elseif ( $Schedule.Time )
+        elseif ( $schedule.Time )
         {
-            $Splat += @{ Time = $Schedule.Time }
+            $splat += @{ Time = $schedule.Time }
         }
 
         # Remove the schedule parameters
@@ -156,8 +156,8 @@ function Set-TargetResource
         $null = $PSBoundParameters.Remove('ScheduleTime')
 
         # Add the new scheduled task parameter
-        $NewSchedule = New-FSRMScheduledTask @Splat
-        $null = $PSBoundParameters.Add('Schedule',$NewSchedule)
+        $newSchedule = New-FSRMScheduledTask @Splat
+        $null = $PSBoundParameters.Add('Schedule',$newSchedule)
 
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -228,10 +228,10 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification
-    $Classification = Get-FSRMClassification
+    $classification = Get-FSRMClassification
 
     # The Classification exists already - check the parameters
-    if (($Continuous) -and ($Classification.Continuous -ne $Continuous))
+    if (($Continuous) -and ($classification.Continuous -ne $Continuous))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -241,7 +241,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($ContinuousLog) -and ($Classification.ContinuousLog -ne $ContinuousLog))
+    if (($ContinuousLog) -and ($classification.ContinuousLog -ne $ContinuousLog))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -251,7 +251,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($ContinuousLogSize) -and ($Classification.ContinuousLogSize -ne $ContinuousLogSize))
+    if (($ContinuousLogSize) -and ($classification.ContinuousLogSize -ne $ContinuousLogSize))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -264,7 +264,7 @@ function Test-TargetResource
     if (($ExcludeNamespace) `
         -and (Compare-Object `
             -ReferenceObject $ExcludeNamespace `
-            -DifferenceObject ($Classification.ExcludeNamespace,@(),1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.ExcludeNamespace,@(),1 -ne $null)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -277,7 +277,7 @@ function Test-TargetResource
     if (($ScheduleMonthly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleMonthly `
-            -DifferenceObject ($Classification.Schedule.Monthly,1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.Schedule.Monthly,1 -ne $null)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -290,7 +290,7 @@ function Test-TargetResource
     if (($ScheduleWeekly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleWeekly `
-            -DifferenceObject ($Classification.Schedule.Weekly,1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.Schedule.Weekly,1 -ne $null)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -300,7 +300,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($ScheduleRunDuration) -and ($Classification.Schedule.RunDuration -ne $ScheduleRunDuration))
+    if (($ScheduleRunDuration) -and ($lassification.Schedule.RunDuration -ne $ScheduleRunDuration))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -310,7 +310,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($ScheduleTime) -and ($Classification.Schedule.Time -ne $ScheduleTime))
+    if (($ScheduleTime) -and ($classification.Schedule.Time -ne $ScheduleTime))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

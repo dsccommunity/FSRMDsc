@@ -219,7 +219,7 @@ function Set-TargetResource
 
         $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
-        if ($ActionIndex -eq $null)
+        if ($null -eq $ActionIndex)
         {
             # Create the action
             Write-Verbose -Message ( @(
@@ -250,7 +250,7 @@ function Set-TargetResource
                 -f $Path,$Type
             ) -join '' )
 
-        if ($ActionIndex -eq $null)
+        if ($null -eq $ActionIndex)
         {
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(

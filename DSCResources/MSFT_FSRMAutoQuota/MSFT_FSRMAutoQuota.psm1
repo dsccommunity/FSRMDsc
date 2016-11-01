@@ -21,12 +21,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing auto quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     $returnValue = @{
         Path = $Path
     }
-    if ($AutoQuota)
+    if ($autoQuota)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -83,7 +83,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing Auto Quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     if ($Ensure -eq 'Present')
     {
@@ -93,7 +93,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota exists
             Set-FSRMAutoQuota @PSBoundParameters `
@@ -126,7 +126,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota shouldn't exist - remove it
             Remove-FSRMAutoQuota -Path $Path -ErrorAction Stop
@@ -176,16 +176,16 @@ function Test-TargetResource
     Test-ResourceProperty @PSBoundParameters
 
     # Lookup the existing Quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     if ($Ensure -eq 'Present')
     {
         # The Auto Quota should exist
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('Disabled')) `
-                -and ($AutoQuota.Disabled -ne $Disabled))
+                -and ($autoQuota.Disabled -ne $Disabled))
                 {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -196,7 +196,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Template')) `
-                -and ($AutoQuota.Template -ne $Template)) {
+                -and ($autoQuota.Template -ne $Template)) {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
@@ -219,7 +219,7 @@ function Test-TargetResource
     else
     {
         # The Auto Quota should not exist
-        if ($AutoQuota) {
+        if ($autoQuota) {
             # The Auto Quota exists but should not
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -250,15 +250,15 @@ Function Get-AutoQuota {
     )
     try
     {
-        $AutoQuota = Get-FSRMAutoQuota -Path $Path -ErrorAction Stop
+        $autoQuota = Get-FSRMAutoQuota -Path $Path -ErrorAction Stop
     }
     catch [Microsoft.Management.Infrastructure.CimException] {
-        $AutoQuota = $null
+        $autoQuota = $null
     }
     catch {
         Throw $_
     }
-    Return $AutoQuota
+    Return $autoQuota
 }
 
 <#

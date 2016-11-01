@@ -135,7 +135,7 @@ function Set-TargetResource
             @PSBoundParameters `
             -ErrorAction Stop
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # Create the Classification Property Value
             Write-Verbose -Message ( @(
@@ -166,7 +166,7 @@ function Set-TargetResource
                 -f $PropertyName,$Name
             ) -join '' )
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The Classification Property Value doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -261,7 +261,7 @@ function Test-TargetResource
                 -f $PropertyName,$Name
             ) -join '' )
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The Classification Property Value does not exist but should
             Write-Verbose -Message ( @(
@@ -290,7 +290,7 @@ function Test-TargetResource
     }
     else
     {
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The ClassificationPropertyValue doesn't exist and should not
             Write-Verbose -Message ( @(

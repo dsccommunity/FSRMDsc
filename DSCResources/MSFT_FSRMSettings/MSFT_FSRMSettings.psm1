@@ -20,16 +20,16 @@ function Get-TargetResource
             -f $Id
         ) -join '' )
 
-    $Settings = Get-FSRMSetting
+    $settings = Get-FSRMSetting
 
     $returnValue = @{
         Id = $Id
-        SmtpServer = $Settings.SmtpServer
-        AdminEmailAddress = $Settings.AdminEmailAddress
-        FromEmailAddress = $Settings.FromEmailAddress
-        CommandNotificationLimit = $Settings.CommandNotificationLimit
-        EmailNotificationLimit = $Settings.EmailNotificationLimit
-        EventNotificationLimit = $Settings.EventNotificationLimit
+        SmtpServer = $settings.SmtpServer
+        AdminEmailAddress = $settings.AdminEmailAddress
+        FromEmailAddress = $settings.FromEmailAddress
+        CommandNotificationLimit = $settings.CommandNotificationLimit
+        EmailNotificationLimit = $settings.EmailNotificationLimit
+        EventNotificationLimit = $settings.EventNotificationLimit
     }
 
     return $returnValue
@@ -133,10 +133,10 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Settings
-    $Settings = Get-FSRMSetting
+    $settings = Get-FSRMSetting
 
     # The Settings exists already - check the parameters
-    if (($SmtpServer) -and ($Settings.SmtpServer -ne $SmtpServer))
+    if (($SmtpServer) -and ($settings.SmtpServer -ne $SmtpServer))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -147,7 +147,7 @@ function Test-TargetResource
     }
 
     if (($AdminEmailAddress) `
-        -and ($Settings.AdminEmailAddress -ne $AdminEmailAddress))
+        -and ($settings.AdminEmailAddress -ne $AdminEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -158,7 +158,7 @@ function Test-TargetResource
     }
 
     if (($FromEmailAddress) `
-        -and ($Settings.FromEmailAddress -ne $FromEmailAddress))
+        -and ($settings.FromEmailAddress -ne $FromEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -169,7 +169,7 @@ function Test-TargetResource
     }
 
     if (($CommandNotificationLimit) `
-        -and ($Settings.CommandNotificationLimit -ne $CommandNotificationLimit))
+        -and ($settings.CommandNotificationLimit -ne $CommandNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -180,7 +180,7 @@ function Test-TargetResource
     }
 
     if (($EmailNotificationLimit) `
-        -and ($Settings.EmailNotificationLimit -ne $EmailNotificationLimit))
+        -and ($settings.EmailNotificationLimit -ne $EmailNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -191,7 +191,7 @@ function Test-TargetResource
     }
 
     if (($EventNotificationLimit) `
-        -and ($Settings.EventNotificationLimit -ne $EventNotificationLimit))
+        -and ($settings.EventNotificationLimit -ne $EventNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

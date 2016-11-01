@@ -31,7 +31,7 @@ function Get-TargetResource
         ) -join '' )
 
 
-    $Result = Get-Action `
+    $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
         -Type $Type
@@ -41,7 +41,7 @@ function Get-TargetResource
         Percentage = $Percentage
         Type = $Type
     }
-    if ($Result.ActionIndex -eq $null)
+    if ($null -eq $result.ActionIndex)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -60,23 +60,23 @@ function Get-TargetResource
             $($LocalizedData.ActionExistsMessage) `
                 -f $Name,$Percentage,$Type
             ) -join '' )
-        $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
+        $action = $result.SourceObjects[$result.SourceIndex].Action[$result.ActionIndex]
         $returnValue += @{
             Ensure = 'Present'
-            Subject = $Action.Subject
-            Body = $Action.Body
-            MailBCC = $Action.MailBCC
-            MailCC = $Action.MailCC
-            MailTo = $Action.MailTo
-            Command = $Action.Command
-            CommandParameters = $Action.CommandParameters
-            KillTimeOut = [System.Int32] $Action.KillTimeOut
-            RunLimitInterval = [System.Int32] $Action.RunLimitInterval
-            SecurityLevel = $Action.SecurityLevel
-            ShouldLogError = $Action.ShouldLogError
-            WorkingDirectory = $Action.WorkingDirectory
-            EventType = $Action.EventType
-            ReportTypes = [System.String[]] $Action.ReportTypes
+            Subject = $action.Subject
+            Body = $action.Body
+            MailBCC = $action.MailBCC
+            MailCC = $action.MailCC
+            MailTo = $action.MailTo
+            Command = $action.Command
+            CommandParameters = $action.CommandParameters
+            KillTimeOut = [System.Int32] $action.KillTimeOut
+            RunLimitInterval = [System.Int32] $action.RunLimitInterval
+            SecurityLevel = $action.SecurityLevel
+            ShouldLogError = $action.ShouldLogError
+            WorkingDirectory = $action.WorkingDirectory
+            EventType = $action.EventType
+            ReportTypes = [System.String[]] $action.ReportTypes
         }
     }
 
@@ -178,7 +178,7 @@ function Set-TargetResource
     $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing action and related objects
-    $Result = Get-Action `
+    $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
         -Type $Type
@@ -193,7 +193,7 @@ function Set-TargetResource
 
         $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
-        if ($Result.ActionIndex -eq $null)
+        if ($null -eq $result.ActionIndex)
         {
             # Create the action
             Write-Verbose -Message ( @(
@@ -205,7 +205,7 @@ function Set-TargetResource
         else
         {
             # The action exists, remove it then update it
-            $Result.SourceObjects[$Result.SourceIndex].Action.RemoveAt($Result.ActionIndex)
+            $result.SourceObjects[$result.SourceIndex].Action.RemoveAt($result.ActionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -214,7 +214,7 @@ function Set-TargetResource
                 ) -join '' )
         }
 
-        $Result.SourceObjects[$Result.SourceIndex].Action.Add($NewAction)
+        $result.SourceObjects[$result.SourceIndex].Action.Add($newAction)
     }
     else
     {
@@ -224,7 +224,7 @@ function Set-TargetResource
                 -f $Name,$Percentage,$Type
             ) -join '' )
 
-        if ($Result.ActionIndex -eq $null)
+        if ($null -eq $result.ActionIndex)
         {
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -237,7 +237,7 @@ function Set-TargetResource
         else
         {
             # The Action exists, but shouldn't remove it
-            $Result.SourceObjects[$Result.SourceIndex].Action.RemoveAt($Result.ActionIndex)
+            $result.SourceObjects[$result.SourceIndex].Action.RemoveAt($result.ActionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -249,7 +249,7 @@ function Set-TargetResource
     # Now write the actual change to the appropriate place
     Set-Action `
         -Name $Name `
-        -ResultObject $Result
+        -ResultObject $result
 
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
@@ -351,7 +351,7 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing action and related objects
-    $Result = Get-Action `
+    $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
         -Type $Type
@@ -364,7 +364,7 @@ function Test-TargetResource
                 -f $Name,$Percentage,$Type
             ) -join '' )
 
-        if ($Result.ActionIndex -eq $null)
+        if ($null -eq $result.ActionIndex)
         {
             # The action does not exist but should
             Write-Verbose -Message ( @(
@@ -377,11 +377,11 @@ function Test-TargetResource
         else
         {
             # The action exists - check it
-            $Action = $Result.SourceObjects[$Result.SourceIndex].Action[$Result.ActionIndex]
+            $action = $result.SourceObjects[$result.SourceIndex].Action[$result.ActionIndex]
 
             #region Parameter Checks
             if (($PSBoundParameters.ContainsKey('Subject')) `
-                -and ($Action.Subject -ne $Subject))
+                -and ($action.Subject -ne $Subject))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -392,7 +392,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Body')) `
-                -and ($Action.Body -ne $Body))
+                -and ($action.Body -ne $Body))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -403,7 +403,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailBCC')) `
-                -and ($Action.MailBCC -ne $MailBCC))
+                -and ($action.MailBCC -ne $MailBCC))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -414,7 +414,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailCC')) `
-                -and ($Action.MailCC -ne $MailCC))
+                -and ($action.MailCC -ne $MailCC))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -425,7 +425,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailTo')) `
-                -and ($Action.MailTo -ne $MailTo))
+                -and ($action.MailTo -ne $MailTo))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -436,7 +436,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Command')) `
-                -and ($Action.Command -ne $Command))
+                -and ($action.Command -ne $Command))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -447,7 +447,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('CommandParameters')) `
-                -and ($Action.CommandParameters -ne $CommandParameters))
+                -and ($action.CommandParameters -ne $CommandParameters))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -458,7 +458,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('KillTimeOut')) `
-                -and ($Action.KillTimeOut -ne $KillTimeOut))
+                -and ($action.KillTimeOut -ne $KillTimeOut))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -469,7 +469,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('RunLimitInterval')) `
-                -and ($Action.RunLimitInterval -ne $RunLimitInterval))
+                -and ($action.RunLimitInterval -ne $RunLimitInterval))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -480,7 +480,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('SecurityLevel')) `
-                -and ($Action.SecurityLevel -ne $SecurityLevel))
+                -and ($action.SecurityLevel -ne $SecurityLevel))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -491,7 +491,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ShouldLogError')) `
-                -and ($Action.ShouldLogError -ne $ShouldLogError))
+                -and ($action.ShouldLogError -ne $ShouldLogError))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -502,7 +502,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('WorkingDirectory')) `
-                -and ($Action.WorkingDirectory -ne $WorkingDirectory))
+                -and ($action.WorkingDirectory -ne $WorkingDirectory))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -513,7 +513,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('EventType')) `
-                -and ($Action.EventType -ne $EventType))
+                -and ($action.EventType -ne $EventType))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -524,7 +524,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                -and ($Action.ReportTypes -ne $ReportTypes))
+                -and ($action.ReportTypes -ne $ReportTypes))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -538,7 +538,7 @@ function Test-TargetResource
     }
     else
     {
-        if ($Result.ActionIndex -eq $null)
+        if ($null -eq $result.ActionIndex)
         {
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -588,7 +588,7 @@ Function Get-Action {
         [System.String]
         $Type
     )
-    $ResultObject = [PSObject] @{
+    $resultObject = [PSObject] @{
         SourceObjects = [System.Collections.ArrayList]@()
         SourceIndex = $null
         ActionIndex = $null
@@ -596,7 +596,7 @@ Function Get-Action {
     # Lookup the Quota Template
     try
     {
-        $QuotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
+        $quotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
@@ -616,28 +616,28 @@ Function Get-Action {
     # This object is created from copies of the CIM classes returned in the threshold objects
     # but put into ArrayLists so that they can be manipulated.
     # DO NOT change this behavior unless you are sure you know what you're doing.
-    for ($t=0; $t -ilt $QuotaTemplate.Threshold.Count; $t++)
+    for ($t=0; $t -ilt $quotaTemplate.Threshold.Count; $t++)
     {
-        $NewActions = New-Object -TypeName 'System.Collections.ArrayList'
-        if ($QuotaTemplate.Threshold[$t].Percentage -eq $Percentage)
+        $newActions = New-Object -TypeName 'System.Collections.ArrayList'
+        if ($quotaTemplate.Threshold[$t].Percentage -eq $Percentage)
         {
             $ResultObject.SourceIndex = $t
         }
-        for ($a=0; $a -ilt $QuotaTemplate.Threshold[$t].Action.Count; $a++)
+        for ($a=0; $a -ilt $quotaTemplate.Threshold[$t].Action.Count; $a++)
         {
-            $NewActions.Add($QuotaTemplate.Threshold[$t].Action[$a])
-            if (($QuotaTemplate.Threshold[$t].Action[$a].Type -eq $Type) `
-                -and ($ResultObject.SourceIndex -eq $t))
+            $newActions.Add($quotaTemplate.Threshold[$t].Action[$a])
+            if (($quotaTemplate.Threshold[$t].Action[$a].Type -eq $Type) `
+                -and ($resultObject.SourceIndex -eq $t))
             {
-                $ResultObject.ActionIndex = $a
+                $resultObject.ActionIndex = $a
             }
         }
-        $properties = @{'Percentage' = $QuotaTemplate.Threshold[$t].Percentage;
-            'Action' = $NewActions;}
-        $NewSourceObject = New-Object -TypeName 'PSObject' -Property $properties
-        $ResultObject.SourceObjects += @($NewSourceObject)
+        $properties = @{'Percentage' = $quotaTemplate.Threshold[$t].Percentage;
+            'Action' = $newActions;}
+        $newSourceObject = New-Object -TypeName 'PSObject' -Property $properties
+        $resultObject.SourceObjects += @($newSourceObject)
     }
-    if ($ResultObject.SourceIndex -eq $null)
+    if ($null -eq $resultObject.SourceIndex)
     {
         $errorId = 'QuotaTemplateThresholdNotFound'
         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
@@ -652,7 +652,7 @@ Function Get-Action {
     }
 
     # Return the result
-    Return $ResultObject
+    Return $resultObject
 }
 
 <#
@@ -670,21 +670,21 @@ Function Set-Action {
         [Parameter(Mandatory = $true)]
         $ResultObject
     )
-    $Threshold = @()
-    foreach ($o in $ResultObject.SourceObjects)
+    $threshold = @()
+    foreach ($object in $ResultObject.SourceObjects)
     {
-        $Threshold += New-CimInstance `
+        $threshold += New-CimInstance `
             -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
                 Percentage = $o.Percentage
-                Action = [Microsoft.Management.Infrastructure.CimInstance[]]($o.Action)
+                Action = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
             }
     }
     Set-FSRMQuotaTemplate `
         -Name $Name `
-        -Threshold $Threshold `
+        -Threshold $threshold `
         -ErrorAction Stop
 }
 
