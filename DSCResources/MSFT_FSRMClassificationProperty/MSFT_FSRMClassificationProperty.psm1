@@ -3,6 +3,16 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationProperty'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -63,6 +73,32 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+
+    .PARAMETER DisplayName
+        The display name for the FSRM Classification Property.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Property.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property should exist.
+
+    .PARAMETER PossibleValue
+        An array of possible values that this FSRM Classification Property can take on.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -220,6 +256,32 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+
+    .PARAMETER DisplayName
+        The display name for the FSRM Classification Property.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Property.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property should exist.
+
+    .PARAMETER PossibleValue
+        An array of possible values that this FSRM Classification Property can take on.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -368,8 +430,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Property Object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+#>
 Function Get-ClassificationProperty {
     param
     (

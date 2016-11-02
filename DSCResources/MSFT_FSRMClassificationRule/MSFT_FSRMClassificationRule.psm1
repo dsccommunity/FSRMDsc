@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationRule'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -65,6 +72,54 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Rule.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Rule should exist.
+
+    .PARAMETER Property
+        Specifies the name of a classification property definition to set.
+
+    .PARAMETER PropertyValue
+        Specifies the property value that the rule will assign.
+
+    .PARAMETER ClassificationMechanism
+        Specifies the name of a valid classification mechanism available on the server for
+        assigning the property value.
+
+    .PARAMETER ContentRegularExpression
+        An array of regular expressions for pattern matching.
+
+    .PARAMETER ContentString
+        An array of strings for the content classifier to search for.
+
+    .PARAMETER ContentStringCaseSensitive
+        An array of case sensitive strings for the content classifier to search for.
+
+    .PARAMETER Disabled
+        Indicates that the classification rule is disabled.
+
+    .PARAMETER Flags
+        An array of flags that defines the possible states of the rule.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+
+    .PARAMETER Namespace
+        An array of namespaces where the rule is applied.
+
+    .PARAMETER ReevaluateProperty
+        Specifies the evaluation policy of the rule.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -194,6 +249,54 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Rule.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Rule should exist.
+
+    .PARAMETER Property
+        Specifies the name of a classification property definition to set.
+
+    .PARAMETER PropertyValue
+        Specifies the property value that the rule will assign.
+
+    .PARAMETER ClassificationMechanism
+        Specifies the name of a valid classification mechanism available on the server for
+        assigning the property value.
+
+    .PARAMETER ContentRegularExpression
+        An array of regular expressions for pattern matching.
+
+    .PARAMETER ContentString
+        An array of strings for the content classifier to search for.
+
+    .PARAMETER ContentStringCaseSensitive
+        An array of case sensitive strings for the content classifier to search for.
+
+    .PARAMETER Disabled
+        Indicates that the classification rule is disabled.
+
+    .PARAMETER Flags
+        An array of flags that defines the possible states of the rule.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+
+    .PARAMETER Namespace
+        An array of namespaces where the rule is applied.
+
+    .PARAMETER ReevaluateProperty
+        Specifies the evaluation policy of the rule.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -459,8 +562,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Rule object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+#>
 Function Get-ClassificationRule {
     param
     (

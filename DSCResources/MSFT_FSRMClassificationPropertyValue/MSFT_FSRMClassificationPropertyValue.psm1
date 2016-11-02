@@ -3,6 +3,16 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationPropertyValue'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -70,6 +80,22 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property value should exist.
+
+    .PARAMETER Description
+        The description of the FSRM Classification Property value.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -201,6 +227,22 @@ function Set-TargetResource
         ) -join '' )
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property value should exist.
+
+    .PARAMETER Description
+        The description of the FSRM Classification Property value.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -314,8 +356,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Property Value Object with the PropertyName.
 
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+#>
 Function Get-ClassificationProperty {
     param
     (
