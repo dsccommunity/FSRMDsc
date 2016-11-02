@@ -21,12 +21,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     $returnValue = @{
         Path = $Path
     }
-    if ($FileScreen)
+    if ($fileScreen)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -36,11 +36,11 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $FileScreen.Description
-            Active = $FileScreen.Active
-            IncludeGroup = @($FileScreen.IncludeGroup)
-            Template = $FileScreen.Template
-            MatchesTemplate = $FileScreen.MatchesTemplate
+            Description = $fileScreen.Description
+            Active = $fileScreen.Active
+            IncludeGroup = @($fileScreen.IncludeGroup)
+            Template = $fileScreen.Template
+            MatchesTemplate = $fileScreen.MatchesTemplate
         }
     }
     else
@@ -99,7 +99,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('MatchesTemplate')
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     if ($Ensure -eq 'Present')
     {
@@ -109,10 +109,10 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The FileScreen exists
-            if ($MatchesTemplate -and ($Template -ne $FileScreen.Template))
+            if ($MatchesTemplate -and ($Template -ne $fileScreen.Template))
             {
                 # The template needs to be changed so the File Screen needs to be
                 # Completely recreated.
@@ -163,7 +163,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The File Screen shouldn't exist - remove it
             Remove-FSRMFileScreen -Path $Path -ErrorAction Stop
@@ -225,18 +225,18 @@ function Test-TargetResource
     Test-ResourceProperty @PSBoundParameters
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     if ($Ensure -eq 'Present')
     {
         # The FileScreen should exist
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The FileScreen exists already - check the parameters
             if ($MatchesTemplate)
             {
                 # MatchesTemplate is set so only care if it matches template
-                if (-not $FileScreen.MatchesTemplate)
+                if (-not $fileScreen.MatchesTemplate)
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -249,7 +249,7 @@ function Test-TargetResource
             else
             {
                 if (($PSBoundParameters.ContainsKey('Active')) `
-                    -and ($FileScreen.Active -ne $Active))
+                    -and ($fileScreen.Active -ne $Active))
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -262,7 +262,7 @@ function Test-TargetResource
                 if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                     -and (Compare-Object `
                     -ReferenceObject $IncludeGroup `
-                    -DifferenceObject $FileScreen.IncludeGroup).Count -ne 0)
+                    -DifferenceObject $fileScreen.IncludeGroup).Count -ne 0)
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -274,7 +274,7 @@ function Test-TargetResource
             } # if ($MatchesTemplate)
 
             if (($PSBoundParameters.ContainsKey('Description')) `
-                -and ($FileScreen.Description -ne $Description))
+                -and ($fileScreen.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -285,7 +285,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Template')) `
-                -and ($FileScreen.Template -ne $Template))
+                -and ($fileScreen.Template -ne $Template))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -309,7 +309,7 @@ function Test-TargetResource
     else
     {
         # The File Screen should not exist
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The File Screen exists but should not
             Write-Verbose -Message ( @(
@@ -343,17 +343,17 @@ Function Get-FileScreen {
     )
     try
     {
-        $FileScreen = Get-FSRMFileScreen -Path $Path -ErrorAction Stop
+        $fileScreen = Get-FSRMFileScreen -Path $Path -ErrorAction Stop
     }
     catch [Microsoft.Management.Infrastructure.CimException]
     {
-        $FileScreen = $null
+        $fileScreen = $null
     }
     catch
     {
         Throw $_
     }
-    Return $FileScreen
+    Return $fileScreen
 }
 <#
 .Synopsis

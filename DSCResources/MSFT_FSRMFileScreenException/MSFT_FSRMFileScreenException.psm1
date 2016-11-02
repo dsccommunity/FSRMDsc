@@ -21,12 +21,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing FileScreenException
-    $FileScreenException = Get-FileScreenException -Path $Path
+    $fileScreenException = Get-FileScreenException -Path $Path
 
     $returnValue = @{
         Path = $Path
     }
-    if ($FileScreenException)
+    if ($fileScreenException)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -36,8 +36,8 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $FileScreenException.Description
-            IncludeGroup = @($FileScreenException.IncludeGroup)
+            Description = $fileScreenException.Description
+            IncludeGroup = @($fileScreenException.IncludeGroup)
         }
     }
     else
@@ -83,7 +83,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing FileScreenException
-    $FileScreenException = Get-FileScreenException -Path $Path
+    $fileScreenException = Get-FileScreenException -Path $Path
 
     if ($Ensure -eq 'Present')
     {
@@ -93,7 +93,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreenException)
+        if ($fileScreenException)
         {
             # The FileScreenException exists
             Set-FSRMFileScreenException @PSBoundParameters `
@@ -126,7 +126,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreenException)
+        if ($fileScreenException)
         {
             # The File Screen Exception shouldn't exist - remove it
             Remove-FSRMFileScreenException -Path $Path -ErrorAction Stop
@@ -176,18 +176,18 @@ function Test-TargetResource
     Test-ResourceProperty @PSBoundParameters
 
     # Lookup the existing FileScreenException
-    $FileScreenException = Get-FileScreenException -Path $Path
+    $fileScreenException = Get-FileScreenException -Path $Path
 
     if ($Ensure -eq 'Present')
     {
         # The FileScreenException should exist
-        if ($FileScreenException)
+        if ($fileScreenException)
         {
             # The FileScreenException exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                 -and (Compare-Object `
                 -ReferenceObject $IncludeGroup `
-                -DifferenceObject $FileScreenException.IncludeGroup).Count -ne 0)
+                -DifferenceObject $fileScreenException.IncludeGroup).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -198,7 +198,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Description')) `
-                -and ($FileScreenException.Description -ne $Description))
+                -and ($fileScreenException.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -220,7 +220,7 @@ function Test-TargetResource
     else
     {
         # The File Screen Exception should not exist
-        if ($FileScreenException)
+        if ($fileScreenException)
         {
             # The File Screen Exception exists but should not
             Write-Verbose -Message ( @(
@@ -254,17 +254,17 @@ Function Get-FileScreenException {
     )
     try
     {
-        $FileScreenException = Get-FSRMFileScreenException -Path $Path -ErrorAction Stop
+        $fileScreenException = Get-FSRMFileScreenException -Path $Path -ErrorAction Stop
     }
     catch [Microsoft.Management.Infrastructure.CimException]
     {
-        $FileScreenException = $null
+        $fileScreenException = $null
     }
     catch
     {
         Throw $_
     }
-    Return $FileScreenException
+    Return $fileScreenException
 }
 
 <#

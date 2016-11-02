@@ -20,12 +20,12 @@ function Get-TargetResource
             -f $Name
         ) -join '' )
 
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($ClassificationRule)
+    if ($classificationRule)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -35,18 +35,18 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $ClassificationRule.Description
-            Property = $ClassificationRule.Property
-            PropertyValue = $ClassificationRule.PropertyValue
-            ClassificationMechanism = $ClassificationRule.ClassificationMechanism
-            ContentRegularExpression = $ClassificationRule.ContentRegularExpression
-            ContentString = $ClassificationRule.ContentString
-            ContentStringCaseSensitive = $ClassificationRule.ContentStringCaseSensitive
-            Disabled = $ClassificationRule.Disabled
-            Flags = $ClassificationRule.Flags
-            Parameters = $ClassificationRule.Parameters
-            Namespace = $ClassificationRule.Namespace
-            ReevaluateProperty = $ClassificationRule.ReevaluateProperty
+            Description = $classificationRule.Description
+            Property = $classificationRule.Property
+            PropertyValue = $classificationRule.PropertyValue
+            ClassificationMechanism = $classificationRule.ClassificationMechanism
+            ContentRegularExpression = $classificationRule.ContentRegularExpression
+            ContentString = $classificationRule.ContentString
+            ContentStringCaseSensitive = $classificationRule.ContentStringCaseSensitive
+            Disabled = $classificationRule.Disabled
+            Flags = $classificationRule.Flags
+            Parameters = $classificationRule.Parameters
+            Namespace = $classificationRule.Namespace
+            ReevaluateProperty = $classificationRule.ReevaluateProperty
         }
     }
     else
@@ -139,7 +139,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing Classification Rule
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -149,7 +149,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule exists
             Set-FSRMClassificationRule @PSBoundParameters -ErrorAction Stop
@@ -180,7 +180,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule shouldn't exist - remove it
             Remove-FSRMClassificationRule -Name $Name -ErrorAction Stop
@@ -268,12 +268,12 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification Rule
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The Classification Rule should exist
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -282,7 +282,7 @@ function Test-TargetResource
                 ) -join '' )
 
             # The Classification Rule exists already - check the parameters
-            if (($Description) -and ($ClassificationRule.Description -ne $Description))
+            if (($Description) -and ($classificationRule.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -292,7 +292,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($Property) -and ($ClassificationRule.Property -ne $Property))
+            if (($Property) -and ($classificationRule.Property -ne $Property))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -302,7 +302,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($PropertyValue) -and ($ClassificationRule.PropertyValue -ne $PropertyValue))
+            if (($PropertyValue) -and ($classificationRule.PropertyValue -ne $PropertyValue))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -313,7 +313,7 @@ function Test-TargetResource
             }
 
             if (($ClassificationMechanism) `
-                -and ($ClassificationRule.ClassificationMechanism -ne $ClassificationMechanism))
+                -and ($classificationRule.ClassificationMechanism -ne $ClassificationMechanism))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -326,7 +326,7 @@ function Test-TargetResource
             if (($ContentRegularExpression) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentRegularExpression `
-                -DifferenceObject $ClassificationRule.ContentRegularExpression).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentRegularExpression).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -339,7 +339,7 @@ function Test-TargetResource
             if (($ContentString) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentString `
-                -DifferenceObject $ClassificationRule.ContentString).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentString).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -352,7 +352,7 @@ function Test-TargetResource
             if (($ContentStringCaseSensitive) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentStringCaseSensitive `
-                -DifferenceObject $ClassificationRule.ContentStringCaseSensitive).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentStringCaseSensitive).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -362,7 +362,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($Disabled) -and ($ClassificationRule.Disabled -ne $Disabled))
+            if (($Disabled) -and ($classificationRule.Disabled -ne $Disabled))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -375,7 +375,7 @@ function Test-TargetResource
             if (($Flags) `
                 -and (Compare-Object `
                 -ReferenceObject $Flags `
-                -DifferenceObject ($ClassificationRule.Flags,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject ($classificationRule.Flags,@(),1 -ne $null)[0]).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -388,7 +388,7 @@ function Test-TargetResource
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($ClassificationRule.Parameters,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject ($classificationRule.Parameters,@(),1 -ne $null)[0]).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -401,7 +401,7 @@ function Test-TargetResource
             if (($Namespace) `
                 -and (Compare-Object `
                 -ReferenceObject $Namespace `
-                -DifferenceObject $ClassificationRule.Namespace).Count -ne 0)
+                -DifferenceObject $classificationRule.Namespace).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -412,7 +412,7 @@ function Test-TargetResource
             }
 
             if (($ReevaluateProperty) `
-                -and ($ClassificationRule.ReevaluateProperty -ne $ReevaluateProperty))
+                -and ($classificationRule.ReevaluateProperty -ne $ReevaluateProperty))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -436,7 +436,7 @@ function Test-TargetResource
     else
     {
         # The Classification Rule should not exist
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule exists but should not
             Write-Verbose -Message ( @(
@@ -470,17 +470,17 @@ Function Get-ClassificationRule {
     )
     try
     {
-        $ClassificationRule = Get-FSRMClassificationRule -Name $Name -ErrorAction Stop
+        $classificationRule = Get-FSRMClassificationRule -Name $Name -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $ClassificationRule = $null
+        $classificationRule = $null
     }
     catch
     {
         Throw $_
     }
-    Return $ClassificationRule
+    Return $classificationRule
 }
 
 Export-ModuleMember -Function *-TargetResource

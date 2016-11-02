@@ -20,12 +20,12 @@ function Get-TargetResource
             -f $Name
         ) -join '' )
 
-    $FileGroup =  Get-FileGroup -Name $Name
+    $fileGroup =  Get-FileGroup -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($FileGroup)
+    if ($fileGroup)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -35,9 +35,9 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $FileGroup.Description
-            IncludePattern = $FileGroup.IncludePattern
-            ExcludePattern = $FileGroup.ExcludePattern
+            Description = $fileGroup.Description
+            IncludePattern = $fileGroup.IncludePattern
+            ExcludePattern = $fileGroup.ExcludePattern
         }
     }
     else
@@ -93,7 +93,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing file group
-    $FileGroup = Get-FileGroup -Name $Name
+    $fileGroup = Get-FileGroup -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -103,7 +103,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($FileGroup)
+        if ($fileGroup)
         {
             # The file group exists
             Set-FSRMFileGroup @PSBoundParameters -ErrorAction Stop
@@ -134,7 +134,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($FileGroup)
+        if ($fileGroup)
         {
             # The File Group shouldn't exist - remove it
             Remove-FSRMFileGroup -Name $Name -ErrorAction Stop
@@ -185,15 +185,15 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing file group
-    $FileGroup = Get-FileGroup -Name $Name
+    $fileGroup = Get-FileGroup -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The File Group should exist
-        if ($FileGroup)
+        if ($fileGroup)
         {
             # The File Group exists already - check the parameters
-            if (($Description) -and ($FileGroup.Description -ne $Description)) {
+            if (($Description) -and ($fileGroup.Description -ne $Description)) {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.FileGroupDescriptionNeedsUpdateMessage) `
@@ -204,7 +204,7 @@ function Test-TargetResource
 
             if (($IncludePattern) -and (Compare-Object `
                 -ReferenceObject $IncludePattern `
-                -DifferenceObject $FileGroup.IncludePattern).Count -ne 0)
+                -DifferenceObject $fileGroup.IncludePattern).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -216,7 +216,7 @@ function Test-TargetResource
 
             if (($ExcludePattern) -and (Compare-Object `
                 -ReferenceObject $ExcludePattern `
-                -DifferenceObject $FileGroup.ExcludePattern).Count -ne 0)
+                -DifferenceObject $fileGroup.ExcludePattern).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -240,7 +240,7 @@ function Test-TargetResource
     else
     {
         # The File Group should not exist
-        if ($FileGroup)
+        if ($fileGroup)
         {
             # The File Group exists but should not
             Write-Verbose -Message ( @(
@@ -274,17 +274,17 @@ Function Get-FileGroup {
     )
     try
     {
-        $FileGroup = Get-FSRMFileGroup -Name $Name -ErrorAction Stop
+        $fileGroup = Get-FSRMFileGroup -Name $Name -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $FileGroup = $null
+        $fileGroup = $null
     }
     catch
     {
         Throw $_
     }
-    Return $FileGroup
+    Return $fileGroup
 }
 
 Export-ModuleMember -Function *-TargetResource

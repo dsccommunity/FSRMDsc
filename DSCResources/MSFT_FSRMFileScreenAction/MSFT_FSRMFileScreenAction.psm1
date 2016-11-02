@@ -27,7 +27,7 @@ function Get-TargetResource
 
     try
     {
-        $Actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
+        $actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
@@ -42,13 +42,13 @@ function Get-TargetResource
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
-    $Action = $Actions | Where-Object { $_.Type -eq $Type }
+    $action = $actions | Where-Object { $_.Type -eq $Type }
 
     $returnValue = @{
         Path = $Path
         Type = $Type
     }
-    if ($Action)
+    if ($action)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -57,20 +57,20 @@ function Get-TargetResource
             ) -join '' )
         $returnValue += @{
             Ensure = 'Present'
-            Subject = $Action.Subject
-            Body = $Action.Body
-            MailBCC = $Action.MailBCC
-            MailCC = $Action.MailCC
-            MailTo = $Action.MailTo
-            Command = $Action.Command
-            CommandParameters = $Action.CommandParameters
-            KillTimeOut = [System.Int32] $Action.KillTimeOut
-            RunLimitInterval = [System.Int32] $Action.RunLimitInterval
-            SecurityLevel = $Action.SecurityLevel
-            ShouldLogError = $Action.ShouldLogError
-            WorkingDirectory = $Action.WorkingDirectory
-            EventType = $Action.EventType
-            ReportTypes = [System.String[]] $Action.ReportTypes
+            Subject = $action.Subject
+            Body = $action.Body
+            MailBCC = $action.MailBCC
+            MailCC = $action.MailCC
+            MailTo = $action.MailTo
+            Command = $action.Command
+            CommandParameters = $action.CommandParameters
+            KillTimeOut = [System.Int32] $action.KillTimeOut
+            RunLimitInterval = [System.Int32] $action.RunLimitInterval
+            SecurityLevel = $action.SecurityLevel
+            ShouldLogError = $action.ShouldLogError
+            WorkingDirectory = $action.WorkingDirectory
+            EventType = $action.EventType
+            ReportTypes = [System.String[]] $action.ReportTypes
         }
     }
     else
@@ -180,7 +180,7 @@ function Set-TargetResource
     # Lookup the existing action
     try
     {
-        $Actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
+        $actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
@@ -196,16 +196,16 @@ function Set-TargetResource
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
 
-    $NewActions = New-Object 'System.Collections.ArrayList'
-    $ActionIndex = $null
+    $newActions = New-Object 'System.Collections.ArrayList'
+    $actionIndex = $null
     # Assemble the Result Object so that it contains an array of Actions
     # DO NOT change this behavior unless you are sure you know what you're doing.
-    for ($a=0; $a -ilt $Actions.Count; $a++)
+    for ($action = 0; $action -ilt $actions.Count; $action++)
     {
-        $null = $NewActions.Add($Actions[$a])
-        if ($Actions[$a].Type -eq $Type)
+        $null = $newActions.Add($actions[$action])
+        if ($actions[$action].Type -eq $Type)
         {
-            $ActionIndex = $a
+            $actionIndex = $action
         }
     }
 
@@ -217,9 +217,9 @@ function Set-TargetResource
                 -f $Path,$Type
             ) -join '' )
 
-        $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
+        $newAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
-        if ($null -eq $ActionIndex)
+        if ($null -eq $actionIndex)
         {
             # Create the action
             Write-Verbose -Message ( @(
@@ -231,7 +231,7 @@ function Set-TargetResource
         else
         {
             # The action exists, remove it then update it
-           $null = $NewActions.RemoveAt($ActionIndex)
+           $null = $newActions.RemoveAt($actionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -240,7 +240,7 @@ function Set-TargetResource
                 ) -join '' )
         }
 
-        $null = $NewActions.Add($NewAction)
+        $null = $newActions.Add($newAction)
     }
     else
     {
@@ -250,7 +250,7 @@ function Set-TargetResource
                 -f $Path,$Type
             ) -join '' )
 
-        if ($null -eq $ActionIndex)
+        if ($null -eq $actionIndex)
         {
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -263,7 +263,7 @@ function Set-TargetResource
         else
         {
             # The Action exists, but shouldn't remove it
-            $null = $NewActions.RemoveAt($ActionIndex)
+            $null = $newActions.RemoveAt($actionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -276,7 +276,7 @@ function Set-TargetResource
     # Now write the actual change to the appropriate place
     Set-FSRMFileScreen `
         -Path $Path `
-        -Notification $NewActions `
+        -Notification $newActions `
         -ErrorAction Stop
 
     Write-Verbose -Message ( @(
@@ -376,7 +376,7 @@ function Test-TargetResource
     # Lookup the existing action and related objects
     try
     {
-        $Actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
+        $actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException] {
         $errorId = 'FileScreenNotFound'
@@ -390,7 +390,7 @@ function Test-TargetResource
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
-    $Action = $Actions | Where-Object { $_.Type -eq $Type }
+    $action = $actions | Where-Object { $_.Type -eq $Type }
 
     if ($Ensure -eq 'Present')
     {
@@ -400,12 +400,12 @@ function Test-TargetResource
                 -f $Path,$Type
             ) -join '' )
 
-        if ($Action)
+        if ($action)
         {
             # The action exists - check it
             #region Parameter Checks
             if (($PSBoundParameters.ContainsKey('Subject')) `
-                -and ($Action.Subject -ne $Subject))
+                -and ($action.Subject -ne $Subject))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -416,7 +416,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Body')) `
-                -and ($Action.Body -ne $Body))
+                -and ($action.Body -ne $Body))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -427,7 +427,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailBCC')) `
-                -and ($Action.MailBCC -ne $MailBCC))
+                -and ($action.MailBCC -ne $MailBCC))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -438,7 +438,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailCC')) `
-                -and ($Action.MailCC -ne $MailCC))
+                -and ($action.MailCC -ne $MailCC))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -449,7 +449,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('MailTo')) `
-                -and ($Action.MailTo -ne $MailTo))
+                -and ($action.MailTo -ne $MailTo))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -460,7 +460,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Command')) `
-                -and ($Action.Command -ne $Command))
+                -and ($action.Command -ne $Command))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -471,7 +471,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('CommandParameters')) `
-                -and ($Action.CommandParameters -ne $CommandParameters))
+                -and ($action.CommandParameters -ne $CommandParameters))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -482,7 +482,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('KillTimeOut')) `
-                -and ($Action.KillTimeOut -ne $KillTimeOut))
+                -and ($action.KillTimeOut -ne $KillTimeOut))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -493,7 +493,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('RunLimitInterval')) `
-                -and ($Action.RunLimitInterval -ne $RunLimitInterval))
+                -and ($action.RunLimitInterval -ne $RunLimitInterval))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -504,7 +504,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('SecurityLevel')) `
-                -and ($Action.SecurityLevel -ne $SecurityLevel))
+                -and ($action.SecurityLevel -ne $SecurityLevel))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -515,7 +515,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ShouldLogError')) `
-                -and ($Action.ShouldLogError -ne $ShouldLogError))
+                -and ($action.ShouldLogError -ne $ShouldLogError))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -526,7 +526,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('WorkingDirectory')) `
-                -and ($Action.WorkingDirectory -ne $WorkingDirectory))
+                -and ($action.WorkingDirectory -ne $WorkingDirectory))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -537,7 +537,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('EventType')) `
-                -and ($Action.EventType -ne $EventType))
+                -and ($action.EventType -ne $EventType))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -548,7 +548,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                -and ($Action.ReportTypes -ne $ReportTypes))
+                -and ($action.ReportTypes -ne $ReportTypes))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -572,7 +572,7 @@ function Test-TargetResource
     }
     else
     {
-        if ($Action)
+        if ($action)
         {
             # The Action exists, but it should be removed
             Write-Verbose -Message ( @(

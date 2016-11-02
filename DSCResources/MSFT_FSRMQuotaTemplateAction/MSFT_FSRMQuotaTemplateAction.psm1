@@ -191,7 +191,7 @@ function Set-TargetResource
                 -f $Name,$Percentage,$Type
             ) -join '' )
 
-        $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
+        $newAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
         if ($null -eq $result.ActionIndex)
         {

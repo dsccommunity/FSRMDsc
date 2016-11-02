@@ -21,12 +21,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing template
-    $FileScreenTemplate = Get-FileScreenTemplate -Name $Name
+    $fileScreenTemplate = Get-FileScreenTemplate -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($FileScreenTemplate)
+    if ($fileScreenTemplate)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -36,9 +36,9 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $FileScreenTemplate.Description
-            Active = $FileScreenTemplate.Active
-            IncludeGroup = @($FileScreenTemplate.IncludeGroup)
+            Description = $fileScreenTemplate.Description
+            Active = $fileScreenTemplate.Active
+            IncludeGroup = @($fileScreenTemplate.IncludeGroup)
         }
     }
     else
@@ -88,7 +88,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing FileScreen Template
-    $FileScreenTemplate = Get-FileScreenTemplate -Name $Name
+    $fileScreenTemplate = Get-FileScreenTemplate -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -98,7 +98,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($FileScreenTemplate)
+        if ($fileScreenTemplate)
         {
             # The File Screen template exists
             Set-FSRMFileScreenTemplate @PSBoundParameters `
@@ -131,7 +131,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($FileScreenTemplate)
+        if ($fileScreenTemplate)
         {
             # The FileScreen Template shouldn't exist - remove it
             Remove-FSRMFileScreenTemplate `
@@ -184,16 +184,16 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing FileScreen Template
-    $FileScreenTemplate = Get-FileScreenTemplate -Name $Name
+    $fileScreenTemplate = Get-FileScreenTemplate -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The FileScreen Template should exist
-        if ($FileScreenTemplate)
+        if ($fileScreenTemplate)
         {
             # The FileScreen Template exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('Description')) `
-                -and ($FileScreenTemplate.Description -ne $Description))
+                -and ($fileScreenTemplate.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -204,7 +204,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Active')) `
-                -and ($FileScreenTemplate.Active -ne $Active))
+                -and ($fileScreenTemplate.Active -ne $Active))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -217,7 +217,7 @@ function Test-TargetResource
             if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                 -and (Compare-Object `
                 -ReferenceObject $IncludeGroup `
-                -DifferenceObject $FileScreenTemplate.IncludeGroup).Count -ne 0)
+                -DifferenceObject $fileScreenTemplate.IncludeGroup).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -241,7 +241,7 @@ function Test-TargetResource
     else
     {
         # The File Screen Template should not exist
-        if ($FileScreenTemplate)
+        if ($fileScreenTemplate)
         {
             # The File Screen Template exists but should not
             Write-Verbose -Message ( @(
@@ -275,19 +275,19 @@ Function Get-FileScreenTemplate {
     )
     try
     {
-        $FileScreenTemplate = Get-FSRMFileScreenTemplate `
+        $fileScreenTemplate = Get-FSRMFileScreenTemplate `
             -Name $Name `
             -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $FileScreenTemplate = $null
+        $fileScreenTemplate = $null
     }
     catch
     {
         Throw $_
     }
-    Return $FileScreenTemplate
+    Return $fileScreenTemplate
 }
 
 Export-ModuleMember -Function *-TargetResource
