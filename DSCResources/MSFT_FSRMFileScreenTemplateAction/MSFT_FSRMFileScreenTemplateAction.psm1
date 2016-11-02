@@ -196,16 +196,16 @@ function Set-TargetResource
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
 
-    $NewActions = New-Object 'System.Collections.ArrayList'
+    $newActions = New-Object 'System.Collections.ArrayList'
     $actionIndex = $null
     # Assemble the Result Object so that it contains an array of Actions
     # DO NOT change this behavior unless you are sure you know what you're doing.
-    for ($a=0; $a -ilt $actions.Count; $a++)
+    for ($action = 0; $action -ilt $actions.Count; $action++)
     {
-        $null = $NewActions.Add($actions[$a])
-        if ($actions[$a].Type -eq $Type)
+        $null = $newActions.Add($actions[$action])
+        if ($actions[$action].Type -eq $Type)
         {
-            $actionIndex = $a
+            $actionIndex = $action
         }
     }
 
@@ -217,9 +217,9 @@ function Set-TargetResource
                 -f $Name,$Type
             ) -join '' )
 
-        $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
+        $newAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
-        if ($actionIndex -eq $null) {
+        if ($null -eq $actionIndex) {
             # Create the action
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -230,7 +230,7 @@ function Set-TargetResource
         else
         {
             # The action exists, remove it then update it
-            $null = $NewActions.RemoveAt($actionIndex)
+            $null = $newActions.RemoveAt($actionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -239,7 +239,7 @@ function Set-TargetResource
                 ) -join '' )
         }
 
-        $null = $NewActions.Add($NewAction)
+        $null = $newActions.Add($newAction)
     }
     else
     {
@@ -249,7 +249,7 @@ function Set-TargetResource
                 -f $Name,$Type
             ) -join '' )
 
-        if ($actionIndex -eq $null)
+        if ($null -eq $actionIndex)
         {
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -262,7 +262,7 @@ function Set-TargetResource
         else
         {
             # The Action exists, but shouldn't remove it
-            $null = $NewActions.RemoveAt($actionIndex)
+            $null = $newActions.RemoveAt($actionIndex)
 
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -274,7 +274,7 @@ function Set-TargetResource
     # Now write the actual change to the appropriate place
     Set-FSRMFileScreenTemplate `
         -Name $Name `
-        -Notification $NewActions `
+        -Notification $newActions `
         -ErrorAction Stop
 
     Write-Verbose -Message ( @(
