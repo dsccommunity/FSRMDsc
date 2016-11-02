@@ -112,8 +112,8 @@ function Set-TargetResource
             # So this must be converted manually. Cast does not seem to work here.
             $convertedScheduleMonthly = `
                 [System.Array]::CreateInstance([System.Int32],$ScheduleMonthly.Length)
-            for ($i=0; $i -lt $ScheduleMonthly.Length; $i++) {
-                $convertedScheduleMonthly[$i] = $ScheduleMonthly[$i]
+            for ($counter = 0; $counter -lt $ScheduleMonthly.Length; $counter++) {
+                $convertedScheduleMonthly[$counter] = $ScheduleMonthly[$counter]
             }
             $splat += @{ Monthly = $convertedScheduleMonthly }
         }
@@ -300,7 +300,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($ScheduleRunDuration) -and ($lassification.Schedule.RunDuration -ne $ScheduleRunDuration))
+    if (($ScheduleRunDuration) -and ($classification.Schedule.RunDuration -ne $ScheduleRunDuration))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
