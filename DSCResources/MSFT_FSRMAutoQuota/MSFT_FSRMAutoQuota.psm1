@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMAutoQuota'
 
+<#
+    .SYNOPSIS
+        Retrieves the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -56,6 +63,22 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -140,6 +163,22 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -241,7 +280,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Retrieves the Auto Quota assigned to a specific path,
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 Function Get-AutoQuota {
     param (
         [Parameter(Mandatory = $true)]
@@ -262,9 +307,21 @@ Function Get-AutoQuota {
 }
 
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
 #>
 Function Test-ResourceProperty {
     [CmdletBinding()]

@@ -191,7 +191,7 @@ function Set-TargetResource
                 -f $Path,$Percentage,$Type
             ) -join '' )
 
-        $NewAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
+        $newAction = New-FSRMAction @PSBoundParameters -ErrorAction Stop
 
         if ($null -eq $result.ActionIndex)
         {
@@ -214,7 +214,7 @@ function Set-TargetResource
                 ) -join '' )
         }
 
-        $result.SourceObjects[$result.SourceIndex].Action.Add($NewAction)
+        $result.SourceObjects[$result.SourceIndex].Action.Add($newAction)
     }
     else
     {
@@ -678,7 +678,7 @@ Function Set-Action {
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Percentage = $o.Percentage
+                Percentage = $object.Percentage
                 Action = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
             }
     }
