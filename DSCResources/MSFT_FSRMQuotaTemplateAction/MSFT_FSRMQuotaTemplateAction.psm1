@@ -616,23 +616,23 @@ Function Get-Action {
     # This object is created from copies of the CIM classes returned in the threshold objects
     # but put into ArrayLists so that they can be manipulated.
     # DO NOT change this behavior unless you are sure you know what you're doing.
-    for ($t=0; $t -ilt $quotaTemplate.Threshold.Count; $t++)
+    for ($threshold = 0; $threshold -ilt $quotaTemplate.Threshold.Count; $threshold++)
     {
         $newActions = New-Object -TypeName 'System.Collections.ArrayList'
-        if ($quotaTemplate.Threshold[$t].Percentage -eq $Percentage)
+        if ($quotaTemplate.Threshold[$threshold].Percentage -eq $Percentage)
         {
-            $ResultObject.SourceIndex = $t
+            $ResultObject.SourceIndex = $threshold
         }
-        for ($a=0; $a -ilt $quotaTemplate.Threshold[$t].Action.Count; $a++)
+        for ($action = 0; $action -ilt $quotaTemplate.Threshold[$threshold].Action.Count; $action++)
         {
-            $newActions.Add($quotaTemplate.Threshold[$t].Action[$a])
-            if (($quotaTemplate.Threshold[$t].Action[$a].Type -eq $Type) `
-                -and ($resultObject.SourceIndex -eq $t))
+            $newActions.Add($quotaTemplate.Threshold[$threshold].Action[$action])
+            if (($quotaTemplate.Threshold[$threshold].Action[$action].Type -eq $Type) `
+                -and ($resultObject.SourceIndex -eq $threshold))
             {
-                $resultObject.ActionIndex = $a
+                $resultObject.ActionIndex = $action
             }
         }
-        $properties = @{'Percentage' = $quotaTemplate.Threshold[$t].Percentage;
+        $properties = @{'Percentage' = $quotaTemplate.Threshold[$threshold].Percentage;
             'Action' = $newActions;}
         $newSourceObject = New-Object -TypeName 'PSObject' -Property $properties
         $resultObject.SourceObjects += @($newSourceObject)
@@ -678,7 +678,7 @@ Function Set-Action {
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Percentage = $o.Percentage
+                Percentage = $object.Percentage
                 Action = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
             }
     }
