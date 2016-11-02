@@ -31,8 +31,13 @@ try
         #region DEFAULT TESTS
         It 'Should compile without throwing' {
             {
-                Invoke-Expression -Command "$($Global:DSCResourceName)_Config -OutputPath `$TestEnvironment.WorkingFolder"
-                Start-DscConfiguration -Path $TestEnvironment.WorkingFolder -ComputerName localhost -Wait -Verbose -Force
+                & "$($Global:DSCResourceName)_Config" -OutputPath $TestEnvironment.WorkingFolder
+                Start-DscConfiguration `
+                    -Path $TestEnvironment.WorkingFolder `
+                    -ComputerName localhost `
+                    -Wait `
+                    -Verbose `
+                    -Force
             } | Should not throw
         }
 
