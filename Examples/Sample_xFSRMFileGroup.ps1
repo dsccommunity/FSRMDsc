@@ -1,3 +1,4 @@
+# This configuration will create a FSRM File Group called 'Portable Document Files'.
 configuration Sample_FSRMFileGroup
 {
     Import-DscResource -Module FSRMDSc

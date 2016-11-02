@@ -243,6 +243,9 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Added CommonResourceHelper.psm1 module from PSDscResources.
 * Update parameter format to meet HQRM guidelines.
 * MSFT_FSRMSettings: Converted to standard single instance pattern.
+* Removed Invoke-Expression from integration tests.
+* Added standard function help header to all resource functions.
+* Added description to all example files.
 
 ### 2.1.0.0
 
@@ -278,7 +281,7 @@ configuration Sample_FSRMSettings
     {
         FSRMSettings FSRMSettings
         {
-            Id = 'Default'
+            IsSingleInstance = 'Yes'
             SmtpServer = 'smtp.contoso.com'
             AdminEmailAddress = 'fsadmin@contoso.com'
             FromEmailAddress = 'fsuser@contoso.com'
@@ -549,7 +552,7 @@ configuration Sample_FSRMFileScreenException
 
 ### Configure a FSRM File Group
 
-This configuration will create a FSRM File Group called 'Archives'.
+This configuration will create a FSRM File Group called 'Portable Document Files'.
 
 ```powershell
 configuration Sample_FSRMFileGroup

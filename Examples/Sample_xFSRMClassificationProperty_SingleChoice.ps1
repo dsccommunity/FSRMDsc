@@ -1,6 +1,7 @@
+# This configuration will create a FSRM Single Choice Classification Property called Privacy.
 configuration Sample_FSRMClassificationProperty_SingleChoice
 {
-    Import-DscResource -Module FSRM
+    Import-DscResource -Module FSRMDsc
 
     Node $NodeName
     {
