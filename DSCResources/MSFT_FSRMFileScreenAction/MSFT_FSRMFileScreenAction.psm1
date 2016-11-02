@@ -3,6 +3,16 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreenAction'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Screen Action assigned to the specified Path.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -89,6 +99,61 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Screen Action assigned to the specified Path.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -286,6 +351,61 @@ function Set-TargetResource
         ) -join '' )
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Screen Action assigned to the specified Path.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]

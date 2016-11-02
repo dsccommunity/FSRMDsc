@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreen'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -59,6 +66,32 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -177,6 +210,32 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -332,8 +391,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM File Screen Object applied to the specified Path.
 
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 Function Get-FileScreen {
     param
     (
@@ -355,10 +419,33 @@ Function Get-FileScreen {
     }
     Return $fileScreen
 }
+
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
 #>
 Function Test-ResourceProperty {
     [CmdletBinding()]

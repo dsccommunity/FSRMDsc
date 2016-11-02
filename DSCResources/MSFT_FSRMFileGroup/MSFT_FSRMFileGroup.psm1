@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileGroup'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Group with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Group.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -56,6 +63,25 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Group with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Group.
+
+    .PARAMETER Description
+        The description for the FSRM File Group.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Group should exist.
+
+    .PARAMETER IncludePattern
+        An array of file patterns to include in this FSRM File Group.
+
+    .PARAMETER ExcludePattern
+        An array of file patterns to exclude in this FSRM File Group.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -148,6 +174,25 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Group with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Group.
+
+    .PARAMETER Description
+        The description for the FSRM File Group.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Group should exist.
+
+    .PARAMETER IncludePattern
+        An array of file patterns to include in this FSRM File Group.
+
+    .PARAMETER ExcludePattern
+        An array of file patterns to exclude in this FSRM File Group.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -263,8 +308,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM File Group object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM File Group.
+#>
 Function Get-FileGroup {
     param
     (
