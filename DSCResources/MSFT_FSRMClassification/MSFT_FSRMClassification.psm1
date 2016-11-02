@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassification'
 
+<#
+    .SYNOPSIS
+        Retrieves the current state of the FSRM Classification with the specified Id.
+
+    .PARAMETER Id
+        This is a unique identifier for this resource.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -39,7 +46,38 @@ function Get-TargetResource
     return $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the current state of the FSRM Classification with the specified Id.
 
+    .PARAMETER Id
+        This is a unique identifier for this resource.
+
+    .PARAMETER Continuous
+        Enable FSRM Classification continuous mode for new files.
+
+    .PARAMETER ContinuousLog
+        Enable FSRM Classification continuous mode logging."
+
+    .PARAMETER ContinuousLogSize
+        The maximum number of KB that can be used for the continuous mode log file.
+
+    .PARAMETER ExcludeNamespace
+        An array of Namespaces that will be excluded from FSRM Classification.
+
+    .PARAMETER ScheduleMonthly
+        An array of days of the month the FSRM Classification should run on.
+
+    .PARAMETER ScheduleWeekly
+        An array of named days of the week the FSRM Classification should run on.
+
+    .PARAMETER ScheduleRunDuration
+        The maximum number of hours the FSRM Classification can run for. Setting this to -1
+        will disable this.
+
+    .PARAMETER ScheduleTime
+        A string containing the time of day the FSRM Classification should run at.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -176,6 +214,38 @@ function Set-TargetResource
 
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the current state of the FSRM Classification with the specified Id.
+
+    .PARAMETER Id
+        This is a unique identifier for this resource.
+
+    .PARAMETER Continuous
+        Enable FSRM Classification continuous mode for new files.
+
+    .PARAMETER ContinuousLog
+        Enable FSRM Classification continuous mode logging."
+
+    .PARAMETER ContinuousLogSize
+        The maximum number of KB that can be used for the continuous mode log file.
+
+    .PARAMETER ExcludeNamespace
+        An array of Namespaces that will be excluded from FSRM Classification.
+
+    .PARAMETER ScheduleMonthly
+        An array of days of the month the FSRM Classification should run on.
+
+    .PARAMETER ScheduleWeekly
+        An array of named days of the week the FSRM Classification should run on.
+
+    .PARAMETER ScheduleRunDuration
+        The maximum number of hours the FSRM Classification can run for. Setting this to -1
+        will disable this.
+
+    .PARAMETER ScheduleTime
+        A string containing the time of day the FSRM Classification should run at.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]

@@ -25,7 +25,7 @@ try
     InModuleScope $Global:DSCResourceName {
         # Create the Mock Objects that will be used for running tests
         $Global:Settings = [PSObject] @{
-            Id = 'Default'
+            IsSingleInstance = 'Yes'
             SmtpServer = 'smtp.contoso.com'
             AdminEmailAddress = 'admin@contoso.com'
             FromEmailAddress = 'fsrm@contoso.com'
@@ -54,7 +54,7 @@ try
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return correct Settings properties' {
-                    $Result = Get-TargetResource -Id $Global:Settings.Id
+                    $Result = Get-TargetResource -IsSingleInstance $Global:Settings.IsSingleInstance
                     $Result.SmtpServer | Should Be $Global:Settings.SmtpServer
                     $Result.AdminEmailAddress | Should Be $Global:Settings.AdminEmailAddress
                     $Result.FromEmailAddress | Should Be $Global:Settings.FromEmailAddress

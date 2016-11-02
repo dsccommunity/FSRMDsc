@@ -1,7 +1,7 @@
 ConvertFrom-StringData -StringData @'
-    GettingSettingsMessage=Getting FSRM Settings "{0}".
-    SettingSettingsMessage=Setting FSRM Settings "{0}".
-    SettingsUpdatedMessage=FSRM Settings "{0}" Updated.
-    TestingSettingsMessage=Testing FSRM Settings "{0}".
-    SettingsNeedsUpdateMessage=FSRM Settings "{0}" {1} is different. Change required.
+    GettingSettingsMessage=Getting FSRM Settings.
+    SettingSettingsMessage=Setting FSRM Settings.
+    SettingsUpdatedMessage=FSRM Settings Updated.
+    TestingSettingsMessage=Testing FSRM Settings.
+    SettingsNeedsUpdateMessage=FSRM Settings {0} is different. Change required.
 '@

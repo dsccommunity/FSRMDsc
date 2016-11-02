@@ -32,7 +32,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 
 ### FSRMSettings
 
-* **`[String]` Id** (_Key_): This is a unique identifier for this resource.
+* **`[String]` IsSingleInstance** (_Key_): Specifies if the resource is a single instance. { Yes }.
 * **`[String]` SmtpServer** (_Write_): Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that FSRM uses to send email.
 * **`[String]` AdminEmailAddress** (_Write_): Specifies a semicolon-separated list of email addresses for the recipients of any email that the server sends to the administrator.
 * **`[String]` FromEmailAddress** (_Write_): Specifies the default email address from which FSRM sends email messages.
@@ -242,6 +242,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Moved all localization strings into separate localization files.
 * Added CommonResourceHelper.psm1 module from PSDscResources.
 * Update parameter format to meet HQRM guidelines.
+* MSFT_FSRMSettings: Converted to standard single instance pattern.
 
 ### 2.1.0.0
 

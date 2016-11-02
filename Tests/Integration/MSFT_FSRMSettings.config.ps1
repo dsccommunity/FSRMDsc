@@ -1,5 +1,5 @@
 $settings = @{
-    Id                       = 'Default'
+    IsSingleInstance         = 'Yes'
     SmtpServer               = 'smtp.contoso.com'
     AdminEmailAddress        = 'admin@contoso.com'
     FromEmailAddress         = 'fsrm@contoso.com'
@@ -12,7 +12,7 @@ Configuration MSFT_FSRMSettings_Config {
     Import-DscResource -ModuleName FSRMDsc
     node localhost {
        FSRMSettings Integration_Test {
-            Id                       = $settings.Id
+            IsSingleInstance         = $settings.IsSingleInstance
             SmtpServer               = $settings.SmtpServer
             AdminEmailAddress        = $settings.AdminEmailAddress
             FromEmailAddress         = $settings.FromEmailAddress
