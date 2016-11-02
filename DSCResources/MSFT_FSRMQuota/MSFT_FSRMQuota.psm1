@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMQuota'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Quota assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -61,6 +68,38 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Set the FSRM Quota assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and ignore Size, SoftLimit and
+        ThresholdPercentage parameters.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -244,6 +283,38 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Quota assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and ignore Size, SoftLimit and
+        ThresholdPercentage parameters.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -431,8 +502,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the current quota assigned to this Path.
 
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 Function Get-Quota {
     param
     (
@@ -456,9 +532,37 @@ Function Get-Quota {
 }
 
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and ignore Size, SoftLimit and
+        ThresholdPercentage parameters.
 #>
 Function Test-ResourceProperty {
     [CmdletBinding()]

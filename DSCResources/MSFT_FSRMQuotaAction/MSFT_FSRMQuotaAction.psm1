@@ -3,6 +3,19 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMQuotaAction'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Quota Action assigned to the specified Path/Threshold.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Percentage
+        This is the threshold percentage the action is attached to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -83,6 +96,64 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Quota Action assigned to the specified Path/Threshold.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Percentage
+        This is the threshold percentage the action is attached to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -258,6 +329,64 @@ function Set-TargetResource
         ) -join '' )
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Quota Action assigned to the specified Path/Threshold.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Percentage
+        This is the threshold percentage the action is attached to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -562,14 +691,21 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
-
 <#
-.Synopsis
-    This function tries to find a matching Quota and threshold object
-    If found, it assembles all threshold and action objects into modifiable arrays
-    So that they can be worked with and then later saved back into the Quota
-    Using Set-Action.
+    .SYNOPSIS
+        This function tries to find a matching Quota and threshold object.
+        If found, it assembles all threshold and action objects into modifiable arrays
+        so that they can be worked with and then later saved back into the Quota
+        Using Set-Action.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER Percentage
+        This is the threshold percentage the action is attached to.
+
+    .PARAMETER Type
+        The type of FSRM Action.
 #>
 Function Get-Action {
     param
@@ -656,9 +792,15 @@ Function Get-Action {
 }
 
 <#
-.Synopsis
-    This function converts the result object that was created by Get-Action back
-    Into a form that can be saved into the Quota.
+    .SYNOPSIS
+        This function saves the result object that was created by Get-Action back
+        into the Quota.
+
+    .PARAMETER Path
+        The path of the FSRM Quota the action applies to.
+
+    .PARAMETER ResultObject
+        The object returned by Get-Action that will be used to update the Action.
 #>
 Function Set-Action {
     param

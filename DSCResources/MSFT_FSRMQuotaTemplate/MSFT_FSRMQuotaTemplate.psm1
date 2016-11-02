@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMQuotaTemplate'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -58,6 +65,28 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota Template should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota Template limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota Template has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota Template.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -196,6 +225,28 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota Template should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota Template limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota Template has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota Template.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -330,8 +381,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Quota Template with the specified Name.
 
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+#>
 Function Get-QuotaTemplate
 {
     param
