@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreenException'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Screen Exception assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -51,11 +58,27 @@ function Get-TargetResource
         $returnValue += @{
             Ensure = 'Absent'
         }
-    }
+    } # if
 
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Screen Exception assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -116,7 +139,7 @@ function Set-TargetResource
                 $($LocalizedData.FileScreenExceptionCreatedMessage) `
                     -f $Path
                 ) -join '' )
-        }
+        } # if
     }
     else
     {
@@ -140,6 +163,22 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Screen Exception assigned to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -195,7 +234,7 @@ function Test-TargetResource
                         -f $Path,'IncludeGroup'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('Description')) `
                 -and ($fileScreenException.Description -ne $Description))
@@ -206,7 +245,7 @@ function Test-TargetResource
                         -f $Path,'Description'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
         } else {
             # The File Screen Exception doesn't exist but should
             Write-Verbose -Message ( @(
@@ -238,13 +277,18 @@ function Test-TargetResource
                  $($LocalizedData.FileScreenExceptionDoesNotExistAndShouldNotMessage) `
                     -f  $Path
                 ) -join '' )
-        }
+        } # if
     } # if
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM File Screen Exception Object assigned to the specified Path.
 
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 Function Get-FileScreenException {
     param
     (
@@ -268,9 +312,21 @@ Function Get-FileScreenException {
 }
 
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
 #>
 Function Test-ResourceProperty {
     [CmdletBinding()]
@@ -299,12 +355,12 @@ Function Test-ResourceProperty {
         $errorId = 'FileScreenExceptionPathDoesNotExistError'
         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Path
-    }
+    } # if
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if File Screen Exception should be removed.
         return
-    }
+    } # if
     if ($errorId)
     {
         $exception = New-Object -TypeName System.InvalidOperationException `
@@ -313,7 +369,7 @@ Function Test-ResourceProperty {
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
-    }
+    } # if
 }
 
 Export-ModuleMember -Function *-TargetResource

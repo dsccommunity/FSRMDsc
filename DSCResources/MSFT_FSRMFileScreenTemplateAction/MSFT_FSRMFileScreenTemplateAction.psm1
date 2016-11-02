@@ -3,6 +3,16 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreenTemplateAction'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Screen Action Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Screen Template.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -41,7 +51,8 @@ function Get-TargetResource
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
-    }
+    } # try
+
     $action = $actions | Where-Object { $_.Type -eq $Type }
 
     $returnValue = @{
@@ -84,11 +95,66 @@ function Get-TargetResource
         $returnValue += @{
             Ensure = 'Absent'
         }
-    }
+    } # if
 
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Screen Action Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Screen Template.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -194,7 +260,7 @@ function Set-TargetResource
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
-    }
+    } # try
 
     $newActions = New-Object 'System.Collections.ArrayList'
     $actionIndex = $null
@@ -206,8 +272,8 @@ function Set-TargetResource
         if ($actions[$action].Type -eq $Type)
         {
             $actionIndex = $action
-        }
-    }
+        } # if
+    } # for
 
     if ($Ensure -eq 'Present')
     {
@@ -237,7 +303,7 @@ function Set-TargetResource
                 $($LocalizedData.ActionUpdatedMessage) `
                     -f $Name,$Type
                 ) -join '' )
-        }
+        } # if
 
         $null = $newActions.Add($newAction)
     }
@@ -284,6 +350,61 @@ function Set-TargetResource
         ) -join '' )
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Screen Action Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Screen Template.
+
+    .PARAMETER Type
+        The type of FSRM Action.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Action should exist.
+
+    .PARAMETER Subject
+        The subject of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER Body
+        The body text of the e-mail or event. Required when Type is Email or Event.
+
+    .PARAMETER MailTo
+        The mail to of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailCC
+        The mail CC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER MailBCC
+        The mail BCC of the e-mail sent. Required when Type is Email.
+
+    .PARAMETER EventType
+        The type of event created. Required when Type is Event.
+
+    .PARAMETER Command
+        The Command to execute. Required when Type is Command.
+
+    .PARAMETER CommandParameters
+        The Command Parameters. Required when Type is Command.
+
+    .PARAMETER KillTimeOut
+        Int containing kill timeout of the command. Required when Type is Command.
+
+    .PARAMETER RunLimitInterval
+        Int containing the run limit interval of the command. Required when Type is Command.
+
+    .PARAMETER SecurityLevel
+        The security level the command runs under. Required when Type is Command.
+
+    .PARAMETER ShouldLogError
+        Boolean specifying if command errors should be logged. Required when Type is Command.
+
+    .PARAMETER WorkingDirectory
+        The working directory of the command. Required when Type is Command.
+
+    .PARAMETER ReportTypes
+        Array of Reports to create. Required when Type is Report.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -388,7 +509,8 @@ function Test-TargetResource
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
-    }
+    } # try
+
     $action = $actions | Where-Object { $_.Type -eq $Type }
 
     if ($Ensure -eq 'Present')
@@ -412,7 +534,7 @@ function Test-TargetResource
                         -f $Name,$Type,'Subject'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('Body')) `
                 -and ($action.Body -ne $Body))
@@ -423,7 +545,7 @@ function Test-TargetResource
                         -f $Name,$Type,'Body'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('MailBCC')) `
                 -and ($action.MailBCC -ne $MailBCC))
@@ -434,7 +556,7 @@ function Test-TargetResource
                         -f $Name,$Type,'MailBCC'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('MailCC')) `
                 -and ($action.MailCC -ne $MailCC))
@@ -445,7 +567,7 @@ function Test-TargetResource
                         -f $Name,$Type,'MailCC'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('MailTo')) `
                 -and ($action.MailTo -ne $MailTo))
@@ -456,7 +578,7 @@ function Test-TargetResource
                         -f $Name,$Type,'MailTo'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('Command')) `
                 -and ($action.Command -ne $Command))
@@ -467,7 +589,7 @@ function Test-TargetResource
                         -f $Name,$Type,'Command'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('CommandParameters')) `
                 -and ($action.CommandParameters -ne $CommandParameters))
@@ -478,7 +600,7 @@ function Test-TargetResource
                         -f $Name,$Type,'CommandParameters'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('KillTimeOut')) `
                 -and ($action.KillTimeOut -ne $KillTimeOut))
@@ -489,7 +611,7 @@ function Test-TargetResource
                         -f $Name,$Type,'KillTimeOut'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('RunLimitInterval')) `
                 -and ($action.RunLimitInterval -ne $RunLimitInterval))
@@ -500,7 +622,7 @@ function Test-TargetResource
                         -f $Name,$Type,'RunLimitInterval'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('SecurityLevel')) `
                 -and ($action.SecurityLevel -ne $SecurityLevel))
@@ -511,7 +633,7 @@ function Test-TargetResource
                         -f $Name,$Type,'SecurityLevel'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('ShouldLogError')) `
                 -and ($action.ShouldLogError -ne $ShouldLogError))
@@ -522,7 +644,7 @@ function Test-TargetResource
                         -f $Name,$Type,'ShouldLogError'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('WorkingDirectory')) `
                 -and ($action.WorkingDirectory -ne $WorkingDirectory))
@@ -533,7 +655,7 @@ function Test-TargetResource
                         -f $Name,$Type,'WorkingDirectory'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('EventType')) `
                 -and ($action.EventType -ne $EventType))
@@ -544,7 +666,7 @@ function Test-TargetResource
                         -f $Name,$Type,'EventType'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
 
             if (($PSBoundParameters.ContainsKey('ReportTypes')) `
                 -and ($action.ReportTypes -ne $ReportTypes))
@@ -555,7 +677,7 @@ function Test-TargetResource
                         -f $Name,$Type,'ReportTypes'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
-            }
+            } # if
             #endregion
         }
         else
@@ -567,7 +689,7 @@ function Test-TargetResource
                     -f $Name,$Type
                 ) -join '' )
             $desiredConfigurationMatch = $false
-        }
+        } # if
     }
     else
     {
@@ -595,14 +717,18 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
-
 <#
-.Synopsis
-    This function tries to find a matching File Screen Template.
-    If found, it assembles all threshold and action objects into modifiable arrays
-    So that they can be worked with and then later saved back into the FileScreen Template
-    Using Set-Action.
+    .SYNOPSIS
+        This function tries to find a matching File Screen Template.
+        If found, it assembles all threshold and action objects into modifiable arrays
+        So that they can be worked with and then later saved back into the File Screen
+        Template using Set-Action.
+
+    .PARAMETER Name
+        The name of the FSRM File Screen Template.
+
+    .PARAMETER Type
+        The type of FSRM Action.
 #>
 Function Get-Action {
     param
@@ -637,7 +763,7 @@ Function Get-Action {
             -ArgumentList $exception, $errorId, $errorCategory, $null
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
-    }
+    } # try
 
     # Assemble the Result Object so that it contains an array of Actions
     # DO NOT change this behavior unless you are sure you know what you're doing.
@@ -647,8 +773,8 @@ Function Get-Action {
         if ($fileScreenTemplate.Notification[$action].Type -eq $Type)
         {
             $resultObject.ActionIndex = $action
-        }
-    }
+        } # if
+    } # for
 
     # Return the result
     Return $resultObject

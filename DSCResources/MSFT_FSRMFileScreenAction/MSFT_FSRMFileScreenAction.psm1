@@ -8,7 +8,7 @@ $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreenAction'
         Retrieves the FSRM File Screen Action assigned to the specified Path.
 
     .PARAMETER Path
-        The path of the FSRM Quota the action applies to.
+        The path of the FSRM File Screen the action applies to.
 
     .PARAMETER Type
         The type of FSRM Action.
@@ -104,7 +104,7 @@ function Get-TargetResource
         Sets the FSRM File Screen Action assigned to the specified Path.
 
     .PARAMETER Path
-        The path of the FSRM Quota the action applies to.
+        The path of the FSRM File Screen the action applies to.
 
     .PARAMETER Type
         The type of FSRM Action.
@@ -356,7 +356,7 @@ function Set-TargetResource
         Tests the FSRM File Screen Action assigned to the specified Path.
 
     .PARAMETER Path
-        The path of the FSRM Quota the action applies to.
+        The path of the FSRM FIle Screen the action applies to.
 
     .PARAMETER Type
         The type of FSRM Action.

@@ -3,6 +3,13 @@ Import-Module -Name (Join-Path `
     -ChildPath 'CommonResourceHelper.psm1')
 $LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreenTemplate'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Template.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -57,6 +64,26 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen Template should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File
+        Screen is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -147,6 +174,26 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Template with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM File Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen Template should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File
+        Screen is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -264,8 +311,13 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM File Template Object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM File Template.
+#>
 Function Get-FileScreenTemplate {
     param
     (
