@@ -246,6 +246,7 @@ For more information see the [Code of Conduct FAQ](https://opensource.microsoft.
 * Removed Invoke-Expression from integration tests.
 * Added standard function help header to all resource functions.
 * Added description to all example files.
+* Updated all integration tests to use v1.1.1 template format.
 
 ### 2.1.0.0
 
