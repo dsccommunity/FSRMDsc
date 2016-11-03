@@ -202,7 +202,8 @@ function Test-TargetResource
     $settings = Get-FSRMSetting
 
     # The Settings exists already - check the parameters
-    if (($SmtpServer) -and ($settings.SmtpServer -ne $SmtpServer))
+    if (($PSBoundParameters.ContainsKey('SmtpServer')) `
+        -and ($settings.SmtpServer -ne $SmtpServer))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -212,7 +213,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($AdminEmailAddress) `
+    if (($PSBoundParameters.ContainsKey('AdminEmailAddress')) `
         -and ($settings.AdminEmailAddress -ne $AdminEmailAddress))
     {
         Write-Verbose -Message ( @(
@@ -223,7 +224,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($FromEmailAddress) `
+    if (($PSBoundParameters.ContainsKey('FromEmailAddress')) `
         -and ($settings.FromEmailAddress -ne $FromEmailAddress))
     {
         Write-Verbose -Message ( @(
@@ -234,7 +235,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($CommandNotificationLimit) `
+    if (($PSBoundParameters.ContainsKey('CommandNotificationLimit')) `
         -and ($settings.CommandNotificationLimit -ne $CommandNotificationLimit))
     {
         Write-Verbose -Message ( @(
@@ -245,7 +246,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($EmailNotificationLimit) `
+    if (($PSBoundParameters.ContainsKey('EmailNotificationLimit')) `
         -and ($settings.EmailNotificationLimit -ne $EmailNotificationLimit))
     {
         Write-Verbose -Message ( @(
@@ -256,7 +257,7 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
-    if (($EventNotificationLimit) `
+    if (($PSBoundParameters.ContainsKey('EventNotificationLimit')) `
         -and ($settings.EventNotificationLimit -ne $EventNotificationLimit))
     {
         Write-Verbose -Message ( @(
