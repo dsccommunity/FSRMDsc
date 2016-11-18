@@ -27,20 +27,20 @@ function Get-TargetResource
             -f $Id
         ) -join '' )
 
-    $Classification = Get-FSRMClassification -ErrorAction Stop
+    $classification = Get-FSRMClassification -ErrorAction Stop
 
     $returnValue = @{
         Id = $Id
-        Continuous = $Classification.Continuous
-        ContinuousLog = $Classification.ContinuousLog
-        ContinuousLogSize = $Classification.ContinuousLogSize
-        ExcludeNamespace = $Classification.ExcludeNamespace
-        ScheduleMonthly = [System.Uint32[]] @($Classification.Schedule.Monthly)
-        ScheduleWeekly = [String[]] @($Classification.Schedule.Weekly)
-        ScheduleRunDuration = [System.Uint32] $Classification.Schedule.RunDuration
-        ScheduleTime = $Classification.Schedule.Time
-        LastError = $Classification.LastError
-        Status = $Classification.Status
+        Continuous = $classification.Continuous
+        ContinuousLog = $classification.ContinuousLog
+        ContinuousLogSize = $classification.ContinuousLogSize
+        ExcludeNamespace = $classification.ExcludeNamespace
+        ScheduleMonthly = [System.Uint32[]] @($classification.Schedule.Monthly)
+        ScheduleWeekly = [String[]] @($classification.Schedule.Weekly)
+        ScheduleRunDuration = [System.Uint32] $classification.Schedule.RunDuration
+        ScheduleTime = $classification.Schedule.Time
+        LastError = $classification.LastError
+        Status = $classification.Status
     }
 
     return $returnValue
@@ -140,7 +140,7 @@ function Set-TargetResource
         $schedule = (Get-FSRMClassification).Schedule
 
         # Create a splat to use to create the new Scheduled Task
-        $splat = @{}
+        $newScheduledTaskParameters = @{}
 
         if ($PSBoundParameters.ContainsKey('ScheduleMonthly'))
         {
@@ -153,38 +153,38 @@ function Set-TargetResource
             for ($counter = 0; $counter -lt $ScheduleMonthly.Length; $counter++) {
                 $convertedScheduleMonthly[$counter] = $ScheduleMonthly[$counter]
             }
-            $splat += @{ Monthly = $convertedScheduleMonthly }
+            $newScheduledTaskParameters += @{ Monthly = $convertedScheduleMonthly }
         }
         elseif ( $schedule.Monthly )
         {
-            $splat += @{ Monthly = $schedule.Monthly }
+            $newScheduledTaskParameters += @{ Monthly = $schedule.Monthly }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleWeekly'))
         {
-            $splat += @{ Weekly = $ScheduleWeekly }
+            $newScheduledTaskParameters += @{ Weekly = $ScheduleWeekly }
         }
         elseif ( $schedule.Weekly )
         {
-            $splat += @{ Weekly = $schedule.Weekly }
+            $newScheduledTaskParameters += @{ Weekly = $schedule.Weekly }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleRunDuration'))
         {
-            $splat += @{ RunDuration = $ScheduleRunDuration }
+            $newScheduledTaskParameters += @{ RunDuration = $ScheduleRunDuration }
         }
         elseif ( $schedule.RunDuration )
         {
-            $splat += @{ RunDuration = $schedule.RunDuration }
+            $newScheduledTaskParameters += @{ RunDuration = $schedule.RunDuration }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleTime'))
         {
-            $splat += @{ Time = $ScheduleTime }
+            $newScheduledTaskParameters += @{ Time = $ScheduleTime }
         }
         elseif ( $schedule.Time )
         {
-            $splat += @{ Time = $schedule.Time }
+            $newScheduledTaskParameters += @{ Time = $schedule.Time }
         }
 
         # Remove the schedule parameters
