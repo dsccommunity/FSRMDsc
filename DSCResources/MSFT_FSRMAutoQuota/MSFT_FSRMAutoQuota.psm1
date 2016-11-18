@@ -1,3 +1,6 @@
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("UseShouldProcessForStateChangingFunctions","")]
+Param()
+
 Import-Module -Name (Join-Path `
     -Path (Split-Path -Path $PSScriptRoot -Parent) `
     -ChildPath 'CommonResourceHelper.psm1')
