@@ -195,13 +195,9 @@ try
                 It 'should throw an FileScreenExceptionPathDoesNotExistError exception' {
                     $Splat = $Global:TestFileScreenException.Clone()
 
-                    $errorId = 'FileScreenExceptionPathDoesNotExistError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }

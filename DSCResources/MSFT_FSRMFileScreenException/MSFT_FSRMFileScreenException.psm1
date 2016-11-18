@@ -362,23 +362,19 @@ Function Assert-ResourcePropertiesValid {
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorId = 'FileScreenExceptionPathDoesNotExistError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Path
+        $errorArgumentName = 'Path'
     } # if
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if File Screen Exception should be removed.
         return
     } # if
-    if ($errorId)
+    if ($errorMessage)
     {
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message $errorMessage `
+            -ArgumentName $errorArgumentName
     } # if
 }
 

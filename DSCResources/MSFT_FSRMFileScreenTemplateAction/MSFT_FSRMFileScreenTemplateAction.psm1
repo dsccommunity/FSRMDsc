@@ -41,16 +41,9 @@ function Get-TargetResource
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenTemplateNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-            -f $Name,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name,$Type) `
+            -ArgumentName 'Name'
     } # try
 
     $action = $actions | Where-Object { $_.Type -eq $Type }
@@ -251,16 +244,9 @@ function Set-TargetResource
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenTemplateNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-            -f $Name,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name,$Type) `
+            -ArgumentName 'Name'
     } # try
 
     $newActions = New-Object 'System.Collections.ArrayList'
@@ -500,16 +486,9 @@ function Test-TargetResource
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenTemplateNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-            -f $Name,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name,$Type) `
+            -ArgumentName 'Name'
     } # try
 
     $action = $actions | Where-Object { $_.Type -eq $Type }
@@ -754,16 +733,9 @@ Function Get-Action {
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenTemplateNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-            -f $Name,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name,$Type) `
+            -ArgumentName 'Name'
     } # try
 
     # Assemble the Result Object so that it contains an array of Actions

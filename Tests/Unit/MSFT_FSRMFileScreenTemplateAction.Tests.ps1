@@ -148,14 +148,11 @@ try
 
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
-                    $errorId = 'FileScreenTemplateNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-                        -f $Splat.Name,$Splat.$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Splat.Name,$Splat.Type) `
+                        -ArgumentName 'Name'
+
                     { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call the expected mocks' {
@@ -207,14 +204,11 @@ try
 
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
-                    $errorId = 'FileScreenTemplateNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-                        -f $Splat.Name,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Splat.Name,$Splat.Type) `
+                        -ArgumentName 'Name'
+
                     { Set-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -278,14 +272,11 @@ try
 
                 It 'should throw FileScreenTemplateNotFound exception' {
                     $Splat = $Global:TestFileScreenTemplateActionEmail.Clone()
-                    $errorId = 'FileScreenTemplateNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) `
-                        -f $Splat.Name,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Splat.Name,$Splat.Type) `
+                        -ArgumentName 'Name'
+
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
