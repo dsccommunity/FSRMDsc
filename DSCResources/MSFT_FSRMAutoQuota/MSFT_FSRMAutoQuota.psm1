@@ -1,6 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("UseShouldProcessForStateChangingFunctions","")]
-Param()
-
 Import-Module -Name (Join-Path `
     -Path (Split-Path -Path $PSScriptRoot -Parent) `
     -ChildPath 'CommonResourceHelper.psm1')
@@ -84,7 +81,8 @@ function Get-TargetResource
 #>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
         [Parameter(Mandatory = $true)]
