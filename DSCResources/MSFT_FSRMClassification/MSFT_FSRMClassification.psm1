@@ -334,7 +334,7 @@ function Test-TargetResource
     if (($ExcludeNamespace) `
         -and (Compare-Object `
             -ReferenceObject $ExcludeNamespace `
-            -DifferenceObject ($classification.ExcludeNamespace,@(),1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.ExcludeNamespace,@(),$null -ne 1)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -347,7 +347,7 @@ function Test-TargetResource
     if (($ScheduleMonthly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleMonthly `
-            -DifferenceObject ($classification.Schedule.Monthly,1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.Schedule.Monthly,$null -ne 1)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -360,7 +360,7 @@ function Test-TargetResource
     if (($ScheduleWeekly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleWeekly `
-            -DifferenceObject ($classification.Schedule.Weekly,1 -ne $null)[0]).Count -ne 0)
+            -DifferenceObject ($classification.Schedule.Weekly,$null -ne 1)[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

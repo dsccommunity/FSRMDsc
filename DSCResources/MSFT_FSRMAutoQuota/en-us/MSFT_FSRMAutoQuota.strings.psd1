@@ -1,5 +1,5 @@
 ConvertFrom-StringData -StringData @'
-    GettingAutoQuotaMessage Getting FSRM Auto Quota "{0}".
+    GettingAutoQuotaMessage = Getting FSRM Auto Quota "{0}".
     AutoQuotaExistsMessage = FSRM Auto Quota "{0}" exists.
     AutoQuotaDoesNotExistMessage = FSRM Auto Quota "{0}" does not exist.
     SettingAutoQuotaMessage = Setting FSRM Auto Quota "{0}".

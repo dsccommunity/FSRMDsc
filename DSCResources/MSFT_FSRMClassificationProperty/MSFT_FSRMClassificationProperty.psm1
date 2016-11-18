@@ -369,7 +369,7 @@ function Test-TargetResource
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($classificationProperty.Parameters,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject ($classificationProperty.Parameters,@(),$null -ne 1)[0]).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
