@@ -389,7 +389,7 @@ Function Assert-ResourcePropertiesValid {
     {
         New-InvalidArgumentException `
             -Message $errorMessage
-            -ArgumentName $errorArgument
+            -ArgumentName $errorArgumentName
     }
 }
 
