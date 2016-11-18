@@ -204,7 +204,7 @@ try
                     $Splat = $Global:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path `
+                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
@@ -218,7 +218,7 @@ try
                     $Splat = $Global:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message $($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template `
+                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
                         -ArgumentName 'Template'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
@@ -233,7 +233,7 @@ try
                     $Splat.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path
+                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path)
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
