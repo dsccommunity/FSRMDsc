@@ -737,14 +737,9 @@ Function Get-Action {
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'QuotaTemplateNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.QuotaTemplateNotFoundError) `
-            -f $Name,$Percentage,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $Name,$Percentage,$Type) `
+            -ArgumentName 'Name'
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
@@ -776,16 +771,9 @@ Function Get-Action {
     }
     if ($null -eq $resultObject.SourceIndex)
     {
-        $errorId = 'QuotaTemplateThresholdNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.QuotaTemplateThresholdNotFoundError) `
-            -f $Name,$Percentage,$Type
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $Name,$Percentage,$Type) `
+            -ArgumentName 'Name'
     }
 
     # Return the result

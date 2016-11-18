@@ -176,14 +176,11 @@ try
 
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
-                    $errorId = 'QuotaNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call the expected mocks' {
@@ -198,14 +195,11 @@ try
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
                     $Splat.Percentage = 99
-                    $errorId = 'QuotahresholdNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaThresholdNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call the expected mocks' {
@@ -257,14 +251,11 @@ try
 
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
-                    $errorId = 'QuotaNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { Set-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -281,14 +272,11 @@ try
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
                     $Splat.Percentage = 99
-                    $errorId = 'QuotaThresholdNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaThresholdNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { Set-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -352,14 +340,11 @@ try
 
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
-                    $errorId = 'QuotaNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -374,14 +359,11 @@ try
                 It 'should throw QuotaNotFound exception' {
                     $Splat = $Global:TestQuotaActionEmail.Clone()
                     $Splat.Percentage = 99
-                    $errorId = 'QuotaThresholdNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaThresholdNotFoundError) `
-                        -f $Splat.Path,$Splat.Percentage,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $Splat.Path,$Splat.Percentage,$Splat.Type) `
+                        -ArgumentName 'Path'
+
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
