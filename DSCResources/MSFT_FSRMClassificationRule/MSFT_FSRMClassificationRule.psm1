@@ -478,7 +478,7 @@ function Test-TargetResource
             if (($Flags) `
                 -and (Compare-Object `
                 -ReferenceObject $Flags `
-                -DifferenceObject ($classificationRule.Flags,@(),$null -ne 1)[0]).Count -ne 0)
+                -DifferenceObject ($classificationRule.Flags,@(),($null -ne 1))[0]).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -491,7 +491,7 @@ function Test-TargetResource
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($classificationRule.Parameters,@(),$null -ne 1)[0]).Count -ne 0)
+                -DifferenceObject ($classificationRule.Parameters,@(),($null -ne 1))[0]).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
