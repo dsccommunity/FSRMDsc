@@ -41,16 +41,9 @@ function Get-TargetResource
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-            -f $Path
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenNotFoundError) -f $Path) `
+            -ArgumentName 'Path'
     }
     $action = $actions | Where-Object { $_.Type -eq $Type }
 
@@ -250,16 +243,9 @@ function Set-TargetResource
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'FileScreenNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-            -f $Path
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenNotFoundError) -f $Path) `
+            -ArgumentName 'Path'
     }
 
     $newActions = New-Object 'System.Collections.ArrayList'
@@ -500,16 +486,9 @@ function Test-TargetResource
         $actions = (Get-FSRMFileScreen -Path $Path -ErrorAction Stop).Notification
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException] {
-        $errorId = 'FileScreenNotFound'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-            -f $Path
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.FileScreenNotFoundError) -f $Path) `
+            -ArgumentName 'Path'
     }
     $action = $actions | Where-Object { $_.Type -eq $Type }
 
