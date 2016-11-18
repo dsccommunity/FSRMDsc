@@ -619,9 +619,8 @@ Function Assert-ResourcePropertiesValid {
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorId = 'QuotaPathDoesNotExistError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.QuotaPathDoesNotExistError) -f $Path
+        $errorArgumentName = 'Path'
     }
     if ($Ensure -eq 'Absent')
     {
@@ -637,9 +636,8 @@ Function Assert-ResourcePropertiesValid {
         }
         catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
         {
-            $errorId = 'QuotaTemplateNotFoundError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
             $errorMessage = $($LocalizedData.QuotaTemplateNotFoundError) -f $Path,$Template
+            $errorArgumentName = 'Path'
         }
     }
     else
@@ -647,19 +645,15 @@ Function Assert-ResourcePropertiesValid {
         # A template wasn't specifed, ensure the matches template flag is false
         if ($MatchesTemplate)
         {
-            $errorId = 'QuotaTemplateEmptyError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
             $errorMessage = $($LocalizedData.QuotaTemplateEmptyError) -f $Path
-        }
+            $errorArgumentName = 'Path'
+       }
     }
-    if ($errorId)
+    if ($errorMessage)
     {
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message $errorMessage `
+            -ArgumentName $errorArgumentName
     }
 }
 

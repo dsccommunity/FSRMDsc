@@ -301,13 +301,9 @@ try
                 It 'should throw an QuotaPathDoesNotExistError exception' {
                     $Splat = $Global:TestQuota.Clone()
 
-                    $errorId = 'QuotaPathDoesNotExistError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaPathDoesNotExistError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaPathDoesNotExistError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -319,13 +315,9 @@ try
                 It 'should throw an QuotaTemplateNotFoundError exception' {
                     $Splat = $Global:TestQuota.Clone()
 
-                    $errorId = 'QuotaTemplateNotFoundError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -337,13 +329,9 @@ try
                     $Splat.MatchesTemplate = $True
                     $Splat.Template = ''
 
-                    $errorId = 'QuotaTemplateEmptyError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaTemplateEmptyError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaTemplateEmptyError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
