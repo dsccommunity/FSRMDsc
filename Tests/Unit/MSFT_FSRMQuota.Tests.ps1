@@ -106,6 +106,7 @@ try
 
             Context 'quota does not exist but should' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -127,6 +128,7 @@ try
 
             Context 'quota exists and should but has a different Description' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -149,6 +151,7 @@ try
 
             Context 'quota exists and should but has a different Size' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -171,6 +174,7 @@ try
 
             Context 'quota exists and should but has a different SoftLimit' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -193,6 +197,7 @@ try
 
             Context 'quota exists and should but has an additional threshold percentage' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -215,6 +220,7 @@ try
 
             Context 'quota exists and should but is missing a threshold percentage' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -237,6 +243,7 @@ try
 
             Context 'quota exists and but should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -259,6 +266,7 @@ try
 
             Context 'quota does not exist and should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota

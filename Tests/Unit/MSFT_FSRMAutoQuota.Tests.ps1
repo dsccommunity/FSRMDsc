@@ -75,6 +75,7 @@ try
 
             Context 'auto quota does not exist but should' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -96,6 +97,7 @@ try
 
             Context 'auto quota exists and should but has a different Disabled' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -118,6 +120,7 @@ try
 
             Context 'auto quota exists and should but has a different Template' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -140,6 +143,7 @@ try
 
             Context 'auto quota exists but should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -162,6 +166,7 @@ try
 
             Context 'auto quota does not exist and should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
