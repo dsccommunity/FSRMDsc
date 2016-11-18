@@ -335,7 +335,7 @@ function Test-TargetResource
     if (($ExcludeNamespace) `
         -and (Compare-Object `
             -ReferenceObject $ExcludeNamespace `
-            -DifferenceObject ($classification.ExcludeNamespace,@(),($null -ne 1))[0]).Count -ne 0)
+            -DifferenceObject ($classification.ExcludeNamespace,($null -ne 1))[0]).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
