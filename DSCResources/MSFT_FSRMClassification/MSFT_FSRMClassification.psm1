@@ -195,7 +195,7 @@ function Set-TargetResource
         $null = $PSBoundParameters.Remove('ScheduleTime')
 
         # Add the new scheduled task parameter
-        $newSchedule = New-FSRMScheduledTask @Splat
+        $newSchedule = New-FSRMScheduledTask @newScheduledTaskParameters
         $null = $PSBoundParameters.Add('Schedule',$newSchedule)
 
         Write-Verbose -Message ( @(
@@ -204,7 +204,7 @@ function Set-TargetResource
                 -f $Id
             ) -join '' )
     }
-    # Set the existing Classification with a splat
+    # Set the existing Classification with a from the existing bound parameters
     Set-FSRMClassification @PSBoundParameters
 
     Write-Verbose -Message ( @(
