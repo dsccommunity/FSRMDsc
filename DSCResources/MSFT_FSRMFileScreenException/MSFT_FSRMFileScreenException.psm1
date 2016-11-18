@@ -102,6 +102,15 @@ function Set-TargetResource
         $IncludeGroup
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SettingFileScreenExceptionMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
 
@@ -212,7 +221,7 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing FileScreenException
     $fileScreenException = Get-FileScreenException -Path $Path
@@ -328,7 +337,7 @@ Function Get-FileScreenException {
     .PARAMETER IncludeGroup
         An array of File Groups to include in this File Screen.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (

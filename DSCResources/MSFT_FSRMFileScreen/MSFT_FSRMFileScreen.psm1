@@ -127,6 +127,15 @@ function Set-TargetResource
         $MatchesTemplate
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SestingFileScreenMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
     $null = $PSBoundParameters.Remove('MatchesTemplate')
@@ -281,7 +290,7 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing FileScreen
     $fileScreen = Get-FileScreen -Path $Path
@@ -447,7 +456,7 @@ Function Get-FileScreen {
     .PARAMETER MatchesTemplate
         Causes the template to use only the template name and Active and Ignore Groups parameters.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (

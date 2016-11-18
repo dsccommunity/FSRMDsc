@@ -16,7 +16,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2015 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2016 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'DSC Resources for File Server Resource Manager configuration'
@@ -96,7 +96,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = 'Initial release of FSRMDsc in the DSC Resource Kit'
 
         # External dependent modules of this module
         # ExternalModuleDependencies = ''

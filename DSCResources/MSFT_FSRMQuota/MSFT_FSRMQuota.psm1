@@ -144,6 +144,15 @@ function Set-TargetResource
         $MatchesTemplate
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SettingQuotaMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
     $null = $PSBoundParameters.Remove('ThresholdPercentages')
@@ -369,7 +378,7 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing Quota
     $quota = Get-Quota -Path $Path
@@ -564,7 +573,7 @@ Function Get-Quota {
         Causes the template to use only the template name and ignore Size, SoftLimit and
         ThresholdPercentage parameters.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (

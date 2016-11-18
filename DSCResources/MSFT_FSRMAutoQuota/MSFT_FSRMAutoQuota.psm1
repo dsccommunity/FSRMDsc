@@ -102,6 +102,15 @@ function Set-TargetResource
         $Template
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SettingAutoQuotaMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
 
@@ -212,7 +221,7 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing Quota
     $autoQuota = Get-AutoQuota -Path $Path
@@ -288,6 +297,8 @@ function Test-TargetResource
         The path this FSRM Quota applies to.
 #>
 Function Get-AutoQuota {
+    [CmdletBinding()]
+    [OutputType([System.Object])]
     param (
         [Parameter(Mandatory = $true)]
         [System.String]
@@ -323,7 +334,7 @@ Function Get-AutoQuota {
     .PARAMETER Template
         The name of the FSRM Quota Template to apply to this path.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (
