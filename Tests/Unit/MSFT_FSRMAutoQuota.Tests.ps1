@@ -233,7 +233,7 @@ try
                     $Splat.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path)
+                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord

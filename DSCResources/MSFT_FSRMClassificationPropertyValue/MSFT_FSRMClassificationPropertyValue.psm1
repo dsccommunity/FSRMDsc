@@ -379,16 +379,9 @@ Function Get-ClassificationProperty {
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'ClassificationPropertyNotFoundError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.ClassificationPropertyNotFoundError) `
-            -f $PropertyName
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $PropertyName) `
+            -ArgumentName $PropertyName
     }
     catch
     {
