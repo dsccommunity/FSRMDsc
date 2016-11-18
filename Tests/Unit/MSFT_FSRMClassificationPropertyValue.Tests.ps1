@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMClassificationPropertyValue'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
