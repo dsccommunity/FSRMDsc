@@ -3,23 +3,25 @@
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [System.String]
-        $ErrorId,
+        [String]
+        $Message,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [System.String]
-        $ErrorMessage
+        [String]
+        $ArgumentName
     )
 
-    $exception = New-Object -TypeName System.InvalidOperationException `
-                            -ArgumentList $ErrorMessage
-    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation
-    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                              -ArgumentList $exception, $ErrorId, $errorCategory, $null
-    return $errorRecord
+    $argumentException = New-Object `
+        -TypeName 'ArgumentException' `
+        -ArgumentList @( $Message,$ArgumentName )
+    $newObjectParams = @{
+        TypeName = 'System.Management.Automation.ErrorRecord'
+        ArgumentList = @( $argumentException, $ArgumentName, 'InvalidArgument', $null )
+    }
+    return New-Object @newObjectParams
 }
 
 Export-ModuleMember -Function `

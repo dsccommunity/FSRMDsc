@@ -359,9 +359,8 @@ Function Assert-ResourcePropertiesValid {
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorId = 'AutoQuotaPathDoesNotExistError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Path
+        $errorArgumentName = 'Path'
     }
     if ($Ensure -eq 'Absent')
     {
@@ -376,26 +375,21 @@ Function Assert-ResourcePropertiesValid {
             $null = Get-FSRMQuotaTemplate -Name $Template -ErrorAction Stop
         }
         catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException] {
-            $errorId = 'AutoQuotaTemplateNotFoundError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
             $errorMessage = $($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Path,$Template
+            $errorArgumentName = 'Template'
         }
     }
     else
     {
         # A template wasn't specifed - it needs to be
-        $errorId = 'AutoQuotaTemplateEmptyError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Path
+        $errorArgumentName = 'Template'
     }
-    if ($errorId)
+    if ($errorMessage)
     {
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message $errorMessage
+            -ArgumentName $errorArgument
     }
 }
 

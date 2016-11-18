@@ -37,8 +37,9 @@ function New-InvalidArgumentException
         $ArgumentName
     )
 
-    $argumentException = New-Object -TypeName 'ArgumentException' -ArgumentList @( $Message,
-        $ArgumentName )
+    $argumentException = New-Object `
+        -TypeName 'ArgumentException' `
+        -ArgumentList @( $Message,$ArgumentName )
     $newObjectParams = @{
         TypeName = 'System.Management.Automation.ErrorRecord'
         ArgumentList = @( $argumentException, $ArgumentName, 'InvalidArgument', $null )
@@ -74,18 +75,20 @@ function New-InvalidOperationException
 
     if ($null -eq $Message)
     {
-        $invalidOperationException = New-Object -TypeName 'InvalidOperationException'
+        $invalidOperationException = New-Object `
+            -TypeName 'InvalidOperationException'
     }
     elseif ($null -eq $ErrorRecord)
     {
-        $invalidOperationException =
-            New-Object -TypeName 'InvalidOperationException' -ArgumentList @( $Message )
+        $invalidOperationException = New-Object `
+            -TypeName 'InvalidOperationException' `
+            -ArgumentList @( $Message )
     }
     else
     {
-        $invalidOperationException =
-            New-Object -TypeName 'InvalidOperationException' -ArgumentList @( $Message,
-                $ErrorRecord.Exception )
+        $invalidOperationException = New-Object
+            -TypeName 'InvalidOperationException' `
+            -ArgumentList @( $Message, $ErrorRecord.Exception )
     }
 
     $newObjectParams = @{
