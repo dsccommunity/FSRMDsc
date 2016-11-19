@@ -367,10 +367,16 @@ function Test-TargetResource
             }
 
             # Logic: If Parameters is provided and is different to existing parameters.
+            $existingParameters = @()
+            if ($classificationProperty.Parameters)
+            {
+                $existingParameters = $classificationProperty.Parameters
+            }
+
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($classificationProperty.Parameters,@(),($null -ne 1))[0]).Count -ne 0)
+                -DifferenceObject $existingParameters).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "

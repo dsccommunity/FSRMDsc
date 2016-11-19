@@ -476,10 +476,16 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
+            $existingRuleFlags = @()
+            if ($classificationRule.Flags)
+            {
+                $existingRuleFlags = $classificationRule.Flags
+            }
+
             if (($Flags) `
                 -and (Compare-Object `
                 -ReferenceObject $Flags `
-                -DifferenceObject ($classificationRule.Flags,@(),($null -ne 1))[0]).Count -ne 0)
+                -DifferenceObject $existingRuleFlags).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -489,10 +495,16 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
+            $existingParameters = @()
+            if ($classificationRule.Parameters)
+            {
+                $existingParameters = $classificationRule.Parameters
+            }
+
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($classificationRule.Parameters,@(),($null -ne 1))[0]).Count -ne 0)
+                -DifferenceObject $existingParameters).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "

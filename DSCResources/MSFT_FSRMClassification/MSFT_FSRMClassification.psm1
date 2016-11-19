@@ -332,10 +332,16 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
+    $existingExcludeNamespace = @()
+    if ($classification.ExcludeNamespace)
+    {
+        $existingExcludeNamespace = $classification.ExcludeNamespace
+    }
+
     if (($ExcludeNamespace) `
         -and (Compare-Object `
             -ReferenceObject $ExcludeNamespace `
-            -DifferenceObject ($classification.ExcludeNamespace,@(),($null -ne 1))[0]).Count -ne 0)
+            -DifferenceObject $existingExcludeNamespace).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -345,10 +351,16 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
+    $existingScheduleMonthly = @()
+    if ($classification.Schedule.Monthly)
+    {
+        $existingScheduleMonthly = $classification.Schedule.Monthly
+    }
+
     if (($ScheduleMonthly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleMonthly `
-            -DifferenceObject ($classification.Schedule.Monthly,@(),($null -ne 1))[0]).Count -ne 0)
+            -DifferenceObject $existingScheduleMonthly).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -358,10 +370,16 @@ function Test-TargetResource
         $desiredConfigurationMatch = $false
     }
 
+    $existingScheduleWeekly = @()
+    if ($classification.Schedule.Weekly)
+    {
+        $existingScheduleWeekly = $classification.Schedule.Weekly
+    }
+
     if (($ScheduleWeekly) `
         -and (Compare-Object `
             -ReferenceObject $ScheduleWeekly `
-            -DifferenceObject ($classification.Schedule.Weekly,@(),($null -ne 1))[0]).Count -ne 0)
+            -DifferenceObject $existingScheduleWeekly).Count -ne 0)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
