@@ -1,33 +1,22 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingQuotaTemplateMessage=Getting FSRM Quota Template "{0}".
-QuotaTemplateExistsMessage=FSRM Quota Template "{0}" exists.
-QuotaTemplateDoesNotExistMessage=FSRM Quota Template "{0}" does not exist.
-SettingQuotaTemplateMessage=Setting FSRM Quota Template "{0}".
-EnsureQuotaTemplateExistsMessage=Ensuring FSRM Quota Template "{0}" exists.
-EnsureQuotaTemplateDoesNotExistMessage=Ensuring FSRM Quota Template "{0}" does not exist.
-QuotaTemplateCreatedMessage=FSRM Quota Template "{0}" has been created.
-QuotaTemplateUpdatedMessage=FSRM Quota Template "{0}" has been updated.
-QuotaTemplateThresholdAddedMessage=FSRM Quota Template "{0}" has had a Threshold at {1} percent added.
-QuotaTemplateThresholdRemovedMessage=FSRM Quota Template "{0}" has had the Threshold at {1} percent removed.
-QuotaTemplateRemovedMessage=FSRM Quota Template "{0}" has been removed.
-TestingQuotaTemplateMessage=Testing FSRM Quota Template "{0}".
-QuotaTemplatePropertyNeedsUpdateMessage=FSRM Quota Template "{0}" {1} is different. Change required.
-QuotaTemplateDoesNotExistButShouldMessage=FSRM Quota Template "{0}" does not exist but should. Change required.
-QuotaTemplateExistsButShouldNotMessage=FSRM Quota Template "{0}" exists but should not. Change required.
-QuotaTemplateDoesNotExistAndShouldNotMessage=FSRM Quota Template "{0}" does not exist and should not. Change not required.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMQuotaTemplate'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
@@ -39,12 +28,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing template
-    $QuotaTemplate = Get-QuotaTemplate -Name $Name
+    $quotaTemplate = Get-QuotaTemplate -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($QuotaTemplate)
+    if ($quotaTemplate)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -54,10 +43,10 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $QuotaTemplate.Description
-            Size = $QuotaTemplate.Size
-            SoftLimit = $QuotaTemplate.SoftLimit
-            ThresholdPercentages = @($QuotaTemplate.Threshold.Percentage)
+            Description = $quotaTemplate.Description
+            Size = $quotaTemplate.Size
+            SoftLimit = $quotaTemplate.SoftLimit
+            ThresholdPercentages = @($quotaTemplate.Threshold.Percentage)
         }
     }
     else
@@ -76,28 +65,56 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota Template should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota Template limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota Template has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota Template.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Int64]
         $Size,
 
+        [Parameter()]
         [System.Boolean]
         $SoftLimit,
 
+        [Parameter()]
         [ValidateRange(0,100)]
         [System.Uint32[]]
         $ThresholdPercentages
@@ -108,7 +125,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('ThresholdPercentages')
 
     # Lookup the existing Quota Template
-    $QuotaTemplate = Get-QuotaTemplate -Name $Name
+    $quotaTemplate = Get-QuotaTemplate -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -119,22 +136,22 @@ function Set-TargetResource
             ) -join '' )
 
         # Assemble the Threshold Percentages
-        if ($QuotaTemplate)
+        if ($quotaTemplate)
         {
-            $Thresholds = [System.Collections.ArrayList]$QuotaTemplate.Threshold
+            $thresholds = [System.Collections.ArrayList]$quotaTemplate.Threshold
         }
         else
         {
-            $Thresholds = [System.Collections.ArrayList]@()
+            $thresholds = [System.Collections.ArrayList]@()
         }
 
         # Scan through the required thresholds and add any that are misssing
         foreach ($ThresholdPercentage in $ThresholdPercentages)
         {
-            If ($ThresholdPercentage -notin $Thresholds.Percentage)
+            If ($ThresholdPercentage -notin $thresholds.Percentage)
             {
                 # The threshold percentage is missing so add it
-                $Thresholds += New-FSRMQuotaThreshold -Percentage $ThresholdPercentage
+                $thresholds += New-FSRMQuotaThreshold -Percentage $ThresholdPercentage
 
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -145,26 +162,26 @@ function Set-TargetResource
         }
 
         # Scan through the existing thresholds and remove any that are misssing
-        for ($i = $Thresholds.Count-1; $i -ge 0; $i--)
+        for ($counter = $thresholds.Count-1; $counter -ge 0; $counter--)
         {
-            If ($Thresholds[$i].Percentage -notin $ThresholdPercentages)
+            If ($thresholds[$counter].Percentage -notin $ThresholdPercentages)
             {
                 # The threshold percentage exists but shouldn not so remove it
-                $Thresholds.Remove($i)
+                $thresholds.Remove($counter)
 
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.QuotaTemplateThresholdRemovedMessage) `
-                        -f $Name,$Thresholds[$i].Percentage
+                        -f $Name,$thresholds[$counter].Percentage
                     ) -join '' )
             }
         }
 
-        if ($QuotaTemplate)
+        if ($quotaTemplate)
         {
             # The quota template exists
             Set-FSRMQuotaTemplate @PSBoundParameters `
-                -Threshold @($Thresholds) `
+                -Threshold @($thresholds) `
                 -ErrorAction Stop
 
             Write-Verbose -Message ( @(
@@ -177,7 +194,7 @@ function Set-TargetResource
         {
             # Create the Quota Template
             New-FSRMQuotaTemplate @PSBoundParameters `
-                -Threshold @($Thresholds) `
+                -Threshold @($thresholds) `
                 -ErrorAction Stop
 
             Write-Verbose -Message ( @(
@@ -195,7 +212,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($QuotaTemplate)
+        if ($quotaTemplate)
         {
             # The Quota Template shouldn't exist - remove it
             Remove-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
@@ -209,29 +226,56 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Quota Template with the specified Name.
+
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+
+    .PARAMETER Description
+        An optional description for this FSRM Quota Template.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota Template should exist.
+
+    .PARAMETER Size
+        The size in bytes of this FSRM Quota Template limit.
+
+    .PARAMETER SoftLimit
+        Controls whether this FSRM Quota Template has a hard or soft limit.
+
+    .PARAMETER ThresholdPercentages
+        An array of threshold percentages in this FSRM Quota Template.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Int64]
         $Size,
 
+        [Parameter()]
         [System.Boolean]
         $SoftLimit,
 
+        [Parameter()]
         [ValidateRange(0,100)]
         [System.Uint32[]]
         $ThresholdPercentages
@@ -246,16 +290,16 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Quota Template
-    $QuotaTemplate = Get-QuotaTemplate -Name $Name
+    $quotaTemplate = Get-QuotaTemplate -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The Quota Template should exist
-        if ($QuotaTemplate)
+        if ($quotaTemplate)
         {
             # The Quota Template exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('Description')) `
-                -and ($QuotaTemplate.Description -ne $Description))
+                -and ($quotaTemplate.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -266,7 +310,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Size')) `
-                -and ($QuotaTemplate.Size -ne $Size))
+                -and ($quotaTemplate.Size -ne $Size))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -277,7 +321,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('SoftLimit')) `
-                -and ($QuotaTemplate.SoftLimit -ne $SoftLimit))
+                -and ($quotaTemplate.SoftLimit -ne $SoftLimit))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -291,7 +335,7 @@ function Test-TargetResource
             if (($PSBoundParameters.ContainsKey('ThresholdPercentages')) `
                 -and (Compare-Object `
                 -ReferenceObject $ThresholdPercentages `
-                -DifferenceObject $QuotaTemplate.Threshold.Percentage).Count -ne 0)
+                -DifferenceObject $quotaTemplate.Threshold.Percentage).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -315,7 +359,7 @@ function Test-TargetResource
     else
     {
         # The Quota Template should not exist
-        if ($QuotaTemplate)
+        if ($quotaTemplate)
         {
             # The Quota Template exists but should not
             Write-Verbose -Message ( @(
@@ -338,29 +382,34 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Quota Template with the specified Name.
 
+    .PARAMETER Name
+        The unique name for this FSRM Quota Template.
+#>
 Function Get-QuotaTemplate
 {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
     try
     {
-        $QuotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
+        $quotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $QuotaTemplate = $null
+        $quotaTemplate = $null
     }
     catch
     {
         Throw $_
     }
-    Return $QuotaTemplate
+    Return $quotaTemplate
 }
 
 Export-ModuleMember -Function *-TargetResource

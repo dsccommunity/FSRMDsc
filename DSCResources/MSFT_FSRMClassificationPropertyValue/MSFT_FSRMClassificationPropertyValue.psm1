@@ -1,38 +1,29 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingClassificationPropertyValueMessage=Getting FSRM Classification Property Definition "{0}" value "{1}".
-ClassificationPropertyValueExistsMessage=FSRM Classification Property Value Definition "{0}" value "{1}" exists.
-ClassificationPropertyValueNotExistMessage=FSRM Classification Property Value Definition "{0}" value "{1}" does not exist.
-SettingClassificationPropertyValueMessage=Setting FSRM Classification Property Value Definition "{0}" value "{1}".
-EnsureClassificationPropertyValueExistsMessage=Ensuring FSRM Classification Property Value Definition "{0}" value "{1}" exists.
-EnsureClassificationPropertyValueDoesNotExistMessage=Ensuring FSRM Classification Property Value Definition "{0}" value "{1}" does not exist.
-ClassificationPropertyValueCreatedMessage=FSRM Classification Property Value Definition "{0}" value "{1}" has been created.
-ClassificationPropertyValueUpdatedMessage=FSRM Classification Property Value Definition "{0}" value "{1}" has been updated.
-ClassificationPropertyValueRemovedMessage=FSRM Classification Property Value Definition "{0}" value "{1}" has been removed.
-ClassificationPropertyValueNoChangeMessage=FSRM Classification Property Value Definition "{0}" value "{1}" required no changes.
-ClassificationPropertyValueWrittenMessage=FSRM Classification Property Value Definition "{0}" value "{1}" has been written.
-TestingClassificationPropertyValueMessage=Testing FSRM Classification Property Value Definition "{0}" value "{1}".
-ClassificationPropertyValuePropertyNeedsUpdateMessage=FSRM Classification Property Value Definition "{0}" value "{1}" {2} is different. Change required.
-ClassificationPropertyValueDoesNotExistButShouldMessage=FSRM Classification Property Value Definition "{0}" value "{1}" does not exist but should. Change required.
-ClassificationPropertyValueExistsAndShouldNotMessage=FSRM Classification Property Value Definition "{0}" value "{1}" exists but should not. Change required.
-ClassificationPropertyValueDoesNotExistAndShouldNotMessage=FSRM Classification Property Value Definition "{0}" value "{1}" does not exist and should not. Change not required.
-ClassificationPropertyNotFoundError=FSRM Classification Property Definition "{0}" not found.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationPropertyValue'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $PropertyName
     )
@@ -89,24 +80,44 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property value should exist.
+
+    .PARAMETER Description
+        The description of the FSRM Classification Property value.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $PropertyName,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
-        [System.String]$Description
+        [Parameter()]
+        [System.String]
+        $Description
     )
 
     Write-Verbose -Message ( @(
@@ -151,7 +162,7 @@ function Set-TargetResource
             @PSBoundParameters `
             -ErrorAction Stop
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # Create the Classification Property Value
             Write-Verbose -Message ( @(
@@ -182,7 +193,7 @@ function Set-TargetResource
                 -f $PropertyName,$Name
             ) -join '' )
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The Classification Property Value doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -217,25 +228,44 @@ function Set-TargetResource
         ) -join '' )
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Property Value with the Name and PropertyName.
+
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+
+    .PARAMETER PropertyName
+        The name of the FSRM Classification Property the value applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property value should exist.
+
+    .PARAMETER Description
+        The description of the FSRM Classification Property value.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $PropertyName,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
-        [System.String]$Description
+        [Parameter()]
+        [System.String]
+        $Description
     )
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
@@ -274,7 +304,7 @@ function Test-TargetResource
                 -f $PropertyName,$Name
             ) -join '' )
 
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The Classification Property Value does not exist but should
             Write-Verbose -Message ( @(
@@ -303,7 +333,7 @@ function Test-TargetResource
     }
     else
     {
-        if ($ClassificationPropertyValueIndex -eq $null)
+        if ($null -eq $ClassificationPropertyValueIndex)
         {
             # The ClassificationPropertyValue doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -327,12 +357,17 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Property Value Object with the PropertyName.
 
+    .PARAMETER Name
+        The FSRM Classification Property value Name.
+#>
 Function Get-ClassificationProperty {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $PropertyName
     )
@@ -344,16 +379,9 @@ Function Get-ClassificationProperty {
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $errorId = 'ClassificationPropertyNotFoundError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-        $errorMessage = $($LocalizedData.ClassificationPropertyNotFoundError) `
-            -f $PropertyName
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $PropertyName) `
+            -ArgumentName $PropertyName
     }
     catch
     {

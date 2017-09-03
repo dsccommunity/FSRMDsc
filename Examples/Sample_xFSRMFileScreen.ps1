@@ -1,3 +1,5 @@
+# This configuration will assign an Active FSRM File Screen to the path 'D:\Users'
+# with three include groups. An e-mail and event action is bound to the File Screen.
 configuration Sample_FSRMFileScreen
 {
     Import-DscResource -Module FSRMDsc

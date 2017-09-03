@@ -1,36 +1,22 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingFileScreenMessage=Getting FSRM File Screen "{0}".
-FileScreenExistsMessage=FSRM File Screen "{0}" exists.
-FileScreenDoesNotExistMessage=FSRM File Screen "{0}" does not exist.
-SettingFileScreenMessage=Setting FSRM File Screen "{0}".
-EnsureFileScreenExistsMessage=Ensuring FSRM File Screen "{0}" exists.
-EnsureFileScreenDoesNotExistMessage=Ensuring FSRM File Screen "{0}" does not exist.
-FileScreenCreatedMessage=FSRM File Screen "{0}" has been created.
-FileScreenUpdatedMessage=FSRM File Screen "{0}" has been updated.
-FileScreenRecreatedMessage=FSRM File Screen "{0}" has been recreated.
-FileScreenRemovedMessage=FSRM FileScreen "{0}" has been removed.
-TestingFileScreenMessage=Testing FSRM File Screen "{0}".
-FileScreenDoesNotMatchTemplateNeedsUpdateMessage=FSRM File Screen "{0}" {1} does not match template. Change required.
-FileScreenPropertyNeedsUpdateMessage=FSRM File Screen "{0}" {1} is different. Change required.
-FileScreenDoesNotExistButShouldMessage=FSRM File Screen "{0}" does not exist but should. Change required.
-FileScreenExistsButShouldNotMessage=FSRM File Screen "{0}" exists but should not. Change required.
-FileScreenDoesNotExistAndShouldNotMessage=FSRM File Screen "{0}" does not exist and should not. Change not required.
-FileScreenPathDoesNotExistError=FSRM File Screen "{0}" path does not exist.
-FileScreenTemplateEmptyError=FSRM File Screen "{0}" requires a template name to be set.
-FileScreenTemplateNotFoundError=FSRM File Screen "{0}" template "{1}" not found.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMFileScreen'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -42,12 +28,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     $returnValue = @{
         Path = $Path
     }
-    if ($FileScreen)
+    if ($fileScreen)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -57,11 +43,11 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $FileScreen.Description
-            Active = $FileScreen.Active
-            IncludeGroup = @($FileScreen.IncludeGroup)
-            Template = $FileScreen.Template
-            MatchesTemplate = $FileScreen.MatchesTemplate
+            Description = $fileScreen.Description
+            Active = $fileScreen.Active
+            IncludeGroup = @($fileScreen.IncludeGroup)
+            Template = $fileScreen.Template
+            MatchesTemplate = $fileScreen.MatchesTemplate
         }
     }
     else
@@ -80,41 +66,83 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Active,
 
+        [Parameter()]
         [System.String[]]
         $IncludeGroup,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )
+
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SestingFileScreenMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
     $null = $PSBoundParameters.Remove('MatchesTemplate')
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     if ($Ensure -eq 'Present')
     {
@@ -124,10 +152,10 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The FileScreen exists
-            if ($MatchesTemplate -and ($Template -ne $FileScreen.Template))
+            if ($MatchesTemplate -and ($Template -ne $fileScreen.Template))
             {
                 # The template needs to be changed so the File Screen needs to be
                 # Completely recreated.
@@ -178,7 +206,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The File Screen shouldn't exist - remove it
             Remove-FSRMFileScreen -Path $Path -ErrorAction Stop
@@ -192,32 +220,64 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM File Screen applied to the specified Path.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Active,
 
+        [Parameter()]
         [System.String[]]
         $IncludeGroup,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )
@@ -231,21 +291,21 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing FileScreen
-    $FileScreen = Get-FileScreen -Path $Path
+    $fileScreen = Get-FileScreen -Path $Path
 
     if ($Ensure -eq 'Present')
     {
         # The FileScreen should exist
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The FileScreen exists already - check the parameters
             if ($MatchesTemplate)
             {
                 # MatchesTemplate is set so only care if it matches template
-                if (-not $FileScreen.MatchesTemplate)
+                if (-not $fileScreen.MatchesTemplate)
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -258,7 +318,7 @@ function Test-TargetResource
             else
             {
                 if (($PSBoundParameters.ContainsKey('Active')) `
-                    -and ($FileScreen.Active -ne $Active))
+                    -and ($fileScreen.Active -ne $Active))
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -271,7 +331,7 @@ function Test-TargetResource
                 if (($PSBoundParameters.ContainsKey('IncludeGroup')) `
                     -and (Compare-Object `
                     -ReferenceObject $IncludeGroup `
-                    -DifferenceObject $FileScreen.IncludeGroup).Count -ne 0)
+                    -DifferenceObject $fileScreen.IncludeGroup).Count -ne 0)
                 {
                     Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -283,7 +343,7 @@ function Test-TargetResource
             } # if ($MatchesTemplate)
 
             if (($PSBoundParameters.ContainsKey('Description')) `
-                -and ($FileScreen.Description -ne $Description))
+                -and ($fileScreen.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -294,7 +354,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Template')) `
-                -and ($FileScreen.Template -ne $Template))
+                -and ($fileScreen.Template -ne $Template))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -318,7 +378,7 @@ function Test-TargetResource
     else
     {
         # The File Screen should not exist
-        if ($FileScreen)
+        if ($fileScreen)
         {
             # The File Screen exists but should not
             Write-Verbose -Message ( @(
@@ -341,58 +401,92 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM File Screen Object applied to the specified Path.
 
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+#>
 Function Get-FileScreen {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
     try
     {
-        $FileScreen = Get-FSRMFileScreen -Path $Path -ErrorAction Stop
+        $fileScreen = Get-FSRMFileScreen -Path $Path -ErrorAction Stop
     }
     catch [Microsoft.Management.Infrastructure.CimException]
     {
-        $FileScreen = $null
+        $fileScreen = $null
     }
     catch
     {
         Throw $_
     }
-    Return $FileScreen
+    Return $fileScreen
 }
+
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM File Screen applies to.
+
+    .PARAMETER Description
+        An optional description for this FSRM File Screen.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM File Screen should exist.
+
+    .PARAMETER Active
+        Boolean setting that controls if server should fail any I/O operations if the File Screen
+        is violated.
+
+    .PARAMETER IncludeGroup
+        An array of File Groups to include in this File Screen.
+
+    .PARAMETER Template
+        The name of the FSRM File Screen Template to apply to this path.
+
+    .PARAMETER MatchesTemplate
+        Causes the template to use only the template name and Active and Ignore Groups parameters.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Active,
 
+        [Parameter()]
         [System.String[]]
         $IncludeGroup,
 
+        [Parameter()]
         [System.String]
         $Template,
 
+        [Parameter()]
         [System.Boolean]
         $MatchesTemplate
     )

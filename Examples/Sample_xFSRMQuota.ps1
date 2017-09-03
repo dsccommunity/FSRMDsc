@@ -1,3 +1,6 @@
+# This configuration will assign an FSRM Quota to the path 'D:\Users', with a Hard Limit
+# of 5GB and threshold percentages of 85 and 100. An e-mail action is bound to each threshold.
+# An event action is also bound to the 85 percent threshold.
 configuration Sample_FSRMQuota
 {
     Import-DscResource -Module FSRMDsc

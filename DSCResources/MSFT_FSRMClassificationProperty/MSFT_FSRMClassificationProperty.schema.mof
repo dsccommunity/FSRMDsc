@@ -9,4 +9,3 @@ class MSFT_FSRMClassificationProperty : OMI_BaseResource
     [Write, Description("An array of possible values that this FSRM Classification Property can take on.")] String PossibleValue[];
     [Write, Description("An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.")] String Parameters[];
 };
-

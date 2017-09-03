@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMQuota'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -106,6 +110,7 @@ try
 
             Context 'quota does not exist but should' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -127,6 +132,7 @@ try
 
             Context 'quota exists and should but has a different Description' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -149,6 +155,7 @@ try
 
             Context 'quota exists and should but has a different Size' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -171,6 +178,7 @@ try
 
             Context 'quota exists and should but has a different SoftLimit' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -193,6 +201,7 @@ try
 
             Context 'quota exists and should but has an additional threshold percentage' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -215,6 +224,7 @@ try
 
             Context 'quota exists and should but is missing a threshold percentage' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -237,6 +247,7 @@ try
 
             Context 'quota exists and but should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota -MockWith { $Global:MockQuota }
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -259,6 +270,7 @@ try
 
             Context 'quota does not exist and should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmQuota
                 Mock New-FsrmQuota
                 Mock Set-FsrmQuota
@@ -289,13 +301,9 @@ try
                 It 'should throw an QuotaPathDoesNotExistError exception' {
                     $Splat = $Global:TestQuota.Clone()
 
-                    $errorId = 'QuotaPathDoesNotExistError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaPathDoesNotExistError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaPathDoesNotExistError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -307,13 +315,9 @@ try
                 It 'should throw an QuotaTemplateNotFoundError exception' {
                     $Splat = $Global:TestQuota.Clone()
 
-                    $errorId = 'QuotaTemplateNotFoundError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -325,13 +329,9 @@ try
                     $Splat.MatchesTemplate = $True
                     $Splat.Template = ''
 
-                    $errorId = 'QuotaTemplateEmptyError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.QuotaTemplateEmptyError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.QuotaTemplateEmptyError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }

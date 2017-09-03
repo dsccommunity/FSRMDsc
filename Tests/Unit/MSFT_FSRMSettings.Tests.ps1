@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMSettings'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -25,7 +29,7 @@ try
     InModuleScope $Global:DSCResourceName {
         # Create the Mock Objects that will be used for running tests
         $Global:Settings = [PSObject] @{
-            Id = 'Default'
+            IsSingleInstance = 'Yes'
             SmtpServer = 'smtp.contoso.com'
             AdminEmailAddress = 'admin@contoso.com'
             FromEmailAddress = 'fsrm@contoso.com'
@@ -54,7 +58,7 @@ try
                 Mock Get-FSRMSetting -MockWith { $Global:MockSettings }
 
                 It 'should return correct Settings properties' {
-                    $Result = Get-TargetResource -Id $Global:Settings.Id
+                    $Result = Get-TargetResource -IsSingleInstance $Global:Settings.IsSingleInstance
                     $Result.SmtpServer | Should Be $Global:Settings.SmtpServer
                     $Result.AdminEmailAddress | Should Be $Global:Settings.AdminEmailAddress
                     $Result.FromEmailAddress | Should Be $Global:Settings.FromEmailAddress

@@ -1,3 +1,6 @@
+# This configuration will create a FSRM Classification Rule called 'Confidential' that
+# will assign a Privacy value of Confidential to any files containing the text
+# Confidential in the folder d:\users or any folder categorized as 'User Files'.
 configuration Sample_FSRMClassificationRule
 {
     Import-DscResource -Module FSRMDsc

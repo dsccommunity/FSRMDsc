@@ -1,37 +1,30 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingClassificationPropertyMessage=Getting FSRM Classification Property Definition "{0}".
-ClassificationPropertyExistsMessage=FSRM Classification Property Definition "{0}" exists.
-ClassificationPropertyDoesNotExistMessage=FSRM Classification Property Definition "{0}" does not exist.
-SettingClassificationPropertyMessage=Setting FSRM Classification Property Definition "{0}".
-EnsureClassificationPropertyExistsMessage=Ensuring FSRM Classification Property Definition "{0}" exists.
-EnsureClassificationPropertyDoesNotExistMessage=Ensuring FSRM Classification Property Definition "{0}" does not exist.
-ClassificationPropertyCreatedMessage=FSRM Classification Property Definition "{0}" has been created.
-ClassificationPropertyUpdatedMessage=FSRM Classification Property Definition "{0}" has been updated.
-ClassificationPropertyRecreatedMessage=FSRM Classification Property Definition "{0}" has been recreated.
-ClassificationPropertyRemovedMessage=FSRM Classification Property Definition "{0}" has been removed.
-TestingClassificationPropertyMessage=Testing FSRM Classification Property Definition "{0}".
-ClassificationPropertyNeedsUpdateMessage=FSRM Classification Property Definition "{0}" {1} is different. Change required.
-ClassificationPropertyDoesNotExistButShouldMessage=FSRM Classification Property Definition "{0}" does not exist but should. Change required.
-ClassificationPropertyExistsButShouldNotMessage=FSRM Classification Property Definition "{0}" exists but should not. Change required.
-ClassificationPropertyDoesNotExistAndShouldNotMessage=FSRM Classification Property Definition "{0}" does not exist and should not. Change not required.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationProperty'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type
     )
@@ -42,12 +35,12 @@ function Get-TargetResource
             -f $Name
         ) -join '' )
 
-    $ClassificationProperty = Get-ClassificationProperty -Name $Name
+    $classificationProperty = Get-ClassificationProperty -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($ClassificationProperty)
+    if ($classificationProperty)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -57,11 +50,11 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            DisplayName = $ClassificationProperty.DisplayName
-            Description = $ClassificationProperty.Description
-            Type = $ClassificationProperty.Type
-            PossibleValue = $ClassificationProperty.PossibleValue.Name
-            Parameters = $ClassificationProperty.Parameters
+            DisplayName = $classificationProperty.DisplayName
+            Description = $classificationProperty.Description
+            Type = $classificationProperty.Type
+            PossibleValue = $classificationProperty.PossibleValue.Name
+            Parameters = $classificationProperty.Parameters
         }
     }
     else
@@ -80,33 +73,65 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+
+    .PARAMETER DisplayName
+        The display name for the FSRM Classification Property.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Property.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property should exist.
+
+    .PARAMETER PossibleValue
+        An array of possible values that this FSRM Classification Property can take on.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [System.String]
         $DisplayName,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String[]]
         $PossibleValue,
 
+        [Parameter()]
         [System.String[]]
         $Parameters
     )
@@ -121,7 +146,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing Classification Property
-    $ClassificationProperty = Get-ClassificationProperty -Name $Name
+    $classificationProperty = Get-ClassificationProperty -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -133,42 +158,42 @@ function Set-TargetResource
 
         # Assemble an ArrayList of MSFT_FSRMClassificationPropertyDefinitionValue if
         # the PossibleValue parameter was passed
-        $NewPossibleValue = @()
+        $newPossibleValue = @()
         if ($PSBoundParameters.ContainsKey('PossibleValue'))
         {
-            foreach ($p in $PossibleValue)
+            foreach ($value in $PossibleValue)
             {
-                $NewPossibleValue += @(New-FSRMClassificationPropertyValue -Name $p)
+                $newPossibleValue += @(New-FSRMClassificationPropertyValue -Name $value)
             }
         }
         $null = $PSBoundParameters.Remove('PossibleValue')
 
-        if ($ClassificationProperty) {
+        if ($classificationProperty) {
             # The Classification Property exists
 
             # Copy the descriptions from any existing Possible Value items into the
             # Descriptions of any of the matching Possible Values that were passed
-            foreach ($p in $NewPossibleValue)
+            foreach ($newValue in $newPossibleValue)
             {
-                foreach ($q in $ClassificationProperty.PossibleValue)
+                foreach ($value in $classificationProperty.PossibleValue)
                 {
-                    if ($p.Name -eq $q.Name)
+                    if ($null -eq $newValue.Name)
                     {
                         # PossibleValue already exists - copy the description
-                        $p.Description = $q.Description
+                        $newValue.Description = $value.Description
                     }
                 }
             }
 
             # Do we need to assign any PossibleValues?
-            if ($NewPossibleValue.Count -gt 0)
+            if ($newPossibleValue.Count -gt 0)
             {
-                $null = $PSBoundParameters.Add('PossibleValue',$NewPossibleValue)
+                $null = $PSBoundParameters.Add('PossibleValue',$newPossibleValue)
             }
 
             # Is the type specified and different?
             if ($PSBoundParameters.ContainsKey('Type') `
-                -and ($Type -ne $ClassificationProperty.Type))
+                -and ($Type -ne $classificationProperty.Type))
             {
                 # The type is different so the Classification Property needs to be removed
                 # and re-created.
@@ -195,9 +220,9 @@ function Set-TargetResource
         else
         {
             # Do we need to assign any PossibleValues?
-            if ($NewPossibleValue.Count -gt 0)
+            if ($newPossibleValue.Count -gt 0)
             {
-                $null = $PSBoundParameters.Add('PossibleValue',$NewPossibleValue)
+                $null = $PSBoundParameters.Add('PossibleValue',$newPossibleValue)
             }
 
             # Create the Classification Property
@@ -218,7 +243,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($ClassificationProperty)
+        if ($classificationProperty)
         {
             # The Classification Property shouldn't exist - remove it
             Remove-FSRMClassificationPropertyDefinition -Name $Name -ErrorAction Stop
@@ -232,24 +257,52 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Property with the specified Name and Type.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+
+    .PARAMETER Type
+        The type of the FSRM Classification Property.
+
+    .PARAMETER DisplayName
+        The display name for the FSRM Classification Property.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Property.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Property should exist.
+
+    .PARAMETER PossibleValue
+        An array of possible values that this FSRM Classification Property can take on.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [Parameter(Mandatory = $true)]
+        [ValidateSet('OrderedList','MultiChoice','SingleChoice','String','MultiString','Integer','YesNo','DateTime')]
         [System.String]
         $Type,
 
+        [Parameter()]
         [System.String]
         $DisplayName,
 
+        [Parameter()]
         [System.String]
         $Description,
 
@@ -257,9 +310,11 @@ function Test-TargetResource
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String[]]
         $PossibleValue,
 
+        [Parameter()]
         [System.String[]]
         $Parameters
     )
@@ -273,15 +328,15 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification Property
-    $ClassificationProperty = Get-ClassificationProperty -Name $Name
+    $classificationProperty = Get-ClassificationProperty -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The Classification Property should exist
-        if ($ClassificationProperty)
+        if ($classificationProperty)
         {
             # The Classification Property exists already - check the parameters
-            if (($Description) -and ($ClassificationProperty.Description -ne $Description))
+            if (($Description) -and ($classificationProperty.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -291,7 +346,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($DisplayName) -and ($ClassificationProperty.DisplayName -ne $DisplayName))
+            if (($DisplayName) -and ($classificationProperty.DisplayName -ne $DisplayName))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -301,7 +356,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($Type) -and ($ClassificationProperty.Type -ne $Type))
+            if (($Type) -and ($classificationProperty.Type -ne $Type))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -312,10 +367,16 @@ function Test-TargetResource
             }
 
             # Logic: If Parameters is provided and is different to existing parameters.
+            $existingParameters = @()
+            if ($classificationProperty.Parameters)
+            {
+                $existingParameters = $classificationProperty.Parameters
+            }
+
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($ClassificationProperty.Parameters,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject $existingParameters).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -328,7 +389,7 @@ function Test-TargetResource
             if (($PossibleValue) `
                 -and (Compare-Object `
                 -ReferenceObject $PossibleValue `
-                -DifferenceObject $ClassificationProperty.PossibleValue.Name).Count -ne 0)
+                -DifferenceObject $classificationProperty.PossibleValue.Name).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -353,7 +414,7 @@ function Test-TargetResource
     else
     {
         # The Classification Property should not exist
-        if ($ClassificationProperty)
+        if ($classificationProperty)
         {
             # The Classification Property exists but should not
             Write-Verbose -Message ( @(
@@ -376,30 +437,35 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Property Object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM Classification Property.
+#>
 Function Get-ClassificationProperty {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
     try
     {
-        $ClassificationProperty = Get-FSRMClassificationPropertyDefinition `
+        $classificationProperty = Get-FSRMClassificationPropertyDefinition `
             -Name $Name `
             -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $ClassificationProperty = $null
+        $classificationProperty = $null
     }
     catch
     {
         Throw $_
     }
-    Return $ClassificationProperty
+    Return $classificationProperty
 }
 
 Export-ModuleMember -Function *-TargetResource

@@ -1,3 +1,4 @@
+# This configuration will configure the FSRM Settings on a server.
 configuration Sample_FSRMSettings
 {
     Import-DscResource -Module FSRMDsc
@@ -6,7 +7,7 @@ configuration Sample_FSRMSettings
     {
         FSRMSettings FSRMSettings
         {
-            Id = 'Default'
+            IsSingleInstance = 'Yes'
             SmtpServer = 'smtp.contoso.com'
             AdminEmailAddress = 'fsadmin@contoso.com'
             FromEmailAddress = 'fsuser@contoso.com'

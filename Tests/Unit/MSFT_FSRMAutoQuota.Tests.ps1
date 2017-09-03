@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMAutoQuota'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -75,6 +79,7 @@ try
 
             Context 'auto quota does not exist but should' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -96,6 +101,7 @@ try
 
             Context 'auto quota exists and should but has a different Disabled' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -118,6 +124,7 @@ try
 
             Context 'auto quota exists and should but has a different Template' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -140,6 +147,7 @@ try
 
             Context 'auto quota exists but should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota -MockWith { $Global:MockAutoQuota }
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -162,6 +170,7 @@ try
 
             Context 'auto quota does not exist and should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmAutoQuota
                 Mock New-FsrmAutoQuota
                 Mock Set-FsrmAutoQuota
@@ -194,13 +203,9 @@ try
                 It 'should throw an AutoQuotaPathDoesNotExistError exception' {
                     $Splat = $Global:TestAutoQuota.Clone()
 
-                    $errorId = 'AutoQuotaPathDoesNotExistError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -212,13 +217,9 @@ try
                 It 'should throw an AutoQuotaTemplateNotFoundError exception' {
                     $Splat = $Global:TestAutoQuota.Clone()
 
-                    $errorId = 'AutoQuotaTemplateNotFoundError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
+                        -ArgumentName 'Template'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
@@ -231,13 +232,9 @@ try
                     $Splat = $Global:TestAutoQuota.Clone()
                     $Splat.Template = ''
 
-                    $errorId = 'AutoQuotaTemplateEmptyError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path) `
+                        -ArgumentName 'Template'
 
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }

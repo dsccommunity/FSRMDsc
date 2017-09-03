@@ -1,35 +1,22 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingAutoQuotaMessage=Getting FSRM Auto Quota "{0}".
-AutoQuotaExistsMessage=FSRM Auto Quota "{0}" exists.
-AutoQuotaDoesNotExistMessage=FSRM Auto Quota "{0}" does not exist.
-SettingAutoQuotaMessage=Setting FSRM Auto Quota "{0}".
-EnsureAutoQuotaExistsMessage=Ensuring FSRM Auto Quota "{0}" exists.
-EnsureAutoQuotaDoesNotExistMessage=Ensuring FSRM Auto Quota "{0}" does not exist.
-AutoQuotaCreatedMessage=FSRM Auto Quota "{0}" has been created.
-AutoQuotaUpdatedMessage=FSRM Auto Quota "{0}" has been updated.
-AutoQuotaRemovedMessage=FSRM Auto Quota "{0}" has been removed.
-TestingAutoQuotaMessage=Testing FSRM Auto Quota "{0}".
-AutoQuotaDoesNotMatchTemplateNeedsUpdateMessage=FSRM Auto Quota "{0}" {1} does not match template. Change required.
-AutoQuotaPropertyNeedsUpdateMessage=FSRM Auto Quota "{0}" {1} is different. Change required.
-AutoQuotaDoesNotExistButShouldMessage=FSRM Auto Quota "{0}" does not exist but should. Change required.
-AutoQuotaExistsButShouldNotMessage=FSRM Auto Quota "{0}" exists but should not. Change required.
-AutoQuotaDoesNotExistAndShouldNotMessage=FSRM Auto Quota "{0}" does not exist and should not. Change not required.
-AutoQuotaPathDoesNotExistError=FSRM Auto Quota "{0}" path does not exist.
-AutoQuotaTemplateEmptyError=FSRM Auto Quota "{0}" requires a template name to be set.
-AutoQuotaTemplateNotFoundError=FSRM Auto Quota "{0}" template "{1}" not found.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMAutoQuota'
 
+<#
+    .SYNOPSIS
+        Retrieves the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
@@ -41,12 +28,12 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing auto quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     $returnValue = @{
         Path = $Path
     }
-    if ($AutoQuota)
+    if ($autoQuota)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -76,31 +63,60 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )
+
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($LocalizedData.SettingAutoQuotaMessage) `
+            -f $Path
+        ) -join '' )
+
+    # Check the properties are valid.
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing Auto Quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     if ($Ensure -eq 'Present')
     {
@@ -110,7 +126,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota exists
             Set-FSRMAutoQuota @PSBoundParameters `
@@ -143,7 +159,7 @@ function Set-TargetResource
                 -f $Path
             ) -join '' )
 
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota shouldn't exist - remove it
             Remove-FSRMAutoQuota -Path $Path -ErrorAction Stop
@@ -157,23 +173,42 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the current state of the FSRM Auto Quota applied to the specified path.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )
@@ -187,19 +222,19 @@ function Test-TargetResource
         ) -join '' )
 
     # Check the properties are valid.
-    Test-ResourceProperty @PSBoundParameters
+    Assert-ResourcePropertiesValid @PSBoundParameters
 
     # Lookup the existing Quota
-    $AutoQuota = Get-AutoQuota -Path $Path
+    $autoQuota = Get-AutoQuota -Path $Path
 
     if ($Ensure -eq 'Present')
     {
         # The Auto Quota should exist
-        if ($AutoQuota)
+        if ($autoQuota)
         {
             # The Auto Quota exists already - check the parameters
             if (($PSBoundParameters.ContainsKey('Disabled')) `
-                -and ($AutoQuota.Disabled -ne $Disabled))
+                -and ($autoQuota.Disabled -ne $Disabled))
                 {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -210,7 +245,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('Template')) `
-                -and ($AutoQuota.Template -ne $Template)) {
+                -and ($autoQuota.Template -ne $Template)) {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
@@ -233,7 +268,7 @@ function Test-TargetResource
     else
     {
         # The Auto Quota should not exist
-        if ($AutoQuota) {
+        if ($autoQuota) {
             # The Auto Quota exists but should not
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -255,54 +290,77 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Retrieves the Auto Quota assigned to a specific path,
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+#>
 Function Get-AutoQuota {
+    [CmdletBinding()]
+    [OutputType([System.Object])]
     param (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path
     )
     try
     {
-        $AutoQuota = Get-FSRMAutoQuota -Path $Path -ErrorAction Stop
+        $autoQuota = Get-FSRMAutoQuota -Path $Path -ErrorAction Stop
     }
     catch [Microsoft.Management.Infrastructure.CimException] {
-        $AutoQuota = $null
+        $autoQuota = $null
     }
     catch {
         Throw $_
     }
-    Return $AutoQuota
+    Return $autoQuota
 }
+
 <#
-.Synopsis
-    This function validates the parameters passed. Called by Test-Resource.
-    Will throw an error if any parameters are invalid.
+    .SYNOPSIS
+        This function validates the parameters passed. Called by Test-Resource.
+        Will throw an error if any parameters are invalid.
+
+    .PARAMETER Path
+        The path this FSRM Quota applies to.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Quota should exist.
+
+    .PARAMETER Disabled
+        Disables the FSRM Quota applied to this path.
+
+    .PARAMETER Template
+        The name of the FSRM Quota Template to apply to this path.
 #>
-Function Test-ResourceProperty {
+Function Assert-ResourcePropertiesValid {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Path,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String]
         $Template
     )
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorId = 'AutoQuotaPathDoesNotExistError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Path
+        $errorArgumentName = 'Path'
     }
     if ($Ensure -eq 'Absent')
     {
@@ -317,26 +375,21 @@ Function Test-ResourceProperty {
             $null = Get-FSRMQuotaTemplate -Name $Template -ErrorAction Stop
         }
         catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException] {
-            $errorId = 'AutoQuotaTemplateNotFoundError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
             $errorMessage = $($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Path,$Template
+            $errorArgumentName = 'Template'
         }
     }
     else
     {
         # A template wasn't specifed - it needs to be
-        $errorId = 'AutoQuotaTemplateEmptyError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Path
+        $errorArgumentName = 'Template'
     }
-    if ($errorId)
+    if ($errorMessage)
     {
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message $errorMessage `
+            -ArgumentName $errorArgumentName
     }
 }
 

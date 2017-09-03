@@ -1,3 +1,6 @@
+# This configuration will create a FSRM Quota Template called '5 GB Hard Limit', with a
+# Hard Limit of 5GB and threshold percentages of 85 and 100. An e-mail action is bound
+# to each threshold. An event action is also bound to the 85 percent threshold.
 configuration Sample_FSRMQuotaTemplate
 {
     Import-DscResource -Module FSRMDsc

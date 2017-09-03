@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMFileScreen'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -86,6 +90,7 @@ try
 
             Context 'File Screen does not exist but should' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen
@@ -107,6 +112,7 @@ try
 
             Context 'File Screen exists and should but has a different Description' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen -MockWith { $Global:MockFileScreen }
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen
@@ -129,6 +135,7 @@ try
 
             Context 'File Screen exists and should but has a different Active' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen -MockWith { $Global:MockFileScreen }
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen
@@ -151,6 +158,7 @@ try
 
             Context 'File Screen exists and should but has a different IncludeGroup' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen -MockWith { $Global:MockFileScreen }
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen
@@ -173,6 +181,7 @@ try
 
             Context 'File Screen exists and but should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen -MockWith { $Global:MockFileScreen }
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen
@@ -195,6 +204,7 @@ try
 
             Context 'File Screen does not exist and should not' {
 
+                Mock Assert-ResourcePropertiesValid
                 Mock Get-FsrmFileScreen
                 Mock New-FsrmFileScreen
                 Mock Set-FsrmFileScreen

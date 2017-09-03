@@ -1,3 +1,8 @@
+# This configuration will assign the 'Block Some Files' file screen template to the
+# path 'D:\Users'. It will also force the File Screen assigned to this path to
+# exactly match the 'Block Some Files' template. Any changes to the actions, include
+# groups or active setting on the File Screen assigned to this path will cause
+# the File Screen to be removed and reapplied.
 configuration Sample_FSRMFileScreen_UsingTemplate
 {
     Import-DscResource -Module FSRMDsc

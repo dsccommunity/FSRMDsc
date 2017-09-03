@@ -1,3 +1,4 @@
+# This configuration will create a FSRM Yes/No Classification Property called Confidential.
 configuration Sample_FSRMClassificationProperty_YesNo
 {
     Import-DscResource -Module FSRMDsc

@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMClassificationPropertyValue'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -98,14 +102,11 @@ try
                 It 'should throw ClassificationPropertyNotFoundError exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
                     $null = $Splat.Remove('Description')
-                    $errorId = 'ClassificationPropertyNotFoundError'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.ClassificationPropertyNotFoundError) `
-                        -f $Splat.PropertyName
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
+                        -ArgumentName $Splat.PropertyName
+
                     { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call the expected mocks' {
@@ -157,14 +158,11 @@ try
 
                 It 'should throw ClassificationPropertyNotFound exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
-                    $errorId = 'ClassificationPropertyNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.ClassificationPropertyNotFoundError) `
-                        -f $Splat.PropertyName
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
+                        -ArgumentName $Splat.PropertyName
+
                     { Set-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -228,14 +226,11 @@ try
 
                 It 'should throw ClassificationPropertyNotFound exception' {
                     $Splat = $Global:ClassificationPossibleValue1.Clone()
-                    $errorId = 'ClassificationPropertyNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.ClassificationPropertyNotFoundError) `
-                        -f $Splat.PropertyName
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
+                        -ArgumentName $Splat.PropertyName
+
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {

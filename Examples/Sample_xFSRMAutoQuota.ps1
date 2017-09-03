@@ -1,3 +1,5 @@
+# This configuration will assign an FSRM Auto Quota to the path 'd:\users' using the
+# template '5 GB Limit'.
 configuration Sample_FSRMAutoQuota
 {
     Import-DscResource -Module FSRMDsc

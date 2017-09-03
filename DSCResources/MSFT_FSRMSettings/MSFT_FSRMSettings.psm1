@@ -1,15 +1,15 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingSettingsMessage=Getting FSRM Settings "{0}".
-SettingSettingsMessage=Setting FSRM Settings "{0}".
-SettingsUpdatedMessage=FSRM Settings "{0}" Updated.
-TestingSettingsMessage=Testing FSRM Settings "{0}".
-SettingsNeedsUpdateMessage=FSRM Settings "{0}" {1} is different. Change required.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMSettings'
 
+<#
+    .SYNOPSIS
+        Retrieves the current state of the FSRM Settings.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -17,60 +17,104 @@ function Get-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
-        [System.String]
-        $Id
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance
     )
 
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.GettingSettingsMessage) `
-            -f $Id
         ) -join '' )
 
-    $Settings = Get-FSRMSetting
+    $settings = Get-FSRMSetting
 
     $returnValue = @{
-        Id = $Id
-        SmtpServer = $Settings.SmtpServer
-        AdminEmailAddress = $Settings.AdminEmailAddress
-        FromEmailAddress = $Settings.FromEmailAddress
-        CommandNotificationLimit = $Settings.CommandNotificationLimit
-        EmailNotificationLimit = $Settings.EmailNotificationLimit
-        EventNotificationLimit = $Settings.EventNotificationLimit
+        IsSingleInstance = $IsSingleInstance
+        SmtpServer = $settings.SmtpServer
+        AdminEmailAddress = $settings.AdminEmailAddress
+        FromEmailAddress = $settings.FromEmailAddress
+        CommandNotificationLimit = $settings.CommandNotificationLimit
+        EmailNotificationLimit = $settings.EmailNotificationLimit
+        EventNotificationLimit = $settings.EventNotificationLimit
     }
 
     return $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the current state of the FSRM Settings.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER SmtpServer
+        Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that
+        FSRM uses to send email.
+
+    .PARAMETER AdminEmailAddress
+        Specifies a semicolon-separated list of email addresses for the recipients of any email
+        that the server sends to the administrator.
+
+    .PARAMETER FromEmailAddress
+        Specifies the default email address from which FSRM sends email messages.
+
+    .PARAMETER CommandNotificationLimit
+        Specifies the minimum number of seconds between individual running events of a command-type
+        notification.
+
+    .PARAMETER EmailNotificationLimit
+        Specifies the minimum number of seconds between individual running events of an email-type
+        notification.
+
+    .PARAMETER EventNotificationLimit
+        Specifies the minimum number of seconds between individual running events of an event-type
+        notification.
+#>
 Function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
         [parameter(Mandatory = $true)]
-        [System.String] $Id,
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
 
-        [System.String] $SmtpServer,
+        [Parameter()]
+        [System.String]
+        $SmtpServer,
 
-        [System.String] $AdminEmailAddress,
+        [Parameter()]
+        [System.String]
+        $AdminEmailAddress,
 
-        [System.String] $FromEmailAddress,
+        [Parameter()]
+        [System.String]
+        $FromEmailAddress,
 
-        [System.Uint32] $CommandNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $CommandNotificationLimit,
 
-        [System.Uint32] $EmailNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $EmailNotificationLimit,
 
-        [System.Uint32] $EventNotificationLimit
+        [Parameter()]
+        [System.Uint32]
+        $EventNotificationLimit
     )
 
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.SettingSettingsMessage) `
-            -f $Id
         ) -join '' )
 
     # Remove any parameters that can't be splatted.
-    $null = $PSBoundParameters.Remove('Id')
+    $null = $PSBoundParameters.Remove('IsSingleInstance')
 
     # Set the existing Settings with a splat
     Set-FSRMSetting @PSBoundParameters
@@ -78,11 +122,40 @@ Function Set-TargetResource
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.SettingsUpdatedMessage) `
-            -f $Id
         ) -join '' )
 
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the current state of the FSRM Settings.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER SmtpServer
+        Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that
+        FSRM uses to send email.
+
+    .PARAMETER AdminEmailAddress
+        Specifies a semicolon-separated list of email addresses for the recipients of any email
+        that the server sends to the administrator.
+
+    .PARAMETER FromEmailAddress
+        Specifies the default email address from which FSRM sends email messages.
+
+    .PARAMETER CommandNotificationLimit
+        Specifies the minimum number of seconds between individual running events of a command-type
+        notification.
+
+    .PARAMETER EmailNotificationLimit
+        Specifies the minimum number of seconds between individual running events of an email-type
+        notification.
+
+    .PARAMETER EventNotificationLimit
+        Specifies the minimum number of seconds between individual running events of an event-type
+        notification.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -90,20 +163,33 @@ function Test-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter()]
         [System.String]
-        $Id,
+        $SmtpServer,
 
-        [System.String] $SmtpServer,
+        [Parameter()]
+        [System.String]
+        $AdminEmailAddress,
 
-        [System.String] $AdminEmailAddress,
+        [Parameter()]
+        [System.String]
+        $FromEmailAddress,
 
-        [System.String] $FromEmailAddress,
+        [Parameter()]
+        [System.Uint32]
+        $CommandNotificationLimit,
 
-        [System.Uint32] $CommandNotificationLimit,
+        [Parameter()]
+        [System.Uint32]
+        $EmailNotificationLimit,
 
-        [System.Uint32] $EmailNotificationLimit,
-
-        [System.Uint32] $EventNotificationLimit
+        [Parameter()]
+        [System.Uint32]
+        $EventNotificationLimit
     )
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
@@ -111,74 +197,74 @@ function Test-TargetResource
     Write-Verbose -Message ( @(
         "$($MyInvocation.MyCommand): "
         $($LocalizedData.TestingSettingsMessage) `
-            -f $Id
         ) -join '' )
 
     # Lookup the existing Settings
-    $Settings = Get-FSRMSetting
+    $settings = Get-FSRMSetting
 
     # The Settings exists already - check the parameters
-    if (($SmtpServer) -and ($Settings.SmtpServer -ne $SmtpServer))
+    if (($PSBoundParameters.ContainsKey('SmtpServer')) `
+        -and ($settings.SmtpServer -ne $SmtpServer))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsNeedsUpdateMessage) `
-                -f $Id,'SmtpServer'
+                -f 'SmtpServer'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }
 
-    if (($AdminEmailAddress) `
-        -and ($Settings.AdminEmailAddress -ne $AdminEmailAddress))
+    if (($PSBoundParameters.ContainsKey('AdminEmailAddress')) `
+        -and ($settings.AdminEmailAddress -ne $AdminEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsNeedsUpdateMessage) `
-                -f $Id,'AdminEmailAddress'
+                -f 'AdminEmailAddress'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }
 
-    if (($FromEmailAddress) `
-        -and ($Settings.FromEmailAddress -ne $FromEmailAddress))
+    if (($PSBoundParameters.ContainsKey('FromEmailAddress')) `
+        -and ($settings.FromEmailAddress -ne $FromEmailAddress))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsNeedsUpdateMessage) `
-                -f $Id,'FromEmailAddress'
+                -f 'FromEmailAddress'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }
 
-    if (($CommandNotificationLimit) `
-        -and ($Settings.CommandNotificationLimit -ne $CommandNotificationLimit))
+    if (($PSBoundParameters.ContainsKey('CommandNotificationLimit')) `
+        -and ($settings.CommandNotificationLimit -ne $CommandNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsNeedsUpdateMessage) `
-                -f $Id,'CommandNotificationLimit'
+                -f 'CommandNotificationLimit'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }
 
-    if (($EmailNotificationLimit) `
-        -and ($Settings.EmailNotificationLimit -ne $EmailNotificationLimit))
+    if (($PSBoundParameters.ContainsKey('EmailNotificationLimit')) `
+        -and ($settings.EmailNotificationLimit -ne $EmailNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.EmailNotificationLimit) `
-                -f $Id,'FromEmailAddress'
+                -f 'FromEmailAddress'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }
 
-    if (($EventNotificationLimit) `
-        -and ($Settings.EventNotificationLimit -ne $EventNotificationLimit))
+    if (($PSBoundParameters.ContainsKey('EventNotificationLimit')) `
+        -and ($settings.EventNotificationLimit -ne $EventNotificationLimit))
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsNeedsUpdateMessage) `
-                -f $Id,'EventNotificationLimit'
+                -f 'EventNotificationLimit'
             ) -join '' )
         $desiredConfigurationMatch = $false
     }

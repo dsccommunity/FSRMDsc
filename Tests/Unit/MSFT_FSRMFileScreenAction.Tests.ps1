@@ -1,6 +1,10 @@
 $Global:DSCModuleName   = 'FSRMDsc'
 $Global:DSCResourceName = 'MSFT_FSRMFileScreenAction'
 
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'TestHelpers\CommonTestHelper.psm1') `
+              -Force
+
 #region HEADER
 # Unit Test Template Version: 1.1.0
 [String] $moduleRoot = Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))
@@ -144,14 +148,11 @@ try
 
                 It 'should throw FileScreenNotFound exception' {
                     $Splat = $Global:TestFileScreenActionEmail.Clone()
-                    $errorId = 'FileScreenNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-                        -f $Splat.Path,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
+
                     { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call the expected mocks' {
@@ -203,14 +204,11 @@ try
 
                 It 'should throw FileScreenNotFound exception' {
                     $Splat = $Global:TestFileScreenActionEmail.Clone()
-                    $errorId = 'FileScreenNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-                        -f $Splat.Path,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
+
                     { Set-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {
@@ -273,14 +271,11 @@ try
 
                 It 'should throw FileScreenNotFound exception' {
                     $Splat = $Global:TestFileScreenActionEmail.Clone()
-                    $errorId = 'FileScreenNotFound'
-                    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenNotFoundError) `
-                        -f $Splat.Path,$Splat.Type
-                    $exception = New-Object -TypeName System.InvalidOperationException `
-                        -ArgumentList $errorMessage
-                    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                        -ArgumentList $exception, $errorId, $errorCategory, $null
+
+                    $errorRecord = Get-InvalidArgumentRecord `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -ArgumentName 'Path'
+
                     { Test-TargetResource @Splat } | Should Throw $errorRecord
                 }
                 It 'should call expected Mocks' {

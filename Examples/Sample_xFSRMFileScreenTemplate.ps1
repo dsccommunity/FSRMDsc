@@ -1,3 +1,5 @@
+# This configuration will create an Active FSRM File Screen Template called 'Block Some Files',
+# with three include groups. An e-mail and event action is bound to the File Screen Template.
 configuration Sample_FSRMFileScreenTemplate
 {
     Import-DscResource -Module FSRMDsc

@@ -1,3 +1,7 @@
+# This will configure the FSRM Classification settings on this server.
+# It enables Continous Mode, Logging and sets the maximum Log size to 2 MB.
+# The Classification schedule is also set to Monday through Wednesday at 11:30pm
+# and will run a maximum of 4 hours.
 configuration Sample_FSRMClassification
 {
     Import-DscResource -Module FSRMDsc

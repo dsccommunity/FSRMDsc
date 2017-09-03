@@ -1,33 +1,22 @@
-data LocalizedData
-{
-    # culture="en-US"
-    ConvertFrom-StringData -StringData @'
-GettingClassificationRuleMessage=Getting FSRM Classification Rule "{0}".
-ClassificationRuleExistsMessage=FSRM Classification Rule "{0}" exists.
-ClassificationRuleDoesNotExistMessage=FSRM Classification Rule "{0}" does not exist.
-SettingClassificationRuleMessage=Setting FSRM Classification Rule "{0}".
-EnsureClassificationRuleExistsMessage=Ensuring FSRM Classification Rule "{0}" exists.
-EnsureClassificationRuleDoesNotExistMessage=Ensuring FSRM Classification Rule "{0}" does not exist.
-ClassificationRuleCreatedMessage=FSRM Classification Rule "{0}" has been created.
-ClassificationRuleUpdatedMessage=FSRM Classification Rule "{0}" has been updated.
-ClassificationRuleRecreatedMessage=FSRM Classification Rule "{0}" has been recreated.
-ClassificationRuleRemovedMessage=FSRM Classification Rule "{0}" has been removed.
-TestingClassificationRuleMessage=Testing FSRM Classification Rule "{0}".
-ClassificationRuleExistsAndShouldMessage=FSRM Classification Rule "{0}" exists and should.
-ClassificationRuleNeedsUpdateMessage=FSRM Classification Rule "{0}" {1} is different. Change required.
-ClassificationRuleDoesNotExistButShouldMessage=FSRM Classification Rule "{0}" does not exist but should. Change required.
-ClassificationRuleExistsButShouldNotMessage=FSRM Classification Rule "{0}" exists but should not. Change required.
-ClassificationRuleDoesNotExistAndShouldNotMessage=FSRM Classification Rule "{0}" does not exist and should not. Change not required.
-'@
-}
+Import-Module -Name (Join-Path `
+    -Path (Split-Path -Path $PSScriptRoot -Parent) `
+    -ChildPath 'CommonResourceHelper.psm1')
+$LocalizedData = Get-LocalizedData -ResourceName 'MSFT_FSRMClassificationRule'
 
+<#
+    .SYNOPSIS
+        Retrieves the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
@@ -38,12 +27,12 @@ function Get-TargetResource
             -f $Name
         ) -join '' )
 
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     $returnValue = @{
         Name = $Name
     }
-    if ($ClassificationRule)
+    if ($classificationRule)
     {
         Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -53,18 +42,18 @@ function Get-TargetResource
 
         $returnValue += @{
             Ensure = 'Present'
-            Description = $ClassificationRule.Description
-            Property = $ClassificationRule.Property
-            PropertyValue = $ClassificationRule.PropertyValue
-            ClassificationMechanism = $ClassificationRule.ClassificationMechanism
-            ContentRegularExpression = $ClassificationRule.ContentRegularExpression
-            ContentString = $ClassificationRule.ContentString
-            ContentStringCaseSensitive = $ClassificationRule.ContentStringCaseSensitive
-            Disabled = $ClassificationRule.Disabled
-            Flags = $ClassificationRule.Flags
-            Parameters = $ClassificationRule.Parameters
-            Namespace = $ClassificationRule.Namespace
-            ReevaluateProperty = $ClassificationRule.ReevaluateProperty
+            Description = $classificationRule.Description
+            Property = $classificationRule.Property
+            PropertyValue = $classificationRule.PropertyValue
+            ClassificationMechanism = $classificationRule.ClassificationMechanism
+            ContentRegularExpression = $classificationRule.ContentRegularExpression
+            ContentString = $classificationRule.ContentString
+            ContentStringCaseSensitive = $classificationRule.ContentStringCaseSensitive
+            Disabled = $classificationRule.Disabled
+            Flags = $classificationRule.Flags
+            Parameters = $classificationRule.Parameters
+            Namespace = $classificationRule.Namespace
+            ReevaluateProperty = $classificationRule.ReevaluateProperty
         }
     }
     else
@@ -83,52 +72,114 @@ function Get-TargetResource
     $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Rule.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Rule should exist.
+
+    .PARAMETER Property
+        Specifies the name of a classification property definition to set.
+
+    .PARAMETER PropertyValue
+        Specifies the property value that the rule will assign.
+
+    .PARAMETER ClassificationMechanism
+        Specifies the name of a valid classification mechanism available on the server for
+        assigning the property value.
+
+    .PARAMETER ContentRegularExpression
+        An array of regular expressions for pattern matching.
+
+    .PARAMETER ContentString
+        An array of strings for the content classifier to search for.
+
+    .PARAMETER ContentStringCaseSensitive
+        An array of case sensitive strings for the content classifier to search for.
+
+    .PARAMETER Disabled
+        Indicates that the classification rule is disabled.
+
+    .PARAMETER Flags
+        An array of flags that defines the possible states of the rule.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+
+    .PARAMETER Namespace
+        An array of namespaces where the rule is applied.
+
+    .PARAMETER ReevaluateProperty
+        Specifies the evaluation policy of the rule.
+#>
 function Set-TargetResource
 {
-    [CmdletBinding()]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String]
         $Property,
 
+        [Parameter()]
         [System.String]
         $PropertyValue,
 
+        [Parameter()]
         [System.String]
         $ClassificationMechanism,
 
+        [Parameter()]
         [System.String[]]
         $ContentRegularExpression,
 
+        [Parameter()]
         [System.String[]]
         $ContentString,
 
+        [Parameter()]
         [System.String[]]
         $ContentStringCaseSensitive,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String[]]
         $Flags,
 
+        [Parameter()]
         [System.String[]]
         $Parameters,
 
+        [Parameter()]
         [System.String[]]
         $Namespace,
 
+        [Parameter()]
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty
@@ -144,7 +195,7 @@ function Set-TargetResource
     $null = $PSBoundParameters.Remove('Ensure')
 
     # Lookup the existing Classification Rule
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     if ($Ensure -eq 'Present')
     {
@@ -154,7 +205,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule exists
             Set-FSRMClassificationRule @PSBoundParameters -ErrorAction Stop
@@ -185,7 +236,7 @@ function Set-TargetResource
                 -f $Name
             ) -join '' )
 
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule shouldn't exist - remove it
             Remove-FSRMClassificationRule -Name $Name -ErrorAction Stop
@@ -199,53 +250,114 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the FSRM Classification Rule with the specified Name.
+
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+
+    .PARAMETER Description
+        The description for the FSRM Classification Rule.
+
+    .PARAMETER Ensure
+        Specifies whether the FSRM Classification Rule should exist.
+
+    .PARAMETER Property
+        Specifies the name of a classification property definition to set.
+
+    .PARAMETER PropertyValue
+        Specifies the property value that the rule will assign.
+
+    .PARAMETER ClassificationMechanism
+        Specifies the name of a valid classification mechanism available on the server for
+        assigning the property value.
+
+    .PARAMETER ContentRegularExpression
+        An array of regular expressions for pattern matching.
+
+    .PARAMETER ContentString
+        An array of strings for the content classifier to search for.
+
+    .PARAMETER ContentStringCaseSensitive
+        An array of case sensitive strings for the content classifier to search for.
+
+    .PARAMETER Disabled
+        Indicates that the classification rule is disabled.
+
+    .PARAMETER Flags
+        An array of flags that defines the possible states of the rule.
+
+    .PARAMETER Parameters
+        An array of parameters in the format <name>=<value> that can be used by the File
+        Classification Infrastructure.
+
+    .PARAMETER Namespace
+        An array of namespaces where the rule is applied.
+
+    .PARAMETER ReevaluateProperty
+        Specifies the evaluation policy of the rule.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
+        [Parameter()]
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present',
 
+        [Parameter()]
         [System.String]
         $Property,
 
+        [Parameter()]
         [System.String]
         $PropertyValue,
 
+        [Parameter()]
         [System.String]
         $ClassificationMechanism,
 
+        [Parameter()]
         [System.String[]]
         $ContentRegularExpression,
 
+        [Parameter()]
         [System.String[]]
         $ContentString,
 
+        [Parameter()]
         [System.String[]]
         $ContentStringCaseSensitive,
 
+        [Parameter()]
         [System.Boolean]
         $Disabled,
 
+        [Parameter()]
         [System.String[]]
         $Flags,
 
+        [Parameter()]
         [System.String[]]
         $Parameters,
 
+        [Parameter()]
         [System.String[]]
         $Namespace,
 
+        [Parameter()]
         [ValidateSet('Never','Overwrite','Aggregate')]
         [System.String]
         $ReevaluateProperty
@@ -260,12 +372,12 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification Rule
-    $ClassificationRule = Get-ClassificationRule -Name $Name
+    $classificationRule = Get-ClassificationRule -Name $Name
 
     if ($Ensure -eq 'Present')
     {
         # The Classification Rule should exist
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
@@ -274,7 +386,7 @@ function Test-TargetResource
                 ) -join '' )
 
             # The Classification Rule exists already - check the parameters
-            if (($Description) -and ($ClassificationRule.Description -ne $Description))
+            if (($Description) -and ($classificationRule.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -284,7 +396,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($Property) -and ($ClassificationRule.Property -ne $Property))
+            if (($Property) -and ($classificationRule.Property -ne $Property))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -294,7 +406,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($PropertyValue) -and ($ClassificationRule.PropertyValue -ne $PropertyValue))
+            if (($PropertyValue) -and ($classificationRule.PropertyValue -ne $PropertyValue))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -305,7 +417,7 @@ function Test-TargetResource
             }
 
             if (($ClassificationMechanism) `
-                -and ($ClassificationRule.ClassificationMechanism -ne $ClassificationMechanism))
+                -and ($classificationRule.ClassificationMechanism -ne $ClassificationMechanism))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -318,7 +430,7 @@ function Test-TargetResource
             if (($ContentRegularExpression) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentRegularExpression `
-                -DifferenceObject $ClassificationRule.ContentRegularExpression).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentRegularExpression).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -331,7 +443,7 @@ function Test-TargetResource
             if (($ContentString) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentString `
-                -DifferenceObject $ClassificationRule.ContentString).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentString).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -344,7 +456,7 @@ function Test-TargetResource
             if (($ContentStringCaseSensitive) `
                 -and (Compare-Object `
                 -ReferenceObject $ContentStringCaseSensitive `
-                -DifferenceObject $ClassificationRule.ContentStringCaseSensitive).Count -ne 0)
+                -DifferenceObject $classificationRule.ContentStringCaseSensitive).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -354,7 +466,7 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($Disabled) -and ($ClassificationRule.Disabled -ne $Disabled))
+            if (($Disabled) -and ($classificationRule.Disabled -ne $Disabled))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -364,10 +476,16 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
+            $existingRuleFlags = @()
+            if ($classificationRule.Flags)
+            {
+                $existingRuleFlags = $classificationRule.Flags
+            }
+
             if (($Flags) `
                 -and (Compare-Object `
                 -ReferenceObject $Flags `
-                -DifferenceObject ($ClassificationRule.Flags,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject $existingRuleFlags).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -377,10 +495,16 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
+            $existingParameters = @()
+            if ($classificationRule.Parameters)
+            {
+                $existingParameters = $classificationRule.Parameters
+            }
+
             if (($Parameters) `
                 -and (Compare-Object `
                 -ReferenceObject $Parameters `
-                -DifferenceObject ($ClassificationRule.Parameters,@(),1 -ne $null)[0]).Count -ne 0)
+                -DifferenceObject $existingParameters).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -393,7 +517,7 @@ function Test-TargetResource
             if (($Namespace) `
                 -and (Compare-Object `
                 -ReferenceObject $Namespace `
-                -DifferenceObject $ClassificationRule.Namespace).Count -ne 0)
+                -DifferenceObject $classificationRule.Namespace).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -404,7 +528,7 @@ function Test-TargetResource
             }
 
             if (($ReevaluateProperty) `
-                -and ($ClassificationRule.ReevaluateProperty -ne $ReevaluateProperty))
+                -and ($classificationRule.ReevaluateProperty -ne $ReevaluateProperty))
             {
                 Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -428,7 +552,7 @@ function Test-TargetResource
     else
     {
         # The Classification Rule should not exist
-        if ($ClassificationRule)
+        if ($classificationRule)
         {
             # The Classification Rule exists but should not
             Write-Verbose -Message ( @(
@@ -451,28 +575,33 @@ function Test-TargetResource
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
-# Helper Functions
+<#
+    .SYNOPSIS
+        Gets the FSRM Classification Rule object with the specified Name.
 
+    .PARAMETER Name
+        The name of the FSRM Classification Rule.
+#>
 Function Get-ClassificationRule {
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name
     )
     try
     {
-        $ClassificationRule = Get-FSRMClassificationRule -Name $Name -ErrorAction Stop
+        $classificationRule = Get-FSRMClassificationRule -Name $Name -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
-        $ClassificationRule = $null
+        $classificationRule = $null
     }
     catch
     {
         Throw $_
     }
-    Return $ClassificationRule
+    Return $classificationRule
 }
 
 Export-ModuleMember -Function *-TargetResource
