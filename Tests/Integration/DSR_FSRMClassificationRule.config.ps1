@@ -13,7 +13,7 @@ $classificationRule = @{
     Disabled                   = $false
     Flags                      = @( 1024 )
     Namespace                  = @( '[FolderUsage_MS=User Files]',$ENV:Temp )
-    Parameters                 = @( 'FileName=*.doc','FSRMClearruleInternal=0' )
+    Parameters                 = @( 'FileName=*.doc','FSRMClearruleInternal=0','FSRMClearPropertyInternal=1024' )
     Property                   = $classificationProperty.Name
     PropertyValue              = $classificationProperty.PossibleValue[0]
     ReevaluateProperty         = 'Never'

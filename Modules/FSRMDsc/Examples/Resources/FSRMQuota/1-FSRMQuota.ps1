@@ -63,7 +63,7 @@ Configuration Example
             MailBCC    = ''
             MailCC     = 'fileserveradmins@contoso.com'
             MailTo     = '[Source Io Owner Email]'
-            DependsOn  = "[FSRMQuotaTemplate]DUsers"
+            DependsOn  = "[FSRMQuota]DUsers"
         } # End of FSRMQuotaAction Resource
     } # End of Node
 } # End of Configuration
