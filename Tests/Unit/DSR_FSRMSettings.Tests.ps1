@@ -23,8 +23,9 @@ $TestEnvironment = Initialize-TestEnvironment `
 try
 {
     #region Pester Tests
-
     InModuleScope $script:DSCResourceName {
+        $script:DSCResourceName = 'DSR_FSRMSettings'
+
         # Create the Mock Objects that will be used for running tests
         $script:Settings = [PSObject] @{
             IsSingleInstance = 'Yes'

@@ -314,6 +314,7 @@ function Test-TargetResource
         [System.String]
         $Description,
 
+        [Parameter()]
         [ValidateSet('Present', 'Absent')]
         [System.String]
         $Ensure = 'Present',

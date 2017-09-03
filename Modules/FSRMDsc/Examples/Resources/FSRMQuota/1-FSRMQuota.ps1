@@ -49,7 +49,7 @@ Configuration Example
             Type       = 'Event'
             Body       = 'User [Source Io Owner] has exceed the [Quota Threshold]% quota threshold for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit).'
             EventType  = 'Warning'
-            DependsOn  = "[FSRMQuotaTemplate]DUsers"
+            DependsOn  = "[FSRMQuota]DUsers"
         } # End of FSRMQuotaAction Resource
 
         FSRMQuotaAction DUsersEmail100

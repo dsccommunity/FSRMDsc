@@ -24,6 +24,8 @@ try
 {
     #region Pester Tests
     InModuleScope $script:DSCResourceName {
+        $script:DSCResourceName = 'DSR_FSRMAutoQuota'
+
         # Create the Mock Objects that will be used for running tests
         $script:TestAutoQuota = [PSObject]@{
             Path = $ENV:Temp

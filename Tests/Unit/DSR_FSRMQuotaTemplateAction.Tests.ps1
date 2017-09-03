@@ -24,6 +24,7 @@ try
 {
     #region Pester Tests
     InModuleScope $script:DSCResourceName {
+        $script:DSCResourceName = 'DSR_FSRMQuotaTemplateAction'
 
         # Create the Mock Objects that will be used for running tests
         # General purpose Action Mocks

@@ -24,6 +24,7 @@ try
 {
     #region Pester Tests
     InModuleScope $script:DSCResourceName {
+        $script:DSCResourceName = 'DSR_FSRMClassificationPropertyValue'
 
         # Create the Mock Objects that will be used for running tests
         $script:MockClassificationPossibleValue1 = New-CimInstance `

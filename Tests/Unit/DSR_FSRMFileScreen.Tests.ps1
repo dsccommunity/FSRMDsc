@@ -25,6 +25,7 @@ try
 {
     #region Pester Tests
     InModuleScope $script:DSCResourceName {
+        $script:DSCResourceName = 'DSR_FSRMFileScreen'
 
         # Create the Mock Objects that will be used for running tests
         $script:TestFileScreen = [PSObject]@{
