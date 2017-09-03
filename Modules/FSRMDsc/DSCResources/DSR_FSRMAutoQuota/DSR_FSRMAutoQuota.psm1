@@ -7,7 +7,7 @@ Import-Module -Name (Join-Path -Path $modulePath `
 
 # Import Localization Strings
 $LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMClassification' `
+    -ResourceName 'DSR_FSRMAutoQuota' `
     -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
 <#
