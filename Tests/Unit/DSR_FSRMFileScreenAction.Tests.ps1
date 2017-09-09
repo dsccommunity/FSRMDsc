@@ -69,7 +69,7 @@ try
             -ClientOnly `
             -Property @{
                 Type = 'Report'
-                ReportTypes = @( 'DuplicateFiles','LargeFiles','FileScreenUsage' )
+                ReportTypes = @( 'DuplicateFiles','LargeFiles','FilesByFileGroup' )
             }
 
         # FileScreen mocks
