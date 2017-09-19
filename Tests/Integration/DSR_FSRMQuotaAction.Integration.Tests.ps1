@@ -35,7 +35,7 @@ try
             -Threshold (New-FSRMQuotaThreshold -Percentage $quota.ThresholdPercentages[0])
 
         #region DEFAULT TESTS
-        It 'Should compile without throwing' {
+        It 'Should compile and apply the MOF without throwing' {
             {
                 & "$($script:DSCResourceName)_Config" -OutputPath $TestDrive
                 Start-DscConfiguration `
@@ -43,7 +43,8 @@ try
                     -ComputerName localhost `
                     -Wait `
                     -Verbose `
-                    -Force
+                    -Force `
+                    -ErrorAction Stop
             } | Should not throw
         }
 

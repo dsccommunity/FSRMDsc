@@ -35,7 +35,7 @@ try
             -Template $fileScreen.Template
 
         #region DEFAULT TESTS
-        It 'Should compile without throwing' {
+        It 'Should compile and apply the MOF without throwing' {
             {
                 & "$($script:DSCResourceName)_Config" -OutputPath $TestDrive
                 Start-DscConfiguration `

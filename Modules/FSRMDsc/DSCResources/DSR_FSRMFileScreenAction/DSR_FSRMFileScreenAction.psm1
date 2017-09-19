@@ -255,7 +255,7 @@ function Set-TargetResource
             -ArgumentName 'Path'
     }
 
-    $newActions = New-Object 'System.Collections.ArrayList'
+    $newActions = New-Object -TypeName 'System.Collections.ArrayList'
     $actionIndex = $null
     # Assemble the Result Object so that it contains an array of Actions
     # DO NOT change this behavior unless you are sure you know what you're doing.

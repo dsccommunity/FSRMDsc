@@ -256,8 +256,9 @@ function Set-TargetResource
             -ArgumentName 'Name'
     } # try
 
-    $newActions = New-Object 'System.Collections.ArrayList'
+    $newActions = New-Object -TypeName 'System.Collections.ArrayList'
     $actionIndex = $null
+
     # Assemble the Result Object so that it contains an array of Actions
     # DO NOT change this behavior unless you are sure you know what you're doing.
     for ($action = 0; $action -ilt $actions.Count; $action++)
@@ -332,6 +333,7 @@ function Set-TargetResource
                 ) -join '' )
         } # if
     } # if
+
     # Now write the actual change to the appropriate place
     Set-FSRMFileScreenTemplate `
         -Name $Name `
