@@ -143,7 +143,6 @@ function Set-TargetResource
             -or $PSBoundParameters.ContainsKey('ScheduleRunDuration') `
             -or $PSBoundParameters.ContainsKey('ScheduleTime'))
     {
-
         # There are so a scheduled task object needs to be modified or created
         $schedule = (Get-FSRMClassification).Schedule
 
@@ -152,16 +151,20 @@ function Set-TargetResource
 
         if ($PSBoundParameters.ContainsKey('ScheduleMonthly'))
         {
-            # The Schedule monthly is passed in as [System.Uint32[]].
-            # DSC does not support [System.Int32[]] types as parameters.
-            # But the New-FSRMScheduledTask Monthly parameter only supports [System.Int32[]] types.
-            # So this must be converted manually. Cast does not seem to work here.
+            <#
+                The Schedule monthly is passed in as [System.Uint32[]].
+                DSC does not support [System.Int32[]] types as parameters.
+                But the New-FSRMScheduledTask Monthly parameter only supports [System.Int32[]] types.
+                So this must be converted manually. Cast does not seem to work here.
+            #>
             $convertedScheduleMonthly = `
                 [System.Array]::CreateInstance([System.Int32], $ScheduleMonthly.Length)
+
             for ($counter = 0; $counter -lt $ScheduleMonthly.Length; $counter++)
             {
                 $convertedScheduleMonthly[$counter] = $ScheduleMonthly[$counter]
             }
+
             $newScheduledTaskParameters += @{ Monthly = $convertedScheduleMonthly }
         }
         elseif ( $schedule.Monthly )
@@ -203,7 +206,8 @@ function Set-TargetResource
         $null = $PSBoundParameters.Remove('ScheduleTime')
 
         # Add the new scheduled task parameter
-        $newSchedule = New-FSRMScheduledTask @newScheduledTaskParameters
+        $newSchedule = New-FSRMScheduledTask @newScheduledTaskParameters -ErrorAction Stop
+
         $null = $PSBoundParameters.Add('Schedule', $newSchedule)
 
         Write-Verbose -Message ( @(
@@ -212,15 +216,15 @@ function Set-TargetResource
                     -f $Id
             ) -join '' )
     }
+
     # Set the existing Classification with a from the existing bound parameters
-    Set-FSRMClassification @PSBoundParameters
+    Set-FSRMClassification @PSBoundParameters -ErrorAction Stop
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.ClassificationUpdatedMessage) `
                 -f $Id
         ) -join '' )
-
 } # Set-TargetResource
 
 <#
@@ -297,6 +301,7 @@ function Test-TargetResource
         [System.String]
         $ScheduleTime
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -317,6 +322,7 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'Continuous'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -327,6 +333,7 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ContinuousLog'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -337,6 +344,7 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ContinuousLogSize'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -356,10 +364,12 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ExcludeNamespace'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
     $existingScheduleMonthly = @()
+
     if ($classification.Schedule.Monthly)
     {
         $existingScheduleMonthly = $classification.Schedule.Monthly
@@ -379,6 +389,7 @@ function Test-TargetResource
     }
 
     $existingScheduleWeekly = @()
+
     if ($classification.Schedule.Weekly)
     {
         $existingScheduleWeekly = $classification.Schedule.Weekly
@@ -394,6 +405,7 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleWeekly'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -404,6 +416,7 @@ function Test-TargetResource
                 $($LocalizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleRunDuration'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 

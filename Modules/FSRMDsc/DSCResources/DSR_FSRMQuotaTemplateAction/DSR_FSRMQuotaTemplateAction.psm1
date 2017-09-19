@@ -315,6 +315,7 @@ function Set-TargetResource
                     $($LocalizedData.ActionNoChangeMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
+
             return
         }
         else
@@ -852,7 +853,7 @@ Function Set-Action
     foreach ($object in $ResultObject.SourceObjects)
     {
         $threshold += New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
