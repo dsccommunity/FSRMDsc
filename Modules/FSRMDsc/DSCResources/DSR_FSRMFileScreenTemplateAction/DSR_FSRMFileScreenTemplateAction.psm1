@@ -59,6 +59,7 @@ function Get-TargetResource
         Name = $Name
         Type = $Type
     }
+
     if ($action)
     {
         Write-Verbose -Message ( @(
@@ -66,6 +67,7 @@ function Get-TargetResource
                 $($LocalizedData.ActionExistsMessage) `
                     -f $Name, $Type
             ) -join '' )
+
         $returnValue += @{
             Ensure            = 'Present'
             Subject           = $action.Subject
@@ -97,7 +99,7 @@ function Get-TargetResource
         }
     } # if
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -259,8 +261,10 @@ function Set-TargetResource
     $newActions = New-Object -TypeName 'System.Collections.ArrayList'
     $actionIndex = $null
 
-    # Assemble the Result Object so that it contains an array of Actions
-    # DO NOT change this behavior unless you are sure you know what you're doing.
+    <#
+        Assemble the Result Object so that it contains an array of Actions
+        DO NOT change this behavior unless you are sure you know what you're doing.
+    #>
     for ($action = 0; $action -ilt $actions.Count; $action++)
     {
         $null = $newActions.Add($actions[$action])
@@ -480,6 +484,7 @@ function Test-TargetResource
         [System.String[]]
         $ReportTypes
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -523,6 +528,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Subject'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -534,6 +540,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Body'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -545,6 +552,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailBCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -556,6 +564,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -567,6 +576,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailTo'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -578,6 +588,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Command'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -589,6 +600,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'CommandParameters'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -600,6 +612,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'KillTimeOut'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -611,6 +624,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'RunLimitInterval'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -622,6 +636,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'SecurityLevel'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -633,6 +648,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'ShouldLogError'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -644,6 +660,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'WorkingDirectory'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -655,6 +672,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'EventType'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -666,6 +684,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'ReportTypes'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
             #endregion
@@ -678,6 +697,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionDoesNotExistButShouldMessage) `
                         -f $Name, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         } # if
     }
@@ -691,6 +711,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionExistsAndShouldNotMessage) `
                         -f $Name, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -733,10 +754,12 @@ Function Get-Action
         [System.String]
         $Type
     )
+
     $resultObject = [PSObject] @{
         ActionObjects = [System.Collections.ArrayList]@()
         ActionIndex   = $null
     }
+
     # Lookup the FileScreen Template
     try
     {
@@ -749,11 +772,14 @@ Function Get-Action
             -ArgumentName 'Name'
     } # try
 
-    # Assemble the Result Object so that it contains an array of Actions
-    # DO NOT change this behavior unless you are sure you know what you're doing.
+    <#
+        Assemble the Result Object so that it contains an array of Actions
+        DO NOT change this behavior unless you are sure you know what you're doing.
+    #>
     for ($action = 0; $action -ilt $fileScreenTemplate.Notification.Count; $action++)
     {
         $null = $resultObject.ActionObjects.Add($fileScreenTemplate.Notification[$action])
+
         if ($fileScreenTemplate.Notification[$action].Type -eq $Type)
         {
             $resultObject.ActionIndex = $action
@@ -761,7 +787,7 @@ Function Get-Action
     } # for
 
     # Return the result
-    Return $resultObject
+    return $resultObject
 }
 
 Export-ModuleMember -Function *-TargetResource

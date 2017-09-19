@@ -40,6 +40,7 @@ function Get-TargetResource
     $returnValue = @{
         Name = $Name
     }
+
     if ($fileScreenTemplate)
     {
         Write-Verbose -Message ( @(
@@ -68,7 +69,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -229,6 +230,7 @@ function Test-TargetResource
         [System.String[]]
         $IncludeGroup
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -255,6 +257,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -266,6 +269,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'Active'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -279,6 +283,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'IncludeGroup'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -290,6 +295,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenTemplateDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -304,6 +310,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenTemplateExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -316,6 +323,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -334,6 +342,7 @@ Function Get-FileScreenTemplate
         [System.String]
         $Name
     )
+
     try
     {
         $fileScreenTemplate = Get-FSRMFileScreenTemplate `
@@ -348,7 +357,8 @@ Function Get-FileScreenTemplate
     {
         Throw $_
     }
-    Return $fileScreenTemplate
+
+    return $fileScreenTemplate
 }
 
 Export-ModuleMember -Function *-TargetResource

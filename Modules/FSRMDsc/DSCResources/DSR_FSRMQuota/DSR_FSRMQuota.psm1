@@ -40,6 +40,7 @@ function Get-TargetResource
     $returnValue = @{
         Path = $Path
     }
+
     if ($quota)
     {
         Write-Verbose -Message ( @(
@@ -72,7 +73,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -192,7 +193,7 @@ function Set-TargetResource
             # Scan through the required thresholds and add any that are misssing
             foreach ($ThresholdPercentage in $ThresholdPercentages)
             {
-                If ($ThresholdPercentage -notin $thresholds.Percentage)
+                if ($ThresholdPercentage -notin $thresholds.Percentage)
                 {
                     # The threshold percentage is missing so add it
                     $thresholds += New-FSRMQuotaThreshold -Percentage $ThresholdPercentage
@@ -205,8 +206,10 @@ function Set-TargetResource
                 }
             }
 
-            # Only remove thresholds that aren't passed IF a template isn't specified
-            # because otherwise thresholds assigned by the template will get removed.
+            <#
+                Only remove thresholds that aren't passed IF a template isn't specified
+                because otherwise thresholds assigned by the template will get removed.
+            #>
             if (-not $quota.Template)
             {
                 # Scan through the existing thresholds and remove any that are misssing
@@ -237,13 +240,16 @@ function Set-TargetResource
             # The Quota exists
             if ($MatchesTemplate -and ($Template -ne $quota.Template))
             {
-                # The template needs to be changed so the quota needs to be
-                # Completely recreated.
+                <#
+                    The template needs to be changed so the quota needs to be
+                    Completely recreated.
+                #>
                 Remove-FSRMQuota `
                     -Path $Path `
                     -Confirm:$false `
                     -ErrorAction Stop
-                New-FSRMQuota @PSBoundParameters `
+
+                    New-FSRMQuota @PSBoundParameters `
                     -ErrorAction Stop
 
                 Write-Verbose -Message ( @(
@@ -255,6 +261,7 @@ function Set-TargetResource
             else
             {
                 $PSBoundParameters.Remove('Template')
+
                 Set-FSRMQuota @PSBoundParameters `
                     -ErrorAction Stop
 
@@ -376,6 +383,7 @@ function Test-TargetResource
         [System.Boolean]
         $MatchesTemplate
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -407,6 +415,7 @@ function Test-TargetResource
                             $($LocalizedData.QuotaDoesNotMatchTemplateNeedsUpdateMessage) `
                                 -f $Path, 'Description'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
             }
@@ -420,6 +429,7 @@ function Test-TargetResource
                             $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'Size'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
 
@@ -431,6 +441,7 @@ function Test-TargetResource
                             $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'SoftLimit'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
 
@@ -445,6 +456,7 @@ function Test-TargetResource
                             $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'ThresholdPercentages'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
             } # if ($MatchesTemplate)
@@ -457,6 +469,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -468,6 +481,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Disabled'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -479,6 +493,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Template'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -490,6 +505,7 @@ function Test-TargetResource
                     $($LocalizedData.QuotaDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -504,6 +520,7 @@ function Test-TargetResource
                     $($LocalizedData.QuotaExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -516,6 +533,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -534,6 +552,7 @@ Function Get-Quota
         [System.String]
         $Path
     )
+
     try
     {
         $quota = Get-FSRMQuota -Path $Path -ErrorAction Stop
@@ -546,7 +565,8 @@ Function Get-Quota
     {
         Throw $_
     }
-    Return $quota
+
+    return $quota
 }
 
 <#
@@ -625,17 +645,20 @@ Function Assert-ResourcePropertiesValid
         [System.Boolean]
         $MatchesTemplate
     )
+
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
         $errorMessage = $($LocalizedData.QuotaPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     }
+
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if quota should be removed.
         return
     }
+
     if ($Template)
     {
         # Check the template exists
@@ -658,6 +681,7 @@ Function Assert-ResourcePropertiesValid
             $errorArgumentName = 'Path'
         }
     }
+
     if ($errorMessage)
     {
         New-InvalidArgumentException `

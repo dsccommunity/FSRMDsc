@@ -39,6 +39,7 @@ function Get-TargetResource
     $returnValue = @{
         Name = $Name
     }
+
     if ($fileGroup)
     {
         Write-Verbose -Message ( @(
@@ -67,7 +68,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -228,6 +229,7 @@ function Test-TargetResource
         [System.String[]]
         $ExcludePattern = @('')
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -253,6 +255,7 @@ function Test-TargetResource
                         $($LocalizedData.FileGroupDescriptionNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -265,6 +268,7 @@ function Test-TargetResource
                         $($LocalizedData.FileGroupIncludePatternNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -277,6 +281,7 @@ function Test-TargetResource
                         $($LocalizedData.FileGroupExcludePatternNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -288,6 +293,7 @@ function Test-TargetResource
                     $($LocalizedData.FileGroupDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -302,6 +308,7 @@ function Test-TargetResource
                     $($LocalizedData.FileGroupExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -314,6 +321,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -332,6 +340,7 @@ Function Get-FileGroup
         [System.String]
         $Name
     )
+
     try
     {
         $fileGroup = Get-FSRMFileGroup -Name $Name -ErrorAction Stop
@@ -344,7 +353,8 @@ Function Get-FileGroup
     {
         Throw $_
     }
-    Return $fileGroup
+
+    return $fileGroup
 }
 
 Export-ModuleMember -Function *-TargetResource

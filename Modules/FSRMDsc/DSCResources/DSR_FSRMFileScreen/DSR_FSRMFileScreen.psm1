@@ -40,6 +40,7 @@ function Get-TargetResource
     $returnValue = @{
         Path = $Path
     }
+
     if ($fileScreen)
     {
         Write-Verbose -Message ( @(
@@ -70,7 +71,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -288,6 +289,7 @@ function Test-TargetResource
         [System.Boolean]
         $MatchesTemplate
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -319,6 +321,7 @@ function Test-TargetResource
                             $($LocalizedData.FileScreenDoesNotMatchTemplateNeedsUpdateMessage) `
                                 -f $Path, 'Description'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
             }
@@ -332,6 +335,7 @@ function Test-TargetResource
                             $($LocalizedData.FileScreenPropertyNeedsUpdateMessage) `
                                 -f $Path, 'Active'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
 
@@ -345,6 +349,7 @@ function Test-TargetResource
                             $($LocalizedData.FileScreenPropertyNeedsUpdateMessage) `
                                 -f $Path, 'IncludeGroup'
                         ) -join '' )
+
                     $desiredConfigurationMatch = $false
                 }
             } # if ($MatchesTemplate)
@@ -357,6 +362,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenPropertyNeedsUpdateMessage) `
                             -f $Path, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -368,6 +374,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenPropertyNeedsUpdateMessage) `
                             -f $Path, 'Template'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -379,6 +386,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -393,6 +401,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -405,6 +414,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -423,6 +433,7 @@ Function Get-FileScreen
         [System.String]
         $Path
     )
+
     try
     {
         $fileScreen = Get-FSRMFileScreen -Path $Path -ErrorAction Stop
@@ -435,7 +446,8 @@ Function Get-FileScreen
     {
         Throw $_
     }
-    Return $fileScreen
+
+    return $fileScreen
 }
 
 <#
@@ -499,6 +511,7 @@ Function Assert-ResourcePropertiesValid
         [System.Boolean]
         $MatchesTemplate
     )
+
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
@@ -506,11 +519,13 @@ Function Assert-ResourcePropertiesValid
         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
         $errorMessage = $($LocalizedData.FileScreenPathDoesNotExistError) -f $Path
     }
+
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if File Screen should be removed.
         return
     }
+
     if ($Template)
     {
         # Check the template exists
@@ -535,6 +550,7 @@ Function Assert-ResourcePropertiesValid
             $errorMessage = $($LocalizedData.FileScreenTemplateEmptyError) -f $Path
         }
     }
+
     if ($errorId)
     {
         $exception = New-Object -TypeName System.InvalidOperationException `

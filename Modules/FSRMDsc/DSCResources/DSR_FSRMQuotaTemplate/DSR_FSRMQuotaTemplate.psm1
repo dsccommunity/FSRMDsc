@@ -40,6 +40,7 @@ function Get-TargetResource
     $returnValue = @{
         Name = $Name
     }
+
     if ($quotaTemplate)
     {
         Write-Verbose -Message ( @(
@@ -69,7 +70,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -287,6 +288,7 @@ function Test-TargetResource
         [System.Uint32[]]
         $ThresholdPercentages
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -313,6 +315,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -324,6 +327,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'Size'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -335,6 +339,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'SoftLimit'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -349,6 +354,7 @@ function Test-TargetResource
                         $($LocalizedData.QuotaTemplatePropertyNeedsUpdateMessage) `
                             -f $Name, 'ThresholdPercentages'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -360,6 +366,7 @@ function Test-TargetResource
                     $($LocalizedData.QuotaTemplateDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -374,6 +381,7 @@ function Test-TargetResource
                     $($LocalizedData.QuotaTemplateExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -386,6 +394,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -404,6 +413,7 @@ Function Get-QuotaTemplate
         [System.String]
         $Name
     )
+
     try
     {
         $quotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
@@ -416,7 +426,8 @@ Function Get-QuotaTemplate
     {
         Throw $_
     }
-    Return $quotaTemplate
+
+    return $quotaTemplate
 }
 
 Export-ModuleMember -Function *-TargetResource

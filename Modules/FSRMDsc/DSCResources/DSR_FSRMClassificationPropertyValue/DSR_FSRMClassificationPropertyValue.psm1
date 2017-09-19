@@ -42,14 +42,15 @@ function Get-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification Property
-    $ClassificationProperty = Get-ClassificationProperty `
+    $classificationProperty = Get-ClassificationProperty `
         -PropertyName $PropertyName
-    $ClassificationPropertyValue = $null
-    foreach ($c in $ClassificationProperty.PossibleValue)
+    $classificationPropertyValue = $null
+
+    foreach ($c in $classificationProperty.PossibleValue)
     {
         if ($c.Name -eq $Name)
         {
-            $ClassificationPropertyValue = $C
+            $classificationPropertyValue = $c
             break
         }
     }
@@ -58,17 +59,19 @@ function Get-TargetResource
         Name         = $Name
         PropertyName = $PropertyName
     }
-    if ($ClassificationPropertyValue)
+
+    if ($classificationPropertyValue)
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.ClassificationPropertyValueExistsMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
-        $returnValue += @{
+
+            $returnValue += @{
             Ensure      = 'Present'
-            DisplayName = $ClassificationPropertyValue.DisplayName
-            Description = $ClassificationPropertyValue.Description
+            DisplayName = $classificationPropertyValue.DisplayName
+            Description = $classificationPropertyValue.Description
         }
     }
     else
@@ -84,7 +87,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -138,22 +141,23 @@ function Set-TargetResource
     $PSBoundParameters.Remove('PropertyName')
 
     # Lookup the existing Classification Property
-    $ClassificationProperty = Get-ClassificationProperty `
+    $classificationProperty = Get-ClassificationProperty `
         -PropertyName $PropertyName
 
     # Convert the CIMInstance array into an Array List so it can be worked with
-    $ClassificationPropertyValues = `
-        [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
+    $classificationPropertyValues = `
+        [System.Collections.ArrayList]($classificationProperty.PossibleValue)
 
     # Find the index for the existing Value name (if it exists)
-    $ClassificationPropertyValue = $null
-    $ClassificationPropertyValueIndex = $null
-    for ($c = 0; $c -ilt $ClassificationPropertyValues.Count; $c++)
+    $classificationPropertyValue = $null
+    $classificationPropertyValueIndex = $null
+
+    for ($c = 0; $c -ilt $classificationPropertyValues.Count; $c++)
     {
-        if ($ClassificationPropertyValues[$c].Name -eq $Name)
+        if ($classificationPropertyValues[$c].Name -eq $Name)
         {
-            $ClassificationPropertyValue = $ClassificationPropertyValues[$c]
-            $ClassificationPropertyValueIndex = $c
+            $classificationPropertyValue = $classificationPropertyValues[$c]
+            $classificationPropertyValueIndex = $c
         }
     }
 
@@ -169,7 +173,7 @@ function Set-TargetResource
             @PSBoundParameters `
             -ErrorAction Stop
 
-        if ($null -eq $ClassificationPropertyValueIndex)
+        if ($null -eq $classificationPropertyValueIndex)
         {
             # Create the Classification Property Value
             Write-Verbose -Message ( @(
@@ -181,7 +185,7 @@ function Set-TargetResource
         else
         {
             # The Classification Property Value exists, remove it then update it
-            $null = $ClassificationPropertyValues.RemoveAt($ClassificationPropertyValueIndex)
+            $null = $classificationPropertyValues.RemoveAt($classificationPropertyValueIndex)
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -190,7 +194,7 @@ function Set-TargetResource
                 ) -join '' )
         }
 
-        $null = $ClassificationPropertyValues.Add($NewClassificationPropertyValue)
+        $null = $classificationPropertyValues.Add($NewClassificationPropertyValue)
     }
     else
     {
@@ -200,7 +204,7 @@ function Set-TargetResource
                     -f $PropertyName, $Name
             ) -join '' )
 
-        if ($null -eq $ClassificationPropertyValueIndex)
+        if ($null -eq $classificationPropertyValueIndex)
         {
             # The Classification Property Value doesn't exist and should not
             Write-Verbose -Message ( @(
@@ -213,7 +217,7 @@ function Set-TargetResource
         else
         {
             # The Classification Property Value exists, but shouldn't remove it
-            $null = $ClassificationPropertyValues.RemoveAt($ClassificationPropertyValueIndex)
+            $null = $classificationPropertyValues.RemoveAt($classificationPropertyValueIndex)
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
@@ -225,7 +229,7 @@ function Set-TargetResource
     # Now write the actual change to the appropriate place
     Set-FSRMClassificationPropertyDefinition `
         -Name $PropertyName `
-        -PossibleValue $ClassificationPropertyValues `
+        -PossibleValue $classificationPropertyValues `
         -ErrorAction Stop
 
     Write-Verbose -Message ( @(
@@ -284,22 +288,23 @@ function Test-TargetResource
         ) -join '' )
 
     # Lookup the existing Classification Property
-    $ClassificationProperty = Get-ClassificationProperty `
+    $classificationProperty = Get-ClassificationProperty `
         -PropertyName $PropertyName
 
     # Convert the CIMInstance array into an Array List so it can be worked with
-    $ClassificationPropertyValues = `
-        [System.Collections.ArrayList]($ClassificationProperty.PossibleValue)
+    $classificationPropertyValues = `
+        [System.Collections.ArrayList]($classificationProperty.PossibleValue)
 
     # Find the index for the existing Value name (if it exists)
-    $ClassificationPropertyValue = $null
-    $ClassificationPropertyValueIndex = $null
-    for ($c = 0; $c -ilt $ClassificationPropertyValues.Count; $c++)
+    $classificationPropertyValue = $null
+    $classificationPropertyValueIndex = $null
+
+    for ($c = 0; $c -ilt $classificationPropertyValues.Count; $c++)
     {
-        if ($ClassificationPropertyValues[$c].Name -eq $Name)
+        if ($classificationPropertyValues[$c].Name -eq $Name)
         {
-            $ClassificationPropertyValue = $ClassificationPropertyValues[$c]
-            $ClassificationPropertyValueIndex = $c
+            $classificationPropertyValue = $classificationPropertyValues[$c]
+            $classificationPropertyValueIndex = $c
         }
     }
 
@@ -311,7 +316,7 @@ function Test-TargetResource
                     -f $PropertyName, $Name
             ) -join '' )
 
-        if ($null -eq $ClassificationPropertyValueIndex)
+        if ($null -eq $classificationPropertyValueIndex)
         {
             # The Classification Property Value does not exist but should
             Write-Verbose -Message ( @(
@@ -326,7 +331,7 @@ function Test-TargetResource
             # The Classification Property Value exists - check it
             #region Parameter Checks
             if (($PSBoundParameters.ContainsKey('Description')) `
-                    -and ($ClassificationPropertyValue.Description -ne $Description))
+                    -and ($classificationPropertyValue.Description -ne $Description))
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -340,7 +345,7 @@ function Test-TargetResource
     }
     else
     {
-        if ($null -eq $ClassificationPropertyValueIndex)
+        if ($null -eq $classificationPropertyValueIndex)
         {
             # The ClassificationPropertyValue doesn't exist and should not
             Write-Verbose -Message ( @(

@@ -39,6 +39,7 @@ function Get-TargetResource
     $returnValue = @{
         Name = $Name
     }
+
     if ($classificationRule)
     {
         Write-Verbose -Message ( @(
@@ -76,7 +77,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -369,6 +370,7 @@ function Test-TargetResource
         [System.String]
         $ReevaluateProperty
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -400,6 +402,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -410,6 +413,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Property'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -420,6 +424,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'PropertyValue'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -431,6 +436,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'ClassificationMechanism'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -444,6 +450,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'ContentRegularExpression'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -457,6 +464,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'ContentString'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -470,6 +478,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'ContentStringCaseSensitive'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -480,10 +489,12 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Disabled'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
             $existingRuleFlags = @()
+
             if ($classificationRule.Flags)
             {
                 $existingRuleFlags = $classificationRule.Flags
@@ -499,6 +510,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Flags'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -518,6 +530,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Parameters'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -531,6 +544,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'Namespace'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -542,6 +556,7 @@ function Test-TargetResource
                         $($LocalizedData.ClassificationRuleNeedsUpdateMessage) `
                             -f $Name, 'ReevaluateProperty'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -553,6 +568,7 @@ function Test-TargetResource
                     $($LocalizedData.ClassificationRuleDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -567,6 +583,7 @@ function Test-TargetResource
                     $($LocalizedData.ClassificationRuleExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -579,6 +596,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -597,6 +615,7 @@ Function Get-ClassificationRule
         [System.String]
         $Name
     )
+
     try
     {
         $classificationRule = Get-FSRMClassificationRule -Name $Name -ErrorAction Stop
@@ -609,7 +628,8 @@ Function Get-ClassificationRule
     {
         Throw $_
     }
-    Return $classificationRule
+
+    return $classificationRule
 }
 
 Export-ModuleMember -Function *-TargetResource

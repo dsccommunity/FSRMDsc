@@ -130,7 +130,6 @@ Function Set-TargetResource
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.SettingsUpdatedMessage) `
         ) -join '' )
-
 } # Set-TargetResource
 
 <#
@@ -198,6 +197,7 @@ function Test-TargetResource
         [System.Uint32]
         $EventNotificationLimit
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -218,6 +218,7 @@ function Test-TargetResource
                 $($LocalizedData.SettingsNeedsUpdateMessage) `
                     -f 'SmtpServer'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -229,6 +230,7 @@ function Test-TargetResource
                 $($LocalizedData.SettingsNeedsUpdateMessage) `
                     -f 'AdminEmailAddress'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -240,6 +242,7 @@ function Test-TargetResource
                 $($LocalizedData.SettingsNeedsUpdateMessage) `
                     -f 'FromEmailAddress'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -251,6 +254,7 @@ function Test-TargetResource
                 $($LocalizedData.SettingsNeedsUpdateMessage) `
                     -f 'CommandNotificationLimit'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -262,6 +266,7 @@ function Test-TargetResource
                 $($LocalizedData.EmailNotificationLimit) `
                     -f 'FromEmailAddress'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 
@@ -273,6 +278,7 @@ function Test-TargetResource
                 $($LocalizedData.SettingsNeedsUpdateMessage) `
                     -f 'EventNotificationLimit'
             ) -join '' )
+
         $desiredConfigurationMatch = $false
     }
 

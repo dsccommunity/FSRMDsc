@@ -67,7 +67,7 @@ function Get-TargetResource
         }
     } # if
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -219,6 +219,7 @@ function Test-TargetResource
         [System.String[]]
         $IncludeGroup
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -250,6 +251,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
                             -f $Path, 'IncludeGroup'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
 
@@ -261,6 +263,7 @@ function Test-TargetResource
                         $($LocalizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
                             -f $Path, 'Description'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             } # if
         }
@@ -272,6 +275,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenExceptionDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -286,6 +290,7 @@ function Test-TargetResource
                     $($LocalizedData.FileScreenExceptionExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -298,6 +303,7 @@ function Test-TargetResource
                 ) -join '' )
         } # if
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -316,6 +322,7 @@ Function Get-FileScreenException
         [System.String]
         $Path
     )
+
     try
     {
         $fileScreenException = Get-FSRMFileScreenException -Path $Path -ErrorAction Stop
@@ -328,7 +335,8 @@ Function Get-FileScreenException
     {
         Throw $_
     }
-    Return $fileScreenException
+
+    return $fileScreenException
 }
 
 <#
@@ -370,17 +378,20 @@ Function Assert-ResourcePropertiesValid
         [System.String[]]
         $IncludeGroup
     )
+
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
         $errorMessage = $($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     } # if
+
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if File Screen Exception should be removed.
         return
     } # if
+
     if ($errorMessage)
     {
         New-InvalidArgumentException `

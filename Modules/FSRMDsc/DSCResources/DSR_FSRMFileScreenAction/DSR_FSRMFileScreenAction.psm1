@@ -52,12 +52,14 @@ function Get-TargetResource
             -Message ($($LocalizedData.FileScreenNotFoundError) -f $Path) `
             -ArgumentName 'Path'
     }
-    $action = $actions | Where-Object { $_.Type -eq $Type }
+
+    $action = $actions | Where-Object -FilterScript { $_.Type -eq $Type }
 
     $returnValue = @{
         Path = $Path
         Type = $Type
     }
+
     if ($action)
     {
         Write-Verbose -Message ( @(
@@ -65,6 +67,7 @@ function Get-TargetResource
                 $($LocalizedData.ActionExistsMessage) `
                     -f $Path, $Type
             ) -join '' )
+
         $returnValue += @{
             Ensure            = 'Present'
             Subject           = $action.Subject
@@ -96,7 +99,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -257,8 +260,11 @@ function Set-TargetResource
 
     $newActions = New-Object -TypeName 'System.Collections.ArrayList'
     $actionIndex = $null
-    # Assemble the Result Object so that it contains an array of Actions
-    # DO NOT change this behavior unless you are sure you know what you're doing.
+
+    <#
+        Assemble the Result Object so that it contains an array of Actions
+        DO NOT change this behavior unless you are sure you know what you're doing.
+    #>
     for ($action = 0; $action -ilt $actions.Count; $action++)
     {
         $null = $newActions.Add($actions[$action])
@@ -317,6 +323,7 @@ function Set-TargetResource
                     $($LocalizedData.ActionNoChangeMessage) `
                         -f $Path, $Type
                 ) -join '' )
+
             return
         }
         else
@@ -478,6 +485,7 @@ function Test-TargetResource
         [System.String[]]
         $ReportTypes
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -498,7 +506,8 @@ function Test-TargetResource
             -Message ($($LocalizedData.FileScreenNotFoundError) -f $Path) `
             -ArgumentName 'Path'
     }
-    $action = $actions | Where-Object { $_.Type -eq $Type }
+
+    $action = $actions | Where-Object -FilterScript { $_.Type -eq $Type }
 
     if ($Ensure -eq 'Present')
     {
@@ -520,6 +529,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'Subject'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -531,6 +541,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'Body'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -542,6 +553,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'MailBCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -553,6 +565,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'MailCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -564,6 +577,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'MailTo'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -575,6 +589,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'Command'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -586,6 +601,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'CommandParameters'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -597,6 +613,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'KillTimeOut'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -608,6 +625,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'RunLimitInterval'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -619,6 +637,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'SecurityLevel'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -630,6 +649,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'ShouldLogError'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -641,6 +661,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'WorkingDirectory'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -652,6 +673,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'EventType'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -663,6 +685,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Path, $Type, 'ReportTypes'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
             #endregion
@@ -675,6 +698,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionDoesNotExistButShouldMessage) `
                         -f $Path, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -688,6 +712,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionExistsAndShouldNotMessage) `
                         -f $Path, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
