@@ -39,8 +39,9 @@ try
                     -ComputerName localhost `
                     -Wait `
                     -Verbose `
-                    -Force
-            } | Should not throw
+                    -Force `
+                    -ErrorAction Stop
+            } | Should Not Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {

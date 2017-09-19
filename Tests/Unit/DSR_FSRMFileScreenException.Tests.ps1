@@ -83,7 +83,7 @@ try
                 Mock Set-FsrmFileScreenException
                 Mock Remove-FsrmFileScreenException
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         Set-TargetResource @Splat
@@ -104,7 +104,7 @@ try
                 Mock Set-FsrmFileScreenException
                 Mock Remove-FsrmFileScreenException
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Description = 'Different'
@@ -126,7 +126,7 @@ try
                 Mock Set-FsrmFileScreenException
                 Mock Remove-FsrmFileScreenException
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
@@ -148,7 +148,7 @@ try
                 Mock Set-FsrmFileScreenException
                 Mock Remove-FsrmFileScreenException
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
@@ -170,7 +170,7 @@ try
                 Mock Set-FsrmFileScreenException
                 Mock Remove-FsrmFileScreenException
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'

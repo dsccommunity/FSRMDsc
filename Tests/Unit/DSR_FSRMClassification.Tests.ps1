@@ -138,7 +138,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.Continuous = (-not $Splat.Continuous)
@@ -156,7 +156,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
@@ -174,7 +174,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
@@ -192,7 +192,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
@@ -210,7 +210,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationWeekly.Clone()
                         $Splat.ScheduleWeekly = @( 'Monday','Tuesday','Wednesday' )
@@ -228,7 +228,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleMonthly = @( 13,14,15 )
@@ -246,7 +246,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
@@ -264,7 +264,7 @@ try
                 Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
                 Mock Set-FSRMClassification
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleTime = '01:00'

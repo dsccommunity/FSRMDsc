@@ -40,6 +40,7 @@ function Get-TargetResource
     $returnValue = @{
         Path = $Path
     }
+
     if ($autoQuota)
     {
         Write-Verbose -Message ( @(
@@ -67,7 +68,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -219,6 +220,7 @@ function Test-TargetResource
         [System.String]
         $Template
     )
+
     # Flag to signal whether settings are correct
     [Boolean] $desiredConfigurationMatch = $true
 
@@ -248,6 +250,7 @@ function Test-TargetResource
                         $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Disabled'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -259,6 +262,7 @@ function Test-TargetResource
                         $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Template'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
         }
@@ -270,6 +274,7 @@ function Test-TargetResource
                     $($LocalizedData.AutoQuotaDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
     }
@@ -284,6 +289,7 @@ function Test-TargetResource
                     $($LocalizedData.AutoQuotaExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -296,6 +302,7 @@ function Test-TargetResource
                 ) -join '' )
         }
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -327,7 +334,8 @@ Function Get-AutoQuota
     {
         Throw $_
     }
-    Return $autoQuota
+
+    return $autoQuota
 }
 
 <#
@@ -369,17 +377,20 @@ Function Assert-ResourcePropertiesValid
         [System.String]
         $Template
     )
+
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
         $errorMessage = $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     }
+
     if ($Ensure -eq 'Absent')
     {
         # No further checks required if Auto Quota should be removed.
         return
     }
+
     if ($Template)
     {
         # Check the template exists
@@ -399,6 +410,7 @@ Function Assert-ResourcePropertiesValid
         $errorMessage = $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Path
         $errorArgumentName = 'Template'
     }
+
     if ($errorMessage)
     {
         New-InvalidArgumentException `

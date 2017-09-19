@@ -96,7 +96,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         Set-TargetResource @Splat
@@ -118,7 +118,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Description = 'Different'
@@ -141,7 +141,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Active = (-not $Splat.Active)
@@ -164,7 +164,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
@@ -187,7 +187,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'
@@ -210,7 +210,7 @@ try
                 Mock Set-FsrmFileScreen
                 Mock Remove-FsrmFileScreen
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'

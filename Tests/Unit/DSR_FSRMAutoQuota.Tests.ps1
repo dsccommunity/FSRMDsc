@@ -81,7 +81,7 @@ try
                 Mock Set-FsrmAutoQuota
                 Mock Remove-FsrmAutoQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         Set-TargetResource @Splat
@@ -103,7 +103,7 @@ try
                 Mock Set-FsrmAutoQuota
                 Mock Remove-FsrmAutoQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
@@ -126,7 +126,7 @@ try
                 Mock Set-FsrmAutoQuota
                 Mock Remove-FsrmAutoQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Template = 'Different'
@@ -149,7 +149,7 @@ try
                 Mock Set-FsrmAutoQuota
                 Mock Remove-FsrmAutoQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
@@ -172,7 +172,7 @@ try
                 Mock Set-FsrmAutoQuota
                 Mock Remove-FsrmAutoQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'

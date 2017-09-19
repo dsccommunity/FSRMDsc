@@ -77,7 +77,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.SmtpServer = 'someotherserver.contoso.com'
@@ -93,7 +93,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.AdminEmailAddress = 'someoneelse@contoso.com'
@@ -109,7 +109,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.FromEmailAddress = 'someoneelse@contoso.com'
@@ -125,7 +125,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.CommandNotificationLimit = $Splat.CommandNotificationLimit + 1
@@ -141,7 +141,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.EmailNotificationLimit = $Splat.EmailNotificationLimit + 1
@@ -157,7 +157,7 @@ try
 
                 Mock Set-FSRMSetting
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:Settings.Clone()
                         $Splat.EventNotificationLimit = $Splat.EventNotificationLimit + 1

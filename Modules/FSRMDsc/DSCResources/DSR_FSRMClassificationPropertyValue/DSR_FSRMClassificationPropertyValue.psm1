@@ -379,9 +379,10 @@ Function Get-ClassificationProperty
         [System.String]
         $PropertyName
     )
+
     try
     {
-        $ClassificationProperty = Get-FSRMClassificationPropertyDefinition `
+        $classificationProperty = Get-FSRMClassificationPropertyDefinition `
             -Name $PropertyName `
             -ErrorAction Stop
     }
@@ -395,7 +396,8 @@ Function Get-ClassificationProperty
     {
         Throw $_
     }
-    Return $ClassificationProperty
+
+    return $classificationProperty
 }
 
 Export-ModuleMember -Function *-TargetResource

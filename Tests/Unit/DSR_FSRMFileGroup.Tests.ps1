@@ -79,7 +79,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         Set-TargetResource @Splat
@@ -100,7 +100,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Description = 'Different'
@@ -122,7 +122,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
@@ -144,7 +144,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
@@ -166,7 +166,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
@@ -188,7 +188,7 @@ try
                 Mock Set-FsrmFileGroup
                 Mock Remove-FsrmFileGroup
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'

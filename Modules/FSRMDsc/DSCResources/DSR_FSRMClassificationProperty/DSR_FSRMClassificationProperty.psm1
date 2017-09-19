@@ -475,7 +475,8 @@ Function Get-ClassificationProperty
     {
         Throw $_
     }
-    Return $classificationProperty
+
+    return $classificationProperty
 }
 
 Export-ModuleMember -Function *-TargetResource

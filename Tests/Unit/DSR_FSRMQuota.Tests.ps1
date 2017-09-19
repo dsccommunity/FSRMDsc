@@ -115,7 +115,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         Set-TargetResource @Splat
@@ -137,7 +137,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.Description = 'Different'
@@ -160,7 +160,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.Size = $Splat.Size + 1GB
@@ -183,7 +183,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.SoftLimit = (-not $Splat.SoftLimit)
@@ -206,7 +206,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
@@ -229,7 +229,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
@@ -252,7 +252,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.Ensure = 'Absent'
@@ -275,7 +275,7 @@ try
                 Mock Set-FsrmQuota
                 Mock Remove-FsrmQuota
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestQuota.Clone()
                         $Splat.Ensure = 'Absent'

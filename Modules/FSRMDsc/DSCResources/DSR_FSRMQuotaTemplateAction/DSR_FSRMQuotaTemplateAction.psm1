@@ -54,13 +54,15 @@ function Get-TargetResource
     $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
-        -Type $Type
+        -Type $Type `
+        -ErrorAction Stop
 
     $returnValue = @{
         Name       = $Name
         Percentage = $Percentage
         Type       = $Type
     }
+
     if ($null -eq $result.ActionIndex)
     {
         Write-Verbose -Message ( @(
@@ -80,6 +82,7 @@ function Get-TargetResource
                 $($LocalizedData.ActionExistsMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
+
         $action = $result.SourceObjects[$result.SourceIndex].Action[$result.ActionIndex]
         $returnValue += @{
             Ensure            = 'Present'
@@ -100,7 +103,7 @@ function Get-TargetResource
         }
     }
 
-    $returnValue
+    return $returnValue
 } # Get-TargetResource
 
 <#
@@ -260,7 +263,8 @@ function Set-TargetResource
     $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
-        -Type $Type
+        -Type $Type `
+        -ErrorAction Stop
 
     if ($Ensure -eq 'Present')
     {
@@ -325,10 +329,12 @@ function Set-TargetResource
                 ) -join '' )
         } # if
     } # if
+
     # Now write the actual change to the appropriate place
     Set-Action `
         -Name $Name `
-        -ResultObject $result
+        -ResultObject $result `
+        -ErrorAction Stop
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -491,7 +497,8 @@ function Test-TargetResource
     $result = Get-Action `
         -Name $Name `
         -Percentage $Percentage `
-        -Type $Type
+        -Type $Type `
+        -ErrorAction Stop
 
     if ($Ensure -eq 'Present')
     {
@@ -509,6 +516,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionDoesNotExistButShouldMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         }
         else
@@ -525,6 +533,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Subject'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -536,6 +545,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Body'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -547,6 +557,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailBCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -558,6 +569,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailCC'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -569,6 +581,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailTo'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -580,6 +593,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Command'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -591,6 +605,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'CommandParameters'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -602,6 +617,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'KillTimeOut'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -613,6 +629,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'RunLimitInterval'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -624,6 +641,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'SecurityLevel'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -635,6 +653,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'ShouldLogError'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -646,6 +665,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'WorkingDirectory'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -657,6 +677,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'EventType'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
 
@@ -668,6 +689,7 @@ function Test-TargetResource
                         $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'ReportTypes'
                     ) -join '' )
+
                 $desiredConfigurationMatch = $false
             }
             #endregion
@@ -692,6 +714,7 @@ function Test-TargetResource
                     $($LocalizedData.ActionExistsAndShouldNotMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         } # if
     } # if
@@ -733,15 +756,19 @@ Function Get-Action
         [System.String]
         $Type
     )
+
     $resultObject = [PSObject] @{
         SourceObjects = [System.Collections.ArrayList]@()
         SourceIndex   = $null
         ActionIndex   = $null
     }
+
     # Lookup the Quota Template
     try
     {
-        $quotaTemplate = Get-FSRMQuotaTemplate -Name $Name -ErrorAction Stop
+        $quotaTemplate = Get-FSRMQuotaTemplate `
+            -Name $Name `
+            -ErrorAction Stop
     }
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
@@ -752,32 +779,40 @@ Function Get-Action
         $PSCmdlet.ThrowTerminatingError($errorRecord)
     }
 
-    # Assemble the Result Object
-    # This object is created from copies of the CIM classes returned in the threshold objects
-    # but put into ArrayLists so that they can be manipulated.
-    # DO NOT change this behavior unless you are sure you know what you're doing.
+    <#
+        Assemble the Result Object
+        This object is created from copies of the CIM classes returned in the threshold objects
+        but put into ArrayLists so that they can be manipulated.
+        DO NOT change this behavior unless you are sure you know what you're doing.
+    #>
     for ($threshold = 0; $threshold -ilt $quotaTemplate.Threshold.Count; $threshold++)
     {
         $newActions = New-Object -TypeName 'System.Collections.ArrayList'
+
         if ($quotaTemplate.Threshold[$threshold].Percentage -eq $Percentage)
         {
             $ResultObject.SourceIndex = $threshold
         }
+
         for ($action = 0; $action -ilt $quotaTemplate.Threshold[$threshold].Action.Count; $action++)
         {
             $newActions.Add($quotaTemplate.Threshold[$threshold].Action[$action])
+
             if (($quotaTemplate.Threshold[$threshold].Action[$action].Type -eq $Type) `
                     -and ($resultObject.SourceIndex -eq $threshold))
             {
                 $resultObject.ActionIndex = $action
             }
         }
+
         $properties = @{'Percentage' = $quotaTemplate.Threshold[$threshold].Percentage;
             'Action'                 = $newActions;
         }
+
         $newSourceObject = New-Object -TypeName 'PSObject' -Property $properties
         $resultObject.SourceObjects += @($newSourceObject)
     }
+
     if ($null -eq $resultObject.SourceIndex)
     {
         New-InvalidArgumentException `
@@ -811,7 +846,9 @@ Function Set-Action
         [Parameter(Mandatory = $true)]
         $ResultObject
     )
+
     $threshold = @()
+
     foreach ($object in $ResultObject.SourceObjects)
     {
         $threshold += New-CimInstance `
@@ -819,10 +856,11 @@ Function Set-Action
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-            Percentage = $object.Percentage
-            Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
-        }
+                Percentage = $object.Percentage
+                Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
+            }
     }
+
     Set-FSRMQuotaTemplate `
         -Name $Name `
         -Threshold $threshold `

@@ -116,7 +116,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         Set-TargetResource @Splat
@@ -137,7 +137,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
@@ -159,7 +159,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
@@ -181,7 +181,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression = @( 'Regex3','Regex4' )
@@ -203,7 +203,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentString = @( 'String3','String4' )
@@ -225,7 +225,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive = @( 'String3','String4' )
@@ -247,7 +247,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
@@ -269,7 +269,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
@@ -291,7 +291,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
@@ -313,7 +313,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
@@ -335,7 +335,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
@@ -357,7 +357,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
@@ -379,7 +379,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
@@ -401,7 +401,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
@@ -423,7 +423,7 @@ try
                 Mock Set-FSRMClassificationRule
                 Mock Remove-FSRMClassificationRule
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'

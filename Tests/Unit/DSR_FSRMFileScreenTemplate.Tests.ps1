@@ -85,7 +85,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         Set-TargetResource @Splat
@@ -106,7 +106,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Description = 'Different'
@@ -128,7 +128,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Active = (-not $Splat.Active)
@@ -150,7 +150,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.IncludeGroup = [System.Collections.ArrayList]@( 'Temporary Files' )
@@ -172,7 +172,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
@@ -194,7 +194,7 @@ try
                 Mock Set-FsrmFileScreenTemplate
                 Mock Remove-FsrmFileScreenTemplate
 
-                It 'Should not throw error' {
+                It 'Should Not Throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
