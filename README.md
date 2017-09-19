@@ -15,7 +15,7 @@ Resource Manager.
 - **FSRMFileScreenTemplate** configures FSRM File Screen Templates.
 - **FSRMFileScreenTemplateAction** configures FSRM File Screen Template Actions
   for File Screen Templates.
-- **FSRMFileScreenExclusion** configures FSRM File Screen Exclusions.
+- **FSRMFileScreenException** configures FSRM File Screen Exceptions.
 - **FSRMFileGroup** configures FSRM File Groups.
 - **FSRMQuota** configures FSRM Quotas.
 - **FSRMQuotaAction** configures FSRM Quota Actions for Quotas.
