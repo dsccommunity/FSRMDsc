@@ -80,7 +80,7 @@ DscResourcesToExport = @(
     'FSRMFileScreenAction'
     'FSRMFileScreenTemplate'
     'FSRMFileScreenTemplateAction'
-    'FSRMFileScreenExclusion'
+    'FSRMFileScreenException'
     'FSRMFileGroup'
     'FSRMQuota'
     'FSRMQuotaAction'
