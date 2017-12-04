@@ -106,7 +106,7 @@ try
                         -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
                         -ArgumentName $Splat.PropertyName
 
-                    { $Result = Get-TargetResource @Splat } | Should Throw $errorRecord
+                    { $Result = Get-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -122,7 +122,7 @@ try
                     $null = $Splat.Remove('Description')
                     $Splat.Name = 'NotExist'
                     $Result = Get-TargetResource @Splat
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -137,7 +137,7 @@ try
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $null = $Splat.Remove('Description')
                     $Result = Get-TargetResource @Splat
-                    $Result.Ensure | Should Be 'Present'
+                    $Result.Ensure | Should -Be 'Present'
                     $Result.Name = $script:MockClassificationPossibleValue1.Name
                     $Result.DisplayName = $script:MockClassificationPossibleValue1.DisplayName
                     $Result.Description = $script:MockClassificationPossibleValue1.Description
@@ -162,7 +162,7 @@ try
                         -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
                         -ArgumentName $Splat.PropertyName
 
-                    { Set-TargetResource @Splat } | Should Throw $errorRecord
+                    { Set-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -178,7 +178,7 @@ try
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
-                    { Set-TargetResource @Splat } | Should Not Throw
+                    { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -193,7 +193,7 @@ try
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
-                    { Set-TargetResource @Splat } | Should Not Throw
+                    { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -209,7 +209,7 @@ try
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Ensure = 'Absent'
-                    { Set-TargetResource @Splat } | Should Not Throw
+                    { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -230,7 +230,7 @@ try
                         -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $Splat.PropertyName) `
                         -ArgumentName $Splat.PropertyName
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -244,7 +244,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -257,7 +257,7 @@ try
 
                 It 'Should return true' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
-                    Test-TargetResource @Splat | Should Be $true
+                    Test-TargetResource @Splat | Should -Be $true
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -272,7 +272,7 @@ try
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Description = 'Different'
                     $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $false
+                    Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
@@ -286,7 +286,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $false
+                    Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1

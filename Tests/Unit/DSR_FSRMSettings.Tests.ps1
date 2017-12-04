@@ -58,12 +58,12 @@ try
 
                 It 'Should return correct Settings properties' {
                     $Result = Get-TargetResource -IsSingleInstance $script:Settings.IsSingleInstance
-                    $Result.SmtpServer | Should Be $script:Settings.SmtpServer
-                    $Result.AdminEmailAddress | Should Be $script:Settings.AdminEmailAddress
-                    $Result.FromEmailAddress | Should Be $script:Settings.FromEmailAddress
-                    $Result.CommandNotificationLimit | Should Be $script:Settings.CommandNotificationLimit
-                    $Result.EmailNotificationLimit | Should Be $script:Settings.EmailNotificationLimit
-                    $Result.EventNotificationLimit | Should Be $script:Settings.EventNotificationLimit
+                    $Result.SmtpServer | Should -Be $script:Settings.SmtpServer
+                    $Result.AdminEmailAddress | Should -Be $script:Settings.AdminEmailAddress
+                    $Result.FromEmailAddress | Should -Be $script:Settings.FromEmailAddress
+                    $Result.CommandNotificationLimit | Should -Be $script:Settings.CommandNotificationLimit
+                    $Result.EmailNotificationLimit | Should -Be $script:Settings.EmailNotificationLimit
+                    $Result.EventNotificationLimit | Should -Be $script:Settings.EventNotificationLimit
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -82,7 +82,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.SmtpServer = 'someotherserver.contoso.com'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -98,7 +98,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.AdminEmailAddress = 'someoneelse@contoso.com'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -114,7 +114,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.FromEmailAddress = 'someoneelse@contoso.com'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -130,7 +130,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.CommandNotificationLimit = $Splat.CommandNotificationLimit + 1
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -146,7 +146,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.EmailNotificationLimit = $Splat.EmailNotificationLimit + 1
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -162,7 +162,7 @@ try
                         $Splat = $script:Settings.Clone()
                         $Splat.EventNotificationLimit = $Splat.EventNotificationLimit + 1
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
@@ -177,7 +177,7 @@ try
 
                 It 'Should return true' {
                     $Splat = $script:Settings.Clone()
-                    Test-TargetResource @Splat | Should Be $True
+                    Test-TargetResource @Splat | Should -Be $True
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -191,7 +191,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.SmtpServer = 'someotherserver.contoso.com'
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -205,7 +205,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.AdminEmailAddress = 'someoneelse@contoso.com'
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -219,7 +219,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.FromEmailAddress = 'someoneelse@contoso.com'
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -233,7 +233,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.CommandNotificationLimit = $Splat.CommandNotificationLimit + 1
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -247,7 +247,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.EmailNotificationLimit = $Splat.EmailNotificationLimit + 1
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
@@ -261,7 +261,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
                     $Splat.EventNotificationLimit = $Splat.EventNotificationLimit + 1
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1

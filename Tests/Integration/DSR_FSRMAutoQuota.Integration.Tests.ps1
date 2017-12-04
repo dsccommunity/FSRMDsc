@@ -38,20 +38,20 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the AutoQuota details
             $autoquotaNew = Get-FSRMAutoQuota -Path $autoquota.Path
-            $autoquota.Path               | Should Be $autoquotaNew.Path
-            $autoquota.Disabled           | Should Be $autoquotaNew.Disabled
-            $autoquota.Template           | Should Be $autoquotaNew.Template
+            $autoquota.Path               | Should -Be $autoquotaNew.Path
+            $autoquota.Disabled           | Should -Be $autoquotaNew.Disabled
+            $autoquota.Template           | Should -Be $autoquotaNew.Template
         }
 
         # Clean up

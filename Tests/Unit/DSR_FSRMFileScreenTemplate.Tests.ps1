@@ -50,7 +50,7 @@ try
                 It 'Should return absent File Screen template' {
                     $Result = Get-TargetResource `
                         -Name $script:TestFileScreenTemplate.Name
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -64,11 +64,11 @@ try
                 It 'Should return correct FileScreen template' {
                     $Result = Get-TargetResource `
                         -Name $script:TestFileScreenTemplate.Name
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Name | Should Be $script:TestFileScreenTemplate.Name
-                    $Result.Description | Should Be $script:TestFileScreenTemplate.Description
-                    $Result.Active | Should Be $script:TestFileScreenTemplate.Active
-                    $Result.IncludeGroup | Should Be $script:TestFileScreenTemplate.IncludeGroup
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Name | Should -Be $script:TestFileScreenTemplate.Name
+                    $Result.Description | Should -Be $script:TestFileScreenTemplate.Description
+                    $Result.Active | Should -Be $script:TestFileScreenTemplate.Active
+                    $Result.IncludeGroup | Should -Be $script:TestFileScreenTemplate.IncludeGroup
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -89,7 +89,7 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -111,7 +111,7 @@ try
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -133,7 +133,7 @@ try
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Active = (-not $Splat.Active)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -155,7 +155,7 @@ try
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.IncludeGroup = [System.Collections.ArrayList]@( 'Temporary Files' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -177,7 +177,7 @@ try
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -199,7 +199,7 @@ try
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -217,7 +217,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenTemplate.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
                 It 'Should call expected Mocks' {
@@ -233,8 +233,8 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -249,8 +249,8 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Active = (-not $Splat.Active)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -265,8 +265,8 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.IncludeGroup = [System.Collections.ArrayList]@( 'Temporary Files' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -280,8 +280,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -296,8 +296,8 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
@@ -312,8 +312,8 @@ try
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1

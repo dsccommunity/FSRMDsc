@@ -44,7 +44,7 @@ try
                 It 'Should return absent file group' {
                     $Result = Get-TargetResource `
                         -Name $script:FileGroup.Name
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -58,11 +58,11 @@ try
                 It 'Should return correct file group' {
                     $Result = Get-TargetResource `
                         -Name $script:FileGroup.Name
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Name | Should Be $script:FileGroup.Name
-                    $Result.Description | Should Be $script:FileGroup.Description
-                    $Result.IncludePattern | Should Be $script:FileGroup.IncludePattern
-                    $Result.ExcludePattern | Should Be $script:FileGroup.ExcludePattern
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Name | Should -Be $script:FileGroup.Name
+                    $Result.Description | Should -Be $script:FileGroup.Description
+                    $Result.IncludePattern | Should -Be $script:FileGroup.IncludePattern
+                    $Result.ExcludePattern | Should -Be $script:FileGroup.ExcludePattern
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -83,7 +83,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -105,7 +105,7 @@ try
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -127,7 +127,7 @@ try
                         $Splat = $script:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -149,7 +149,7 @@ try
                         $Splat = $script:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -171,7 +171,7 @@ try
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -193,7 +193,7 @@ try
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -211,7 +211,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:FileGroup.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
                 It 'Should call expected Mocks' {
@@ -227,8 +227,8 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -243,8 +243,8 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -259,8 +259,8 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -274,8 +274,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:FileGroup.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -290,8 +290,8 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
@@ -306,8 +306,8 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1

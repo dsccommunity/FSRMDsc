@@ -38,24 +38,24 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $quotaTemplateNew = Get-FSRMQuotaTemplate -Name $quotaTemplate.Name
-            $quotaTemplate.Name               | Should Be $quotaTemplateNew.Name
-            $quotaTemplate.Description        | Should Be $quotaTemplateNew.Description
-            $quotaTemplate.Size               | Should Be $quotaTemplateNew.Size
-            $quotaTemplate.SoftLimit          | Should Be $quotaTemplateNew.SoftLimit
+            $quotaTemplate.Name               | Should -Be $quotaTemplateNew.Name
+            $quotaTemplate.Description        | Should -Be $quotaTemplateNew.Description
+            $quotaTemplate.Size               | Should -Be $quotaTemplateNew.Size
+            $quotaTemplate.SoftLimit          | Should -Be $quotaTemplateNew.SoftLimit
             (Compare-Object `
                 -ReferenceObject $quotaTemplate.ThresholdPercentages `
-                -DifferenceObject $quotaTemplateNew.Threshold.Percentage).Count | Should Be 0
+                -DifferenceObject $quotaTemplateNew.Threshold.Percentage).Count | Should -Be 0
         }
 
         # Clean up

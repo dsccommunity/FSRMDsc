@@ -68,7 +68,7 @@ try
                 It 'Should return absent quota template' {
                     $Result = Get-TargetResource `
                         -Name $script:TestQuotaTemplate.Name
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -82,10 +82,10 @@ try
                 It 'Should return correct quota template' {
                     $Result = Get-TargetResource `
                         -Name $script:TestQuotaTemplate.Name
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Name | Should Be $script:TestQuotaTemplate.Name
-                    $Result.Description | Should Be $script:TestQuotaTemplate.Description
-                    $Result.ThresholdPercentages | Should Be $script:TestQuotaTemplate.ThresholdPercentages
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Name | Should -Be $script:TestQuotaTemplate.Name
+                    $Result.Description | Should -Be $script:TestQuotaTemplate.Description
+                    $Result.ThresholdPercentages | Should -Be $script:TestQuotaTemplate.ThresholdPercentages
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -106,7 +106,7 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -128,7 +128,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -150,7 +150,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Size = $Splat.Size + 1GB
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -172,7 +172,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.SoftLimit = (-not $Splat.SoftLimit)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -194,7 +194,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -216,7 +216,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -238,7 +238,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -260,7 +260,7 @@ try
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -278,7 +278,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaTemplate.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
                 It 'Should call expected Mocks' {
@@ -294,8 +294,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -310,8 +310,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Size = $Splat.Size + 1GB
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -326,8 +326,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.SoftLimit = (-not $Splat.SoftLimit)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -342,8 +342,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -358,8 +358,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -373,8 +373,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -389,8 +389,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1
@@ -405,8 +405,8 @@ try
                     {
                         $Splat = $script:TestQuotaTemplate.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmQuotaTemplate -Exactly 1

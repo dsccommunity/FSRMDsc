@@ -99,13 +99,13 @@ try
 
                 It 'Should return correct classification properties' {
                     $Result = Get-TargetResource -Id $script:ClassificationMonthly.Id
-                    $Result.Continuous | Should Be $script:ClassificationMonthly.Continuous
-                    $Result.ContinuousLog | Should Be $script:ClassificationMonthly.ContinuousLog
-                    $Result.ContinuousLogSize | Should Be $script:ClassificationMonthly.ContinuousLogSize
-                    $Result.ExcludeNamespace | Should Be $script:ClassificationMonthly.ExcludeNamespace
-                    $Result.ScheduleMonthly | Should Be $script:ClassificationMonthly.ScheduleMonthly
-                    $Result.ScheduleRunDuration | Should Be $script:ClassificationMonthly.ScheduleRunDuration
-                    $Result.ScheduleTime | Should Be $script:ClassificationMonthly.ScheduleTime
+                    $Result.Continuous | Should -Be $script:ClassificationMonthly.Continuous
+                    $Result.ContinuousLog | Should -Be $script:ClassificationMonthly.ContinuousLog
+                    $Result.ContinuousLogSize | Should -Be $script:ClassificationMonthly.ContinuousLogSize
+                    $Result.ExcludeNamespace | Should -Be $script:ClassificationMonthly.ExcludeNamespace
+                    $Result.ScheduleMonthly | Should -Be $script:ClassificationMonthly.ScheduleMonthly
+                    $Result.ScheduleRunDuration | Should -Be $script:ClassificationMonthly.ScheduleRunDuration
+                    $Result.ScheduleTime | Should -Be $script:ClassificationMonthly.ScheduleTime
                 }
 
                 It 'Should call the expected mocks' {
@@ -118,13 +118,13 @@ try
 
                 It 'Should return correct classification properties' {
                     $Result = Get-TargetResource -Id $script:ClassificationWeekly.Id
-                    $Result.Continuous | Should Be $script:ClassificationWeekly.Continuous
-                    $Result.ContinuousLog | Should Be $script:ClassificationWeekly.ContinuousLog
-                    $Result.ContinuousLogSize | Should Be $script:ClassificationWeekly.ContinuousLogSize
-                    $Result.ExcludeNamespace | Should Be $script:ClassificationWeekly.ExcludeNamespace
-                    $Result.ScheduleWeekly | Should Be $script:ClassificationWeekly.ScheduleWeekly
-                    $Result.ScheduleRunDuration | Should Be $script:ClassificationWeekly.ScheduleRunDuration
-                    $Result.ScheduleTime | Should Be $script:ClassificationWeekly.ScheduleTime
+                    $Result.Continuous | Should -Be $script:ClassificationWeekly.Continuous
+                    $Result.ContinuousLog | Should -Be $script:ClassificationWeekly.ContinuousLog
+                    $Result.ContinuousLogSize | Should -Be $script:ClassificationWeekly.ContinuousLogSize
+                    $Result.ExcludeNamespace | Should -Be $script:ClassificationWeekly.ExcludeNamespace
+                    $Result.ScheduleWeekly | Should -Be $script:ClassificationWeekly.ScheduleWeekly
+                    $Result.ScheduleRunDuration | Should -Be $script:ClassificationWeekly.ScheduleRunDuration
+                    $Result.ScheduleTime | Should -Be $script:ClassificationWeekly.ScheduleTime
                 }
 
                 It 'Should call the expected mocks' {
@@ -143,7 +143,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.Continuous = (-not $Splat.Continuous)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -161,7 +161,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -179,7 +179,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -197,7 +197,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -215,7 +215,7 @@ try
                         $Splat = $script:ClassificationWeekly.Clone()
                         $Splat.ScheduleWeekly = @( 'Monday','Tuesday','Wednesday' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -233,7 +233,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleMonthly = @( 13,14,15 )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -251,7 +251,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -269,7 +269,7 @@ try
                         $Splat = $script:ClassificationMonthly.Clone()
                         $Splat.ScheduleTime = '01:00'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -285,7 +285,7 @@ try
 
                 It 'Should return true' {
                     $Splat = $script:ClassificationMonthly.Clone()
-                    Test-TargetResource @Splat | Should Be $True
+                    Test-TargetResource @Splat | Should -Be $True
                 }
 
                 It 'Should call expected Mocks' {
@@ -299,7 +299,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.Continuous = (-not $Splat.Continuous)
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -313,7 +313,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -327,7 +327,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -341,7 +341,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -355,7 +355,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationWeekly.Clone()
                     $Splat.ScheduleWeekly = @( 'Monday','Tuesday','Wednesday' )
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -369,7 +369,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleMonthly = @( 13,14,15 )
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -383,7 +383,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {
@@ -397,7 +397,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleTime = '01:00'
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
                 }
 
                 It 'Should call expected Mocks' {

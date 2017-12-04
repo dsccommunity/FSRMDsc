@@ -44,30 +44,30 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $classificationRuleNew = Get-FSRMclassificationRule -Name $classificationRule.Name
-            $classificationRule.Name                       | Should Be  $classificationRuleNew.Name
-            $classificationRule.Description                | Should Be  $classificationRuleNew.Description
-            $classificationRule.ClassificationMechanism    | Should Be  $classificationRuleNew.ClassificationMechanism
-            $classificationRule.ContentRegularExpression   | Should Be  $classificationRuleNew.ContentRegularExpression
-            $classificationRule.ContentString              | Should Be  $classificationRuleNew.ContentString
-            $classificationRule.ContentStringCaseSensitive | Should Be  $classificationRuleNew.ContentStringCaseSensitive
-            $classificationRule.Disabled                   | Should Be  $classificationRuleNew.Disabled
-            $classificationRule.Flags                      | Should Be  $classificationRuleNew.Flags
-            $classificationRule.Namespace                  | Should Be  $classificationRuleNew.Namespace
-            $classificationRule.Parameters                 | Should Be  $classificationRuleNew.Parameters
-            $classificationRule.Property                   | Should Be  $classificationRuleNew.Property
-            $classificationRule.PropertyValue              | Should Be  $classificationRuleNew.PropertyValue
-            $classificationRule.ReevaluateProperty         | Should Be  $classificationRuleNew.ReevaluateProperty
+            $classificationRule.Name                       | Should -Be  $classificationRuleNew.Name
+            $classificationRule.Description                | Should -Be  $classificationRuleNew.Description
+            $classificationRule.ClassificationMechanism    | Should -Be  $classificationRuleNew.ClassificationMechanism
+            $classificationRule.ContentRegularExpression   | Should -Be  $classificationRuleNew.ContentRegularExpression
+            $classificationRule.ContentString              | Should -Be  $classificationRuleNew.ContentString
+            $classificationRule.ContentStringCaseSensitive | Should -Be  $classificationRuleNew.ContentStringCaseSensitive
+            $classificationRule.Disabled                   | Should -Be  $classificationRuleNew.Disabled
+            $classificationRule.Flags                      | Should -Be  $classificationRuleNew.Flags
+            $classificationRule.Namespace                  | Should -Be  $classificationRuleNew.Namespace
+            $classificationRule.Parameters                 | Should -Be  $classificationRuleNew.Parameters
+            $classificationRule.Property                   | Should -Be  $classificationRuleNew.Property
+            $classificationRule.PropertyValue              | Should -Be  $classificationRuleNew.PropertyValue
+            $classificationRule.ReevaluateProperty         | Should -Be  $classificationRuleNew.ReevaluateProperty
         }
 
         # Clean up

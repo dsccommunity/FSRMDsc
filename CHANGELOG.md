@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Converted tests to meet Pester V4 standards.
+
+## 2.3.0.0
+
 - Unit and Integration test headers updated to v1.1.0
 - Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
 - Changed AppVeyor.yml to use default image.

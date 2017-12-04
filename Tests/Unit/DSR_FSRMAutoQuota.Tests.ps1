@@ -47,7 +47,7 @@ try
                 It 'Should return absent auto quota' {
                     $Result = Get-TargetResource `
                         -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
 
                 It 'Should call the expected mocks' {
@@ -61,10 +61,10 @@ try
                 It 'Should return correct auto quota' {
                     $Result = Get-TargetResource `
                         -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Path | Should Be $script:TestAutoQuota.Path
-                    $Result.Disabled | Should Be $script:TestAutoQuota.Disabled
-                    $Result.Template | Should Be $script:TestAutoQuota.Template
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Path | Should -Be $script:TestAutoQuota.Path
+                    $Result.Disabled | Should -Be $script:TestAutoQuota.Disabled
+                    $Result.Template | Should -Be $script:TestAutoQuota.Template
                 }
 
                 It 'Should call the expected mocks' {
@@ -85,7 +85,7 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -108,7 +108,7 @@ try
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -131,7 +131,7 @@ try
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Template = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -154,7 +154,7 @@ try
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -177,7 +177,7 @@ try
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -201,7 +201,7 @@ try
                         -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path) `
                         -ArgumentName 'Path'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
             }
 
@@ -215,7 +215,7 @@ try
                         -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
             }
 
@@ -230,7 +230,7 @@ try
                         -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
             }
 
@@ -240,7 +240,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestAutoQuota.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
 
@@ -257,8 +257,8 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -274,8 +274,8 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Template = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -290,8 +290,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -307,8 +307,8 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
@@ -324,8 +324,8 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {

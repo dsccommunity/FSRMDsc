@@ -49,7 +49,7 @@ try
                 It 'Should return absent File Screen Exception' {
                     $Result = Get-TargetResource `
                         -Path $script:TestFileScreenException.Path
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -63,10 +63,10 @@ try
                 It 'Should return correct File Screen Exception' {
                     $Result = Get-TargetResource `
                         -Path $script:TestFileScreenException.Path
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Path | Should Be $script:TestFileScreenException.Path
-                    $Result.Description | Should Be $script:TestFileScreenException.Description
-                    $Result.IncludeGroup | Should Be $script:TestFileScreenException.IncludeGroup
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Path | Should -Be $script:TestFileScreenException.Path
+                    $Result.Description | Should -Be $script:TestFileScreenException.Description
+                    $Result.IncludeGroup | Should -Be $script:TestFileScreenException.IncludeGroup
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -87,7 +87,7 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -109,7 +109,7 @@ try
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -131,7 +131,7 @@ try
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -153,7 +153,7 @@ try
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -175,7 +175,7 @@ try
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -198,7 +198,7 @@ try
                         -Message ($($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Splat.Path) `
                         -ArgumentName 'Path'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
             }
 
@@ -208,7 +208,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenException.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
                 It 'Should call expected Mocks' {
@@ -224,8 +224,8 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -240,8 +240,8 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -255,8 +255,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -271,8 +271,8 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
@@ -287,8 +287,8 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1

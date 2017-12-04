@@ -38,23 +38,23 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $fileScreenNew = Get-FSRMFileScreen -Path $fileScreen.Path
-            $fileScreen.Path               | Should Be $fileScreenNew.Path
-            $fileScreen.Description        | Should Be $fileScreenNew.Description
-            $fileScreen.Active             | Should Be $fileScreenNew.Active
-            $fileScreen.IncludeGroup       | Should Be $fileScreenNew.IncludeGroup
-            $fileScreen.Template           | Should Be $fileScreenNew.Template
-            $fileScreen.MatchesTemplate    | Should Be $fileScreenNew.MatchesTemplate
+            $fileScreen.Path               | Should -Be $fileScreenNew.Path
+            $fileScreen.Description        | Should -Be $fileScreenNew.Description
+            $fileScreen.Active             | Should -Be $fileScreenNew.Active
+            $fileScreen.IncludeGroup       | Should -Be $fileScreenNew.IncludeGroup
+            $fileScreen.Template           | Should -Be $fileScreenNew.Template
+            $fileScreen.MatchesTemplate    | Should -Be $fileScreenNew.MatchesTemplate
         }
 
         # Clean up

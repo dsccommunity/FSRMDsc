@@ -72,7 +72,7 @@ try
                 It 'Should return absent classification rule' {
                     $Result = Get-TargetResource `
                         -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should Be 'Absent'
+                    $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -86,20 +86,20 @@ try
                 It 'Should return correct classification rule' {
                     $Result = Get-TargetResource `
                         -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Name | Should Be $script:ClassificationRule.Name
-                    $Result.Description | Should Be $script:ClassificationRule.Description
-                    $Result.ClassificationMechanism | Should Be $script:ClassificationRule.ClassificationMechanism
-                    $Result.ContentRegularExpression | Should Be $script:ClassificationRule.ContentRegularExpression
-                    $Result.ContentString | Should Be $script:ClassificationRule.ContentString
-                    $Result.ContentStringCaseSensitive | Should Be $script:ClassificationRule.ContentStringCaseSensitive
-                    $Result.Disabled | Should Be $script:ClassificationRule.Disabled
-                    $Result.Flags | Should Be $script:ClassificationRule.Flags
-                    $Result.Namespace | Should Be $script:ClassificationRule.Namespace
-                    $Result.Parameters | Should Be $script:ClassificationRule.Parameters
-                    $Result.Property | Should Be $script:ClassificationRule.Property
-                    $Result.PropertyValue | Should Be $script:ClassificationRule.PropertyValue
-                    $Result.ReevaluateProperty | Should Be $script:ClassificationRule.ReevaluateProperty
+                    $Result.Ensure | Should -Be 'Present'
+                    $Result.Name | Should -Be $script:ClassificationRule.Name
+                    $Result.Description | Should -Be $script:ClassificationRule.Description
+                    $Result.ClassificationMechanism | Should -Be $script:ClassificationRule.ClassificationMechanism
+                    $Result.ContentRegularExpression | Should -Be $script:ClassificationRule.ContentRegularExpression
+                    $Result.ContentString | Should -Be $script:ClassificationRule.ContentString
+                    $Result.ContentStringCaseSensitive | Should -Be $script:ClassificationRule.ContentStringCaseSensitive
+                    $Result.Disabled | Should -Be $script:ClassificationRule.Disabled
+                    $Result.Flags | Should -Be $script:ClassificationRule.Flags
+                    $Result.Namespace | Should -Be $script:ClassificationRule.Namespace
+                    $Result.Parameters | Should -Be $script:ClassificationRule.Parameters
+                    $Result.Property | Should -Be $script:ClassificationRule.Property
+                    $Result.PropertyValue | Should -Be $script:ClassificationRule.PropertyValue
+                    $Result.ReevaluateProperty | Should -Be $script:ClassificationRule.ReevaluateProperty
                 }
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -120,7 +120,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -142,7 +142,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -164,7 +164,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -186,7 +186,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression = @( 'Regex3','Regex4' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -208,7 +208,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentString = @( 'String3','String4' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -230,7 +230,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive = @( 'String3','String4' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -252,7 +252,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -274,7 +274,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -296,7 +296,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -318,7 +318,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -340,7 +340,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -362,7 +362,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -384,7 +384,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -406,7 +406,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -428,7 +428,7 @@ try
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
                         Set-TargetResource @Splat
-                    } | Should Not Throw
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -446,7 +446,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationRule.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    Test-TargetResource @Splat | Should -Be $False
 
                 }
                 It 'Should call expected Mocks' {
@@ -462,8 +462,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -478,8 +478,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -494,8 +494,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression =  @( 'Regex3','Regex4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -510,8 +510,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentString =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -526,8 +526,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -542,8 +542,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -558,8 +558,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -574,8 +574,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -590,8 +590,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -606,8 +606,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -622,8 +622,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -638,8 +638,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -653,8 +653,8 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -669,8 +669,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                    Test-TargetResource @Splat | Should -Be $False
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
@@ -685,8 +685,8 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        Test-TargetResource @Splat | Should -Be $True
+                    } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
