@@ -84,7 +84,7 @@ try
             Path         = $ENV:Temp
             Description  = 'File Screen Templates for Blocking Some Files'
             Ensure       = 'Present'
-            Active       = $True
+            Active       = $true
             IncludeGroup = @( 'Audio and Video Files', 'Executable Files', 'Backup Files' )
             Notification = [Microsoft.Management.Infrastructure.CimInstance[]]@(
                 $script:MockEmail, $script:MockCommand, $script:MockEvent
@@ -296,7 +296,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenActionSetReport.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {

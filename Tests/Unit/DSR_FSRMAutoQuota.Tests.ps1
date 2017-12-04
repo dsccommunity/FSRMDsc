@@ -239,7 +239,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestAutoQuota.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
 
@@ -256,7 +256,7 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -273,7 +273,7 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Template = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -306,7 +306,7 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 

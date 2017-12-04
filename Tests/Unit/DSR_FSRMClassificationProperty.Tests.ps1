@@ -299,7 +299,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationProperty.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
 
@@ -315,7 +315,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.DisplayName = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -331,7 +331,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -347,7 +347,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Type = 'YesNo'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -363,7 +363,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -379,7 +379,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -410,7 +410,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 

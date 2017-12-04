@@ -29,8 +29,8 @@ try
         # Create the Mock -CommandName Objects that will be used for running tests
         $script:ClassificationMonthly = [PSObject] @{
             Id                  = 'Default'
-            Continuous          = $False
-            ContinuousLog       = $False
+            Continuous          = $false
+            ContinuousLog       = $false
             ContinuousLogSize   = 2048
             ExcludeNamespace    = @('[AllVolumes]\$Extend /', '[AllVolumes]\System Volume Information /s')
             ScheduleMonthly     = @( 12, 13 )
@@ -63,8 +63,8 @@ try
 
         $script:ClassificationWeekly = [PSObject] @{
             Id                  = 'Default'
-            Continuous          = $False
-            ContinuousLog       = $False
+            Continuous          = $false
+            ContinuousLog       = $false
             ContinuousLogSize   = 2048
             ExcludeNamespace    = @('[AllVolumes]\$Extend /', '[AllVolumes]\System Volume Information /s')
             ScheduleWeekly      = @( 'Monday', 'Tuesday' )
@@ -301,7 +301,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.Continuous = (-not $Splat.Continuous)
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -315,7 +315,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -329,7 +329,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -343,7 +343,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -357,7 +357,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationWeekly.Clone()
                     $Splat.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -371,7 +371,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleMonthly = @( 13, 14, 15 )
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -385,7 +385,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -399,7 +399,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
                     $Splat.ScheduleTime = '01:00'
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {

@@ -21,8 +21,8 @@ Configuration Example
         FSRMClassification FSRMClassificationSettings
         {
             Id                  = 'Default'
-            Continuous          = $True
-            ContinuousLog       = $True
+            Continuous          = $true
+            ContinuousLog       = $true
             ContinuousLogSize   = 2048
             ScheduleWeekly      = 'Monday', 'Tuesday', 'Wednesday'
             ScheduleRunDuration = 4

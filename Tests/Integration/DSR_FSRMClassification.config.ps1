@@ -1,7 +1,7 @@
 $classification = @{
     Id                  = 'Default'
-    Continuous          = $False
-    ContinuousLog       = $False
+    Continuous          = $false
+    ContinuousLog       = $false
     ContinuousLogSize   = 2048
     ExcludeNamespace    = @('[AllVolumes]\$Extend /','[AllVolumes]\System Volume Information /s')
     ScheduleMonthly     = @( 12,13 )

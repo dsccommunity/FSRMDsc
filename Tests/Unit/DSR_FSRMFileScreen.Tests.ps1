@@ -265,7 +265,7 @@ try
             Context 'File Screen template not specified but MatchesTemplate is true' {
                 It 'Should throw an FileScreenTemplateEmptyError exception' {
                     $Splat = $script:TestFileScreen.Clone()
-                    $Splat.MatchesTemplate = $True
+                    $Splat.MatchesTemplate = $true
                     $Splat.Template = ''
 
                     $errorId = 'FileScreenTemplateEmptyError'
@@ -286,7 +286,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreen.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
 
@@ -303,7 +303,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -320,7 +320,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Active = (-not $Splat.Active)
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -337,7 +337,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -354,7 +354,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Template = 'Block Image Files'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -371,7 +371,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.MatchesTemplate = $true
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -388,7 +388,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.MatchesTemplate = $true
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -404,7 +404,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -421,7 +421,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -438,7 +438,7 @@ try
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 

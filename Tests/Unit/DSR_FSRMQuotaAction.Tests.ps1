@@ -108,11 +108,11 @@ try
             Description = '5 GB Hard Limit'
             Ensure      = 'Present'
             Size        = 5GB
-            SoftLimit   = $False
+            SoftLimit   = $false
             Threshold   = [Microsoft.Management.Infrastructure.CimInstance[]]@(
                 $script:MockThreshold1, $script:MockThreshold2
             )
-            Disabled    = $False
+            Disabled    = $false
             Template    = '5 GB Limit'
         }
 
@@ -386,7 +386,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaActionSetEvent.Clone()
                     $testTargetResourceParameters.Type = 'Event'
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {

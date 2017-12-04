@@ -32,7 +32,7 @@ try
             Description          = '5 GB Hard Limit'
             Ensure               = 'Present'
             Size                 = 5GB
-            SoftLimit            = $False
+            SoftLimit            = $false
             ThresholdPercentages = [System.Collections.ArrayList]@( 85, 100 )
             Verbose              = $true
         }
@@ -277,7 +277,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -293,7 +293,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.Description = 'Different'
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -309,7 +309,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.Size = $testTargetResourceParameters.Size + 1GB
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -325,7 +325,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.SoftLimit = (-not $testTargetResourceParameters.SoftLimit)
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -341,7 +341,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.ThresholdPercentages = [System.Collections.ArrayList]@( 60, 85, 100 )
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -357,7 +357,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.ThresholdPercentages = [System.Collections.ArrayList]@( 100 )
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -372,7 +372,7 @@ try
                 It 'Should return true' {
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $True
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -388,7 +388,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.Ensure = 'Absent'
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -404,7 +404,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.Ensure = 'Absent'
-                        Test-TargetResource @testTargetResourceParameters | Should -Be $True
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 

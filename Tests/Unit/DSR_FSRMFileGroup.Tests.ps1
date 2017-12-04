@@ -207,7 +207,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:FileGroup.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
 
@@ -223,7 +223,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -239,7 +239,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -255,7 +255,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -270,7 +270,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:FileGroup.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -286,7 +286,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -302,7 +302,7 @@ try
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 

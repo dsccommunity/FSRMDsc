@@ -173,7 +173,7 @@ try
 
                 It 'Should return true' {
                     $testTargetResourceParameters = $script:Settings.Clone()
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $True
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $true
                 }
 
                 It 'Should call expected Mocks' {
@@ -187,7 +187,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.SmtpServer = 'someotherserver.contoso.com'
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -201,7 +201,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.AdminEmailAddress = 'someoneelse@contoso.com'
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -215,7 +215,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.FromEmailAddress = 'someoneelse@contoso.com'
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -229,7 +229,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.CommandNotificationLimit = $testTargetResourceParameters.CommandNotificationLimit + 1
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -243,7 +243,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.EmailNotificationLimit = $testTargetResourceParameters.EmailNotificationLimit + 1
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -257,7 +257,7 @@ try
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:Settings.Clone()
                     $testTargetResourceParameters.EventNotificationLimit = $testTargetResourceParameters.EventNotificationLimit + 1
-                    Test-TargetResource @testTargetResourceParameters | Should -Be $False
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {

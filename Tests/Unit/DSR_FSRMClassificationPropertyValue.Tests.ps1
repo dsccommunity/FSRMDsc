@@ -236,7 +236,7 @@ try
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {

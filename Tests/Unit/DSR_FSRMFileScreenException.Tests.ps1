@@ -208,7 +208,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenException.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
                 It 'Should call expected Mocks' {
@@ -224,7 +224,7 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
@@ -240,7 +240,7 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
@@ -255,7 +255,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestFileScreenException.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
@@ -271,7 +271,7 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
@@ -287,7 +287,7 @@ try
                     {
                         $Splat = $script:TestFileScreenException.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {

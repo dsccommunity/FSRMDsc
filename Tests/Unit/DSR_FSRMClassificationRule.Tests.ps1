@@ -442,7 +442,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationRule.Clone()
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
 
                 }
 
@@ -458,7 +458,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -474,7 +474,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -490,7 +490,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentRegularExpression =  @( 'Regex3','Regex4' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -506,7 +506,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentString =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -522,7 +522,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ContentStringCaseSensitive =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -538,7 +538,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -554,7 +554,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -570,7 +570,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Namespace = @( 'Different' )
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -586,7 +586,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -602,7 +602,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Property = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -618,7 +618,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.PropertyValue = 'Different'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -634,7 +634,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.ReevaluateProperty = 'Aggregate'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -649,7 +649,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:ClassificationRule.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -665,7 +665,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $False
+                    Test-TargetResource @Splat | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -681,7 +681,7 @@ try
                     {
                         $Splat = $script:ClassificationRule.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
