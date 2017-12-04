@@ -46,7 +46,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -63,7 +63,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
         }
@@ -83,10 +83,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
 
@@ -105,10 +105,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
 
@@ -127,10 +127,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
 
@@ -149,10 +149,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
 
@@ -171,10 +171,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -193,10 +193,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileGroup -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileGroup -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileGroup -Exactly 0
                 }
             }
         }
@@ -212,7 +212,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -228,7 +228,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -244,7 +244,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -260,7 +260,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -275,7 +275,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -291,7 +291,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
 
@@ -307,7 +307,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileGroup -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileGroup -Exactly 1
                 }
             }
         }

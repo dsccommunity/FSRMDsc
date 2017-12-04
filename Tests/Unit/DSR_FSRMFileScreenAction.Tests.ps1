@@ -165,7 +165,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -179,7 +179,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -199,7 +199,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
         }
@@ -220,8 +220,8 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreen -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreen -Exactly 0
                 }
             }
 
@@ -235,8 +235,8 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -250,8 +250,8 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -266,8 +266,8 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreen -Exactly 1
                 }
             }
         }
@@ -287,7 +287,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -300,7 +300,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -313,7 +313,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -327,7 +327,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -341,7 +341,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -355,7 +355,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -369,7 +369,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -383,7 +383,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -397,7 +397,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -411,7 +411,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -425,7 +425,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -439,7 +439,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -453,7 +453,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -467,7 +467,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -481,7 +481,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -495,7 +495,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
 
@@ -509,7 +509,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreen -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreen -Exactly 1
                 }
             }
         }

@@ -52,7 +52,7 @@ try
                     $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -69,7 +69,7 @@ try
                     $Result.IncludeGroup | Should -Be $script:TestFileScreenException.IncludeGroup
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
         }
@@ -90,10 +90,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenException -Exactly 0
                 }
             }
 
@@ -112,10 +112,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenException -Exactly 0
                 }
             }
 
@@ -134,10 +134,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenException -Exactly 0
                 }
             }
 
@@ -156,10 +156,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -178,10 +178,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenException -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenException -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenException -Exactly 0
                 }
             }
         }
@@ -212,7 +212,7 @@ try
 
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -228,7 +228,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -244,7 +244,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -259,7 +259,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -275,7 +275,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
 
@@ -291,7 +291,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenException -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenException -Exactly 1
                 }
             }
         }

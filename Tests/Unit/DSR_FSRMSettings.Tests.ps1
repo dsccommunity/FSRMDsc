@@ -66,7 +66,7 @@ try
                     $Result.EventNotificationLimit | Should -Be $script:Settings.EventNotificationLimit
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
         }
@@ -85,7 +85,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
 
@@ -101,7 +101,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
 
@@ -117,7 +117,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
 
@@ -133,7 +133,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
 
@@ -149,7 +149,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
 
@@ -165,7 +165,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Set-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMSetting -Exactly 1
                 }
             }
         }
@@ -180,7 +180,7 @@ try
                     Test-TargetResource @Splat | Should -Be $True
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -194,7 +194,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -208,7 +208,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -222,7 +222,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -236,7 +236,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -250,7 +250,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
 
@@ -264,7 +264,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMSetting -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMSetting -Exactly 1
                 }
             }
         }

@@ -183,7 +183,7 @@ try
                     { $Result = Get-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -202,7 +202,7 @@ try
                     { $Result = Get-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -216,7 +216,7 @@ try
                     $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -236,7 +236,7 @@ try
                     $Result.MailTo = $script:MockEmail.MailTo
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
         }
@@ -258,8 +258,8 @@ try
                     { Set-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 0
                 }
             }
 
@@ -279,8 +279,8 @@ try
                     { Set-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 0
                 }
             }
 
@@ -295,8 +295,8 @@ try
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
                 }
             }
 
@@ -310,8 +310,8 @@ try
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
                 }
             }
 
@@ -326,8 +326,8 @@ try
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
                 }
             }
         }
@@ -347,7 +347,7 @@ try
                     { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -366,7 +366,7 @@ try
                     { Test-TargetResource @Splat } | Should -Throw $errorRecord
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -380,7 +380,7 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -393,7 +393,7 @@ try
                     Test-TargetResource @Splat | Should -Be $true
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -407,7 +407,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -421,7 +421,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -435,7 +435,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -449,7 +449,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -463,7 +463,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -477,7 +477,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -491,7 +491,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -505,7 +505,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -519,7 +519,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -533,7 +533,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -547,7 +547,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -561,7 +561,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -575,7 +575,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -589,7 +589,7 @@ try
                     Test-TargetResource @Splat | Should -Be $false
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
         }

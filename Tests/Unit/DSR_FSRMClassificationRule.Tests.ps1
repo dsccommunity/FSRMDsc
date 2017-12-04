@@ -74,7 +74,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -100,7 +100,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
         }
@@ -120,10 +120,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -142,10 +142,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -164,10 +164,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -186,10 +186,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -208,10 +208,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -230,10 +230,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -252,10 +252,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -274,10 +274,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -296,10 +296,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -318,10 +318,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -340,10 +340,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -362,10 +362,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -384,10 +384,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
@@ -406,10 +406,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -428,10 +428,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
         }
@@ -447,7 +447,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -463,7 +463,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -479,7 +479,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -495,7 +495,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -511,7 +511,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -527,7 +527,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -543,7 +543,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -559,7 +559,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -575,7 +575,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -591,7 +591,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -607,7 +607,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -623,7 +623,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -639,7 +639,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -654,7 +654,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -670,7 +670,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
@@ -686,7 +686,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
         }

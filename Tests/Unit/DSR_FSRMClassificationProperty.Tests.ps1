@@ -89,7 +89,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -111,7 +111,7 @@ try
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
         }
@@ -131,10 +131,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
 
@@ -153,10 +153,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
 
@@ -175,10 +175,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
 
@@ -197,10 +197,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -219,10 +219,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
 
@@ -241,10 +241,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
 
@@ -263,10 +263,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -285,10 +285,10 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationPropertyDefinition -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationPropertyDefinition -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationPropertyDefinition -Exactly 0
                 }
             }
         }
@@ -304,7 +304,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -320,7 +320,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -336,7 +336,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -352,7 +352,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -368,7 +368,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -384,7 +384,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -399,7 +399,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -415,7 +415,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
@@ -431,7 +431,7 @@ try
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
         }

@@ -53,7 +53,7 @@ try
                     $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -71,7 +71,7 @@ try
                     $Result.IncludeGroup | Should -Be $script:TestFileScreenTemplate.IncludeGroup
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
         }
@@ -92,10 +92,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 0
                 }
             }
 
@@ -114,10 +114,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 0
                 }
             }
 
@@ -136,10 +136,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 0
                 }
             }
 
@@ -158,10 +158,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 0
                 }
             }
 
@@ -180,10 +180,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -202,10 +202,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmFileScreenTemplate -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmFileScreenTemplate -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmFileScreenTemplate -Exactly 0
                 }
             }
         }
@@ -221,7 +221,7 @@ try
 
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -237,7 +237,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -253,7 +253,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -269,7 +269,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -284,7 +284,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -300,7 +300,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
 
@@ -316,7 +316,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmFileScreenTemplate -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmFileScreenTemplate -Exactly 1
                 }
             }
         }

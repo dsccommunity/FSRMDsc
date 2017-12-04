@@ -80,7 +80,7 @@ try
                     $Result.Ensure | Should -Be 'Absent'
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -100,7 +100,7 @@ try
                     $Result.MatchesTemplate | Should -Be $script:TestQuota.MatchesTemplate
                 }
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
         }
@@ -122,10 +122,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -145,10 +145,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -168,10 +168,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -191,10 +191,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -214,10 +214,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -237,10 +237,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
 
@@ -260,10 +260,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 1
                 }
             }
 
@@ -283,10 +283,10 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmQuota -Exactly 0
                 }
             }
         }
@@ -347,7 +347,7 @@ try
 
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -364,7 +364,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -381,7 +381,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -398,7 +398,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -415,7 +415,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -432,7 +432,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -449,7 +449,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -466,7 +466,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -483,7 +483,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -500,7 +500,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -516,7 +516,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -533,7 +533,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
 
@@ -550,7 +550,7 @@ try
                     } | Should -Not -Throw
                 }
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmQuota -Exactly 1
                 }
             }
         }
