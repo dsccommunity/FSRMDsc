@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMAutoQuota'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestAutoQuota = [PSObject]@{
             Path = $ENV:Temp
             Ensure = 'Present'
@@ -43,7 +43,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No auto quotas exist' {
-                Mock Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmAutoQuota
 
                 It 'Should return absent auto quota' {
                     $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
@@ -56,7 +56,7 @@ try
             }
 
             Context 'Requested auto quota does exist' {
-                Mock Get-FsrmAutoQuota -MockWith { return @($script:MockAutoQuota) }
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { return @($script:MockAutoQuota) }
 
                 It 'Should return correct auto quota' {
                     $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
@@ -74,11 +74,11 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'auto quota does not exist but should' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -96,11 +96,11 @@ try
             }
 
             Context 'auto quota exists and should but has a different Disabled' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -119,11 +119,11 @@ try
             }
 
             Context 'auto quota exists and should but has a different Template' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -142,11 +142,11 @@ try
             }
 
             Context 'auto quota exists but should not' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -165,11 +165,11 @@ try
             }
 
             Context 'auto quota does not exist and should not' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -190,8 +190,8 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'auto quota path does not exist' {
-                Mock Get-FsrmQuotaTemplate
-                Mock Test-Path -MockWith { $false }
+                Mock -CommandName Get-FsrmQuotaTemplate
+                Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an AutoQuotaPathDoesNotExistError exception' {
                     $Splat = $script:TestAutoQuota.Clone()
@@ -205,7 +205,7 @@ try
             }
 
             Context 'auto quota template does not exist' {
-                Mock Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw an AutoQuotaTemplateNotFoundError exception' {
                     $Splat = $script:TestAutoQuota.Clone()
@@ -219,7 +219,7 @@ try
             }
 
             Context 'auto quota template not specified' {
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should throw an AutoQuotaTemplateEmptyError exception' {
                     $Splat = $script:TestAutoQuota.Clone()
@@ -234,8 +234,8 @@ try
             }
 
             Context 'auto quota does not exist but should' {
-                Mock Get-FsrmAutoQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     $Splat = $script:TestAutoQuota.Clone()
@@ -249,8 +249,8 @@ try
             }
 
             Context 'quota exists and should but has a different Disabled' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -266,8 +266,8 @@ try
             }
 
             Context 'quota exists and should but has a different Template' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -283,8 +283,8 @@ try
             }
 
             Context 'auto quota exists and should and all parameters match' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {
@@ -299,8 +299,8 @@ try
             }
 
             Context 'auto quota exists and but should not' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -316,8 +316,8 @@ try
             }
 
             Context 'auto quota does not exist and should not' {
-                Mock Get-FsrmAutoQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {

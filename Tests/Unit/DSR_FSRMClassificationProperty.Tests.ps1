@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMClassificationProperty'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:MockClassificationPossibleValue1 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -78,7 +78,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No classification properties exist' {
-                Mock Get-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return absent classification property' {
                     $result = Get-TargetResource `
@@ -94,7 +94,7 @@ try
             }
 
             Context 'Requested classification property does exist' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return correct classification property' {
                     $result = Get-TargetResource `
@@ -118,10 +118,10 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'classification property does not exist but should' {
-                Mock Get-FSRMClassificationPropertyDefinition
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -139,10 +139,10 @@ try
             }
 
             Context 'classification property exists and should but has a different DisplayName' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -161,10 +161,10 @@ try
             }
 
             Context 'classification property exists and should but has a different Description' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -183,10 +183,10 @@ try
             }
 
             Context 'classification property exists and should but has a different Type' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -205,10 +205,10 @@ try
             }
 
             Context 'classification property exists and should but has a different PossibleValue' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -227,10 +227,10 @@ try
             }
 
             Context 'classification property exists and should but has a different Parameters' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -249,10 +249,10 @@ try
             }
 
             Context 'classification property exists and but should not' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -271,10 +271,10 @@ try
             }
 
             Context 'classification property does not exist and should not' {
-                Mock Get-FSRMClassificationPropertyDefinition
-                Mock New-FSRMClassificationPropertyDefinition
-                Mock Set-FSRMClassificationPropertyDefinition
-                Mock Remove-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition
+                Mock -CommandName New-FSRMClassificationPropertyDefinition
+                Mock -CommandName Set-FSRMClassificationPropertyDefinition
+                Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
                 It 'Should Not Throw error' {
                     {
@@ -295,7 +295,7 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification property does not exist but should' {
-                Mock Get-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationProperty.Clone()
@@ -309,7 +309,7 @@ try
             }
 
             Context 'classification property exists and should but has a different DisplayName' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -325,7 +325,7 @@ try
             }
 
             Context 'classification property exists and should but has a different Description' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -341,7 +341,7 @@ try
             }
 
             Context 'classification property exists and should but has a different Type' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -357,7 +357,7 @@ try
             }
 
             Context 'classification property exists and should but has a different PossibleValue' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -373,7 +373,7 @@ try
             }
 
             Context 'classification property exists and should but has a different Parameters' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -389,7 +389,7 @@ try
             }
 
             Context 'classification property exists and should and all parameters match' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return true' {
                     {
@@ -404,7 +404,7 @@ try
             }
 
             Context 'classification property exists and but should not' {
-                Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
                     {
@@ -420,7 +420,7 @@ try
             }
 
             Context 'classification property does not exist and should not' {
-                Mock Get-FSRMClassificationPropertyDefinition
+                Mock -CommandName Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return true' {
                     {

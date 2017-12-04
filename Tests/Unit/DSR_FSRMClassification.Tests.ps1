@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMClassification'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:ClassificationMonthly = [PSObject] @{
             Id                  = 'Default'
             Continuous          = $False
@@ -97,7 +97,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'Monthly schedule configuration' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return correct classification properties' {
                     $Result = Get-TargetResource -Id $script:ClassificationMonthly.Id
@@ -116,7 +116,7 @@ try
             }
 
             Context 'Weekly schedule configuration' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
 
                 It 'Should return correct classification properties' {
                     $Result = Get-TargetResource -Id $script:ClassificationWeekly.Id
@@ -137,8 +137,8 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'classification has a different Continuous property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -155,8 +155,8 @@ try
             }
 
             Context 'classification has a different ContinuousLog property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -173,8 +173,8 @@ try
             }
 
             Context 'classification has a different ContinuousLogSize property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -191,8 +191,8 @@ try
             }
 
             Context 'classification has a different ExcludeNamespace property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -209,8 +209,8 @@ try
             }
 
             Context 'classification has a different ScheduleWeekly property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -227,8 +227,8 @@ try
             }
 
             Context 'classification has a different ScheduleMonthly property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -245,8 +245,8 @@ try
             }
 
             Context 'classification has a different ScheduleRunDuration property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -263,8 +263,8 @@ try
             }
 
             Context 'classification has a different ScheduleTime property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
-                Mock Set-FSRMClassification
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Set-FSRMClassification
 
                 It 'Should Not Throw error' {
                     {
@@ -283,7 +283,7 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification has no property differences' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return true' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -296,7 +296,7 @@ try
             }
 
             Context 'classification has a different Continuous property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -310,7 +310,7 @@ try
             }
 
             Context 'classification has a different ContinuousLog property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -324,7 +324,7 @@ try
             }
 
             Context 'classification has a different ContinuousLogSize property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -338,7 +338,7 @@ try
             }
 
             Context 'classification has a different ExcludeNamespace property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -352,7 +352,7 @@ try
             }
 
             Context 'classification has a different ScheduleWeekly property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationWeekly.Clone()
@@ -366,7 +366,7 @@ try
             }
 
             Context 'classification has a different ScheduleMonthly property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -380,7 +380,7 @@ try
             }
 
             Context 'classification has a different ScheduleRunDuration property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
@@ -394,7 +394,7 @@ try
             }
 
             Context 'classification has a different ScheduleTime property' {
-                Mock Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
+                Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()

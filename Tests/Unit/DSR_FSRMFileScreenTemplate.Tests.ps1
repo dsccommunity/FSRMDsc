@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMFileScreenTemplate'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestFileScreenTemplate = [PSObject]@{
             Name = 'Block Some Files'
             Description = 'File Screen Templates for Blocking Some Files'
@@ -45,7 +45,7 @@ try
 
             Context 'No File Screen templates exist' {
 
-                Mock Get-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate
 
                 It 'Should return absent File Screen template' {
                     $Result = Get-TargetResource `
@@ -59,7 +59,7 @@ try
 
             Context 'Requested File Screen template does exist' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { return @($script:MockFileScreenTemplate) }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { return @($script:MockFileScreenTemplate) }
 
                 It 'Should return correct FileScreen template' {
                     $Result = Get-TargetResource `
@@ -80,10 +80,10 @@ try
 
             Context 'File Screen template does not exist but should' {
 
-                Mock Get-FsrmFileScreenTemplate
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -101,10 +101,10 @@ try
 
             Context 'File Screen template exists and should but has a different Description' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -123,10 +123,10 @@ try
 
             Context 'File Screen template exists and should but has a different Active' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -145,10 +145,10 @@ try
 
             Context 'File Screen template exists and should but has a different IncludeGroup' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -167,10 +167,10 @@ try
 
             Context 'File Screen template exists and but should not' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -189,10 +189,10 @@ try
 
             Context 'File Screen template does not exist and should not' {
 
-                Mock Get-FsrmFileScreenTemplate
-                Mock New-FsrmFileScreenTemplate
-                Mock Set-FsrmFileScreenTemplate
-                Mock Remove-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate
+                Mock -CommandName New-FsrmFileScreenTemplate
+                Mock -CommandName Set-FsrmFileScreenTemplate
+                Mock -CommandName Remove-FsrmFileScreenTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -213,7 +213,7 @@ try
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'File Screen template does not exist but should' {
 
-                Mock Get-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenTemplate.Clone()
@@ -227,7 +227,7 @@ try
 
             Context 'File Screen template exists and should but has a different Description' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
 
                 It 'Should return false' {
                     {
@@ -243,7 +243,7 @@ try
 
             Context 'File Screen template exists and should but has a different Active' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
 
                 It 'Should return false' {
                     {
@@ -259,7 +259,7 @@ try
 
             Context 'File Screen template exists and should but has a different IncludeGroup' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
 
                 It 'Should return false' {
                     {
@@ -275,7 +275,7 @@ try
 
             Context 'File Screen template exists and should and all parameters match' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
 
                 It 'Should return true' {
                     {
@@ -290,7 +290,7 @@ try
 
             Context 'File Screen template exists and but should not' {
 
-                Mock Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { $script:MockFileScreenTemplate }
 
                 It 'Should return false' {
                     {
@@ -306,7 +306,7 @@ try
 
             Context 'File Screen template does not exist and should not' {
 
-                Mock Get-FsrmFileScreenTemplate
+                Mock -CommandName Get-FsrmFileScreenTemplate
 
                 It 'Should return true' {
                     {

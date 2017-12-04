@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMQuota'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestQuota = [PSObject]@{
             Path = $ENV:Temp
             Description = '5 GB Hard Limit'
@@ -72,7 +72,7 @@ try
 
             Context 'No quotas exist' {
 
-                Mock Get-FsrmQuota
+                Mock -CommandName Get-FsrmQuota
 
                 It 'Should return absent quota' {
                     $Result = Get-TargetResource `
@@ -86,7 +86,7 @@ try
 
             Context 'Requested quota does exist' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return correct quota' {
                     $Result = Get-TargetResource `
@@ -109,11 +109,11 @@ try
 
             Context 'quota does not exist but should' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -131,11 +131,11 @@ try
 
             Context 'quota exists and should but has a different Description' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -154,11 +154,11 @@ try
 
             Context 'quota exists and should but has a different Size' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -177,11 +177,11 @@ try
 
             Context 'quota exists and should but has a different SoftLimit' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -200,11 +200,11 @@ try
 
             Context 'quota exists and should but has an additional threshold percentage' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -223,11 +223,11 @@ try
 
             Context 'quota exists and should but is missing a threshold percentage' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -246,11 +246,11 @@ try
 
             Context 'quota exists and but should not' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -269,11 +269,11 @@ try
 
             Context 'quota does not exist and should not' {
 
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmQuota
-                Mock New-FsrmQuota
-                Mock Set-FsrmQuota
-                Mock Remove-FsrmQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmQuota
+                Mock -CommandName New-FsrmQuota
+                Mock -CommandName Set-FsrmQuota
+                Mock -CommandName Remove-FsrmQuota
 
                 It 'Should Not Throw error' {
                     {
@@ -294,8 +294,8 @@ try
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
 
             Context 'quota path does not exist' {
-                Mock Get-FsrmQuotaTemplate
-                Mock Test-Path -MockWith { $false }
+                Mock -CommandName Get-FsrmQuotaTemplate
+                Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an QuotaPathDoesNotExistError exception' {
                     $Splat = $script:TestQuota.Clone()
@@ -309,7 +309,7 @@ try
             }
 
             Context 'quota template does not exist' {
-                Mock Get-FSRMQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FSRMQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw an QuotaTemplateNotFoundError exception' {
                     $Splat = $script:TestQuota.Clone()
@@ -338,8 +338,8 @@ try
 
             Context 'quota does not exist but should' {
 
-                Mock Get-FsrmQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     $Splat = $script:TestQuota.Clone()
@@ -353,8 +353,8 @@ try
 
             Context 'quota exists and should but has a different Description' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -370,8 +370,8 @@ try
 
             Context 'quota exists and should but has a different Size' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -387,8 +387,8 @@ try
 
             Context 'quota exists and should but has a different SoftLimit' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -404,8 +404,8 @@ try
 
             Context 'quota exists and should but has an additional threshold percentage' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -421,8 +421,8 @@ try
 
             Context 'quota exists and should but is missing a threshold percentage' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -438,8 +438,8 @@ try
 
             Context 'quota exists and should but has a different Disabled' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -455,8 +455,8 @@ try
 
             Context 'quota exists and should but has a different Template' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -472,8 +472,8 @@ try
 
             Context 'quota exists and should and MatchesTemplate is set but does not match' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -489,8 +489,8 @@ try
 
             Context 'quota exists and should and MatchesTemplate is set and does match' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuotaMatch }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuotaMatch }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {
@@ -506,8 +506,8 @@ try
 
             Context 'quota exists and should and all parameters match' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {
@@ -522,8 +522,8 @@ try
 
             Context 'quota exists and but should not' {
 
-                Mock Get-FsrmQuota -MockWith { $script:MockQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota -MockWith { $script:MockQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
@@ -539,8 +539,8 @@ try
 
             Context 'quota does not exist and should not' {
 
-                Mock Get-FsrmQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {

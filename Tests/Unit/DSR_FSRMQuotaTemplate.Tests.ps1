@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMQuotaTemplate'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestQuotaTemplate = [PSObject]@{
             Name = '5 GB Limit'
             Description = '5 GB Hard Limit'
@@ -63,7 +63,7 @@ try
 
             Context 'No quota templates exist' {
 
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return absent quota template' {
                     $Result = Get-TargetResource `
@@ -77,7 +77,7 @@ try
 
             Context 'Requested quota template does exist' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { return @($script:MockQuotaTemplate) }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { return @($script:MockQuotaTemplate) }
 
                 It 'Should return correct quota template' {
                     $Result = Get-TargetResource `
@@ -97,10 +97,10 @@ try
 
             Context 'Quota template does not exist but should' {
 
-                Mock Get-FsrmQuotaTemplate
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -118,10 +118,10 @@ try
 
             Context 'Quota template exists and should but has a different Description' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -140,10 +140,10 @@ try
 
             Context 'Quota template exists and should but has a different Size' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -162,10 +162,10 @@ try
 
             Context 'Quota template exists and should but has a different SoftLimit' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -184,10 +184,10 @@ try
 
             Context 'Quota template exists and should but has an additional threshold percentage' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -206,10 +206,10 @@ try
 
             Context 'Quota template exists and should but is missing a threshold percentage' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -228,10 +228,10 @@ try
 
             Context 'Quota template exists and but should not' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -250,10 +250,10 @@ try
 
             Context 'Quota template does not exist and should not' {
 
-                Mock Get-FsrmQuotaTemplate
-                Mock New-FsrmQuotaTemplate
-                Mock Set-FsrmQuotaTemplate
-                Mock Remove-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
+                Mock -CommandName New-FsrmQuotaTemplate
+                Mock -CommandName Set-FsrmQuotaTemplate
+                Mock -CommandName Remove-FsrmQuotaTemplate
 
                 It 'Should Not Throw error' {
                     {
@@ -274,7 +274,7 @@ try
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'Quota template does not exist but should' {
 
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaTemplate.Clone()
@@ -288,7 +288,7 @@ try
 
             Context 'Quota template exists and should but has a different Description' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -304,7 +304,7 @@ try
 
             Context 'Quota template exists and should but has a different Size' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -320,7 +320,7 @@ try
 
             Context 'Quota template exists and should but has a different SoftLimit' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -336,7 +336,7 @@ try
 
             Context 'Quota template exists and should but has an additional threshold percentage' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -352,7 +352,7 @@ try
 
             Context 'Quota template exists and should but is missing a threshold percentage' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -368,7 +368,7 @@ try
 
             Context 'Quota template exists and should and all parameters match' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return true' {
                     {
@@ -383,7 +383,7 @@ try
 
             Context 'Quota template exists and but should not' {
 
-                Mock Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { $script:MockQuotaTemplate }
 
                 It 'Should return false' {
                     {
@@ -399,7 +399,7 @@ try
 
             Context 'Quota template does not exist and should not' {
 
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {

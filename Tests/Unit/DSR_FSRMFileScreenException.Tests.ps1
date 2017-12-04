@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMFileScreenException'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestFileScreenException = [PSObject]@{
             Path = $ENV:Temp
             Description = 'File Screen Exception'
@@ -44,7 +44,7 @@ try
 
             Context 'No File Screen Exceptions exist' {
 
-                Mock Get-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException
 
                 It 'Should return absent File Screen Exception' {
                     $Result = Get-TargetResource `
@@ -58,7 +58,7 @@ try
 
             Context 'Requested File Screen Exception does exist' {
 
-                Mock Get-FsrmFileScreenException -MockWith { return @($script:MockFileScreenException) }
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { return @($script:MockFileScreenException) }
 
                 It 'Should return correct File Screen Exception' {
                     $Result = Get-TargetResource `
@@ -78,10 +78,10 @@ try
 
             Context 'File Screen Exception does not exist but should' {
 
-                Mock Get-FsrmFileScreenException
-                Mock New-FsrmFileScreenException
-                Mock Set-FsrmFileScreenException
-                Mock Remove-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException
+                Mock -CommandName New-FsrmFileScreenException
+                Mock -CommandName Set-FsrmFileScreenException
+                Mock -CommandName Remove-FsrmFileScreenException
 
                 It 'Should Not Throw error' {
                     {
@@ -99,10 +99,10 @@ try
 
             Context 'File Screen Exception exists and should but has a different Description' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
-                Mock New-FsrmFileScreenException
-                Mock Set-FsrmFileScreenException
-                Mock Remove-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName New-FsrmFileScreenException
+                Mock -CommandName Set-FsrmFileScreenException
+                Mock -CommandName Remove-FsrmFileScreenException
 
                 It 'Should Not Throw error' {
                     {
@@ -121,10 +121,10 @@ try
 
             Context 'File Screen Exception exists and should but has a different IncludeGroup' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
-                Mock New-FsrmFileScreenException
-                Mock Set-FsrmFileScreenException
-                Mock Remove-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName New-FsrmFileScreenException
+                Mock -CommandName Set-FsrmFileScreenException
+                Mock -CommandName Remove-FsrmFileScreenException
 
                 It 'Should Not Throw error' {
                     {
@@ -143,10 +143,10 @@ try
 
             Context 'File Screen Exception exists and but should not' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
-                Mock New-FsrmFileScreenException
-                Mock Set-FsrmFileScreenException
-                Mock Remove-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName New-FsrmFileScreenException
+                Mock -CommandName Set-FsrmFileScreenException
+                Mock -CommandName Remove-FsrmFileScreenException
 
                 It 'Should Not Throw error' {
                     {
@@ -165,10 +165,10 @@ try
 
             Context 'File Screen Exception does not exist and should not' {
 
-                Mock Get-FsrmFileScreenException
-                Mock New-FsrmFileScreenException
-                Mock Set-FsrmFileScreenException
-                Mock Remove-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException
+                Mock -CommandName New-FsrmFileScreenException
+                Mock -CommandName Set-FsrmFileScreenException
+                Mock -CommandName Remove-FsrmFileScreenException
 
                 It 'Should Not Throw error' {
                     {
@@ -188,8 +188,8 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'File Screen Exception path does not exist' {
-                Mock Get-FsrmFileScreenException
-                Mock Test-Path -MockWith { $false }
+                Mock -CommandName Get-FsrmFileScreenException
+                Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an FileScreenExceptionPathDoesNotExistError exception' {
                     $Splat = $script:TestFileScreenException.Clone()
@@ -204,7 +204,7 @@ try
 
             Context 'File Screen Exception does not exist but should' {
 
-                Mock Get-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException
 
                 It 'Should return false' {
                     $Splat = $script:TestFileScreenException.Clone()
@@ -218,7 +218,7 @@ try
 
             Context 'File Screen Exception exists and should but has a different Description' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
 
                 It 'Should return false' {
                     {
@@ -234,7 +234,7 @@ try
 
             Context 'File Screen Exception exists and should but has a different IncludeGroup' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
 
                 It 'Should return false' {
                     {
@@ -250,7 +250,7 @@ try
 
             Context 'File Screen Exception exists and should and all parameters match' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
 
                 It 'Should return true' {
                     {
@@ -265,7 +265,7 @@ try
 
             Context 'File Screen Exception exists and but should not' {
 
-                Mock Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
+                Mock -CommandName Get-FsrmFileScreenException -MockWith { $script:MockFileScreenException }
 
                 It 'Should return false' {
                     {
@@ -281,7 +281,7 @@ try
 
             Context 'File Screen Exception does not exist and should not' {
 
-                Mock Get-FsrmFileScreenException
+                Mock -CommandName Get-FsrmFileScreenException
 
                 It 'Should return true' {
                     {

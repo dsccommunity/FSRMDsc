@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMQuotaAction'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         # General purpose Action Mocks
         $script:MockEmail = New-CimInstance `
             -ClassName 'MSFT_FSRMAction' `
@@ -171,7 +171,7 @@ try
 
             Context 'Quota does not exist' {
 
-                Mock Get-FsrmQuota { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmQuota { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -189,7 +189,7 @@ try
 
             Context 'Quota exists but threshold does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -208,7 +208,7 @@ try
 
             Context 'Quota exists but action does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return absent quota action' {
                     $Splat = $script:TestQuotaActionEvent.Clone()
@@ -222,7 +222,7 @@ try
 
             Context 'Quota and action exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return correct quota action' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -245,8 +245,8 @@ try
 
             Context 'Quota does not exist' {
 
-                Mock Get-FsrmQuota -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-                Mock Set-FsrmQuota
+                Mock -CommandName Get-FsrmQuota -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Set-FsrmQuota
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -265,8 +265,8 @@ try
 
             Context 'Quota exists but threshold does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
-                Mock Set-FsrmQuota
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Set-FsrmQuota
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -286,8 +286,8 @@ try
 
             Context 'Quota exists but action does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
-                Mock Set-FsrmQuota
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Set-FsrmQuota
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:TestQuotaActionSetEvent.Clone()
@@ -302,8 +302,8 @@ try
 
             Context 'Quota exists and action exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
-                Mock Set-FsrmQuota
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Set-FsrmQuota
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -317,8 +317,8 @@ try
 
             Context 'Quota exists and action exists but should not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
-                Mock Set-FsrmQuota
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Set-FsrmQuota
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -335,7 +335,7 @@ try
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'Quota does not exist' {
 
-                Mock Get-FsrmQuota -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmQuota -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -353,7 +353,7 @@ try
 
             Context 'Quota exists but threshold does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should throw QuotaNotFound exception' {
                     $Splat = $script:TestQuotaActionEmail.Clone()
@@ -372,7 +372,7 @@ try
 
             Context 'Quota exists but action does not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEvent.Clone()
@@ -386,7 +386,7 @@ try
 
             Context 'Quota exists and matching action exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return true' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -399,7 +399,7 @@ try
 
             Context 'Quota exists and action with different Subject exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -413,7 +413,7 @@ try
 
             Context 'Quota exists and action with different Body exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -427,7 +427,7 @@ try
 
             Context 'Quota exists and action with different Mail BCC exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -441,7 +441,7 @@ try
 
             Context 'Quota exists and action with different Mail CC exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -455,7 +455,7 @@ try
 
             Context 'Quota exists and action with different Mail To exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
@@ -469,7 +469,7 @@ try
 
             Context 'Quota exists and action with different Command exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -483,7 +483,7 @@ try
 
             Context 'Quota exists and action with different CommandParameters exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -497,7 +497,7 @@ try
 
             Context 'Quota exists and action with different KillTimeOut exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -511,7 +511,7 @@ try
 
             Context 'Quota exists and action with different RunLimitInterval exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -525,7 +525,7 @@ try
 
             Context 'Quota exists and action with different SecurityLevel exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -539,7 +539,7 @@ try
 
             Context 'Quota exists and action with different ShouldLogError exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -553,7 +553,7 @@ try
 
             Context 'Quota exists and action with different WorkingDirectory exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetCommand.Clone()
@@ -567,7 +567,7 @@ try
 
             Context 'Quota exists and action with different ReportTypes exists' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetReport.Clone()
@@ -581,7 +581,7 @@ try
 
             Context 'Quota exists and action exists but should not' {
 
-                Mock Get-FsrmQuota -MockWith { return @($script:MockQuota) }
+                Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return false' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()

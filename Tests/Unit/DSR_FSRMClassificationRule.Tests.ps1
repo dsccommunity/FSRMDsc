@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMClassificationRule'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:MockClassificationRule = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationRule' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -66,7 +66,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No classification rules exist' {
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return absent classification rule' {
                     $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
@@ -79,7 +79,7 @@ try
             }
 
             Context 'Requested classification rule does exist' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return correct classification rule' {
                     $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
@@ -107,10 +107,10 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'classification rule does not exist but should' {
-                Mock Get-FSRMClassificationRule
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -128,10 +128,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Description' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -150,10 +150,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -172,10 +172,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -194,10 +194,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -216,10 +216,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -238,10 +238,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -260,10 +260,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Flags' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -282,10 +282,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -304,10 +304,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -326,10 +326,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different Property' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -348,10 +348,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -370,10 +370,10 @@ try
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -392,10 +392,10 @@ try
             }
 
             Context 'classification rule exists and but should not' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -414,10 +414,10 @@ try
             }
 
             Context 'classification rule does not exist and should not' {
-                Mock Get-FSRMClassificationRule
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
                 It 'Should Not Throw error' {
                     {
@@ -438,7 +438,7 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification rule does not exist but should' {
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationRule.Clone()
@@ -452,7 +452,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Description' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -468,7 +468,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -484,7 +484,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -500,7 +500,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -516,7 +516,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -532,7 +532,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -548,7 +548,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Flags' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -564,7 +564,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -580,7 +580,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -596,7 +596,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different Property' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -612,7 +612,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -628,7 +628,7 @@ try
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -644,7 +644,7 @@ try
             }
 
             Context 'classification rule exists and should and all parameters match' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return true' {
                     {
@@ -659,7 +659,7 @@ try
             }
 
             Context 'classification rule exists and but should not' {
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
@@ -675,7 +675,7 @@ try
             }
 
             Context 'classification rule does not exist and should not' {
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return true' {
                     {

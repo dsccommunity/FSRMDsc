@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMSettings'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:Settings = [PSObject] @{
             IsSingleInstance = 'Yes'
             SmtpServer = 'smtp.contoso.com'
@@ -54,7 +54,7 @@ try
 
             Context 'Settings Exist' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return correct Settings properties' {
                     $Result = Get-TargetResource -IsSingleInstance $script:Settings.IsSingleInstance
@@ -75,7 +75,7 @@ try
 
             Context 'Settings has a different SmtpServer property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -91,7 +91,7 @@ try
 
             Context 'Settings has a different AdminEmailAddress property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -107,7 +107,7 @@ try
 
             Context 'Settings has a different FromEmailAddress property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -123,7 +123,7 @@ try
 
             Context 'Settings has a different CommandNotificationLimit property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -139,7 +139,7 @@ try
 
             Context 'Settings has a different EmailNotificationLimit property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -155,7 +155,7 @@ try
 
             Context 'Settings has a different EventNotificationLimit property' {
 
-                Mock Set-FSRMSetting
+                Mock -CommandName Set-FSRMSetting
 
                 It 'Should Not Throw error' {
                     {
@@ -173,7 +173,7 @@ try
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'Settings has no property differences' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return true' {
                     $Splat = $script:Settings.Clone()
@@ -186,7 +186,7 @@ try
 
             Context 'Settings has a different SmtpServer property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
@@ -200,7 +200,7 @@ try
 
             Context 'Settings has a different AdminEmailAddress property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
@@ -214,7 +214,7 @@ try
 
             Context 'Settings has a different FromEmailAddress property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
@@ -228,7 +228,7 @@ try
 
             Context 'Settings has a different CommandNotificationLimit property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
@@ -242,7 +242,7 @@ try
 
             Context 'Settings has a different EmailNotificationLimit property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()
@@ -256,7 +256,7 @@ try
 
             Context 'Settings has a different EventNotificationLimit property' {
 
-                Mock Get-FSRMSetting -MockWith { $script:MockSettings }
+                Mock -CommandName Get-FSRMSetting -MockWith { $script:MockSettings }
 
                 It 'Should return false' {
                     $Splat = $script:Settings.Clone()

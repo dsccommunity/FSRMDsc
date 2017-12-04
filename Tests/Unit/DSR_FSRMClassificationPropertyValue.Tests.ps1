@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMClassificationPropertyValue'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:MockClassificationPossibleValue1 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -89,7 +89,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'Classification Property does not exist' {
-                Mock Get-FsrmClassificationPropertyDefinition { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw ClassificationPropertyNotFoundError exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -108,7 +108,7 @@ try
             }
 
             Context 'ClassificationProperty exists but value does not' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return absent Classification Property value' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -124,7 +124,7 @@ try
             }
 
             Context 'ClassificationProperty and value exists' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return correct Classification Property value' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -144,8 +144,8 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'Classification Property does not exist' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
-                Mock Set-FsrmClassificationPropertyDefinition
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
                 It 'Should throw ClassificationPropertyNotFound exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -164,8 +164,8 @@ try
             }
 
             Context 'Classification Property exists but value does not' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
-                Mock Set-FsrmClassificationPropertyDefinition
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -180,8 +180,8 @@ try
             }
 
             Context 'ClassificationProperty exists and value exists' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
-                Mock Set-FsrmClassificationPropertyDefinition
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -195,8 +195,8 @@ try
             }
 
             Context 'ClassificationProperty exists and value exists but should not' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
-                Mock Set-FsrmClassificationPropertyDefinition
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
                 It 'Should Not Throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -213,7 +213,7 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'Classification Property does not exist' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw ClassificationPropertyNotFound exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -231,7 +231,7 @@ try
             }
 
             Context 'Classification Property exists but value does not' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -245,7 +245,7 @@ try
             }
 
             Context 'Classification Property exists and matching value exists' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return true' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -258,7 +258,7 @@ try
             }
 
             Context 'Classification Property exists and value with different Description exists' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
@@ -273,7 +273,7 @@ try
             }
 
             Context 'Classification Property exists and value exists but should not' {
-                Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
+                Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()

@@ -26,7 +26,7 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMFileGroup'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:FileGroup = [PSObject]@{
             Name           = 'Test Group'
             Ensure         = 'Present'
@@ -38,7 +38,7 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No file groups exist' {
-                Mock Get-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup
 
                 It 'Should return absent file group' {
                     $result = Get-TargetResource -Name $script:FileGroup.Name -Verbose
@@ -51,7 +51,7 @@ try
             }
 
             Context 'Requested file group does exist' {
-                Mock Get-FsrmFileGroup -MockWith { return @($script:FileGroup) }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { return @($script:FileGroup) }
 
                 It 'Should return correct file group' {
                     $result = Get-TargetResource -Name $script:FileGroup.Name -Verbose
@@ -70,10 +70,10 @@ try
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'File Group does not exist but should' {
-                Mock Get-FsrmFileGroup
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -91,10 +91,10 @@ try
             }
 
             Context 'File Group exists and should but has a different Description' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -113,10 +113,10 @@ try
             }
 
             Context 'File Group exists and should but has a different IncludePattern' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -135,10 +135,10 @@ try
             }
 
             Context 'File Group exists and should but has a different ExcludePattern' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -157,10 +157,10 @@ try
             }
 
             Context 'File Group exists and but should not' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -179,10 +179,10 @@ try
             }
 
             Context 'File Group does not exist and should not' {
-                Mock Get-FsrmFileGroup
-                Mock New-FsrmFileGroup
-                Mock Set-FsrmFileGroup
-                Mock Remove-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup
+                Mock -CommandName New-FsrmFileGroup
+                Mock -CommandName Set-FsrmFileGroup
+                Mock -CommandName Remove-FsrmFileGroup
 
                 It 'Should Not Throw error' {
                     {
@@ -203,7 +203,7 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'File Group does not exist but should' {
-                Mock Get-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup
 
                 It 'Should return false' {
                     $Splat = $script:FileGroup.Clone()
@@ -217,7 +217,7 @@ try
             }
 
             Context 'File Group exists and should but has a different Description' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
 
                 It 'Should return false' {
                     {
@@ -233,7 +233,7 @@ try
             }
 
             Context 'File Group exists and should but has a different IncludePattern' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
 
                 It 'Should return false' {
                     {
@@ -249,7 +249,7 @@ try
             }
 
             Context 'File Group exists and should but has a different ExcludePattern' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
 
                 It 'Should return false' {
                     {
@@ -265,7 +265,7 @@ try
             }
 
             Context 'File Group exists and should and all parameters match' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
 
                 It 'Should return true' {
                     {
@@ -280,7 +280,7 @@ try
             }
 
             Context 'File Group exists and but should not' {
-                Mock Get-FsrmFileGroup -MockWith { $script:FileGroup }
+                Mock -CommandName Get-FsrmFileGroup -MockWith { $script:FileGroup }
 
                 It 'Should return false' {
                     {
@@ -296,7 +296,7 @@ try
             }
 
             Context 'File Group does not exist and should not' {
-                Mock Get-FsrmFileGroup
+                Mock -CommandName Get-FsrmFileGroup
 
                 It 'Should return true' {
                     {
