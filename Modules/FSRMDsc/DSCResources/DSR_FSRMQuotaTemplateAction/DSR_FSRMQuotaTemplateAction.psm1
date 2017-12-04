@@ -683,7 +683,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                    -and ($action.ReportTypes -ne $ReportTypes))
+                    -and (-not (Compare-Object -ReferenceObject $action.ReportTypes -DifferenceObject $ReportTypes)))
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -857,9 +857,9 @@ Function Set-Action
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Percentage = $object.Percentage
-                Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
-            }
+            Percentage = $object.Percentage
+            Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
+        }
     }
 
     Set-FSRMQuotaTemplate `

@@ -7,6 +7,15 @@
   are available for testing.
 - Clean up unit tests and ensure Verbose is enabled on all.
 - Convert AppVeyor build image to Windows Server 2016.
+- FSRMFileScreenAction:
+  - Fix bug comparing ReportTypes array.
+- FSRMFileScreenTemplateAction:
+  - Fix bug comparing ReportTypes array.
+- FSRMQuotaAction:
+  - Fix bug comparing ReportTypes array.
+- FSRMQuotaTemplateAction:
+  - Fix bug comparing ReportTypes array.
+
 
 ## 2.3.0.0
 

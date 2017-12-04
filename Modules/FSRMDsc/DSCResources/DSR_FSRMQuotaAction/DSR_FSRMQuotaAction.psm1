@@ -682,7 +682,7 @@ function Test-TargetResource
             }
 
             if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                    -and ($action.ReportTypes -ne $ReportTypes))
+                    -and (-not (Compare-Object -ReferenceObject $action.ReportTypes -DifferenceObject $ReportTypes)))
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
