@@ -44,23 +44,23 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $fileScreenTemplateNew = Get-FSRMFileScreenTemplate -Name $fileScreenTemplate.Name
-            $fileScreenTemplateNew.Notification[0].Type               | Should Be $fileScreenTemplateAction.Type
-            $fileScreenTemplateNew.Notification[0].Subject            | Should Be $fileScreenTemplateAction.Subject
-            $fileScreenTemplateNew.Notification[0].Body               | Should Be $fileScreenTemplateAction.Body
-            $fileScreenTemplateNew.Notification[0].MailBCC            | Should Be $fileScreenTemplateAction.MailBCC
-            $fileScreenTemplateNew.Notification[0].MailCC             | Should Be $fileScreenTemplateAction.MailCC
-            $fileScreenTemplateNew.Notification[0].MailTo             | Should Be $fileScreenTemplateAction.MailTo
+            $fileScreenTemplateNew.Notification[0].Type               | Should -Be $fileScreenTemplateAction.Type
+            $fileScreenTemplateNew.Notification[0].Subject            | Should -Be $fileScreenTemplateAction.Subject
+            $fileScreenTemplateNew.Notification[0].Body               | Should -Be $fileScreenTemplateAction.Body
+            $fileScreenTemplateNew.Notification[0].MailBCC            | Should -Be $fileScreenTemplateAction.MailBCC
+            $fileScreenTemplateNew.Notification[0].MailCC             | Should -Be $fileScreenTemplateAction.MailCC
+            $fileScreenTemplateNew.Notification[0].MailTo             | Should -Be $fileScreenTemplateAction.MailTo
         }
 
         # Clean up

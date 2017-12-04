@@ -26,12 +26,13 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMAutoQuota'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:TestAutoQuota = [PSObject]@{
             Path = $ENV:Temp
             Ensure = 'Present'
             Disabled = $false
             Template = '5 GB Limit'
+            Verbose = $true
         }
 
         $script:MockAutoQuota = [PSObject]@{
@@ -42,294 +43,292 @@ try
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No auto quotas exist' {
-                Mock Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmAutoQuota
 
                 It 'Should return absent auto quota' {
-                    $Result = Get-TargetResource `
-                        -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should Be 'Absent'
+                    $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
+                    $result.Ensure | Should -Be 'Absent'
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'Requested auto quota does exist' {
-                Mock Get-FsrmAutoQuota -MockWith { return @($script:MockAutoQuota) }
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { return @($script:MockAutoQuota) }
 
                 It 'Should return correct auto quota' {
-                    $Result = Get-TargetResource `
-                        -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Path | Should Be $script:TestAutoQuota.Path
-                    $Result.Disabled | Should Be $script:TestAutoQuota.Disabled
-                    $Result.Template | Should Be $script:TestAutoQuota.Template
+                    $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
+                    $result.Ensure | Should -Be 'Present'
+                    $result.Path | Should -Be $script:TestAutoQuota.Path
+                    $result.Disabled | Should -Be $script:TestAutoQuota.Disabled
+                    $result.Template | Should -Be $script:TestAutoQuota.Template
                 }
 
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
         }
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
             Context 'auto quota does not exist but should' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName Set-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Set-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmAutoQuota -Exactly 0
                 }
             }
 
             Context 'auto quota exists and should but has a different Disabled' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Disabled = (-not $setTargetResourceParameters.Disabled)
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmAutoQuota -Exactly 0
                 }
             }
 
             Context 'auto quota exists and should but has a different Template' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Template = 'Different'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Template = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName Remove-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FsrmAutoQuota -Exactly 0
                 }
             }
 
             Context 'auto quota exists but should not' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'auto quota does not exist and should not' {
-                Mock Assert-ResourcePropertiesValid
-                Mock Get-FsrmAutoQuota
-                Mock New-FsrmAutoQuota
-                Mock Set-FsrmAutoQuota
-                Mock Remove-FsrmAutoQuota
+                Mock -CommandName Assert-ResourcePropertiesValid
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName New-FsrmAutoQuota
+                Mock -CommandName Set-FsrmAutoQuota
+                Mock -CommandName Remove-FsrmAutoQuota
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
-                    Assert-MockCalled -commandName New-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Set-FsrmAutoQuota -Exactly 0
-                    Assert-MockCalled -commandName Remove-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName New-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Set-FsrmAutoQuota -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FsrmAutoQuota -Exactly 0
                 }
             }
         }
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'auto quota path does not exist' {
-                Mock Get-FsrmQuotaTemplate
-                Mock Test-Path -MockWith { $false }
+                Mock -CommandName Get-FsrmQuotaTemplate
+                Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an AutoQuotaPathDoesNotExistError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
             Context 'auto quota template does not exist' {
-                Mock Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
+                Mock -CommandName Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw an AutoQuotaTemplateNotFoundError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
+                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path,$testTargetResourceParameters.Template) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
             Context 'auto quota template not specified' {
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should throw an AutoQuotaTemplateEmptyError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
-                    $Splat.Template = ''
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
             Context 'auto quota does not exist but should' {
-                Mock Get-FsrmAutoQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
-                    $Splat = $script:TestAutoQuota.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'quota exists and should but has a different Disabled' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Disabled = (-not $testTargetResourceParameters.Disabled)
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'quota exists and should but has a different Template' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Template = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Template = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'auto quota exists and should and all parameters match' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'auto quota exists and but should not' {
-                Mock Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota -MockWith { $script:MockAutoQuota }
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
 
             Context 'auto quota does not exist and should not' {
-                Mock Get-FsrmAutoQuota
-                Mock Get-FsrmQuotaTemplate
+                Mock -CommandName Get-FsrmAutoQuota
+                Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
+                    } | Should -Not -Throw
                 }
 
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FsrmAutoQuota -Exactly 1
+                    Assert-MockCalled -CommandName Get-FsrmAutoQuota -Exactly 1
                 }
             }
         }

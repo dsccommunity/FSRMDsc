@@ -26,9 +26,9 @@ try
     InModuleScope $script:DSCResourceName {
         $script:DSCResourceName = 'DSR_FSRMClassificationRule'
 
-        # Create the Mock Objects that will be used for running tests
+        # Create the Mock -CommandName Objects that will be used for running tests
         $script:MockClassificationRule = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationRule' `
+            -ClassName 'MSFT_FSRMClassificationRule' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -61,635 +61,632 @@ try
             Property = $MockClassificationRule.Property
             PropertyValue = $MockClassificationRule.PropertyValue
             ReevaluateProperty = $MockClassificationRule.ReevaluateProperty
+            Verbose = $true
         }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
-
             Context 'No classification rules exist' {
-
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return absent classification rule' {
-                    $Result = Get-TargetResource `
-                        -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should Be 'Absent'
+                    $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
+                    $result.Ensure | Should -Be 'Absent'
                 }
+
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'Requested classification rule does exist' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return correct classification rule' {
-                    $Result = Get-TargetResource `
-                        -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should Be 'Present'
-                    $Result.Name | Should Be $script:ClassificationRule.Name
-                    $Result.Description | Should Be $script:ClassificationRule.Description
-                    $Result.ClassificationMechanism | Should Be $script:ClassificationRule.ClassificationMechanism
-                    $Result.ContentRegularExpression | Should Be $script:ClassificationRule.ContentRegularExpression
-                    $Result.ContentString | Should Be $script:ClassificationRule.ContentString
-                    $Result.ContentStringCaseSensitive | Should Be $script:ClassificationRule.ContentStringCaseSensitive
-                    $Result.Disabled | Should Be $script:ClassificationRule.Disabled
-                    $Result.Flags | Should Be $script:ClassificationRule.Flags
-                    $Result.Namespace | Should Be $script:ClassificationRule.Namespace
-                    $Result.Parameters | Should Be $script:ClassificationRule.Parameters
-                    $Result.Property | Should Be $script:ClassificationRule.Property
-                    $Result.PropertyValue | Should Be $script:ClassificationRule.PropertyValue
-                    $Result.ReevaluateProperty | Should Be $script:ClassificationRule.ReevaluateProperty
+                    $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
+                    $result.Ensure | Should -Be 'Present'
+                    $result.Name | Should -Be $script:ClassificationRule.Name
+                    $result.Description | Should -Be $script:ClassificationRule.Description
+                    $result.ClassificationMechanism | Should -Be $script:ClassificationRule.ClassificationMechanism
+                    $result.ContentRegularExpression | Should -Be $script:ClassificationRule.ContentRegularExpression
+                    $result.ContentString | Should -Be $script:ClassificationRule.ContentString
+                    $result.ContentStringCaseSensitive | Should -Be $script:ClassificationRule.ContentStringCaseSensitive
+                    $result.Disabled | Should -Be $script:ClassificationRule.Disabled
+                    $result.Flags | Should -Be $script:ClassificationRule.Flags
+                    $result.Namespace | Should -Be $script:ClassificationRule.Namespace
+                    $result.Parameters | Should -Be $script:ClassificationRule.Parameters
+                    $result.Property | Should -Be $script:ClassificationRule.Property
+                    $result.PropertyValue | Should -Be $script:ClassificationRule.PropertyValue
+                    $result.ReevaluateProperty | Should -Be $script:ClassificationRule.ReevaluateProperty
                 }
+
                 It 'Should call the expected mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
         }
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
-
             Context 'classification rule does not exist but should' {
+                Mock -CommandName Get-FSRMClassificationRule
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Description' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Description = 'Different'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Description = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ClassificationMechanism = 'Folder Classifier'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentRegularExpression = @( 'Regex3','Regex4' )
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentRegularExpression = @( 'Regex3','Regex4' )
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentString = @( 'String3','String4' )
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentString = @( 'String3','String4' )
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentStringCaseSensitive = @( 'String3','String4' )
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentStringCaseSensitive = @( 'String3','String4' )
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Disabled = (-not $setTargetResourceParameters.Disabled)
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Flags' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Flags = @( 'ClearManuallyClassifiedProperty' )
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Namespace = @( 'Different' )
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Namespace = @( 'Different' )
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different Property' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Property = 'Different'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Property = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.PropertyValue = 'Different'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.PropertyValue = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ReevaluateProperty = 'Aggregate'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ReevaluateProperty = 'Aggregate'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
 
             Context 'classification rule exists and but should not' {
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule does not exist and should not' {
+                Mock -CommandName Get-FSRMClassificationRule
+                Mock -CommandName New-FSRMClassificationRule
+                Mock -CommandName Set-FSRMClassificationRule
+                Mock -CommandName Remove-FSRMClassificationRule
 
-                Mock Get-FSRMClassificationRule
-                Mock New-FSRMClassificationRule
-                Mock Set-FSRMClassificationRule
-                Mock Remove-FSRMClassificationRule
-
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
-                    } | Should Not Throw
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
-                    Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Set-FSRMClassificationRule -Exactly 0
-                    Assert-MockCalled -commandName Remove-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName New-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Set-FSRMClassificationRule -Exactly 0
+                    Assert-MockCalled -CommandName Remove-FSRMClassificationRule -Exactly 0
                 }
             }
         }
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification rule does not exist but should' {
-
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationRule.Clone()
-                    Test-TargetResource @Splat | Should Be $False
+                    $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Description' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Description = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ClassificationMechanism = 'Folder Classifier'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentRegularExpression =  @( 'Regex3','Regex4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentRegularExpression =  @( 'Regex3','Regex4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentString =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentString =  @( 'String3','String4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentStringCaseSensitive =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentStringCaseSensitive =  @( 'String3','String4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Disabled = (-not $testTargetResourceParameters.Disabled)
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Flags' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Flags = @( 'ClearManuallyClassifiedProperty' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Namespace = @( 'Different' )
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Namespace = @( 'Different' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Property' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Property = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Property = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.PropertyValue = 'Different'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.PropertyValue = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ReevaluateProperty = 'Aggregate'
-                        Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ReevaluateProperty = 'Aggregate'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should and all parameters match' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and but should not' {
-
-                Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
+                Mock -CommandName Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should Be $False
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule does not exist and should not' {
-
-                Mock Get-FSRMClassificationRule
+                Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should Be $True
-                    } | Should Not Throw
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
+                    } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
-                    Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
+                    Assert-MockCalled -CommandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
         }

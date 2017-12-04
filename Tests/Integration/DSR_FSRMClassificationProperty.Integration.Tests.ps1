@@ -38,27 +38,27 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Classification Property details
             $classificationPropertyNew = Get-FSRMClassificationPropertyDefinition -Name $classificationProperty.Name
-            $classificationProperty.Name          | Should Be $classificationPropertyNew.Name
-            $classificationProperty.DisplayName   | Should Be $classificationPropertyNew.DisplayName
-            $classificationProperty.Type          | Should Be $classificationPropertyNew.Type
-            $classificationProperty.Description   | Should Be $classificationPropertyNew.Description
+            $classificationProperty.Name          | Should -Be $classificationPropertyNew.Name
+            $classificationProperty.DisplayName   | Should -Be $classificationPropertyNew.DisplayName
+            $classificationProperty.Type          | Should -Be $classificationPropertyNew.Type
+            $classificationProperty.Description   | Should -Be $classificationPropertyNew.Description
             (Compare-Object `
                 -ReferenceObject $classificationProperty.PossibleValue `
-                -DifferenceObject $classificationPropertyNew.PossibleValue.Name).Count | Should Be 0
+                -DifferenceObject $classificationPropertyNew.PossibleValue.Name).Count | Should -Be 0
             (Compare-Object `
                 -ReferenceObject $classificationProperty.Parameters `
-                -DifferenceObject $classificationPropertyNew.Parameters).Count | Should Be 0
+                -DifferenceObject $classificationPropertyNew.Parameters).Count | Should -Be 0
         }
 
         # Clean up

@@ -41,28 +41,28 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Classification details
             $classificationNew = Get-FSRMClassification
-            $classification.Continuous          | Should Be $classificationNew.Continuous
-            $classification.ContinuousLog       | Should Be $classificationNew.ContinuousLog
-            $classification.ContinuousLogSize   | Should Be $classificationNew.ContinuousLogSize
+            $classification.Continuous          | Should -Be $classificationNew.Continuous
+            $classification.ContinuousLog       | Should -Be $classificationNew.ContinuousLog
+            $classification.ContinuousLogSize   | Should -Be $classificationNew.ContinuousLogSize
             (Compare-Object `
                 -ReferenceObject $classification.ExcludeNamespace `
-                -DifferenceObject $classificationNew.ExcludeNamespace).Count | Should Be 0
+                -DifferenceObject $classificationNew.ExcludeNamespace).Count | Should -Be 0
             (Compare-Object `
                 -ReferenceObject $classification.ScheduleMonthly `
-                -DifferenceObject $classificationNew.Schedule.Monthly).Count | Should Be 0
-            $classification.ScheduleRunDuration | Should Be $classificationNew.Schedule.RunDuration
-            $classification.ScheduleTime        | Should Be $classificationNew.Schedule.Time
+                -DifferenceObject $classificationNew.Schedule.Monthly).Count | Should -Be 0
+            $classification.ScheduleRunDuration | Should -Be $classificationNew.Schedule.RunDuration
+            $classification.ScheduleTime        | Should -Be $classificationNew.Schedule.Time
         }
     }
     #endregion
