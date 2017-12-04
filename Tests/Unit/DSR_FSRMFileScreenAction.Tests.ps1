@@ -155,13 +155,13 @@ try
                 Mock -CommandName Get-FsrmFileScreen { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw FileScreenNotFound exception' {
-                    $Splat = $script:TestFileScreenActionEmail.Clone()
+                    $getTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $getTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
-                    { $result = Get-TargetResource @Splat } | Should -Throw $errorRecord
+                    { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
                 }
 
                 It 'Should call the expected mocks' {
@@ -173,8 +173,8 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return absent File Screen action' {
-                    $Splat = $script:TestFileScreenActionReport.Clone()
-                    $result = Get-TargetResource @Splat
+                    $getTargetResourceParameters = $script:TestFileScreenActionReport.Clone()
+                    $result = Get-TargetResource @getTargetResourceParameters
                     $result.Ensure | Should -Be 'Absent'
                 }
 
@@ -187,8 +187,8 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return correct File Screen action' {
-                    $Splat = $script:TestFileScreenActionEmail.Clone()
-                    $result = Get-TargetResource @Splat
+                    $getTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
+                    $result = Get-TargetResource @getTargetResourceParameters
                     $result.Ensure | Should -Be 'Present'
                     $result.Type | Should -Be 'Email'
                     $result.Subject | Should -Be $script:MockEmail.Subject
@@ -210,13 +210,13 @@ try
                 Mock -CommandName Set-FsrmFileScreen
 
                 It 'Should throw FileScreenNotFound exception' {
-                    $Splat = $script:TestFileScreenActionEmail.Clone()
+                    $setTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $setTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
-                    { Set-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
                 }
 
                 It 'Should call expected Mocks' {
@@ -230,8 +230,8 @@ try
                 Mock -CommandName Set-FsrmFileScreen
 
                 It 'Should not throw exception' {
-                    $Splat = $script:TestFileScreenActionSetReport.Clone()
-                    { Set-TargetResource @Splat } | Should -Not -Throw
+                    $setTargetResourceParameters = $script:TestFileScreenActionSetReport.Clone()
+                    { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
                 }
 
                 It 'Should call the expected mocks' {
@@ -245,8 +245,8 @@ try
                 Mock -CommandName Set-FsrmFileScreen
 
                 It 'Should not throw exception' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    { Set-TargetResource @Splat } | Should -Not -Throw
+                    $setTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
                 }
 
                 It 'Should call the expected mocks' {
@@ -260,9 +260,9 @@ try
                 Mock -CommandName Set-FsrmFileScreen
 
                 It 'Should not throw exception' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.Ensure = 'Absent'
-                    { Set-TargetResource @Splat } | Should -Not -Throw
+                    $setTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $setTargetResourceParameters.Ensure = 'Absent'
+                    { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
                 }
 
                 It 'Should call the expected mocks' {
@@ -277,13 +277,13 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw FileScreenNotFound exception' {
-                    $Splat = $script:TestFileScreenActionEmail.Clone()
+                    $testTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
 
                 It 'Should call expected Mocks' {
@@ -295,8 +295,8 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetReport.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetReport.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -308,8 +308,8 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return true' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    Test-TargetResource @Splat | Should -Be $true
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $true
                 }
 
                 It 'Should call the expected mocks' {
@@ -321,9 +321,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.Subject = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.Subject = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -335,9 +335,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.Body = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.Body = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -349,9 +349,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.MailBCC = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.MailBCC = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -363,9 +363,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.MailCC = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.MailCC = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -377,9 +377,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.MailTo = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.MailTo = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -391,9 +391,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.Command = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.Command = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -405,9 +405,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.CommandParameters = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.CommandParameters = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -419,9 +419,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.KillTimeOut = $Splat.KillTimeOut + 1
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.KillTimeOut = $testTargetResourceParameters.KillTimeOut + 1
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -433,9 +433,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.RunLimitInterval = $Splat.RunLimitInterval + 1
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.RunLimitInterval = $testTargetResourceParameters.RunLimitInterval + 1
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -447,9 +447,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.SecurityLevel = 'NetworkService'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.SecurityLevel = 'NetworkService'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -461,9 +461,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.ShouldLogError = (-not $Splat.ShouldLogError)
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.ShouldLogError = (-not $testTargetResourceParameters.ShouldLogError)
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -475,9 +475,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetCommand.Clone()
-                    $Splat.WorkingDirectory = 'Different'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetCommand.Clone()
+                    $testTargetResourceParameters.WorkingDirectory = 'Different'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -489,9 +489,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetReport.Clone()
-                    $Splat.ReportTypes = @( 'LeastRecentlyAccessed' )
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetReport.Clone()
+                    $testTargetResourceParameters.ReportTypes = @( 'LeastRecentlyAccessed' )
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
@@ -503,9 +503,9 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreenActionSetEmail.Clone()
-                    $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreenActionSetEmail.Clone()
+                    $testTargetResourceParameters.Ensure = 'Absent'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call the expected mocks' {
