@@ -3,13 +3,15 @@
 ## Unreleased
 
 - Converted tests to meet Pester V4 standards.
+- Added restart to AppVeyor install step so that FSRM components
+  are available for testing.
 
 ## 2.3.0.0
 
 - Unit and Integration test headers updated to v1.1.0
 - Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
 - Changed AppVeyor.yml to use default image.
-- Converted to HQRM and prepared for transfer to PowerShell Team.
+- Converted to HQRM.
 - Changed parameter format in Readme.md to meet new standards.
 - Moved all localization strings into separate localization files.
 - Added CommonResourceHelper.psm1 module from PSDscResources.
@@ -20,10 +22,6 @@
 - Added description to all example files.
 - Updated all integration tests to use v1.1.1 template format.
 - Fix bug with FSRMSettings when parameter being assigned it 0 or blank.
-
-## 2.1.0.0
-
-- DSC Module moved to MSFT.
 
 ## 2.0.1.0
 
