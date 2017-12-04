@@ -77,8 +77,8 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -98,9 +98,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Description = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        $setTargetResourceParameters.Description = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -120,9 +120,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.IncludePattern = @('*.dif')
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        $setTargetResourceParameters.IncludePattern = @('*.dif')
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -142,9 +142,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.ExcludePattern = @('*.dif')
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        $setTargetResourceParameters.ExcludePattern = @('*.dif')
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -164,9 +164,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -186,9 +186,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:FileGroup.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -206,8 +206,8 @@ try
                 Mock -CommandName Get-FsrmFileGroup
 
                 It 'Should return false' {
-                    $Splat = $script:FileGroup.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:FileGroup.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -221,9 +221,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        $testTargetResourceParameters.Description = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -237,9 +237,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.IncludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        $testTargetResourceParameters.IncludePattern = @('*.dif')
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -253,9 +253,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.ExcludePattern = @('*.dif')
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        $testTargetResourceParameters.ExcludePattern = @('*.dif')
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -269,8 +269,8 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -284,9 +284,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -300,9 +300,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:FileGroup.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:FileGroup.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 

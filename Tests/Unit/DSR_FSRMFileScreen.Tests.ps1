@@ -95,8 +95,8 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -117,9 +117,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Description = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $setTargetResourceParameters.Description = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -140,9 +140,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Active = (-not $Splat.Active)
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $setTargetResourceParameters.Active = (-not $setTargetResourceParameters.Active)
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -163,9 +163,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.IncludeGroup = @( 'Different' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $setTargetResourceParameters.IncludeGroup = @( 'Different' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -186,9 +186,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -209,9 +209,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -230,17 +230,17 @@ try
                 Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an FileScreenPathDoesNotExistError exception' {
-                    $Splat = $script:TestFileScreen.Clone()
+                    $testTargetResourceParameters = $script:TestFileScreen.Clone()
 
                     $errorId = 'FileScreenPathDoesNotExistError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenPathDoesNotExistError) -f $Splat.Path
+                    $errorMessage = $($LocalizedData.FileScreenPathDoesNotExistError) -f $testTargetResourceParameters.Path
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
                         -ArgumentList $exception, $errorId, $errorCategory, $null
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
@@ -248,35 +248,35 @@ try
                 Mock -CommandName Get-FSRMFileScreenTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw an FileScreenTemplateNotFoundError exception' {
-                    $Splat = $script:TestFileScreen.Clone()
+                    $testTargetResourceParameters = $script:TestFileScreen.Clone()
 
                     $errorId = 'FileScreenTemplateNotFoundError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) -f $Splat.Path, $Splat.Template
+                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Template
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
                         -ArgumentList $exception, $errorId, $errorCategory, $null
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
             Context 'File Screen template not specified but MatchesTemplate is true' {
                 It 'Should throw an FileScreenTemplateEmptyError exception' {
-                    $Splat = $script:TestFileScreen.Clone()
-                    $Splat.MatchesTemplate = $true
-                    $Splat.Template = ''
+                    $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                    $testTargetResourceParameters.MatchesTemplate = $true
+                    $testTargetResourceParameters.Template = ''
 
                     $errorId = 'FileScreenTemplateEmptyError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateEmptyError) -f $Splat.Path
+                    $errorMessage = $($LocalizedData.FileScreenTemplateEmptyError) -f $testTargetResourceParameters.Path
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
                         -ArgumentList $exception, $errorId, $errorCategory, $null
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
@@ -285,8 +285,8 @@ try
                 Mock -CommandName Get-FsrmFileScreenTemplate
 
                 It 'Should return false' {
-                    $Splat = $script:TestFileScreen.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -301,9 +301,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.Description = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -318,9 +318,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Active = (-not $Splat.Active)
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.Active = (-not $testTargetResourceParameters.Active)
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -335,9 +335,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.IncludeGroup = @( 'Different' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.IncludeGroup = @( 'Different' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -352,9 +352,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Template = 'Block Image Files'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.Template = 'Block Image Files'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -369,9 +369,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.MatchesTemplate = $true
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.MatchesTemplate = $true
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -386,9 +386,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.MatchesTemplate = $true
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.MatchesTemplate = $true
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -403,8 +403,8 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -419,9 +419,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -436,9 +436,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestFileScreen.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:TestFileScreen.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
