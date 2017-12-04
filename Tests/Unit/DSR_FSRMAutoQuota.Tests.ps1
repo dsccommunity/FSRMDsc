@@ -32,6 +32,7 @@ try
             Ensure = 'Present'
             Disabled = $false
             Template = '5 GB Limit'
+            Verbose = $true
         }
 
         $script:MockAutoQuota = [PSObject]@{
@@ -290,7 +291,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:TestAutoQuota.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -324,7 +325,7 @@ try
                     {
                         $Splat = $script:TestAutoQuota.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 

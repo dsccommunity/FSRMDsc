@@ -60,7 +60,9 @@ try
             Description = 'File Privacy Property'
             PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name, $script:MockClassificationPossibleValue3.Name )
             Parameters = @( 'Parameter1=Value1', 'Parameter2=Value2')
+            Verbose = $True
         }
+
         $script:MockClassificationProperty = New-CimInstance `
             -ClassName 'DSR_FSRMClassificationPropertyDefinitionDefinition' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -75,9 +77,7 @@ try
             }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
-
             Context 'No classification properties exist' {
-
                 Mock Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return absent classification property' {
@@ -86,13 +86,13 @@ try
                         -Type $script:ClassificationProperty.Type
                     $Result.Ensure | Should -Be 'Absent'
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'Requested classification property does exist' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return correct classification property' {
@@ -107,6 +107,7 @@ try
                     $Result.PossibleValue | Should -Be $script:ClassificationProperty.PossibleValue
                     $Result.Parameters | Should -Be $script:ClassificationProperty.Parameters
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
@@ -114,9 +115,7 @@ try
         }
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
-
             Context 'classification property does not exist but should' {
-
                 Mock Get-FSRMClassificationPropertyDefinition
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -128,6 +127,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 1
@@ -137,7 +137,6 @@ try
             }
 
             Context 'classification property exists and should but has a different DisplayName' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -150,6 +149,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -159,7 +159,6 @@ try
             }
 
             Context 'classification property exists and should but has a different Description' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -172,6 +171,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -181,7 +181,6 @@ try
             }
 
             Context 'classification property exists and should but has a different Type' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -194,6 +193,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 1
@@ -203,7 +203,6 @@ try
             }
 
             Context 'classification property exists and should but has a different PossibleValue' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -216,6 +215,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -225,7 +225,6 @@ try
             }
 
             Context 'classification property exists and should but has a different Parameters' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -238,6 +237,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -247,7 +247,6 @@ try
             }
 
             Context 'classification property exists and but should not' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -260,6 +259,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -269,7 +269,6 @@ try
             }
 
             Context 'classification property does not exist and should not' {
-
                 Mock Get-FSRMClassificationPropertyDefinition
                 Mock New-FSRMClassificationPropertyDefinition
                 Mock Set-FSRMClassificationPropertyDefinition
@@ -282,6 +281,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationPropertyDefinition -Exactly 0
@@ -293,7 +293,6 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification property does not exist but should' {
-
                 Mock Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return false' {
@@ -301,13 +300,13 @@ try
                     Test-TargetResource @Splat | Should -Be $False
 
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should but has a different DisplayName' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -317,13 +316,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should but has a different Description' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -333,13 +332,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should but has a different Type' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -349,13 +348,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should but has a different PossibleValue' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -365,13 +364,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should but has a different Parameters' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -381,13 +380,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and should and all parameters match' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return true' {
@@ -396,13 +395,13 @@ try
                         Test-TargetResource @Splat | Should -Be $True
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property exists and but should not' {
-
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return false' {
@@ -412,13 +411,13 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'classification property does not exist and should not' {
-
                 Mock Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return true' {
@@ -428,6 +427,7 @@ try
                         Test-TargetResource @Splat | Should -Be $True
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationPropertyDefinition -Exactly 1
                 }

@@ -36,6 +36,7 @@ try
             ScheduleMonthly = @( 12,13 )
             ScheduleRunDuration = 10
             ScheduleTime = '13:00'
+            Verbose = $True
         }
 
         $script:MockScheduledTaskMonthly = New-CimInstance `
@@ -69,6 +70,7 @@ try
             ScheduleWeekly = @( 'Monday','Tuesday' )
             ScheduleRunDuration = 10
             ScheduleTime = '13:00'
+            Verbose = $True
         }
 
         $script:MockScheduledTaskWeekly = New-CimInstance `

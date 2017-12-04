@@ -45,6 +45,7 @@ try
                 DisplayName = 'Secret'
                 Description = 'Secret Description'
             }
+
         $script:MockClassificationPossibleValue3 = New-CimInstance `
             -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -63,7 +64,9 @@ try
             Description = 'File Privacy Property'
             PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name, $script:MockClassificationPossibleValue3.Name )
             Parameters = @( 'Parameter1=Value1', 'Parameter2=Value2')
+            Verbose = $True
         }
+
         $script:MockClassificationProperty = New-CimInstance `
             -ClassName 'DSR_FSRMClassificationPropertyDefinitionDefinition' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -76,16 +79,19 @@ try
                 Parameters = $script:ClassificationProperty.Parameters
                 PossibleValue = [Microsoft.Management.Infrastructure.CimInstance[]]@( $script:MockClassificationPossibleValue1, $script:MockClassificationPossibleValue2, $script:MockClassificationPossibleValue3 )
             }
+
         $script:ClassificationPossibleValue1 = [PSObject]@{
             Name = $script:MockClassificationPossibleValue1.Name
             PropertyName = $script:ClassificationProperty.Name
             Description = $script:MockClassificationPossibleValue1.Description
         }
+
         $script:ClassificationPossibleValue2 = [PSObject]@{
             Name = $script:MockClassificationPossibleValue2.Name
             PropertyName = $script:ClassificationProperty.Name
             Description = $script:MockClassificationPossibleValue2.Description
         }
+
         $script:ClassificationPossibleValue3 = [PSObject]@{
             Name = $script:MockClassificationPossibleValue3.Name
             PropertyName = $script:ClassificationProperty.Name
@@ -93,9 +99,7 @@ try
         }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
-
             Context 'Classification Property does not exist' {
-
                 Mock Get-FsrmClassificationPropertyDefinition { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw ClassificationPropertyNotFoundError exception' {
@@ -108,13 +112,13 @@ try
 
                     { $Result = Get-TargetResource @Splat } | Should -Throw $errorRecord
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'ClassificationProperty exists but value does not' {
-
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return absent Classification Property value' {
@@ -124,13 +128,13 @@ try
                     $Result = Get-TargetResource @Splat
                     $Result.Ensure | Should -Be 'Absent'
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }
             }
 
             Context 'ClassificationProperty and value exists' {
-
                 Mock Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
 
                 It 'Should return correct Classification Property value' {
@@ -142,6 +146,7 @@ try
                     $Result.DisplayName = $script:MockClassificationPossibleValue1.DisplayName
                     $Result.Description = $script:MockClassificationPossibleValue1.Description
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FsrmClassificationPropertyDefinition -Exactly 1
                 }

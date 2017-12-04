@@ -61,12 +61,11 @@ try
             Property = $MockClassificationRule.Property
             PropertyValue = $MockClassificationRule.PropertyValue
             ReevaluateProperty = $MockClassificationRule.ReevaluateProperty
+            Verbose = $true
         }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
-
             Context 'No classification rules exist' {
-
                 Mock Get-FSRMClassificationRule
 
                 It 'Should return absent classification rule' {
@@ -74,13 +73,13 @@ try
                         -Name $script:ClassificationRule.Name
                     $Result.Ensure | Should -Be 'Absent'
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'Requested classification rule does exist' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return correct classification rule' {
@@ -101,6 +100,7 @@ try
                     $Result.PropertyValue | Should -Be $script:ClassificationRule.PropertyValue
                     $Result.ReevaluateProperty | Should -Be $script:ClassificationRule.ReevaluateProperty
                 }
+
                 It 'Should call the expected mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
@@ -108,9 +108,7 @@ try
         }
 
         Describe "$($script:DSCResourceName)\Set-TargetResource" {
-
             Context 'classification rule does not exist but should' {
-
                 Mock Get-FSRMClassificationRule
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -122,6 +120,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 1
@@ -131,7 +130,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Description' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -144,6 +142,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -153,7 +152,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -166,6 +164,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -175,7 +174,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -188,6 +186,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -197,7 +196,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -210,6 +208,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -219,7 +218,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -232,6 +230,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -241,7 +240,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -254,6 +252,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -263,7 +262,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Flags' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -276,6 +274,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -285,7 +284,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -298,6 +296,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -307,7 +306,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -320,6 +318,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -329,7 +328,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different Property' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -342,6 +340,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -351,7 +350,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -364,6 +362,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -373,7 +372,6 @@ try
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -386,6 +384,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -395,7 +394,6 @@ try
             }
 
             Context 'classification rule exists and but should not' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -408,6 +406,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -417,7 +416,6 @@ try
             }
 
             Context 'classification rule does not exist and should not' {
-
                 Mock Get-FSRMClassificationRule
                 Mock New-FSRMClassificationRule
                 Mock Set-FSRMClassificationRule
@@ -430,6 +428,7 @@ try
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                     Assert-MockCalled -commandName New-FSRMClassificationRule -Exactly 0
@@ -441,7 +440,6 @@ try
 
         Describe "$($script:DSCResourceName)\Test-TargetResource" {
             Context 'classification rule does not exist but should' {
-
                 Mock Get-FSRMClassificationRule
 
                 It 'Should return false' {
@@ -449,13 +447,13 @@ try
                     Test-TargetResource @Splat | Should -Be $False
 
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Description' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -465,13 +463,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ClassificationMechanism' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -481,13 +479,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentRegularExpression' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -497,13 +495,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentString' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -513,13 +511,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ContentStringCaseSensitive' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -529,13 +527,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Disabled' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -545,13 +543,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Flags' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -561,13 +559,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Namespace' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -577,13 +575,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Parameters' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -593,13 +591,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different Property' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -609,13 +607,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different PropertyValue' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -625,13 +623,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should but has a different ReevaluateProperty' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -641,13 +639,13 @@ try
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and should and all parameters match' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return true' {
@@ -656,13 +654,13 @@ try
                         Test-TargetResource @Splat | Should -Be $True
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule exists and but should not' {
-
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return false' {
@@ -672,13 +670,13 @@ try
                     Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
             }
 
             Context 'classification rule does not exist and should not' {
-
                 Mock Get-FSRMClassificationRule
 
                 It 'Should return true' {
@@ -688,6 +686,7 @@ try
                         Test-TargetResource @Splat | Should -Be $True
                     } | Should -Not -Throw
                 }
+
                 It 'Should call expected Mocks' {
                     Assert-MockCalled -commandName Get-FSRMClassificationRule -Exactly 1
                 }
