@@ -91,6 +91,21 @@ try
             )
         }
 
+        $script:MockFileScreenTemplateReportOnly = New-CimInstance `
+        -ClassName 'MSFT_FSRMFileScreenTemplate' `
+        -Namespace Root/Microsoft/Windows/FSRM `
+        -ClientOnly `
+        -Property @{
+        Name         = 'Block Some Files'
+        Description  = 'File Screen Templates for Blocking Some Files'
+        Ensure       = 'Present'
+        Active       = $true
+        IncludeGroup = @( 'Audio and Video Files', 'Executable Files', 'Backup Files' )
+        Notification = [Microsoft.Management.Infrastructure.CimInstance[]]@(
+            $script:MockReport
+        )
+    }
+
         $script:TestFileScreenTemplateActionEmail = [PSObject]@{
             Name    = $script:MockFileScreenTemplate.Name
             Type    = 'Email'
@@ -488,7 +503,7 @@ try
 
             Context 'File Screen template exists and action with different ReportTypes exists' {
 
-                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { return @($script:MockFileScreenTemplate) }
+                Mock -CommandName Get-FsrmFileScreenTemplate -MockWith { return @($script:MockFileScreenTemplateReportOnly) }
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestFileScreenTemplateActionSetReport.Clone()
