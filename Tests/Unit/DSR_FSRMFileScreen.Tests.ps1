@@ -93,7 +93,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         Set-TargetResource @Splat
@@ -115,7 +115,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Description = 'Different'
@@ -138,7 +138,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Active = (-not $Splat.Active)
@@ -161,7 +161,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.IncludeGroup = @( 'Different' )
@@ -184,7 +184,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'
@@ -207,7 +207,7 @@ try
                 Mock -CommandName Set-FsrmFileScreen
                 Mock -CommandName Remove-FsrmFileScreen
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreen.Clone()
                         $Splat.Ensure = 'Absent'

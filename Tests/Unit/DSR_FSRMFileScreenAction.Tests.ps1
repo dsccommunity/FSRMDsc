@@ -229,7 +229,7 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
                 Mock -CommandName Set-FsrmFileScreen
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestFileScreenActionSetReport.Clone()
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
@@ -244,7 +244,7 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
                 Mock -CommandName Set-FsrmFileScreen
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestFileScreenActionSetEmail.Clone()
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
@@ -259,7 +259,7 @@ try
                 Mock -CommandName Get-FsrmFileScreen -MockWith { return @($script:MockFileScreen) }
                 Mock -CommandName Set-FsrmFileScreen
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestFileScreenActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'
                     { Set-TargetResource @Splat } | Should -Not -Throw

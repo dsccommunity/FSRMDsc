@@ -75,7 +75,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         Set-TargetResource @Splat
@@ -96,7 +96,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Description = 'Different'
@@ -118,7 +118,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.IncludePattern = @('*.dif')
@@ -140,7 +140,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.ExcludePattern = @('*.dif')
@@ -162,7 +162,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'
@@ -184,7 +184,7 @@ try
                 Mock -CommandName Set-FsrmFileGroup
                 Mock -CommandName Remove-FsrmFileGroup
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:FileGroup.Clone()
                         $Splat.Ensure = 'Absent'

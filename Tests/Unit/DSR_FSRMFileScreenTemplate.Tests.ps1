@@ -85,7 +85,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         Set-TargetResource @Splat
@@ -106,7 +106,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Description = 'Different'
@@ -128,7 +128,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Active = (-not $Splat.Active)
@@ -150,7 +150,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.IncludeGroup = [System.Collections.ArrayList]@( 'Temporary Files' )
@@ -172,7 +172,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'
@@ -194,7 +194,7 @@ try
                 Mock -CommandName Set-FsrmFileScreenTemplate
                 Mock -CommandName Remove-FsrmFileScreenTemplate
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:TestFileScreenTemplate.Clone()
                         $Splat.Ensure = 'Absent'

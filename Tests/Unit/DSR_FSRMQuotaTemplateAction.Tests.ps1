@@ -118,6 +118,7 @@ try
             Name       = $script:MockQuotaTemplate.Name
             Percentage = $script:MockQuotaTemplate.Threshold[0].Percentage
             Type       = 'Email'
+            Verbose    = $true
         }
 
         $script:TestQuotaTemplateActionSetEmail = $script:TestQuotaTemplateActionEmail.Clone()
@@ -134,6 +135,7 @@ try
             Name       = $script:MockQuotaTemplate.Name
             Percentage = $script:MockQuotaTemplate.Threshold[0].Percentage
             Type       = 'Event'
+            Verbose    = $true
         }
 
         $script:TestQuotaTemplateActionSetEvent = $script:TestQuotaTemplateActionEvent.Clone()
@@ -147,6 +149,7 @@ try
             Name       = $script:MockQuotaTemplate.Name
             Percentage = $script:MockQuotaTemplate.Threshold[0].Percentage
             Type       = 'Command'
+            Verbose    = $true
         }
 
         $script:TestQuotaTemplateActionSetCommand = $script:TestQuotaTemplateActionCommand.Clone()
@@ -165,6 +168,7 @@ try
             Name       = $script:MockQuotaTemplate.Name
             Percentage = $script:MockQuotaTemplate.Threshold[0].Percentage
             Type       = 'Report'
+            Verbose    = $true
         }
 
         $script:TestQuotaTemplateActionSetReport = $script:TestQuotaTemplateActionReport.Clone()
@@ -292,7 +296,7 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate -MockWith { return @($script:MockQuotaTemplate) }
                 Mock -CommandName Set-FsrmQuotaTemplate
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $setTargetResourceParameters = $script:TestQuotaTemplateActionSetEvent.Clone()
                     $setTargetResourceParameters.Type = 'Event'
                     { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
@@ -308,7 +312,7 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate -MockWith { return @($script:MockQuotaTemplate) }
                 Mock -CommandName Set-FsrmQuotaTemplate
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $setTargetResourceParameters = $script:TestQuotaTemplateActionSetEmail.Clone()
                     { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
                 }
@@ -323,7 +327,7 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate -MockWith { return @($script:MockQuotaTemplate) }
                 Mock -CommandName Set-FsrmQuotaTemplate
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $setTargetResourceParameters = $script:TestQuotaTemplateActionSetEmail.Clone()
                     $setTargetResourceParameters.Ensure = 'Absent'
                     { Set-TargetResource @setTargetResourceParameters } | Should -Not -Throw
@@ -546,7 +550,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaTemplateActionSetCommand.Clone()
-                    $testTargetResourceParameters.ShouldLogError = (-not $Splat.ShouldLogError)
+                    $testTargetResourceParameters.ShouldLogError = (-not $testTargetResourceParameters.ShouldLogError)
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 

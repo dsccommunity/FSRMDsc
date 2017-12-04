@@ -167,7 +167,7 @@ try
                 Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
                 Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Name = 'NotExist'
                     { Set-TargetResource @Splat } | Should -Not -Throw
@@ -183,7 +183,7 @@ try
                 Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
                 Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
@@ -198,7 +198,7 @@ try
                 Mock -CommandName Get-FsrmClassificationPropertyDefinition -MockWith { return @($script:MockClassificationProperty) }
                 Mock -CommandName Set-FsrmClassificationPropertyDefinition
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:ClassificationPossibleValue1.Clone()
                     $Splat.Ensure = 'Absent'
                     { Set-TargetResource @Splat } | Should -Not -Throw

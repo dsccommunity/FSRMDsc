@@ -289,7 +289,7 @@ try
                 Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
                 Mock -CommandName Set-FsrmQuota
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestQuotaActionSetEvent.Clone()
                     $Splat.Type = 'Event'
                     { Set-TargetResource @Splat } | Should -Not -Throw
@@ -305,7 +305,7 @@ try
                 Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
                 Mock -CommandName Set-FsrmQuota
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
                     { Set-TargetResource @Splat } | Should -Not -Throw
                 }
@@ -320,7 +320,7 @@ try
                 Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
                 Mock -CommandName Set-FsrmQuota
 
-                It 'Should Not Throw exception' {
+                It 'Should not throw exception' {
                     $Splat = $script:TestQuotaActionSetEmail.Clone()
                     $Splat.Ensure = 'Absent'
                     { Set-TargetResource @Splat } | Should -Not -Throw

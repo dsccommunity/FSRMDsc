@@ -123,7 +123,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         Set-TargetResource @Splat
@@ -144,7 +144,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.DisplayName = 'Different'
@@ -166,7 +166,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Description = 'Different'
@@ -188,7 +188,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Type = 'YesNo'
@@ -210,7 +210,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
@@ -232,7 +232,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
@@ -254,7 +254,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
@@ -276,7 +276,7 @@ try
                 Mock -CommandName Set-FSRMClassificationPropertyDefinition
                 Mock -CommandName Remove-FSRMClassificationPropertyDefinition
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'

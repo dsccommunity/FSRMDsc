@@ -75,7 +75,7 @@ try
             Context 'Settings has a different SmtpServer property' {
                 Mock -CommandName Set-FSRMSetting
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.SmtpServer = 'someotherserver.contoso.com'
@@ -90,7 +90,7 @@ try
 
             Context 'Settings has a different AdminEmailAddress property' {
                 Mock -CommandName Set-FSRMSetting
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.AdminEmailAddress = 'someoneelse@contoso.com'
@@ -105,7 +105,7 @@ try
 
             Context 'Settings has a different FromEmailAddress property' {
                 Mock -CommandName Set-FSRMSetting
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.FromEmailAddress = 'someoneelse@contoso.com'
@@ -121,7 +121,7 @@ try
             Context 'Settings has a different CommandNotificationLimit property' {
                 Mock -CommandName Set-FSRMSetting
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.CommandNotificationLimit = $setTargetResourceParameters.CommandNotificationLimit + 1
@@ -137,7 +137,7 @@ try
             Context 'Settings has a different EmailNotificationLimit property' {
                 Mock -CommandName Set-FSRMSetting
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.EmailNotificationLimit = $setTargetResourceParameters.EmailNotificationLimit + 1
@@ -153,7 +153,7 @@ try
             Context 'Settings has a different EventNotificationLimit property' {
                 Mock -CommandName Set-FSRMSetting
 
-                It 'Should Not Throw error' {
+                It 'Should not throw error' {
                     {
                         $setTargetResourceParameters = $script:Settings.Clone()
                         $setTargetResourceParameters.EventNotificationLimit = $setTargetResourceParameters.EventNotificationLimit + 1
