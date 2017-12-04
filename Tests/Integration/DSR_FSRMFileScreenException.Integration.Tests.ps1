@@ -45,20 +45,20 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $fileScreenExceptionNew = Get-FSRMFileScreenException -Path $fileScreenException.Path
-            $fileScreenException.Path               | Should Be $fileScreenExceptionNew.Path
-            $fileScreenException.Description        | Should Be $fileScreenExceptionNew.Description
-            $fileScreenException.IncludeGroup       | Should Be $fileScreenExceptionNew.IncludeGroup
+            $fileScreenException.Path               | Should -Be $fileScreenExceptionNew.Path
+            $fileScreenException.Description        | Should -Be $fileScreenExceptionNew.Description
+            $fileScreenException.IncludeGroup       | Should -Be $fileScreenExceptionNew.IncludeGroup
         }
 
         # Clean up

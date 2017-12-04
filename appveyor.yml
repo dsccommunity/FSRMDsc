@@ -1,17 +1,19 @@
 #---------------------------------#
 #      environment configuration  #
 #---------------------------------#
-version: 2.3.0.{build}
+version: 2.4.0.{build}
+image: Visual Studio 2017
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
 
     - ps: |
-        Install-WindowsFeature -Name fs-resource-manager
         $moduleName = 'FSRMDsc'
         $mainModuleFolder = "Modules\$moduleName"
         Import-Module "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
         Invoke-AppveyorInstallTask
-
+        Install-WindowsFeature -Name fs-resource-manager
+        Restart-Computer -Force
+        Start-Sleep -s 10
 #---------------------------------#
 #      build configuration        #
 #---------------------------------#
@@ -24,6 +26,9 @@ build: false
 
 test_script:
     - ps: |
+        $moduleName = 'FSRMDsc'
+        $mainModuleFolder = "Modules\$moduleName"
+        Import-Module "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
         Invoke-AppveyorTestScriptTask `
             -Type 'Harness' `
             -MainModulePath $mainModuleFolder `

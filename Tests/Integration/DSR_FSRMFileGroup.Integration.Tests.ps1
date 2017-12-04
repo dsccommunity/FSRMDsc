@@ -38,21 +38,21 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $filegroupNew = Get-FSRMFileGroup -Name $filegroup.Name
-            $filegroup.Name               | Should Be $filegroupNew.Name
-            $filegroup.Description        | Should Be $filegroupNew.Description
-            $filegroup.IncludePattern     | Should Be $filegroupNew.IncludePattern
-            $filegroup.ExcludePattern     | Should Be $filegroupNew.ExcludePattern
+            $filegroup.Name               | Should -Be $filegroupNew.Name
+            $filegroup.Description        | Should -Be $filegroupNew.Description
+            $filegroup.IncludePattern     | Should -Be $filegroupNew.IncludePattern
+            $filegroup.ExcludePattern     | Should -Be $filegroupNew.ExcludePattern
         }
 
         # Clean up

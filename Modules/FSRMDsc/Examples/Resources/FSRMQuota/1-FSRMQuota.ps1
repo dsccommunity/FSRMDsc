@@ -23,7 +23,7 @@ Configuration Example
             Description          = '5 GB Hard Limit'
             Ensure               = 'Present'
             Size                 = 5GB
-            SoftLimit            = $False
+            SoftLimit            = $false
             ThresholdPercentages = @( 85, 100 )
         } # End of FSRMQuota Resource
 

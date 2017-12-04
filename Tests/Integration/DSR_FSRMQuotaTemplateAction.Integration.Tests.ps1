@@ -45,23 +45,23 @@ try
                     -Verbose `
                     -Force `
                     -ErrorAction Stop
-            } | Should Not Throw
+            } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should Not throw
+            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
         }
         #endregion
 
         It 'Should have set the resource and all the parameters should match' {
             # Get the Rule details
             $quotaTemplateNew = Get-FSRMQuotaTemplate -Name $quotaTemplate.Name
-            $quotaTemplateNew.Threshold[0].Action[0].Type               | Should Be $quotaAction.Type
-            $quotaTemplateNew.Threshold[0].Action[0].Subject            | Should Be $quotaAction.Subject
-            $quotaTemplateNew.Threshold[0].Action[0].Body               | Should Be $quotaAction.Body
-            $quotaTemplateNew.Threshold[0].Action[0].MailBCC            | Should Be $quotaAction.MailBCC
-            $quotaTemplateNew.Threshold[0].Action[0].MailCC             | Should Be $quotaAction.MailCC
-            $quotaTemplateNew.Threshold[0].Action[0].MailTo             | Should Be $quotaAction.MailTo
+            $quotaTemplateNew.Threshold[0].Action[0].Type               | Should -Be $quotaAction.Type
+            $quotaTemplateNew.Threshold[0].Action[0].Subject            | Should -Be $quotaAction.Subject
+            $quotaTemplateNew.Threshold[0].Action[0].Body               | Should -Be $quotaAction.Body
+            $quotaTemplateNew.Threshold[0].Action[0].MailBCC            | Should -Be $quotaAction.MailBCC
+            $quotaTemplateNew.Threshold[0].Action[0].MailCC             | Should -Be $quotaAction.MailCC
+            $quotaTemplateNew.Threshold[0].Action[0].MailTo             | Should -Be $quotaAction.MailTo
         }
 
         # Clean up

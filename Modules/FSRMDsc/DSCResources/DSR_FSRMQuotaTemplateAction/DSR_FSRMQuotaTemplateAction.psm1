@@ -67,7 +67,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionDoesNotExistMessage) `
+                $($LocalizedData.ActionNotExistMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -682,8 +682,18 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                    -and ($action.ReportTypes -ne $ReportTypes))
+            # Get the existing report types into an array
+            if ($null -eq $action.ReportTypes)
+            {
+                [System.String[]] $existingReportTypes = @()
+            }
+            else
+            {
+                [System.String[]] $existingReportTypes = $action.ReportTypes
+            }
+
+            if ($PSBoundParameters.ContainsKey('ReportTypes') -and `
+                (Compare-Object -ReferenceObject $existingReportTypes -DifferenceObject $ReportTypes).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
@@ -857,9 +867,9 @@ Function Set-Action
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Percentage = $object.Percentage
-                Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
-            }
+            Percentage = $object.Percentage
+            Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
+        }
     }
 
     Set-FSRMQuotaTemplate `
