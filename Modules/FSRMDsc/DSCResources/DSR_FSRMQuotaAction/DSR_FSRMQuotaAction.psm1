@@ -681,7 +681,16 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            [System.String[]] $existingReportTypes = $action.ReportTypes
+            # Get the existing report types into an array
+            if ($action.ReportTypes -eq $null)
+            {
+                [System.String[]] $existingReportTypes = @()
+            }
+            else
+            {
+                [System.String[]] $existingReportTypes = $action.ReportTypes
+            }
+
             if ($PSBoundParameters.ContainsKey('ReportTypes') -and `
                 (Compare-Object -ReferenceObject $existingReportTypes -DifferenceObject $ReportTypes).Count -ne 0)
             {
