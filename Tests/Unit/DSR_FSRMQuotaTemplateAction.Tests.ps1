@@ -367,7 +367,7 @@ try
                     $testTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $testTargetResourceParametersSplat.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
+                        -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -508,7 +508,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaTemplateActionSetCommand.Clone()
-                    $testTargetResourceParameters.KillTimeOut = $Splat.KillTimeOut + 1
+                    $testTargetResourceParameters.KillTimeOut = $testTargetResourceParameters.KillTimeOut + 1
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
@@ -522,7 +522,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaTemplateActionSetCommand.Clone()
-                    $testTargetResourceParameters.RunLimitInterval = $Splat.RunLimitInterval + 1
+                    $testTargetResourceParameters.RunLimitInterval = $testTargetResourceParameters.RunLimitInterval + 1
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 

@@ -235,8 +235,8 @@ try
                 Mock -CommandName Get-FsrmQuota -MockWith { return @($script:MockQuota) }
 
                 It 'Should return correct quota action' {
-                    $Splat = $script:TestQuotaActionEmail.Clone()
-                    $result = Get-TargetResource @Splat
+                    $getTargetResourceParameters = $script:TestQuotaActionEmail.Clone()
+                    $result = Get-TargetResource @getTargetResourceParameters
                     $result.Ensure | Should -Be 'Present'
                     $result.Type | Should -Be 'Email'
                     $result.Subject | Should -Be $script:MockEmail.Subject
@@ -510,7 +510,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaActionSetCommand.Clone()
-                    $testTargetResourceParameters.KillTimeOut = $Splat.KillTimeOut + 1
+                    $testTargetResourceParameters.KillTimeOut = $testTargetResourceParameters.KillTimeOut + 1
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
@@ -524,7 +524,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaActionSetCommand.Clone()
-                    $testTargetResourceParameters.RunLimitInterval = $Splat.RunLimitInterval + 1
+                    $testTargetResourceParameters.RunLimitInterval = $testTargetResourceParameters.RunLimitInterval + 1
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
@@ -552,7 +552,7 @@ try
 
                 It 'Should return false' {
                     $testTargetResourceParameters = $script:TestQuotaActionSetCommand.Clone()
-                    $testTargetResourceParameters.ShouldLogError = (-not $Splat.ShouldLogError)
+                    $testTargetResourceParameters.ShouldLogError = (-not $testTargetResourceParameters.ShouldLogError)
                     Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 

@@ -308,7 +308,7 @@ try
                 It 'Should return false' {
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
-                        $testTargetResourceParameters.Size = $Splat.Size + 1GB
+                        $testTargetResourceParameters.Size = $testTargetResourceParameters.Size + 1GB
                         Test-TargetResource @testTargetResourceParameters | Should -Be $False
                     } | Should -Not -Throw
                 }
@@ -324,7 +324,7 @@ try
                 It 'Should return false' {
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
-                        $testTargetResourceParameters.SoftLimit = (-not $Splat.SoftLimit)
+                        $testTargetResourceParameters.SoftLimit = (-not $testTargetResourceParameters.SoftLimit)
                         Test-TargetResource @testTargetResourceParameters | Should -Be $False
                     } | Should -Not -Throw
                 }
@@ -388,7 +388,7 @@ try
                     {
                         $testTargetResourceParameters = $script:TestQuotaTemplate.Clone()
                         $testTargetResourceParameters.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $False
                     } | Should -Not -Throw
                 }
 
