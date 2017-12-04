@@ -82,8 +82,8 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -104,9 +104,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Disabled = (-not $setTargetResourceParameters.Disabled)
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -127,9 +127,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Template = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Template = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -150,9 +150,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -173,9 +173,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -194,13 +194,13 @@ try
                 Mock -CommandName Test-Path -MockWith { $false }
 
                 It 'Should throw an AutoQuotaPathDoesNotExistError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
@@ -208,13 +208,13 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate -MockWith { throw (New-Object -TypeName Microsoft.PowerShell.Cmdletization.Cim.CimJobException) }
 
                 It 'Should throw an AutoQuotaTemplateNotFoundError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Splat.Path,$Splat.Template) `
+                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path,$testTargetResourceParameters.Template) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
@@ -222,14 +222,14 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should throw an AutoQuotaTemplateEmptyError exception' {
-                    $Splat = $script:TestAutoQuota.Clone()
-                    $Splat.Template = ''
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                    $testTargetResourceParameters.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $Splat.Path) `
+                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Template'
 
-                    { Test-TargetResource @Splat } | Should -Throw $errorRecord
+                    { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
                 }
             }
 
@@ -238,8 +238,8 @@ try
                 Mock -CommandName Get-FsrmQuotaTemplate
 
                 It 'Should return false' {
-                    $Splat = $script:TestAutoQuota.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -254,9 +254,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Disabled = (-not $testTargetResourceParameters.Disabled)
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -271,9 +271,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Template = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Template = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -288,8 +288,8 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -304,9 +304,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -321,9 +321,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:TestAutoQuota.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:TestAutoQuota.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 

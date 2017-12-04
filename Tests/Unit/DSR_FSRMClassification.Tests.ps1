@@ -100,7 +100,7 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return correct classification properties' {
-                    $Result = Get-TargetResource -Id $script:ClassificationMonthly.Id
+                    $Result = Get-TargetResource -Id $script:ClassificationMonthly.Id -Verbose
                     $Result.Continuous | Should -Be $script:ClassificationMonthly.Continuous
                     $Result.ContinuousLog | Should -Be $script:ClassificationMonthly.ContinuousLog
                     $Result.ContinuousLogSize | Should -Be $script:ClassificationMonthly.ContinuousLogSize
@@ -119,7 +119,7 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
 
                 It 'Should return correct classification properties' {
-                    $Result = Get-TargetResource -Id $script:ClassificationWeekly.Id
+                    $Result = Get-TargetResource -Id $script:ClassificationWeekly.Id -Verbose
                     $Result.Continuous | Should -Be $script:ClassificationWeekly.Continuous
                     $Result.ContinuousLog | Should -Be $script:ClassificationWeekly.ContinuousLog
                     $Result.ContinuousLogSize | Should -Be $script:ClassificationWeekly.ContinuousLogSize
@@ -142,9 +142,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.Continuous = (-not $Splat.Continuous)
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.Continuous = (-not $setTargetResourceParameters.Continuous)
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -160,9 +160,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ContinuousLog = (-not $setTargetResourceParameters.ContinuousLog)
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -178,9 +178,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ContinuousLogSize = $setTargetResourceParameters.ContinuousLogSize * 2
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -196,9 +196,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ExcludeNamespace = @('[AllVolumes]\$Extend /')
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -214,9 +214,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationWeekly.Clone()
-                        $Splat.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationWeekly.Clone()
+                        $setTargetResourceParameters.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -232,9 +232,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ScheduleMonthly = @( 13, 14, 15 )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ScheduleMonthly = @( 13, 14, 15 )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -250,9 +250,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ScheduleRunDuration = $setTargetResourceParameters.ScheduleRunDuration + 1
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -268,9 +268,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ScheduleTime = '01:00'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                        $setTargetResourceParameters.ScheduleTime = '01:00'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -286,8 +286,8 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return true' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    Test-TargetResource @Splat | Should -Be $true
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $true
                 }
 
                 It 'Should call expected Mocks' {
@@ -299,9 +299,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.Continuous = (-not $Splat.Continuous)
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.Continuous = (-not $testTargetResourceParameters.Continuous)
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -313,9 +313,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ContinuousLog = (-not $Splat.ContinuousLog)
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ContinuousLog = (-not $testTargetResourceParameters.ContinuousLog)
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -327,9 +327,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ContinuousLogSize = $Splat.ContinuousLogSize * 2
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ContinuousLogSize = $testTargetResourceParameters.ContinuousLogSize * 2
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -341,9 +341,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ExcludeNamespace = @('[AllVolumes]\$Extend /')
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ExcludeNamespace = @('[AllVolumes]\$Extend /')
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -355,9 +355,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationWeekly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationWeekly.Clone()
-                    $Splat.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationWeekly.Clone()
+                    $testTargetResourceParameters.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -369,9 +369,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ScheduleMonthly = @( 13, 14, 15 )
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ScheduleMonthly = @( 13, 14, 15 )
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -383,9 +383,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ScheduleRunDuration = $Splat.ScheduleRunDuration + 1
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ScheduleRunDuration = $testTargetResourceParameters.ScheduleRunDuration + 1
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {
@@ -397,9 +397,9 @@ try
                 Mock -CommandName Get-FSRMClassification -MockWith { $script:MockClassificationMonthly }
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ScheduleTime = '01:00'
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationMonthly.Clone()
+                    $testTargetResourceParameters.ScheduleTime = '01:00'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                 }
 
                 It 'Should call expected Mocks' {

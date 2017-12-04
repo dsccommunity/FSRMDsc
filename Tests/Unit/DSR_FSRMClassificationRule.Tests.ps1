@@ -114,8 +114,8 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -135,9 +135,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Description = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Description = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -157,9 +157,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ClassificationMechanism = 'Folder Classifier'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -179,9 +179,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentRegularExpression = @( 'Regex3','Regex4' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentRegularExpression = @( 'Regex3','Regex4' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -201,9 +201,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentString = @( 'String3','String4' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentString = @( 'String3','String4' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -223,9 +223,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentStringCaseSensitive = @( 'String3','String4' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ContentStringCaseSensitive = @( 'String3','String4' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -245,9 +245,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Disabled = (-not $setTargetResourceParameters.Disabled)
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -267,9 +267,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Flags = @( 'ClearManuallyClassifiedProperty' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -289,9 +289,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Namespace = @( 'Different' )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Namespace = @( 'Different' )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -311,9 +311,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -333,9 +333,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Property = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Property = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -355,9 +355,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.PropertyValue = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.PropertyValue = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -377,9 +377,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ReevaluateProperty = 'Aggregate'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.ReevaluateProperty = 'Aggregate'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -399,9 +399,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -421,9 +421,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -441,8 +441,8 @@ try
                 Mock -CommandName Get-FSRMClassificationRule
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationRule.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -456,9 +456,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Description = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -472,9 +472,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ClassificationMechanism = 'Folder Classifier'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ClassificationMechanism = 'Folder Classifier'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -488,9 +488,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentRegularExpression =  @( 'Regex3','Regex4' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentRegularExpression =  @( 'Regex3','Regex4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -504,9 +504,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentString =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentString =  @( 'String3','String4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -520,9 +520,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ContentStringCaseSensitive =  @( 'String3','String4' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ContentStringCaseSensitive =  @( 'String3','String4' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -536,9 +536,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Disabled = (-not $Splat.Disabled)
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Disabled = (-not $testTargetResourceParameters.Disabled)
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -552,9 +552,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Flags = @( 'ClearManuallyClassifiedProperty' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Flags = @( 'ClearManuallyClassifiedProperty' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -568,9 +568,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Namespace = @( 'Different' )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Namespace = @( 'Different' )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -584,9 +584,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -600,9 +600,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Property = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Property = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -616,9 +616,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.PropertyValue = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.PropertyValue = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -632,9 +632,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.ReevaluateProperty = 'Aggregate'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.ReevaluateProperty = 'Aggregate'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -648,8 +648,8 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -663,9 +663,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -679,9 +679,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationRule.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:ClassificationRule.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 

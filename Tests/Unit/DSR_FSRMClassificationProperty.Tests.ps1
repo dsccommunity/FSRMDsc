@@ -35,6 +35,7 @@ try
             Name        = 'Top Secret'
             Description = ''
         }
+
         $script:MockClassificationPossibleValue2 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -43,6 +44,7 @@ try
             Name        = 'Secret'
             Description = ''
         }
+
         $script:MockClassificationPossibleValue3 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
@@ -81,10 +83,7 @@ try
                 Mock -CommandName Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return absent classification property' {
-                    $result = Get-TargetResource `
-                        -Name $script:ClassificationProperty.Name `
-                        -Type $script:ClassificationProperty.Type `
-                        -Verbose
+                    $result = Get-TargetResource -Name $script:ClassificationProperty.Name -Type $script:ClassificationProperty.Type -Verbose
                     $result.Ensure | Should -Be 'Absent'
                 }
 
@@ -97,10 +96,7 @@ try
                 Mock -CommandName Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return correct classification property' {
-                    $result = Get-TargetResource `
-                        -Name $script:ClassificationProperty.Name `
-                        -Type $script:ClassificationProperty.Type `
-                        -Verbose
+                    $result = Get-TargetResource -Name $script:ClassificationProperty.Name -Type $script:ClassificationProperty.Type -Verbose
                     $result.Ensure | Should -Be 'Present'
                     $result.Name | Should -Be $script:ClassificationProperty.Name
                     $result.DisplayName | Should -Be $script:ClassificationProperty.DisplayName
@@ -125,8 +121,8 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -146,9 +142,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.DisplayName = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.DisplayName = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -168,9 +164,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Description = 'Different'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.Description = 'Different'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -190,9 +186,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Type = 'YesNo'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.Type = 'YesNo'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -212,9 +208,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -234,9 +230,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -256,9 +252,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -278,9 +274,9 @@ try
 
                 It 'Should not throw error' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Set-TargetResource @Splat
+                        $setTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $setTargetResourceParameters.Ensure = 'Absent'
+                        Set-TargetResource @setTargetResourceParameters
                     } | Should -Not -Throw
                 }
 
@@ -298,8 +294,8 @@ try
                 Mock -CommandName Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return false' {
-                    $Splat = $script:ClassificationProperty.Clone()
-                    Test-TargetResource @Splat | Should -Be $false
+                    $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                    Test-TargetResource @testTargetResourceParameters | Should -Be $false
 
                 }
 
@@ -313,9 +309,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.DisplayName = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.DisplayName = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -329,9 +325,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Description = 'Different'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.Description = 'Different'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -345,9 +341,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Type = 'YesNo'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.Type = 'YesNo'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -361,9 +357,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name )
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -377,9 +373,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -393,8 +389,8 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -408,9 +404,9 @@ try
 
                 It 'Should return false' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $false
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $false
                     } | Should -Not -Throw
                 }
 
@@ -424,9 +420,9 @@ try
 
                 It 'Should return true' {
                     {
-                        $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $true
+                        $testTargetResourceParameters = $script:ClassificationProperty.Clone()
+                        $testTargetResourceParameters.Ensure = 'Absent'
+                        Test-TargetResource @testTargetResourceParameters | Should -Be $true
                     } | Should -Not -Throw
                 }
 
