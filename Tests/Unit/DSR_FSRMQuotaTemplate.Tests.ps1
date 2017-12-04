@@ -36,14 +36,14 @@ try
             ThresholdPercentages = [System.Collections.ArrayList]@( 85, 100 )
         }
         $script:Threshold1 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
                 Percentage = $TestQuotaTemplate.ThresholdPercentages[0]
             }
         $script:Threshold2 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

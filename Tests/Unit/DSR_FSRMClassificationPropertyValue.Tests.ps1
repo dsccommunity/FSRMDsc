@@ -28,7 +28,7 @@ try
 
         # Create the Mock Objects that will be used for running tests
         $script:MockClassificationPossibleValue1 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -37,7 +37,7 @@ try
                 Description = 'Top Secret Description'
             }
         $script:MockClassificationPossibleValue2 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -47,7 +47,7 @@ try
             }
 
         $script:MockClassificationPossibleValue3 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -68,7 +68,7 @@ try
         }
 
         $script:MockClassificationProperty = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionDefinition' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionDefinition' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

@@ -38,7 +38,7 @@ try
         }
 
         $script:MockSettings = New-CimInstance `
-            -ClassName 'DSR_FSRMSettings' `
+            -ClassName 'MSFT_FSRMSettings' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

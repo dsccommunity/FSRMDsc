@@ -36,11 +36,11 @@ try
             ScheduleMonthly = @( 12,13 )
             ScheduleRunDuration = 10
             ScheduleTime = '13:00'
-            Verbose = $True
+            Verbose = $true
         }
 
         $script:MockScheduledTaskMonthly = New-CimInstance `
-            -ClassName 'DSR_FSRMScheduledTask' `
+            -ClassName 'MSFT_FSRMScheduledTask' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -50,7 +50,7 @@ try
             }
 
         $script:MockClassificationMonthly = New-CimInstance `
-            -ClassName 'DSR_FSRMClassification' `
+            -ClassName 'MSFT_FSRMClassification' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -70,11 +70,11 @@ try
             ScheduleWeekly = @( 'Monday','Tuesday' )
             ScheduleRunDuration = 10
             ScheduleTime = '13:00'
-            Verbose = $True
+            Verbose = $true
         }
 
         $script:MockScheduledTaskWeekly = New-CimInstance `
-            -ClassName 'DSR_FSRMScheduledTask' `
+            -ClassName 'MSFT_FSRMScheduledTask' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -84,7 +84,7 @@ try
             }
 
         $script:MockClassificationWeekly = New-CimInstance `
-            -ClassName 'DSR_FSRMClassification' `
+            -ClassName 'MSFT_FSRMClassification' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -287,7 +287,7 @@ try
 
                 It 'Should return true' {
                     $Splat = $script:ClassificationMonthly.Clone()
-                    Test-TargetResource @Splat | Should -Be $True
+                    Test-TargetResource @Splat | Should -Be $true
                 }
 
                 It 'Should call expected Mocks' {

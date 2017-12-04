@@ -5,6 +5,7 @@
 - Converted tests to meet Pester V4 standards.
 - Added restart to AppVeyor install step so that FSRM components
   are available for testing.
+- Clean up unit tests and ensure Verbose is enabled.
 
 ## 2.3.0.0
 

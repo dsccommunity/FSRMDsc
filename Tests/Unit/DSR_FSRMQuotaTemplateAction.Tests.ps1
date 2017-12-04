@@ -29,7 +29,7 @@ try
         # Create the Mock Objects that will be used for running tests
         # General purpose Action Mocks
         $script:MockEmail = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -41,7 +41,7 @@ try
                 MailTo = '[Source Io Owner Email]'
                 }
         $script:MockCommand = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -55,7 +55,7 @@ try
                 WorkingDirectory = 'c:\'
                 }
         $script:MockEvent = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -64,7 +64,7 @@ try
                 EventType = 'Warning'
                 }
         $script:MockReport = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -74,7 +74,7 @@ try
 
         # Quota Template mocks
         $script:MockThreshold1 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -84,7 +84,7 @@ try
                 )
             }
         $script:MockThreshold2 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -96,7 +96,7 @@ try
 
         # Quota Template mocks
         $script:MockQuotaTemplate = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaTemplate' `
+            -ClassName 'MSFT_FSRMQuotaTemplate' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

@@ -28,7 +28,7 @@ try
 
         # Create the Mock Objects that will be used for running tests
         $script:MockClassificationRule = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationRule' `
+            -ClassName 'MSFT_FSRMClassificationRule' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

@@ -29,7 +29,7 @@ try
         # Create the Mock Objects that will be used for running tests
         # General purpose Action Mocks
         $script:MockEmail = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -41,7 +41,7 @@ try
                 MailTo = '[Source Io Owner Email]'
                 }
         $script:MockCommand = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -55,7 +55,7 @@ try
                 WorkingDirectory = 'c:\'
                 }
         $script:MockEvent = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -64,7 +64,7 @@ try
                 EventType = 'Warning'
                 }
         $script:MockReport = New-CimInstance `
-            -ClassName 'DSR_FSRMAction' `
+            -ClassName 'MSFT_FSRMAction' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -74,7 +74,7 @@ try
 
         # FileScreen mocks
         $script:MockFileScreen = New-CimInstance `
-            -ClassName 'DSR_FSRMFileScreen' `
+            -ClassName 'MSFT_FSRMFileScreen' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{

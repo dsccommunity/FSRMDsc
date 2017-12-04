@@ -28,7 +28,7 @@ try
 
         # Create the Mock Objects that will be used for running tests
         $script:MockClassificationPossibleValue1 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -36,7 +36,7 @@ try
                 Description = ''
             }
         $script:MockClassificationPossibleValue2 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -44,7 +44,7 @@ try
                 Description = ''
             }
         $script:MockClassificationPossibleValue3 = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionValue' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -60,11 +60,11 @@ try
             Description = 'File Privacy Property'
             PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name, $script:MockClassificationPossibleValue3.Name )
             Parameters = @( 'Parameter1=Value1', 'Parameter2=Value2')
-            Verbose = $True
+            Verbose = $true
         }
 
         $script:MockClassificationProperty = New-CimInstance `
-            -ClassName 'DSR_FSRMClassificationPropertyDefinitionDefinition' `
+            -ClassName 'MSFT_FSRMClassificationPropertyDefinitionDefinition' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
@@ -392,7 +392,7 @@ try
                 It 'Should return true' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 
@@ -424,7 +424,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
-                        Test-TargetResource @Splat | Should -Be $True
+                        Test-TargetResource @Splat | Should -Be $true
                     } | Should -Not -Throw
                 }
 

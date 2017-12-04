@@ -40,14 +40,14 @@ try
         }
 
         $script:Threshold1 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
                 Percentage = $TestQuota.ThresholdPercentages[0]
             }
         $script:Threshold2 = New-CimInstance `
-            -ClassName 'DSR_FSRMQuotaThreshold' `
+            -ClassName 'MSFT_FSRMQuotaThreshold' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
