@@ -1,4 +1,4 @@
-$script:DSCModuleName   = 'FSRMDsc'
+$script:DSCModuleName = 'FSRMDsc'
 $script:DSCResourceName = 'DSR_FSRMClassificationProperty'
 
 Import-Module -Name (Join-Path -Path (Join-Path -Path (Split-Path $PSScriptRoot -Parent) -ChildPath 'TestHelpers') -ChildPath 'CommonTestHelper.psm1') -Global
@@ -7,9 +7,9 @@ Import-Module -Name (Join-Path -Path (Join-Path -Path (Split-Path $PSScriptRoot 
 # Unit Test Template Version: 1.1.0
 [System.String] $script:moduleRoot = Join-Path -Path $(Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))) -ChildPath 'Modules\FSRMDsc'
 if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
-     (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
+    (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
-    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
+    & git @('clone', 'https://github.com/PowerShell/DscResource.Tests.git', (Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
 
 Import-Module (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
@@ -32,35 +32,35 @@ try
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Name = 'Top Secret'
-                Description = ''
-            }
+            Name        = 'Top Secret'
+            Description = ''
+        }
         $script:MockClassificationPossibleValue2 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Name = 'Secret'
-                Description = ''
-            }
+            Name        = 'Secret'
+            Description = ''
+        }
         $script:MockClassificationPossibleValue3 = New-CimInstance `
             -ClassName 'MSFT_FSRMClassificationPropertyDefinitionValue' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Name = 'Confidential'
-                Description = ''
-            }
+            Name        = 'Confidential'
+            Description = ''
+        }
 
         $script:ClassificationProperty = [PSObject]@{
-            Name = 'Privacy'
-            DisplayName = 'File Privacy'
-            Type = 'SingleChoice'
-            Ensure = 'Present'
-            Description = 'File Privacy Property'
+            Name          = 'Privacy'
+            DisplayName   = 'File Privacy'
+            Type          = 'SingleChoice'
+            Ensure        = 'Present'
+            Description   = 'File Privacy Property'
             PossibleValue = @( $script:MockClassificationPossibleValue1.Name, $script:MockClassificationPossibleValue2.Name, $script:MockClassificationPossibleValue3.Name )
-            Parameters = @( 'Parameter1=Value1', 'Parameter2=Value2')
-            Verbose = $true
+            Parameters    = @( 'Parameter1=Value1', 'Parameter2=Value2')
+            Verbose       = $true
         }
 
         $script:MockClassificationProperty = New-CimInstance `
@@ -68,23 +68,24 @@ try
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Name = $script:ClassificationProperty.Name
-                DisplayName = $script:ClassificationProperty.DisplayName
-                Type = $script:ClassificationProperty.Type
-                Description = $script:ClassificationProperty.Description
-                Parameters = $script:ClassificationProperty.Parameters
-                PossibleValue = [Microsoft.Management.Infrastructure.CimInstance[]]@( $script:MockClassificationPossibleValue1, $script:MockClassificationPossibleValue2, $script:MockClassificationPossibleValue3 )
-            }
+            Name          = $script:ClassificationProperty.Name
+            DisplayName   = $script:ClassificationProperty.DisplayName
+            Type          = $script:ClassificationProperty.Type
+            Description   = $script:ClassificationProperty.Description
+            Parameters    = $script:ClassificationProperty.Parameters
+            PossibleValue = [Microsoft.Management.Infrastructure.CimInstance[]]@( $script:MockClassificationPossibleValue1, $script:MockClassificationPossibleValue2, $script:MockClassificationPossibleValue3 )
+        }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'No classification properties exist' {
                 Mock Get-FSRMClassificationPropertyDefinition
 
                 It 'Should return absent classification property' {
-                    $Result = Get-TargetResource `
+                    $result = Get-TargetResource `
                         -Name $script:ClassificationProperty.Name `
-                        -Type $script:ClassificationProperty.Type
-                    $Result.Ensure | Should -Be 'Absent'
+                        -Type $script:ClassificationProperty.Type `
+                        -Verbose
+                    $result.Ensure | Should -Be 'Absent'
                 }
 
                 It 'Should call the expected mocks' {
@@ -96,16 +97,17 @@ try
                 Mock Get-FSRMClassificationPropertyDefinition -MockWith { $script:MockClassificationProperty }
 
                 It 'Should return correct classification property' {
-                    $Result = Get-TargetResource `
+                    $result = Get-TargetResource `
                         -Name $script:ClassificationProperty.Name `
-                        -Type $script:ClassificationProperty.Type
-                    $Result.Ensure | Should -Be 'Present'
-                    $Result.Name | Should -Be $script:ClassificationProperty.Name
-                    $Result.DisplayName | Should -Be $script:ClassificationProperty.DisplayName
-                    $Result.Description | Should -Be $script:ClassificationProperty.Description
-                    $Result.Type | Should -Be $script:ClassificationProperty.Type
-                    $Result.PossibleValue | Should -Be $script:ClassificationProperty.PossibleValue
-                    $Result.Parameters | Should -Be $script:ClassificationProperty.Parameters
+                        -Type $script:ClassificationProperty.Type `
+                        -Verbose
+                    $result.Ensure | Should -Be 'Present'
+                    $result.Name | Should -Be $script:ClassificationProperty.Name
+                    $result.DisplayName | Should -Be $script:ClassificationProperty.DisplayName
+                    $result.Description | Should -Be $script:ClassificationProperty.Description
+                    $result.Type | Should -Be $script:ClassificationProperty.Type
+                    $result.PossibleValue | Should -Be $script:ClassificationProperty.PossibleValue
+                    $result.Parameters | Should -Be $script:ClassificationProperty.Parameters
                 }
 
                 It 'Should call the expected mocks' {
@@ -376,7 +378,7 @@ try
                 It 'Should return false' {
                     {
                         $Splat = $script:ClassificationProperty.Clone()
-                        $Splat.Parameters =  @( 'Parameter1=Value3', 'Parameter2=Value4')
+                        $Splat.Parameters = @( 'Parameter1=Value3', 'Parameter2=Value4')
                         Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
@@ -408,7 +410,7 @@ try
                     {
                         $Splat = $script:ClassificationProperty.Clone()
                         $Splat.Ensure = 'Absent'
-                    Test-TargetResource @Splat | Should -Be $False
+                        Test-TargetResource @Splat | Should -Be $False
                     } | Should -Not -Throw
                 }
 

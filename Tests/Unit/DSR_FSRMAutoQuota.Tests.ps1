@@ -46,9 +46,8 @@ try
                 Mock Get-FsrmAutoQuota
 
                 It 'Should return absent auto quota' {
-                    $Result = Get-TargetResource `
-                        -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should -Be 'Absent'
+                    $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
+                    $result.Ensure | Should -Be 'Absent'
                 }
 
                 It 'Should call the expected mocks' {
@@ -60,12 +59,11 @@ try
                 Mock Get-FsrmAutoQuota -MockWith { return @($script:MockAutoQuota) }
 
                 It 'Should return correct auto quota' {
-                    $Result = Get-TargetResource `
-                        -Path $script:TestAutoQuota.Path
-                    $Result.Ensure | Should -Be 'Present'
-                    $Result.Path | Should -Be $script:TestAutoQuota.Path
-                    $Result.Disabled | Should -Be $script:TestAutoQuota.Disabled
-                    $Result.Template | Should -Be $script:TestAutoQuota.Template
+                    $result = Get-TargetResource -Path $script:TestAutoQuota.Path -Verbose
+                    $result.Ensure | Should -Be 'Present'
+                    $result.Path | Should -Be $script:TestAutoQuota.Path
+                    $result.Disabled | Should -Be $script:TestAutoQuota.Disabled
+                    $result.Template | Should -Be $script:TestAutoQuota.Template
                 }
 
                 It 'Should call the expected mocks' {

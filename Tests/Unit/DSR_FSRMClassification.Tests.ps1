@@ -1,4 +1,4 @@
-$script:DSCModuleName   = 'FSRMDsc'
+$script:DSCModuleName = 'FSRMDsc'
 $script:DSCResourceName = 'DSR_FSRMClassification'
 
 Import-Module -Name (Join-Path -Path (Join-Path -Path (Split-Path $PSScriptRoot -Parent) -ChildPath 'TestHelpers') -ChildPath 'CommonTestHelper.psm1') -Global
@@ -7,9 +7,9 @@ Import-Module -Name (Join-Path -Path (Join-Path -Path (Split-Path $PSScriptRoot 
 # Unit Test Template Version: 1.1.0
 [System.String] $script:moduleRoot = Join-Path -Path $(Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $Script:MyInvocation.MyCommand.Path))) -ChildPath 'Modules\FSRMDsc'
 if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
-     (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
+    (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
 {
-    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
+    & git @('clone', 'https://github.com/PowerShell/DscResource.Tests.git', (Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
 }
 
 Import-Module (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
@@ -28,15 +28,15 @@ try
 
         # Create the Mock Objects that will be used for running tests
         $script:ClassificationMonthly = [PSObject] @{
-            Id = 'Default'
-            Continuous = $False
-            ContinuousLog = $False
-            ContinuousLogSize = 2048
-            ExcludeNamespace = @('[AllVolumes]\$Extend /','[AllVolumes]\System Volume Information /s')
-            ScheduleMonthly = @( 12,13 )
+            Id                  = 'Default'
+            Continuous          = $False
+            ContinuousLog       = $False
+            ContinuousLogSize   = 2048
+            ExcludeNamespace    = @('[AllVolumes]\$Extend /', '[AllVolumes]\System Volume Information /s')
+            ScheduleMonthly     = @( 12, 13 )
             ScheduleRunDuration = 10
-            ScheduleTime = '13:00'
-            Verbose = $true
+            ScheduleTime        = '13:00'
+            Verbose             = $true
         }
 
         $script:MockScheduledTaskMonthly = New-CimInstance `
@@ -44,33 +44,33 @@ try
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Time = $script:ClassificationMonthly.ScheduleTime
-                RunDuration = $script:ClassificationMonthly.ScheduleRunDuration
-                Monthly = $script:ClassificationMonthly.ScheduleMonthly
-            }
+            Time        = $script:ClassificationMonthly.ScheduleTime
+            RunDuration = $script:ClassificationMonthly.ScheduleRunDuration
+            Monthly     = $script:ClassificationMonthly.ScheduleMonthly
+        }
 
         $script:MockClassificationMonthly = New-CimInstance `
             -ClassName 'MSFT_FSRMClassification' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Continuous = $script:ClassificationMonthly.Continuous
-                ContinuousLog = $script:ClassificationMonthly.ContinuousLog
-                ContinuousLogSize = $script:ClassificationMonthly.ContinuousLogSize
-                ExcludeNamespace = $script:ClassificationMonthly.ExcludeNamespace
-                Schedule = $script:MockScheduledTaskMonthly
-            }
+            Continuous        = $script:ClassificationMonthly.Continuous
+            ContinuousLog     = $script:ClassificationMonthly.ContinuousLog
+            ContinuousLogSize = $script:ClassificationMonthly.ContinuousLogSize
+            ExcludeNamespace  = $script:ClassificationMonthly.ExcludeNamespace
+            Schedule          = $script:MockScheduledTaskMonthly
+        }
 
         $script:ClassificationWeekly = [PSObject] @{
-            Id = 'Default'
-            Continuous = $False
-            ContinuousLog = $False
-            ContinuousLogSize = 2048
-            ExcludeNamespace = @('[AllVolumes]\$Extend /','[AllVolumes]\System Volume Information /s')
-            ScheduleWeekly = @( 'Monday','Tuesday' )
+            Id                  = 'Default'
+            Continuous          = $False
+            ContinuousLog       = $False
+            ContinuousLogSize   = 2048
+            ExcludeNamespace    = @('[AllVolumes]\$Extend /', '[AllVolumes]\System Volume Information /s')
+            ScheduleWeekly      = @( 'Monday', 'Tuesday' )
             ScheduleRunDuration = 10
-            ScheduleTime = '13:00'
-            Verbose = $true
+            ScheduleTime        = '13:00'
+            Verbose             = $true
         }
 
         $script:MockScheduledTaskWeekly = New-CimInstance `
@@ -78,22 +78,22 @@ try
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Time = $script:ClassificationWeekly.ScheduleTime
-                RunDuration = $script:ClassificationWeekly.ScheduleRunDuration
-                Weekly = $script:ClassificationWeekly.ScheduleWeekly
-            }
+            Time        = $script:ClassificationWeekly.ScheduleTime
+            RunDuration = $script:ClassificationWeekly.ScheduleRunDuration
+            Weekly      = $script:ClassificationWeekly.ScheduleWeekly
+        }
 
         $script:MockClassificationWeekly = New-CimInstance `
             -ClassName 'MSFT_FSRMClassification' `
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-                Continuous = $script:ClassificationWeekly.Continuous
-                ContinuousLog = $script:ClassificationWeekly.ContinuousLog
-                ContinuousLogSize = $script:ClassificationWeekly.ContinuousLogSize
-                ExcludeNamespace = $script:ClassificationWeekly.ExcludeNamespace
-                Schedule = $script:MockScheduledTaskWeekly
-            }
+            Continuous        = $script:ClassificationWeekly.Continuous
+            ContinuousLog     = $script:ClassificationWeekly.ContinuousLog
+            ContinuousLogSize = $script:ClassificationWeekly.ContinuousLogSize
+            ExcludeNamespace  = $script:ClassificationWeekly.ExcludeNamespace
+            Schedule          = $script:MockScheduledTaskWeekly
+        }
 
         Describe "$($script:DSCResourceName)\Get-TargetResource" {
             Context 'Monthly schedule configuration' {
@@ -215,7 +215,7 @@ try
                 It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationWeekly.Clone()
-                        $Splat.ScheduleWeekly = @( 'Monday','Tuesday','Wednesday' )
+                        $Splat.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
@@ -233,7 +233,7 @@ try
                 It 'Should Not Throw error' {
                     {
                         $Splat = $script:ClassificationMonthly.Clone()
-                        $Splat.ScheduleMonthly = @( 13,14,15 )
+                        $Splat.ScheduleMonthly = @( 13, 14, 15 )
                         Set-TargetResource @Splat
                     } | Should -Not -Throw
                 }
@@ -356,7 +356,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationWeekly.Clone()
-                    $Splat.ScheduleWeekly = @( 'Monday','Tuesday','Wednesday' )
+                    $Splat.ScheduleWeekly = @( 'Monday', 'Tuesday', 'Wednesday' )
                     Test-TargetResource @Splat | Should -Be $False
                 }
 
@@ -370,7 +370,7 @@ try
 
                 It 'Should return false' {
                     $Splat = $script:ClassificationMonthly.Clone()
-                    $Splat.ScheduleMonthly = @( 13,14,15 )
+                    $Splat.ScheduleMonthly = @( 13, 14, 15 )
                     Test-TargetResource @Splat | Should -Be $False
                 }
 

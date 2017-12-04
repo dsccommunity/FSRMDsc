@@ -69,9 +69,8 @@ try
                 Mock Get-FSRMClassificationRule
 
                 It 'Should return absent classification rule' {
-                    $Result = Get-TargetResource `
-                        -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should -Be 'Absent'
+                    $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
+                    $result.Ensure | Should -Be 'Absent'
                 }
 
                 It 'Should call the expected mocks' {
@@ -83,22 +82,21 @@ try
                 Mock Get-FSRMClassificationRule -MockWith { $script:MockClassificationRule }
 
                 It 'Should return correct classification rule' {
-                    $Result = Get-TargetResource `
-                        -Name $script:ClassificationRule.Name
-                    $Result.Ensure | Should -Be 'Present'
-                    $Result.Name | Should -Be $script:ClassificationRule.Name
-                    $Result.Description | Should -Be $script:ClassificationRule.Description
-                    $Result.ClassificationMechanism | Should -Be $script:ClassificationRule.ClassificationMechanism
-                    $Result.ContentRegularExpression | Should -Be $script:ClassificationRule.ContentRegularExpression
-                    $Result.ContentString | Should -Be $script:ClassificationRule.ContentString
-                    $Result.ContentStringCaseSensitive | Should -Be $script:ClassificationRule.ContentStringCaseSensitive
-                    $Result.Disabled | Should -Be $script:ClassificationRule.Disabled
-                    $Result.Flags | Should -Be $script:ClassificationRule.Flags
-                    $Result.Namespace | Should -Be $script:ClassificationRule.Namespace
-                    $Result.Parameters | Should -Be $script:ClassificationRule.Parameters
-                    $Result.Property | Should -Be $script:ClassificationRule.Property
-                    $Result.PropertyValue | Should -Be $script:ClassificationRule.PropertyValue
-                    $Result.ReevaluateProperty | Should -Be $script:ClassificationRule.ReevaluateProperty
+                    $result = Get-TargetResource -Name $script:ClassificationRule.Name -Verbose
+                    $result.Ensure | Should -Be 'Present'
+                    $result.Name | Should -Be $script:ClassificationRule.Name
+                    $result.Description | Should -Be $script:ClassificationRule.Description
+                    $result.ClassificationMechanism | Should -Be $script:ClassificationRule.ClassificationMechanism
+                    $result.ContentRegularExpression | Should -Be $script:ClassificationRule.ContentRegularExpression
+                    $result.ContentString | Should -Be $script:ClassificationRule.ContentString
+                    $result.ContentStringCaseSensitive | Should -Be $script:ClassificationRule.ContentStringCaseSensitive
+                    $result.Disabled | Should -Be $script:ClassificationRule.Disabled
+                    $result.Flags | Should -Be $script:ClassificationRule.Flags
+                    $result.Namespace | Should -Be $script:ClassificationRule.Namespace
+                    $result.Parameters | Should -Be $script:ClassificationRule.Parameters
+                    $result.Property | Should -Be $script:ClassificationRule.Property
+                    $result.PropertyValue | Should -Be $script:ClassificationRule.PropertyValue
+                    $result.ReevaluateProperty | Should -Be $script:ClassificationRule.ReevaluateProperty
                 }
 
                 It 'Should call the expected mocks' {
