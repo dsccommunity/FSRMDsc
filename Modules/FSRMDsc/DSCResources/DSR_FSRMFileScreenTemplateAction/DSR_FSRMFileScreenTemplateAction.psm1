@@ -90,7 +90,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionDoesNotExistMessage) `
+                $($LocalizedData.ActionNotExistMessage) `
                     -f $Name, $Type
             ) -join '' )
 

@@ -87,7 +87,7 @@ try
             Active       = $true
             IncludeGroup = @( 'Audio and Video Files', 'Executable Files', 'Backup Files' )
             Notification = [Microsoft.Management.Infrastructure.CimInstance[]]@(
-                $script:MockEmail, $script:MockCommand, $script:MockEvent
+                $script:MockEmail, $script:MockCommand, $script:MockEvent, $script:MockReport
             )
         }
 
