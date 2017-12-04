@@ -25,6 +25,8 @@ build: false
 
 test_script:
     - ps: |
+        $moduleName = 'FSRMDsc'
+        $mainModuleFolder = "Modules\$moduleName"
         Import-Module "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
         Invoke-AppveyorTestScriptTask `
             -Type 'Harness' `
