@@ -5,7 +5,8 @@
 - Converted tests to meet Pester V4 standards.
 - Added restart to AppVeyor install step so that FSRM components
   are available for testing.
-- Clean up unit tests and ensure Verbose is enabled.
+- Clean up unit tests and ensure Verbose is enabled on all.
+- Convert AppVeyor build image to Windows Server 2016.
 
 ## 2.3.0.0
 
