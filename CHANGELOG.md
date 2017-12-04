@@ -1,6 +1,6 @@
 # Versions
 
-## Unreleased
+## 2.4.0.0
 
 - Converted tests to meet Pester V4 standards.
 - Added restart to AppVeyor install step so that FSRM components
