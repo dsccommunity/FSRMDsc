@@ -678,7 +678,7 @@ function Test-TargetResource
             }
 
             # Get the existing report types into an array
-            if ($action.ReportTypes -eq $null)
+            if ($null -eq $action.ReportTypes)
             {
                 [System.String[]] $existingReportTypes = @()
             }
