@@ -682,8 +682,9 @@ function Test-TargetResource
                 $desiredConfigurationMatch = $false
             }
 
-            if (($PSBoundParameters.ContainsKey('ReportTypes')) `
-                    -and (-not (Compare-Object -ReferenceObject $action.ReportTypes -DifferenceObject $ReportTypes)))
+            [System.String[]] $existingReportTypes = $action.ReportTypes
+            if ($PSBoundParameters.ContainsKey('ReportTypes') -and `
+                (Compare-Object -ReferenceObject $existingReportTypes -DifferenceObject $ReportTypes).Count -ne 0)
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
