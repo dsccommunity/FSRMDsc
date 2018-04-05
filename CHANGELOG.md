@@ -1,5 +1,9 @@
 # Versions
 
+## Unreleased
+
+- Enabled PSSA rule violations to fail build - Fixes [Issue #12](https://github.com/PlagueHO/FSRMDsc/issues/12).
+
 ## 2.4.0.0
 
 - Converted tests to meet Pester V4 standards.
