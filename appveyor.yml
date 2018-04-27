@@ -32,6 +32,7 @@ test_script:
         Invoke-AppveyorTestScriptTask `
             -Type 'Harness' `
             -MainModulePath $mainModuleFolder `
+            -CodeCoverage `
             -CodeCovIo
 
 #---------------------------------#
