@@ -21,7 +21,7 @@
     This configuration add a File Screen Exception that Includes 'E-mail Files' to
     the path 'D:\Users'.
 #>
-Configuration FSRMFileScreenAction_UsingTemplate_Config
+Configuration FSRMFileScreenException_Config
 {
     Import-DscResource -Module FSRMDsc
 

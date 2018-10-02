@@ -1,4 +1,4 @@
-﻿function Get-InvalidArgumentRecord
+function Get-InvalidArgumentRecord
 {
     [CmdletBinding()]
     param
