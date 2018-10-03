@@ -1,6 +1,6 @@
 # Versions
 
-## Unreleased
+## 2.4.1.0
 
 - Enabled PSSA rule violations to fail build - Fixes [Issue #12](https://github.com/PlagueHO/FSRMDsc/issues/12).
 - Added Open Code of Conduct.
