@@ -1,9 +1,20 @@
 # Versions
 
-## Unreleased
+## 2.4.1.0
 
 - Enabled PSSA rule violations to fail build - Fixes [Issue #12](https://github.com/PlagueHO/FSRMDsc/issues/12).
 - Added Open Code of Conduct.
+- Added .VSCode settings for applying DSC PSSA rules - fixes [Issue #20](https://github.com/PlagueHO/FSRMDsc/issues/20).
+- Refactored module folder structure to move resource
+  to root folder of repository and remove test harness - Fixes [Issue #19](https://github.com/PlagueHO/FSRMDsc/issues/19).
+- Converted Examples to support format for publishing to PowerShell
+  Gallery.
+- Opted into common tests:
+  - Common Tests - Validate Example Files To Be Published
+  - Common Tests - Validate Markdown Links
+  - Common Tests - Relative Path Length
+  - Common Tests - Relative Path Length
+- Update to new format LICENSE.
 
 ## 2.4.0.0
 

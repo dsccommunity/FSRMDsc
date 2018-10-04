@@ -1,7 +1,7 @@
 #---------------------------------#
 #      environment configuration  #
 #---------------------------------#
-version: 2.4.0.{build}
+version: 2.4.1.{build}
 image: Visual Studio 2017
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
@@ -26,12 +26,12 @@ build: false
 
 test_script:
     - ps: |
+        # Reinitialize after restart
         $moduleName = 'FSRMDsc'
         $mainModuleFolder = "Modules\$moduleName"
         Import-Module "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
+
         Invoke-AppveyorTestScriptTask `
-            -Type 'Harness' `
-            -MainModulePath $mainModuleFolder `
             -CodeCoverage `
             -CodeCovIo
 
@@ -44,5 +44,6 @@ deploy_script:
     - ps: |
         Invoke-AppveyorAfterTestTask `
             -Type 'Wiki' `
-            -MainModulePath $mainModuleFolder `
             -ResourceModuleName $moduleName
+
+        Invoke-AppVeyorDeployTask
