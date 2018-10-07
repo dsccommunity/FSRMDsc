@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration will create a FSRM Quota Template called '5 GB Hard Limit', with a
