@@ -1,5 +1,9 @@
 # Versions
 
+## Unreleased
+
+- Added .gitattributes file to fix bug publishing examples - Fixes [Issue #23](https://github.com/PlagueHO/FSRMDsc/issues/23).
+
 ## 2.4.1.0
 
 - Enabled PSSA rule violations to fail build - Fixes [Issue #12](https://github.com/PlagueHO/FSRMDsc/issues/12).
