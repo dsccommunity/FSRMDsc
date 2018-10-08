@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration will assign the 'Block Some Files' file screen template to the

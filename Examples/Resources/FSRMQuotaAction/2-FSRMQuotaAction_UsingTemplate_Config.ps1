@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration will assign the '100 MB Limit' template to the path 'D:\Users'.

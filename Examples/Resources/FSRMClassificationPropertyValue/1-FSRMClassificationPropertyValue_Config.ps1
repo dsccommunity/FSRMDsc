@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration will create a FSRM Classification Property Value called 'Public' assigned to

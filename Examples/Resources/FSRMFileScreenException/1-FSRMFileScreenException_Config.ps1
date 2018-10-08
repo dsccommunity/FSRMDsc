@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration add a File Screen Exception that Includes 'E-mail Files' to

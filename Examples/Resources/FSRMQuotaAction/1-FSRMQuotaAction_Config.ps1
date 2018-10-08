@@ -16,6 +16,7 @@
 #>
 
 #Requires -module FSRMDsc
+
 <#
     .DESCRIPTION
     This configuration will assign an FSRM Quota to the path 'D:\Users', with a Hard Limit
