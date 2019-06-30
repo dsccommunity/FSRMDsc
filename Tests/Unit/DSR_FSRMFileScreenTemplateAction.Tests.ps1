@@ -173,7 +173,7 @@ try
                     $getTargetResourceParameters = $script:TestFileScreenTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -228,7 +228,7 @@ try
                     $setTargetResourceParameters = $script:TestFileScreenTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -296,7 +296,7 @@ try
                     $testTargetResourceParameters = $script:TestFileScreenTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

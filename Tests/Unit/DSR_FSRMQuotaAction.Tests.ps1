@@ -187,7 +187,7 @@ try
                     $getTargetResourceParameters = $script:TestQuotaActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaNotFoundError) -f $getTargetResourceParameters.Path, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaNotFoundError) -f $getTargetResourceParameters.Path, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -206,7 +206,7 @@ try
                     $getTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $getTargetResourceParameters.Path, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaThresholdNotFoundError) -f $getTargetResourceParameters.Path, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -261,7 +261,7 @@ try
                     $setTargetResourceParameters = $script:TestQuotaActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaNotFoundError) -f $setTargetResourceParameters.Path, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaNotFoundError) -f $setTargetResourceParameters.Path, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -282,7 +282,7 @@ try
                     $setTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $setTargetResourceParameters.Path, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaThresholdNotFoundError) -f $setTargetResourceParameters.Path, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -350,7 +350,7 @@ try
                     $testTargetResourceParameters = $script:TestQuotaActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -369,7 +369,7 @@ try
                     $testTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaThresholdNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaThresholdNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

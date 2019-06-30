@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMAutoQuota' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMAutoQuota'
 
 <#
     .SYNOPSIS
@@ -30,7 +28,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingAutoQuotaMessage) `
+            $($script:localizedData.GettingAutoQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -45,7 +43,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.AutoQuotaExistsMessage) `
+                $($script:localizedData.AutoQuotaExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -59,7 +57,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.AutoQuotaDoesNotExistMessage) `
+                $($script:localizedData.AutoQuotaDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -113,7 +111,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingAutoQuotaMessage) `
+            $($script:localizedData.SettingAutoQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -130,7 +128,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureAutoQuotaExistsMessage) `
+                $($script:localizedData.EnsureAutoQuotaExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -142,7 +140,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaUpdatedMessage) `
+                    $($script:localizedData.AutoQuotaUpdatedMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -154,7 +152,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaCreatedMessage) `
+                    $($script:localizedData.AutoQuotaCreatedMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -163,7 +161,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureAutoQuotaDoesNotExistMessage) `
+                $($script:localizedData.EnsureAutoQuotaDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -174,7 +172,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaRemovedMessage) `
+                    $($script:localizedData.AutoQuotaRemovedMessage) `
                         -f $Path
                 ) -join '' )
         } # if
@@ -226,7 +224,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingAutoQuotaMessage) `
+            $($script:localizedData.TestingAutoQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -247,7 +245,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.AutoQuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Disabled'
                     ) -join '' )
 
@@ -259,7 +257,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.AutoQuotaPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.AutoQuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Template'
                     ) -join '' )
 
@@ -271,7 +269,7 @@ function Test-TargetResource
             # Ths Auto Quota doesn't exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaDoesNotExistButShouldMessage) `
+                    $($script:localizedData.AutoQuotaDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -286,7 +284,7 @@ function Test-TargetResource
             # The Auto Quota exists but should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaExistsButShouldNotMessage) `
+                    $($script:localizedData.AutoQuotaExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -297,7 +295,7 @@ function Test-TargetResource
             # The Auto Quota does not exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.AutoQuotaDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.AutoQuotaDoesNotExistAndShouldNotMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -381,7 +379,7 @@ Function Assert-ResourcePropertiesValid
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorMessage = $($LocalizedData.AutoQuotaPathDoesNotExistError) -f $Path
+        $errorMessage = $($script:localizedData.AutoQuotaPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     }
 
@@ -400,14 +398,14 @@ Function Assert-ResourcePropertiesValid
         }
         catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
         {
-            $errorMessage = $($LocalizedData.AutoQuotaTemplateNotFoundError) -f $Path, $Template
+            $errorMessage = $($script:localizedData.AutoQuotaTemplateNotFoundError) -f $Path, $Template
             $errorArgumentName = 'Template'
         }
     }
     else
     {
         # A template wasn't specifed - it needs to be
-        $errorMessage = $($LocalizedData.AutoQuotaTemplateEmptyError) -f $Path
+        $errorMessage = $($script:localizedData.AutoQuotaTemplateEmptyError) -f $Path
         $errorArgumentName = 'Template'
     }
 

@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMSettings' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMSettings'
 
 <#
     .SYNOPSIS
@@ -31,7 +29,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingSettingsMessage) `
+            $($script:localizedData.GettingSettingsMessage) `
         ) -join '' )
 
     $settings = Get-FSRMSetting
@@ -117,7 +115,7 @@ Function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingSettingsMessage) `
+            $($script:localizedData.SettingSettingsMessage) `
         ) -join '' )
 
     # Remove any parameters that can't be splatted.
@@ -128,7 +126,7 @@ Function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingsUpdatedMessage) `
+            $($script:localizedData.SettingsUpdatedMessage) `
         ) -join '' )
 } # Set-TargetResource
 
@@ -203,7 +201,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingSettingsMessage) `
+            $($script:localizedData.TestingSettingsMessage) `
         ) -join '' )
 
     # Lookup the existing Settings
@@ -215,7 +213,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SettingsNeedsUpdateMessage) `
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
                     -f 'SmtpServer'
             ) -join '' )
 
@@ -227,7 +225,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SettingsNeedsUpdateMessage) `
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
                     -f 'AdminEmailAddress'
             ) -join '' )
 
@@ -239,7 +237,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SettingsNeedsUpdateMessage) `
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
                     -f 'FromEmailAddress'
             ) -join '' )
 
@@ -251,7 +249,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SettingsNeedsUpdateMessage) `
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
                     -f 'CommandNotificationLimit'
             ) -join '' )
 
@@ -263,7 +261,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EmailNotificationLimit) `
+                $($script:localizedData.EmailNotificationLimit) `
                     -f 'FromEmailAddress'
             ) -join '' )
 
@@ -275,7 +273,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SettingsNeedsUpdateMessage) `
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
                     -f 'EventNotificationLimit'
             ) -join '' )
 

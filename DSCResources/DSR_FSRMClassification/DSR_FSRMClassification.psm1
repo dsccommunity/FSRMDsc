@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMClassification' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMClassification'
 
 <#
     .SYNOPSIS
@@ -30,7 +28,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingClassificationMessage) `
+            $($script:localizedData.GettingClassificationMessage) `
                 -f $Id
         ) -join '' )
 
@@ -130,7 +128,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingClassificationMessage) `
+            $($script:localizedData.SettingClassificationMessage) `
                 -f $Id
         ) -join '' )
 
@@ -212,7 +210,7 @@ function Set-TargetResource
 
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationScheduleUpdatedMessage) `
+                $($script:localizedData.ClassificationScheduleUpdatedMessage) `
                     -f $Id
             ) -join '' )
     }
@@ -222,7 +220,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.ClassificationUpdatedMessage) `
+            $($script:localizedData.ClassificationUpdatedMessage) `
                 -f $Id
         ) -join '' )
 } # Set-TargetResource
@@ -307,7 +305,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingClassificationMessage) `
+            $($script:localizedData.TestingClassificationMessage) `
                 -f $Id
         ) -join '' )
 
@@ -319,7 +317,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'Continuous'
             ) -join '' )
 
@@ -330,7 +328,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ContinuousLog'
             ) -join '' )
 
@@ -341,7 +339,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ContinuousLogSize'
             ) -join '' )
 
@@ -361,7 +359,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ExcludeNamespace'
             ) -join '' )
 
@@ -382,7 +380,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleMonthly'
             ) -join '' )
         $desiredConfigurationMatch = $false
@@ -402,7 +400,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleWeekly'
             ) -join '' )
 
@@ -413,7 +411,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleRunDuration'
             ) -join '' )
 
@@ -424,7 +422,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationNeedsUpdateMessage) `
+                $($script:localizedData.ClassificationNeedsUpdateMessage) `
                     -f $Id, 'ScheduleTime'
             ) -join '' )
         $desiredConfigurationMatch = $false

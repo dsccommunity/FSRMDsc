@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMClassificationPropertyValue' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMClassificationPropertyValue'
 
 <#
     .SYNOPSIS
@@ -37,7 +35,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingClassificationPropertyValueMessage) `
+            $($script:localizedData.GettingClassificationPropertyValueMessage) `
                 -f $PropertyName, $Name
         ) -join '' )
 
@@ -64,7 +62,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationPropertyValueExistsMessage) `
+                $($script:localizedData.ClassificationPropertyValueExistsMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
 
@@ -78,7 +76,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationPropertyValueDoesNotExistMessage) `
+                $($script:localizedData.ClassificationPropertyValueDoesNotExistMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
 
@@ -132,7 +130,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingClassificationPropertyValueMessage) `
+            $($script:localizedData.SettingClassificationPropertyValueMessage) `
                 -f $PropertyName, $Name
         ) -join '' )
 
@@ -165,7 +163,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureClassificationPropertyValueExistsMessage) `
+                $($script:localizedData.EnsureClassificationPropertyValueExistsMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
 
@@ -178,7 +176,7 @@ function Set-TargetResource
             # Create the Classification Property Value
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueCreatedMessage) `
+                    $($script:localizedData.ClassificationPropertyValueCreatedMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
         }
@@ -189,7 +187,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueUpdatedMessage) `
+                    $($script:localizedData.ClassificationPropertyValueUpdatedMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
         }
@@ -200,7 +198,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureClassificationPropertyValueDoesNotExistMessage) `
+                $($script:localizedData.EnsureClassificationPropertyValueDoesNotExistMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
 
@@ -209,7 +207,7 @@ function Set-TargetResource
             # The Classification Property Value doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueNoChangeMessage) `
+                    $($script:localizedData.ClassificationPropertyValueNoChangeMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
             return
@@ -221,7 +219,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueRemovedMessage) `
+                    $($script:localizedData.ClassificationPropertyValueRemovedMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
         } # if
@@ -234,7 +232,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.ClassificationPropertyValueWrittenMessage) `
+            $($script:localizedData.ClassificationPropertyValueWrittenMessage) `
                 -f $PropertyName, $Name
         ) -join '' )
 } # Set-TargetResource
@@ -283,7 +281,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingClassificationPropertyValueMessage) `
+            $($script:localizedData.TestingClassificationPropertyValueMessage) `
                 -f $PropertyName, $Name
         ) -join '' )
 
@@ -312,7 +310,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureClassificationPropertyValueExistsMessage) `
+                $($script:localizedData.EnsureClassificationPropertyValueExistsMessage) `
                     -f $PropertyName, $Name
             ) -join '' )
 
@@ -321,7 +319,7 @@ function Test-TargetResource
             # The Classification Property Value does not exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueDoesNotExistButShouldMessage) `
+                    $($script:localizedData.ClassificationPropertyValueDoesNotExistButShouldMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
             $desiredConfigurationMatch = $false
@@ -335,7 +333,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyValuePropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyValuePropertyNeedsUpdateMessage) `
                             -f $PropertyName, $Name, 'Description'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -350,7 +348,7 @@ function Test-TargetResource
             # The ClassificationPropertyValue doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.ClassificationPropertyValueDoesNotExistAndShouldNotMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
         }
@@ -359,7 +357,7 @@ function Test-TargetResource
             # The ClassificationPropertyValue exists, but it should be removed
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyValueExistsAndShouldNotMessage) `
+                    $($script:localizedData.ClassificationPropertyValueExistsAndShouldNotMessage) `
                         -f $PropertyName, $Name
                 ) -join '' )
             $desiredConfigurationMatch = $false
@@ -394,7 +392,7 @@ Function Get-ClassificationProperty
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $PropertyName) `
+            -Message ($($script:localizedData.ClassificationPropertyNotFoundError) -f $PropertyName) `
             -ArgumentName $PropertyName
     }
     catch

@@ -300,7 +300,7 @@ try
                     $testTargetResourceParameters = $script:TestQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.QuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -314,7 +314,7 @@ try
                     $testTargetResourceParameters = $script:TestQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Template) `
+                        -Message ($($script:localizedData.QuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Template) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -328,7 +328,7 @@ try
                     $testTargetResourceParameters.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.QuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

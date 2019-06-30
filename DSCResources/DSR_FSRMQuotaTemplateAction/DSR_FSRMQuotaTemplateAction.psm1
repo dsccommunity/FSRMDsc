@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMQuotaTemplateAction' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMQuotaTemplateAction'
 
 <#
     .SYNOPSIS
@@ -46,7 +44,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingActionMessage) `
+            $($script:localizedData.GettingActionMessage) `
                 -f $Name, $Percentage, $Type
         ) -join '' )
 
@@ -67,7 +65,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionNotExistMessage) `
+                $($script:localizedData.ActionNotExistMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -79,7 +77,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionExistsMessage) `
+                $($script:localizedData.ActionExistsMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -250,7 +248,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingActionMessage) `
+            $($script:localizedData.SettingActionMessage) `
                 -f $Name, $Percentage, $Type
         ) -join '' )
 
@@ -270,7 +268,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionExistsMessage) `
+                $($script:localizedData.EnsureActionExistsMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -281,7 +279,7 @@ function Set-TargetResource
             # Create the action
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionCreatedMessage) `
+                    $($script:localizedData.ActionCreatedMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
         }
@@ -292,7 +290,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionUpdatedMessage) `
+                    $($script:localizedData.ActionUpdatedMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
         }
@@ -303,7 +301,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionDoesNotExistMessage) `
+                $($script:localizedData.EnsureActionDoesNotExistMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -312,7 +310,7 @@ function Set-TargetResource
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionNoChangeMessage) `
+                    $($script:localizedData.ActionNoChangeMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
 
@@ -325,7 +323,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionRemovedMessage) `
+                    $($script:localizedData.ActionRemovedMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
         } # if
@@ -339,7 +337,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.ActionWrittenMessage) `
+            $($script:localizedData.ActionWrittenMessage) `
                 -f $Name, $Percentage, $Type
         ) -join '' )
 } # Set-TargetResource
@@ -490,7 +488,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingActionMessage) `
+            $($script:localizedData.SettingActionMessage) `
                 -f $Name, $Percentage, $Type
         ) -join '' )
 
@@ -505,7 +503,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionExistsMessage) `
+                $($script:localizedData.EnsureActionExistsMessage) `
                     -f $Name, $Percentage, $Type
             ) -join '' )
 
@@ -514,7 +512,7 @@ function Test-TargetResource
             # The action does not exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionDoesNotExistButShouldMessage) `
+                    $($script:localizedData.ActionDoesNotExistButShouldMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
 
@@ -531,7 +529,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Subject'
                     ) -join '' )
 
@@ -543,7 +541,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Body'
                     ) -join '' )
 
@@ -555,7 +553,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailBCC'
                     ) -join '' )
 
@@ -567,7 +565,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailCC'
                     ) -join '' )
 
@@ -579,7 +577,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'MailTo'
                     ) -join '' )
 
@@ -591,7 +589,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'Command'
                     ) -join '' )
 
@@ -603,7 +601,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'CommandParameters'
                     ) -join '' )
 
@@ -615,7 +613,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'KillTimeOut'
                     ) -join '' )
 
@@ -627,7 +625,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'RunLimitInterval'
                     ) -join '' )
 
@@ -639,7 +637,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'SecurityLevel'
                     ) -join '' )
 
@@ -651,7 +649,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'ShouldLogError'
                     ) -join '' )
 
@@ -663,7 +661,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'WorkingDirectory'
                     ) -join '' )
 
@@ -675,7 +673,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'EventType'
                     ) -join '' )
 
@@ -697,7 +695,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Percentage, $Type, 'ReportTypes'
                     ) -join '' )
 
@@ -713,7 +711,7 @@ function Test-TargetResource
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.ActionDoesNotExistAndShouldNotMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
         }
@@ -722,7 +720,7 @@ function Test-TargetResource
             # The Action exists, but it should be removed
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionExistsAndShouldNotMessage) `
+                    $($script:localizedData.ActionExistsAndShouldNotMessage) `
                         -f $Name, $Percentage, $Type
                 ) -join '' )
 
@@ -784,7 +782,7 @@ Function Get-Action
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $Name, $Percentage, $Type) `
+            -Message ($($script:localizedData.QuotaTemplateNotFoundError) -f $Name, $Percentage, $Type) `
             -ArgumentName 'Name'
 
         $PSCmdlet.ThrowTerminatingError($errorRecord)
@@ -827,7 +825,7 @@ Function Get-Action
     if ($null -eq $resultObject.SourceIndex)
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $Name, $Percentage, $Type) `
+            -Message ($($script:localizedData.QuotaTemplateThresholdNotFoundError) -f $Name, $Percentage, $Type) `
             -ArgumentName 'Name'
     }
 
