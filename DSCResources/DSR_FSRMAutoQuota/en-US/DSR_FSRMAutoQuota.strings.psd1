@@ -9,7 +9,6 @@ ConvertFrom-StringData -StringData @'
     AutoQuotaUpdatedMessage = FSRM Auto Quota "{0}" has been updated.
     AutoQuotaRemovedMessage = FSRM Auto Quota "{0}" has been removed.
     TestingAutoQuotaMessage = Testing FSRM Auto Quota "{0}".
-    AutoQuotaDoesNotMatchTemplateNeedsUpdateMessage = FSRM Auto Quota "{0}" {1} does not match template. Change required.
     AutoQuotaPropertyNeedsUpdateMessage = FSRM Auto Quota "{0}" {1} is different. Change required.
     AutoQuotaDoesNotExistButShouldMessage = FSRM Auto Quota "{0}" does not exist but should. Change required.
     AutoQuotaExistsButShouldNotMessage = FSRM Auto Quota "{0}" exists but should not. Change required.

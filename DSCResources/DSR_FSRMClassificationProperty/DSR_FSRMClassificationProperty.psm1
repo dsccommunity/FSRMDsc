@@ -326,7 +326,7 @@ function Test-TargetResource
         $Parameters
     )
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

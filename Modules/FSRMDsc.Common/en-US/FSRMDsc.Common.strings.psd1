@@ -8,7 +8,4 @@ ConvertFrom-StringData @'
     PropertyThatDoesNotMatch = {0} - {1}
     ValueOfTypeDoesNotMatch = {0} value for property {1} does not match. Current state is '{2}' and desired state is '{3}'.
     UnableToCompareProperty = Unable to compare property {0} as the type {1} is not handled by the Test-DscParameterState cmdlet.
-    GetServiceInformation = Retrieving {0} service information.
-    RestartService = Restarting the {0} service.
-    UnknownService = Unable to find the desired service.
 '@

@@ -484,11 +484,11 @@ function Test-TargetResource
         $ReportTypes
     )
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($script:localizedData.SettingActionMessage) `
+            $($script:localizedData.TestingActionMessage) `
                 -f $Name, $Percentage, $Type
         ) -join '' )
 

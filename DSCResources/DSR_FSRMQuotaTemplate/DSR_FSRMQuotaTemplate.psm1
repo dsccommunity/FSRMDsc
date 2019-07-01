@@ -126,6 +126,12 @@ function Set-TargetResource
         $ThresholdPercentages
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($script:localizedData.SettingQuotaTemplateMessage) `
+            -f $Name
+    ) -join '' )
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
     $null = $PSBoundParameters.Remove('ThresholdPercentages')
@@ -288,7 +294,7 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "

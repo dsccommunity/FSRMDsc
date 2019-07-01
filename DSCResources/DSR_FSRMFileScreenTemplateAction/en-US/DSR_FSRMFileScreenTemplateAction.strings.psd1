@@ -16,5 +16,4 @@ ConvertFrom-StringData -StringData @'
     ActionExistsAndShouldNotMessage = FSRM File Screen Template Action for {1} "{0}" exists but should not. Change required.
     ActionDoesNotExistAndShouldNotMessage = FSRM File Screen Template Action for {1} "{0}" does not exist and should not. Change not required.
     FileScreenTemplateNotFoundError = FSRM File Screen Template "{0}" not found.
-    FileScreenTemplateThresholdNotFoundError = FSRM File Screen Template "{0}" not found.
 '@

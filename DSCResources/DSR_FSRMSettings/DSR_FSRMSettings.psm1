@@ -197,7 +197,7 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
@@ -261,8 +261,8 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($script:localizedData.EmailNotificationLimit) `
-                    -f 'FromEmailAddress'
+                $($script:localizedData.SettingsNeedsUpdateMessage) `
+                    -f 'EmailNotificationLimit'
             ) -join '' )
 
         $desiredConfigurationMatch = $false

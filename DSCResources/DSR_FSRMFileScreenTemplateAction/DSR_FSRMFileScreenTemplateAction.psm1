@@ -484,11 +484,11 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($script:localizedData.SettingActionMessage) `
+            $($script:localizedData.TestingActionMessage) `
                 -f $Name, $Type
         ) -join '' )
 
@@ -504,7 +504,7 @@ function Test-TargetResource
             -ArgumentName 'Name'
     } # try
 
-    $action = $actions | Where-Object { $_.Type -eq $Type }
+    $action = $actions | Where-Object -FilterScript { $_.Type -eq $Type }
 
     if ($Ensure -eq 'Present')
     {
@@ -517,7 +517,6 @@ function Test-TargetResource
         if ($action)
         {
             # The action exists - check it
-            #region Parameter Checks
             if (($PSBoundParameters.ContainsKey('Subject')) `
                     -and ($action.Subject -ne $Subject))
             {
@@ -695,7 +694,6 @@ function Test-TargetResource
 
                 $desiredConfigurationMatch = $false
             } # if
-            #endregion
         }
         else
         {

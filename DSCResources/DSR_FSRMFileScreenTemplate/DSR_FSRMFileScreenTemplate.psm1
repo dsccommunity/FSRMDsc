@@ -118,6 +118,12 @@ function Set-TargetResource
         $IncludeGroup
     )
 
+    Write-Verbose -Message ( @(
+        "$($MyInvocation.MyCommand): "
+        $($script:localizedData.SettingFileScreenTemplateMessage) `
+            -f $Name
+    ) -join '' )
+
     # Remove any parameters that can't be splatted.
     $null = $PSBoundParameters.Remove('Ensure')
 
@@ -230,7 +236,7 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
