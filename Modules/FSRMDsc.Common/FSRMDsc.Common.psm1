@@ -84,6 +84,8 @@ function Get-LocalizedData
         $ScriptRoot
     )
 
+    Write-Verbose -Message 'FFS' -Verbose
+
     if (-not $ScriptRoot)
     {
         $dscResourcesFolder = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'DSCResources'
@@ -107,7 +109,7 @@ function Get-LocalizedData
         -FileName "$ResourceName.strings.psd1" `
         -BaseDirectory $localizedStringFileLocation
 
-    return $script:localizedData
+    return $localizedData
 }
 
 <#
