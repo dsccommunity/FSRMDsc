@@ -7,7 +7,6 @@ ConvertFrom-StringData -StringData @'
     EnsureClassificationRuleDoesNotExistMessage = Ensuring FSRM Classification Rule "{0}" does not exist.
     ClassificationRuleCreatedMessage = FSRM Classification Rule "{0}" has been created.
     ClassificationRuleUpdatedMessage = FSRM Classification Rule "{0}" has been updated.
-    ClassificationRuleRecreatedMessage = FSRM Classification Rule "{0}" has been recreated.
     ClassificationRuleRemovedMessage = FSRM Classification Rule "{0}" has been removed.
     TestingClassificationRuleMessage = Testing FSRM Classification Rule "{0}".
     ClassificationRuleExistsAndShouldMessage = FSRM Classification Rule "{0}" exists and should.

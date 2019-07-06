@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMFileScreenTemplateAction' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMFileScreenTemplateAction'
 
 <#
     .SYNOPSIS
@@ -38,7 +36,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingActionMessage) `
+            $($script:localizedData.GettingActionMessage) `
                 -f $Name, $Type
         ) -join '' )
 
@@ -49,7 +47,7 @@ function Get-TargetResource
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
+            -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
             -ArgumentName 'Name'
     } # try
 
@@ -64,7 +62,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionExistsMessage) `
+                $($script:localizedData.ActionExistsMessage) `
                     -f $Name, $Type
             ) -join '' )
 
@@ -90,7 +88,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ActionNotExistMessage) `
+                $($script:localizedData.ActionNotExistMessage) `
                     -f $Name, $Type
             ) -join '' )
 
@@ -238,7 +236,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingActionMessage) `
+            $($script:localizedData.SettingActionMessage) `
                 -f $Name, $Type
         ) -join '' )
 
@@ -254,7 +252,7 @@ function Set-TargetResource
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
+            -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
             -ArgumentName 'Name'
     } # try
 
@@ -278,7 +276,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionExistsMessage) `
+                $($script:localizedData.EnsureActionExistsMessage) `
                     -f $Name, $Type
             ) -join '' )
 
@@ -289,7 +287,7 @@ function Set-TargetResource
             # Create the action
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionCreatedMessage) `
+                    $($script:localizedData.ActionCreatedMessage) `
                         -f $Name, $Type
                 ) -join '' )
         }
@@ -300,7 +298,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionUpdatedMessage) `
+                    $($script:localizedData.ActionUpdatedMessage) `
                         -f $Name, $Type
                 ) -join '' )
         } # if
@@ -311,7 +309,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionDoesNotExistMessage) `
+                $($script:localizedData.EnsureActionDoesNotExistMessage) `
                     -f $Name, $Type
             ) -join '' )
 
@@ -320,7 +318,7 @@ function Set-TargetResource
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionNoChangeMessage) `
+                    $($script:localizedData.ActionNoChangeMessage) `
                         -f $Name, $Type
                 ) -join '' )
             return
@@ -332,7 +330,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionRemovedMessage) `
+                    $($script:localizedData.ActionRemovedMessage) `
                         -f $Name, $Type
                 ) -join '' )
         } # if
@@ -346,7 +344,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.ActionWrittenMessage) `
+            $($script:localizedData.ActionWrittenMessage) `
                 -f $Name, $Type
         ) -join '' )
 } # Set-TargetResource
@@ -486,11 +484,11 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingActionMessage) `
+            $($script:localizedData.TestingActionMessage) `
                 -f $Name, $Type
         ) -join '' )
 
@@ -502,30 +500,29 @@ function Test-TargetResource
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
+            -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
             -ArgumentName 'Name'
     } # try
 
-    $action = $actions | Where-Object { $_.Type -eq $Type }
+    $action = $actions | Where-Object -FilterScript { $_.Type -eq $Type }
 
     if ($Ensure -eq 'Present')
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureActionExistsMessage) `
+                $($script:localizedData.EnsureActionExistsMessage) `
                     -f $Name, $Type
             ) -join '' )
 
         if ($action)
         {
             # The action exists - check it
-            #region Parameter Checks
             if (($PSBoundParameters.ContainsKey('Subject')) `
                     -and ($action.Subject -ne $Subject))
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Subject'
                     ) -join '' )
 
@@ -537,7 +534,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Body'
                     ) -join '' )
 
@@ -549,7 +546,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailBCC'
                     ) -join '' )
 
@@ -561,7 +558,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailCC'
                     ) -join '' )
 
@@ -573,7 +570,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'MailTo'
                     ) -join '' )
 
@@ -585,7 +582,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'Command'
                     ) -join '' )
 
@@ -597,7 +594,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'CommandParameters'
                     ) -join '' )
 
@@ -609,7 +606,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'KillTimeOut'
                     ) -join '' )
 
@@ -621,7 +618,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'RunLimitInterval'
                     ) -join '' )
 
@@ -633,7 +630,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'SecurityLevel'
                     ) -join '' )
 
@@ -645,7 +642,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'ShouldLogError'
                     ) -join '' )
 
@@ -657,7 +654,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'WorkingDirectory'
                     ) -join '' )
 
@@ -669,7 +666,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'EventType'
                     ) -join '' )
 
@@ -691,20 +688,19 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ActionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ActionPropertyNeedsUpdateMessage) `
                             -f $Name, $Type, 'ReportTypes'
                     ) -join '' )
 
                 $desiredConfigurationMatch = $false
             } # if
-            #endregion
         }
         else
         {
             # The action does not exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionDoesNotExistButShouldMessage) `
+                    $($script:localizedData.ActionDoesNotExistButShouldMessage) `
                         -f $Name, $Type
                 ) -join '' )
 
@@ -718,7 +714,7 @@ function Test-TargetResource
             # The Action exists, but it should be removed
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionExistsAndShouldNotMessage) `
+                    $($script:localizedData.ActionExistsAndShouldNotMessage) `
                         -f $Name, $Type
                 ) -join '' )
 
@@ -729,7 +725,7 @@ function Test-TargetResource
             # The action doesn't exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ActionDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.ActionDoesNotExistAndShouldNotMessage) `
                         -f $Name, $Type
                 ) -join '' )
         } # if
@@ -778,7 +774,7 @@ Function Get-Action
     catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
     {
         New-InvalidArgumentException `
-            -Message ($($LocalizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
+            -Message ($($script:localizedData.FileScreenTemplateNotFoundError) -f $Name, $Type) `
             -ArgumentName 'Name'
     } # try
 

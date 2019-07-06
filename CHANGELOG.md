@@ -3,6 +3,11 @@
 ## Unreleased
 
 - Added .gitattributes file to fix bug publishing examples - Fixes [Issue #23](https://github.com/PlagueHO/FSRMDsc/issues/23).
+- Combined all `FSRMDsc.ResourceHelper` module functions into
+  `FSRMDsc.Common` module and renamed to `FSRMDsc.CommonHelper`
+  module.
+- Opted into Common Tests 'Common Tests - Validate Localization' -
+  fixes [Issue #82](https://github.com/PowerShell/FSRMDsc/issues/27).
 
 ## 2.4.1.0
 

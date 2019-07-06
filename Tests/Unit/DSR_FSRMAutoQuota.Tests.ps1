@@ -197,7 +197,7 @@ try
                     $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.AutoQuotaPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -211,7 +211,7 @@ try
                     $testTargetResourceParameters = $script:TestAutoQuota.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path,$testTargetResourceParameters.Template) `
+                        -Message ($($script:localizedData.AutoQuotaTemplateNotFoundError) -f $testTargetResourceParameters.Path,$testTargetResourceParameters.Template) `
                         -ArgumentName 'Template'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -226,7 +226,7 @@ try
                     $testTargetResourceParameters.Template = ''
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.AutoQuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.AutoQuotaTemplateEmptyError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Template'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

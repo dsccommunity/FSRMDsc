@@ -7,7 +7,6 @@ ConvertFrom-StringData -StringData @'
     EnsureFileScreenExceptionDoesNotExistMessage = Ensuring FSRM File Screen Exception "{0}" does not exist.
     FileScreenExceptionCreatedMessage = FSRM File Screen Exception "{0}" has been created.
     FileScreenExceptionUpdatedMessage = FSRM File Screen Exception "{0}" has been updated.
-    FileScreenExceptionRecreatedMessage = FSRM File Screen Exception "{0}" has been recreated.
     FileScreenExceptionRemovedMessage = FSRM File Screen Exception "{0}" has been removed.
     TestingFileScreenExceptionMessage = Testing FSRM File Screen Exception "{0}".
     FileScreenExceptionPropertyNeedsUpdateMessage = FSRM File Screen Exception "{0}" {1} is different. Change required.
@@ -15,6 +14,4 @@ ConvertFrom-StringData -StringData @'
     FileScreenExceptionExistsButShouldNotMessage = FSRM File Screen Exception "{0}" exists but should not. Change required.
     FileScreenExceptionDoesNotExistAndShouldNotMessage = FSRM File Screen Exception "{0}" does not exist and should not. Change not required.
     FileScreenExceptionPathDoesNotExistError = FSRM File Screen Exception "{0}" path does not exist.
-    FileScreenExceptionTemplateEmptyError = FSRM File Screen Exception "{0}" requires a template name to be set.
-    FileScreenExceptionTemplateNotFoundError = FSRM File Screen Exception "{0}" template "{1}" not found.
 '@

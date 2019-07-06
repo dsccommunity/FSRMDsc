@@ -234,7 +234,7 @@ try
 
                     $errorId = 'FileScreenPathDoesNotExistError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenPathDoesNotExistError) -f $testTargetResourceParameters.Path
+                    $errorMessage = $($script:localizedData.FileScreenPathDoesNotExistError) -f $testTargetResourceParameters.Path
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
@@ -252,7 +252,7 @@ try
 
                     $errorId = 'FileScreenTemplateNotFoundError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Template
+                    $errorMessage = $($script:localizedData.FileScreenTemplateNotFoundError) -f $testTargetResourceParameters.Path, $testTargetResourceParameters.Template
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
@@ -270,7 +270,7 @@ try
 
                     $errorId = 'FileScreenTemplateEmptyError'
                     $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-                    $errorMessage = $($LocalizedData.FileScreenTemplateEmptyError) -f $testTargetResourceParameters.Path
+                    $errorMessage = $($script:localizedData.FileScreenTemplateEmptyError) -f $testTargetResourceParameters.Path
                     $exception = New-Object -TypeName System.InvalidOperationException `
                         -ArgumentList $errorMessage
                     $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `

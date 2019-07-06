@@ -185,7 +185,7 @@ try
                     $getTargetResourceParameters = $script:TestQuotaTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -204,7 +204,7 @@ try
                     $getTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateThresholdNotFoundError) -f $getTargetResourceParameters.Name, $getTargetResourceParameters.Percentage, $getTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -259,7 +259,7 @@ try
                     $setTargetResourceParameters = $script:TestQuotaTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -280,7 +280,7 @@ try
                     $setTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateThresholdNotFoundError) -f $setTargetResourceParameters.Name, $setTargetResourceParameters.Percentage, $setTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -348,7 +348,7 @@ try
                     $testTargetResourceParameters = $script:TestQuotaTemplateActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
@@ -367,7 +367,7 @@ try
                     $testTargetResourceParameters.Percentage = 99
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.QuotaTemplateThresholdNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
+                        -Message ($($script:localizedData.QuotaTemplateThresholdNotFoundError) -f $testTargetResourceParameters.Name, $testTargetResourceParameters.Percentage, $testTargetResourceParameters.Type) `
                         -ArgumentName 'Name'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

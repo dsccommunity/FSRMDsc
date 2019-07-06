@@ -192,7 +192,7 @@ try
                     $testTargetResourceParameters = $script:TestFileScreenException.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.FileScreenExceptionPathDoesNotExistError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

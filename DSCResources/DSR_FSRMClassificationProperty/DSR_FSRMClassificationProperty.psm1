@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMClassificationProperty' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMClassificationProperty'
 
 <#
     .SYNOPSIS
@@ -38,7 +36,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingClassificationPropertyMessage) `
+            $($script:localizedData.GettingClassificationPropertyMessage) `
                 -f $Name
         ) -join '' )
 
@@ -51,7 +49,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationPropertyExistsMessage) `
+                $($script:localizedData.ClassificationPropertyExistsMessage) `
                     -f $Name
             ) -join '' )
 
@@ -68,7 +66,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ClassificationPropertyDoesNotExistMessage) `
+                $($script:localizedData.ClassificationPropertyDoesNotExistMessage) `
                     -f $Name
             ) -join '' )
 
@@ -145,7 +143,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingClassificationPropertyMessage) `
+            $($script:localizedData.SettingClassificationPropertyMessage) `
                 -f $Name
         ) -join '' )
 
@@ -159,7 +157,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureClassificationPropertyExistsMessage) `
+                $($script:localizedData.EnsureClassificationPropertyExistsMessage) `
                     -f $Name
             ) -join '' )
 
@@ -210,7 +208,7 @@ function Set-TargetResource
 
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyRecreatedMessage) `
+                        $($script:localizedData.ClassificationPropertyRecreatedMessage) `
                             -f $Name
                     ) -join '' )
             }
@@ -220,7 +218,7 @@ function Set-TargetResource
                 Set-FSRMClassificationPropertyDefinition @PSBoundParameters -ErrorAction Stop
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyUpdatedMessage) `
+                        $($script:localizedData.ClassificationPropertyUpdatedMessage) `
                             -f $Name
                     ) -join '' )
             }
@@ -238,7 +236,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyCreatedMessage) `
+                    $($script:localizedData.ClassificationPropertyCreatedMessage) `
                         -f $Name
                 ) -join '' )
         }
@@ -247,7 +245,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureClassificationPropertyDoesNotExistMessage) `
+                $($script:localizedData.EnsureClassificationPropertyDoesNotExistMessage) `
                     -f $Name
             ) -join '' )
 
@@ -258,7 +256,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyRemovedMessage) `
+                    $($script:localizedData.ClassificationPropertyRemovedMessage) `
                         -f $Name
                 ) -join '' )
         } # if
@@ -328,11 +326,11 @@ function Test-TargetResource
         $Parameters
     )
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingClassificationPropertyMessage) `
+            $($script:localizedData.TestingClassificationPropertyMessage) `
                 -f $Name
         ) -join '' )
 
@@ -349,7 +347,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyNeedsUpdateMessage) `
                             -f $Name, 'Description'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -359,7 +357,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyNeedsUpdateMessage) `
                             -f $Name, 'DisplayName'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -369,7 +367,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyNeedsUpdateMessage) `
                             -f $Name, 'Type'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -389,7 +387,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyNeedsUpdateMessage) `
                             -f $Name, 'Parameters'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -402,7 +400,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.ClassificationPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.ClassificationPropertyNeedsUpdateMessage) `
                             -f $Name, 'PossibleValue'
                     ) -join '' )
                 $desiredConfigurationMatch = $false
@@ -414,7 +412,7 @@ function Test-TargetResource
             # Ths Classification Property doesn't exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyDoesNotExistButShouldMessage) `
+                    $($script:localizedData.ClassificationPropertyDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
             $desiredConfigurationMatch = $false
@@ -428,7 +426,7 @@ function Test-TargetResource
             # The Classification Property exists but should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyExistsButShouldNotMessage) `
+                    $($script:localizedData.ClassificationPropertyExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
             $desiredConfigurationMatch = $false
@@ -438,7 +436,7 @@ function Test-TargetResource
             # The Classification Property does not exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ClassificationPropertyDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.ClassificationPropertyDoesNotExistAndShouldNotMessage) `
                         -f $Name
                 ) -join '' )
         }

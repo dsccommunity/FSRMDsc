@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMFileScreenException' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMFileScreenException'
 
 <#
     .SYNOPSIS
@@ -30,7 +28,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingFileScreenExceptionMessage) `
+            $($script:localizedData.GettingFileScreenExceptionMessage) `
                 -f $Path
         ) -join '' )
 
@@ -44,7 +42,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.FileScreenExceptionExistsMessage) `
+                $($script:localizedData.FileScreenExceptionExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -58,7 +56,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.FileScreenExceptionDoesNotExistMessage) `
+                $($script:localizedData.FileScreenExceptionDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -112,7 +110,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingFileScreenExceptionMessage) `
+            $($script:localizedData.SettingFileScreenExceptionMessage) `
                 -f $Path
         ) -join '' )
 
@@ -129,7 +127,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureFileScreenExceptionExistsMessage) `
+                $($script:localizedData.EnsureFileScreenExceptionExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -141,7 +139,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionUpdatedMessage) `
+                    $($script:localizedData.FileScreenExceptionUpdatedMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -153,7 +151,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionCreatedMessage) `
+                    $($script:localizedData.FileScreenExceptionCreatedMessage) `
                         -f $Path
                 ) -join '' )
         } # if
@@ -162,7 +160,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureFileScreenExceptionDoesNotExistMessage) `
+                $($script:localizedData.EnsureFileScreenExceptionDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -173,7 +171,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionRemovedMessage) `
+                    $($script:localizedData.FileScreenExceptionRemovedMessage) `
                         -f $Path
                 ) -join '' )
         } # if
@@ -221,11 +219,11 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingFileScreenExceptionMessage) `
+            $($script:localizedData.TestingFileScreenExceptionMessage) `
                 -f $Path
         ) -join '' )
 
@@ -248,7 +246,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
                             -f $Path, 'IncludeGroup'
                     ) -join '' )
 
@@ -260,7 +258,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.FileScreenExceptionPropertyNeedsUpdateMessage) `
                             -f $Path, 'Description'
                     ) -join '' )
 
@@ -272,7 +270,7 @@ function Test-TargetResource
             # The File Screen Exception doesn't exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionDoesNotExistButShouldMessage) `
+                    $($script:localizedData.FileScreenExceptionDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -287,7 +285,7 @@ function Test-TargetResource
             # The File Screen Exception exists but should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionExistsButShouldNotMessage) `
+                    $($script:localizedData.FileScreenExceptionExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -298,7 +296,7 @@ function Test-TargetResource
             # The File Screen Exception does not exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileScreenExceptionDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.FileScreenExceptionDoesNotExistAndShouldNotMessage) `
                         -f $Path
                 ) -join '' )
         } # if
@@ -382,7 +380,7 @@ Function Assert-ResourcePropertiesValid
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorMessage = $($LocalizedData.FileScreenExceptionPathDoesNotExistError) -f $Path
+        $errorMessage = $($script:localizedData.FileScreenExceptionPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     } # if
 

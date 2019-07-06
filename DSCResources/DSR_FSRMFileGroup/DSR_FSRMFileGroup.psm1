@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMFileGroup' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMFileGroup'
 
 <#
     .SYNOPSIS
@@ -30,7 +28,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingFileGroupMessage) `
+            $($script:localizedData.GettingFileGroupMessage) `
                 -f $Name
         ) -join '' )
 
@@ -44,7 +42,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.FileGroupExistsMessage) `
+                $($script:localizedData.FileGroupExistsMessage) `
                     -f $Name
             ) -join '' )
 
@@ -59,7 +57,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.FileGroupDoesNotExistMessage) `
+                $($script:localizedData.FileGroupDoesNotExistMessage) `
                     -f $Name
             ) -join '' )
 
@@ -120,7 +118,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingFileGroupMessage) `
+            $($script:localizedData.SettingFileGroupMessage) `
                 -f $Name
         ) -join '' )
 
@@ -134,7 +132,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureFileGroupExistsMessage) `
+                $($script:localizedData.EnsureFileGroupExistsMessage) `
                     -f $Name
             ) -join '' )
 
@@ -145,7 +143,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupUpdatedMessage) `
+                    $($script:localizedData.FileGroupUpdatedMessage) `
                         -f $Name
                 ) -join '' )
         }
@@ -156,7 +154,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupCreatedMessage) `
+                    $($script:localizedData.FileGroupCreatedMessage) `
                         -f $Name
                 ) -join '' )
         }
@@ -165,7 +163,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureFileGroupDoesNotExistMessage) `
+                $($script:localizedData.EnsureFileGroupDoesNotExistMessage) `
                     -f $Name
             ) -join '' )
 
@@ -176,7 +174,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupRemovedMessage) `
+                    $($script:localizedData.FileGroupRemovedMessage) `
                         -f $Name
                 ) -join '' )
         } # if
@@ -231,11 +229,11 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingFileGroupMessage) `
+            $($script:localizedData.TestingFileGroupMessage) `
                 -f $Name
         ) -join '' )
 
@@ -252,7 +250,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.FileGroupDescriptionNeedsUpdateMessage) `
+                        $($script:localizedData.FileGroupDescriptionNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
 
@@ -265,7 +263,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.FileGroupIncludePatternNeedsUpdateMessage) `
+                        $($script:localizedData.FileGroupIncludePatternNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
 
@@ -278,7 +276,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.FileGroupExcludePatternNeedsUpdateMessage) `
+                        $($script:localizedData.FileGroupExcludePatternNeedsUpdateMessage) `
                             -f $Name
                     ) -join '' )
 
@@ -290,7 +288,7 @@ function Test-TargetResource
             # Ths File Group doesn't exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupDoesNotExistButShouldMessage) `
+                    $($script:localizedData.FileGroupDoesNotExistButShouldMessage) `
                         -f $Name
                 ) -join '' )
 
@@ -305,7 +303,7 @@ function Test-TargetResource
             # The File Group exists but should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupExistsButShouldNotMessage) `
+                    $($script:localizedData.FileGroupExistsButShouldNotMessage) `
                         -f $Name
                 ) -join '' )
 
@@ -316,7 +314,7 @@ function Test-TargetResource
             # The File Group does not exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.FileGroupDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.FileGroupDoesNotExistAndShouldNotMessage) `
                         -f $Name
                 ) -join '' )
         }

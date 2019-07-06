@@ -1,7 +1,7 @@
 ConvertFrom-StringData -StringData @'
     GettingClassificationPropertyValueMessage = Getting FSRM Classification Property Definition "{0}" value "{1}".
     ClassificationPropertyValueExistsMessage = FSRM Classification Property Value Definition "{0}" value "{1}" exists.
-    ClassificationPropertyValueNotExistMessage = FSRM Classification Property Value Definition "{0}" value "{1}" does not exist.
+    ClassificationPropertyValueDoesNotExistMessage = FSRM Classification Property Value Definition "{0}" value "{1}" does not exist.
     SettingClassificationPropertyValueMessage = Setting FSRM Classification Property Value Definition "{0}" value "{1}".
     EnsureClassificationPropertyValueExistsMessage = Ensuring FSRM Classification Property Value Definition "{0}" value "{1}" exists.
     EnsureClassificationPropertyValueDoesNotExistMessage = Ensuring FSRM Classification Property Value Definition "{0}" value "{1}" does not exist.

@@ -1,14 +1,12 @@
 $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the Networking Resource Helper Module
+# Import the ADCS Deployment Resource Common Module.
 Import-Module -Name (Join-Path -Path $modulePath `
-        -ChildPath (Join-Path -Path 'FSRMDsc.ResourceHelper' `
-            -ChildPath 'FSRMDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'FSRMDsc.Common' `
+            -ChildPath 'FSRMDsc.Common.psm1'))
 
-# Import Localization Strings
-$LocalizedData = Get-LocalizedData `
-    -ResourceName 'DSR_FSRMQuota' `
-    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+# Import Localization Strings.
+$script:localizedData = Get-LocalizedData -ResourceName 'DSR_FSRMQuota'
 
 <#
     .SYNOPSIS
@@ -30,7 +28,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingQuotaMessage) `
+            $($script:localizedData.GettingQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -45,7 +43,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.QuotaExistsMessage) `
+                $($script:localizedData.QuotaExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -64,7 +62,7 @@ function Get-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.QuotaDoesNotExistMessage) `
+                $($script:localizedData.QuotaDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -155,7 +153,7 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingQuotaMessage) `
+            $($script:localizedData.SettingQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -174,7 +172,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureQuotaExistsMessage) `
+                $($script:localizedData.EnsureQuotaExistsMessage) `
                     -f $Path
             ) -join '' )
 
@@ -200,7 +198,7 @@ function Set-TargetResource
 
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.QuotaThresholdAddedMessage) `
+                            $($script:localizedData.QuotaThresholdAddedMessage) `
                                 -f $Path, $ThresholdPercentage
                         ) -join '' )
                 }
@@ -222,7 +220,7 @@ function Set-TargetResource
 
                         Write-Verbose -Message ( @(
                                 "$($MyInvocation.MyCommand): "
-                                $($LocalizedData.QuotaThresholdRemovedMessage) `
+                                $($script:localizedData.QuotaThresholdRemovedMessage) `
                                     -f $Path, $thresholds[$counter].Percentage
                             ) -join '' )
                     }
@@ -254,7 +252,7 @@ function Set-TargetResource
 
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.QuotaRecreatedMessage) `
+                        $($script:localizedData.QuotaRecreatedMessage) `
                             -f $Path
                     ) -join '' )
             }
@@ -267,7 +265,7 @@ function Set-TargetResource
 
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.QuotaUpdatedMessage) `
+                        $($script:localizedData.QuotaUpdatedMessage) `
                             -f $Path
                     ) -join '' )
             }
@@ -280,7 +278,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.QuotaCreatedMessage) `
+                    $($script:localizedData.QuotaCreatedMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -289,7 +287,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.EnsureQuotaDoesNotExistMessage) `
+                $($script:localizedData.EnsureQuotaDoesNotExistMessage) `
                     -f $Path
             ) -join '' )
 
@@ -300,7 +298,7 @@ function Set-TargetResource
 
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.QuotaRemovedMessage) `
+                    $($script:localizedData.QuotaRemovedMessage) `
                         -f $Path
                 ) -join '' )
         } # if
@@ -385,11 +383,11 @@ function Test-TargetResource
     )
 
     # Flag to signal whether settings are correct
-    [Boolean] $desiredConfigurationMatch = $true
+    $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingQuotaMessage) `
+            $($script:localizedData.TestingQuotaMessage) `
                 -f $Path
         ) -join '' )
 
@@ -412,7 +410,7 @@ function Test-TargetResource
                 {
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.QuotaDoesNotMatchTemplateNeedsUpdateMessage) `
+                            $($script:localizedData.QuotaDoesNotMatchTemplateNeedsUpdateMessage) `
                                 -f $Path, 'Description'
                         ) -join '' )
 
@@ -426,7 +424,7 @@ function Test-TargetResource
                 {
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                            $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'Size'
                         ) -join '' )
 
@@ -438,7 +436,7 @@ function Test-TargetResource
                 {
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                            $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'SoftLimit'
                         ) -join '' )
 
@@ -453,7 +451,7 @@ function Test-TargetResource
                 {
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                            $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                                 -f $Path, 'ThresholdPercentages'
                         ) -join '' )
 
@@ -466,7 +464,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Description'
                     ) -join '' )
 
@@ -478,7 +476,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Disabled'
                     ) -join '' )
 
@@ -490,7 +488,7 @@ function Test-TargetResource
             {
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.QuotaPropertyNeedsUpdateMessage) `
+                        $($script:localizedData.QuotaPropertyNeedsUpdateMessage) `
                             -f $Path, 'Template'
                     ) -join '' )
 
@@ -502,7 +500,7 @@ function Test-TargetResource
             # Ths Quota doesn't exist but should
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.QuotaDoesNotExistButShouldMessage) `
+                    $($script:localizedData.QuotaDoesNotExistButShouldMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -517,7 +515,7 @@ function Test-TargetResource
             # The Quota exists but should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.QuotaExistsButShouldNotMessage) `
+                    $($script:localizedData.QuotaExistsButShouldNotMessage) `
                         -f $Path
                 ) -join '' )
 
@@ -528,7 +526,7 @@ function Test-TargetResource
             # The Quota does not exist and should not
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.QuotaDoesNotExistAndShouldNotMessage) `
+                    $($script:localizedData.QuotaDoesNotExistAndShouldNotMessage) `
                         -f $Path
                 ) -join '' )
         }
@@ -649,7 +647,7 @@ Function Assert-ResourcePropertiesValid
     # Check the path exists
     if (-not (Test-Path -Path $Path))
     {
-        $errorMessage = $($LocalizedData.QuotaPathDoesNotExistError) -f $Path
+        $errorMessage = $($script:localizedData.QuotaPathDoesNotExistError) -f $Path
         $errorArgumentName = 'Path'
     }
 
@@ -668,7 +666,7 @@ Function Assert-ResourcePropertiesValid
         }
         catch [Microsoft.PowerShell.Cmdletization.Cim.CimJobException]
         {
-            $errorMessage = $($LocalizedData.QuotaTemplateNotFoundError) -f $Path, $Template
+            $errorMessage = $($script:localizedData.QuotaTemplateNotFoundError) -f $Path, $Template
             $errorArgumentName = 'Path'
         }
     }
@@ -677,7 +675,7 @@ Function Assert-ResourcePropertiesValid
         # A template wasn't specifed, ensure the matches template flag is false
         if ($MatchesTemplate)
         {
-            $errorMessage = $($LocalizedData.QuotaTemplateEmptyError) -f $Path
+            $errorMessage = $($script:localizedData.QuotaTemplateEmptyError) -f $Path
             $errorArgumentName = 'Path'
         }
     }

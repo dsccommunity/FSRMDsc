@@ -173,7 +173,7 @@ try
                     $getTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $getTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.FileScreenNotFoundError) -f $getTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -228,7 +228,7 @@ try
                     $setTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $setTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.FileScreenNotFoundError) -f $setTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -295,7 +295,7 @@ try
                     $testTargetResourceParameters = $script:TestFileScreenActionEmail.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.FileScreenNotFoundError) -f $testTargetResourceParameters.Path) `
+                        -Message ($($script:localizedData.FileScreenNotFoundError) -f $testTargetResourceParameters.Path) `
                         -ArgumentName 'Path'
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord

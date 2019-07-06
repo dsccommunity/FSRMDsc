@@ -97,7 +97,7 @@ try
                     $null = $getTargetResourceParameters.Remove('Description')
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $getTargetResourceParameters.PropertyName) `
+                        -Message ($($script:localizedData.ClassificationPropertyNotFoundError) -f $getTargetResourceParameters.PropertyName) `
                         -ArgumentName $getTargetResourceParameters.PropertyName
 
                     { $result = Get-TargetResource @getTargetResourceParameters } | Should -Throw $errorRecord
@@ -152,7 +152,7 @@ try
                     $setTargetResourceParameters = $script:ClassificationPossibleValue1.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $setTargetResourceParameters.PropertyName) `
+                        -Message ($($script:localizedData.ClassificationPropertyNotFoundError) -f $setTargetResourceParameters.PropertyName) `
                         -ArgumentName $setTargetResourceParameters.PropertyName
 
                     { Set-TargetResource @setTargetResourceParameters } | Should -Throw $errorRecord
@@ -220,7 +220,7 @@ try
                     $testTargetResourceParameters = $script:ClassificationPossibleValue1.Clone()
 
                     $errorRecord = Get-InvalidArgumentRecord `
-                        -Message ($($LocalizedData.ClassificationPropertyNotFoundError) -f $testTargetResourceParameters.PropertyName) `
+                        -Message ($($script:localizedData.ClassificationPropertyNotFoundError) -f $testTargetResourceParameters.PropertyName) `
                         -ArgumentName $testTargetResourceParameters.PropertyName
 
                     { Test-TargetResource @testTargetResourceParameters } | Should -Throw $errorRecord
