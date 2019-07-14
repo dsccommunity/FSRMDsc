@@ -213,7 +213,7 @@ function Set-TargetResource
                 # Scan through the existing thresholds and remove any that are misssing
                 for ($counter = $thresholds.Count - 1; $counter -ge 0; $counter--)
                 {
-                    If ($thresholds[$counter].Percentage -notin $ThresholdPercentages)
+                    if ($thresholds[$counter].Percentage -notin $ThresholdPercentages)
                     {
                         # The threshold percentage exists but shouldn not so remove it
                         $thresholds.Remove($counter)
