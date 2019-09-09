@@ -747,7 +747,7 @@ function Test-TargetResource
     .PARAMETER Type
         The type of FSRM Action.
 #>
-Function Get-Action
+function Get-Action
 {
     param
     (
@@ -830,7 +830,7 @@ Function Get-Action
     }
 
     # Return the result
-    Return $resultObject
+    return $resultObject
 }
 
 <#
@@ -844,7 +844,7 @@ Function Get-Action
     .PARAMETER ResultObject
         The object returned by Get-Action that will be used to update the Action.
 #>
-Function Set-Action
+function Set-Action
 {
     param
     (

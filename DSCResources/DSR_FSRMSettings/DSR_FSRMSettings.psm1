@@ -77,7 +77,7 @@ function Get-TargetResource
         Specifies the minimum number of seconds between individual running events of an event-type
         notification.
 #>
-Function Set-TargetResource
+function Set-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
     [CmdletBinding(SupportsShouldProcess = $true)]

@@ -423,7 +423,7 @@ function Test-TargetResource
     .PARAMETER Path
         The path this FSRM File Screen applies to.
 #>
-Function Get-FileScreen
+function Get-FileScreen
 {
     param
     (
@@ -442,7 +442,7 @@ Function Get-FileScreen
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $fileScreen
@@ -475,7 +475,7 @@ Function Get-FileScreen
     .PARAMETER MatchesTemplate
         Causes the template to use only the template name and Active and Ignore Groups parameters.
 #>
-Function Assert-ResourcePropertiesValid
+function Assert-ResourcePropertiesValid
 {
     [CmdletBinding()]
     param

@@ -9,6 +9,7 @@
 - Opted into Common Tests 'Common Tests - Validate Localization' -
   fixes [Issue #82](https://github.com/PowerShell/FSRMDsc/issues/27).
 - Minor style fixes to ensure new PSSA rules pass.
+- Fix minor style issues in statement case.
 
 ## 2.4.1.0
 
