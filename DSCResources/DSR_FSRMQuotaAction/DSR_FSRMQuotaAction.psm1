@@ -823,7 +823,7 @@ function Get-Action
     }
 
     # Return the result
-    Return $resultObject
+    return $resultObject
 }
 
 <#
