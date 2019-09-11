@@ -451,7 +451,7 @@ function Test-TargetResource
     .PARAMETER Name
         The name of the FSRM Classification Property.
 #>
-Function Get-ClassificationProperty
+function Get-ClassificationProperty
 {
     param
     (
@@ -471,7 +471,7 @@ Function Get-ClassificationProperty
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $classificationProperty

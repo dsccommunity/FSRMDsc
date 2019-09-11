@@ -409,7 +409,7 @@ function Test-TargetResource
     .PARAMETER Name
         The unique name for this FSRM Quota Template.
 #>
-Function Get-QuotaTemplate
+function Get-QuotaTemplate
 {
     param
     (
@@ -428,7 +428,7 @@ Function Get-QuotaTemplate
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $quotaTemplate

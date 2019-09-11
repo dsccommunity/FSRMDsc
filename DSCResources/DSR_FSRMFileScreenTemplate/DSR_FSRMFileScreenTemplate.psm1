@@ -338,7 +338,7 @@ function Test-TargetResource
     .PARAMETER Name
         The name of the FSRM File Template.
 #>
-Function Get-FileScreenTemplate
+function Get-FileScreenTemplate
 {
     param
     (
@@ -359,7 +359,7 @@ Function Get-FileScreenTemplate
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $fileScreenTemplate

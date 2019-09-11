@@ -605,7 +605,7 @@ function Test-TargetResource
     .PARAMETER Name
         The name of the FSRM Classification Rule.
 #>
-Function Get-ClassificationRule
+function Get-ClassificationRule
 {
     param
     (
@@ -624,7 +624,7 @@ Function Get-ClassificationRule
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $classificationRule

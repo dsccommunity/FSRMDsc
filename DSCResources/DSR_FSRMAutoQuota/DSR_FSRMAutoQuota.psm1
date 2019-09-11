@@ -311,7 +311,7 @@ function Test-TargetResource
     .PARAMETER Path
         The path this FSRM Quota applies to.
 #>
-Function Get-AutoQuota
+function Get-AutoQuota
 {
     [CmdletBinding()]
     [OutputType([System.Object])]
@@ -330,7 +330,7 @@ Function Get-AutoQuota
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $autoQuota
@@ -353,7 +353,7 @@ Function Get-AutoQuota
     .PARAMETER Template
         The name of the FSRM Quota Template to apply to this path.
 #>
-Function Assert-ResourcePropertiesValid
+function Assert-ResourcePropertiesValid
 {
     [CmdletBinding()]
     param

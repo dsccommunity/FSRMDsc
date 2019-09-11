@@ -542,7 +542,7 @@ function Test-TargetResource
     .PARAMETER Path
         The path this FSRM Quota applies to.
 #>
-Function Get-Quota
+function Get-Quota
 {
     param
     (
@@ -561,7 +561,7 @@ Function Get-Quota
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $quota
@@ -600,7 +600,7 @@ Function Get-Quota
         Causes the template to use only the template name and ignore Size, SoftLimit and
         ThresholdPercentage parameters.
 #>
-Function Assert-ResourcePropertiesValid
+function Assert-ResourcePropertiesValid
 {
     [CmdletBinding()]
     param

@@ -312,7 +312,7 @@ function Test-TargetResource
     .PARAMETER Path
         The path this FSRM File Screen applies to.
 #>
-Function Get-FileScreenException
+function Get-FileScreenException
 {
     param
     (
@@ -331,7 +331,7 @@ Function Get-FileScreenException
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $fileScreenException
@@ -354,7 +354,7 @@ Function Get-FileScreenException
     .PARAMETER IncludeGroup
         An array of File Groups to include in this File Screen.
 #>
-Function Assert-ResourcePropertiesValid
+function Assert-ResourcePropertiesValid
 {
     [CmdletBinding()]
     param

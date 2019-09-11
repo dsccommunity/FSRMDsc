@@ -747,7 +747,7 @@ function Test-TargetResource
     .PARAMETER Type
         The type of FSRM Action.
 #>
-Function Get-Action
+function Get-Action
 {
     param
     (

@@ -330,7 +330,7 @@ function Test-TargetResource
     .PARAMETER Name
         The name of the FSRM File Group.
 #>
-Function Get-FileGroup
+function Get-FileGroup
 {
     param
     (
@@ -349,7 +349,7 @@ Function Get-FileGroup
     }
     catch
     {
-        Throw $_
+        throw $_
     }
 
     return $fileGroup
