@@ -163,38 +163,54 @@ function Set-TargetResource
                 $convertedScheduleMonthly[$counter] = $ScheduleMonthly[$counter]
             }
 
-            $newScheduledTaskParameters += @{ Monthly = $convertedScheduleMonthly }
+            $newScheduledTaskParameters += @{
+                Monthly = $convertedScheduleMonthly
+            }
         }
         elseif ( $schedule.Monthly )
         {
-            $newScheduledTaskParameters += @{ Monthly = $schedule.Monthly }
+            $newScheduledTaskParameters += @{
+                Monthly = $schedule.Monthly
+            }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleWeekly'))
         {
-            $newScheduledTaskParameters += @{ Weekly = $ScheduleWeekly }
+            $newScheduledTaskParameters += @{
+                Weekly = $ScheduleWeekly
+            }
         }
         elseif ( $schedule.Weekly )
         {
-            $newScheduledTaskParameters += @{ Weekly = $schedule.Weekly }
+            $newScheduledTaskParameters += @{
+                Weekly = $schedule.Weekly
+            }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleRunDuration'))
         {
-            $newScheduledTaskParameters += @{ RunDuration = $ScheduleRunDuration }
+            $newScheduledTaskParameters += @{
+                RunDuration = $ScheduleRunDuration
+            }
         }
         elseif ( $schedule.RunDuration )
         {
-            $newScheduledTaskParameters += @{ RunDuration = $schedule.RunDuration }
+            $newScheduledTaskParameters += @{
+                RunDuration = $schedule.RunDuration
+            }
         }
 
         if ($PSBoundParameters.ContainsKey('ScheduleTime'))
         {
-            $newScheduledTaskParameters += @{ Time = $ScheduleTime }
+            $newScheduledTaskParameters += @{
+                Time = $ScheduleTime
+            }
         }
         elseif ( $schedule.Time )
         {
-            $newScheduledTaskParameters += @{ Time = $schedule.Time }
+            $newScheduledTaskParameters += @{
+                Time = $schedule.Time
+            }
         }
 
         # Remove the schedule parameters

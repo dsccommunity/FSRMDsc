@@ -66,7 +66,7 @@ function Get-TargetResource
                     -f $PropertyName, $Name
             ) -join '' )
 
-            $returnValue += @{
+        $returnValue += @{
             Ensure      = 'Present'
             DisplayName = $classificationPropertyValue.DisplayName
             Description = $classificationPropertyValue.Description
