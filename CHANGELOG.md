@@ -10,6 +10,7 @@
   fixes [Issue #82](https://github.com/PowerShell/FSRMDsc/issues/27).
 - Minor style fixes to ensure new PSSA rules pass.
 - Fix minor style issues in statement case.
+- Fix minor style issues in hashtable layout.
 
 ## 2.4.1.0
 

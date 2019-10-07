@@ -807,8 +807,9 @@ function Get-Action
             }
         }
 
-        $properties = @{'Percentage' = $quota.Threshold[$threshold].Percentage;
-            'Action'                 = $newActions;
+        $properties = @{
+            'Percentage' = $quota.Threshold[$threshold].Percentage
+            'Action'     = $newActions
         }
 
         $newSourceObject = New-Object -TypeName 'PSObject' -Property $properties
@@ -858,9 +859,9 @@ function Set-Action
             -Namespace Root/Microsoft/Windows/FSRM `
             -ClientOnly `
             -Property @{
-            Percentage = $object.Percentage
-            Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
-        }
+                Percentage = $object.Percentage
+                Action     = [Microsoft.Management.Infrastructure.CimInstance[]]($object.Action)
+            }
     }
 
     Set-FSRMQuota `
