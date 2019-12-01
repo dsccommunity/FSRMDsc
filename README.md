@@ -33,22 +33,22 @@ Module Guidelines](https://github.com/PowerShell/DscResources/blob/master/HighQu
 ## Documentation and Examples
 
 For a full list of resources in FSRMDsc and examples on their use, check out
-the [FSRMDsc wiki](https://github.com/PlagueHO/FSRMDsc/wiki).
+the [FSRMDsc wiki](https://github.com/dsccommunity/FSRMDsc/wiki).
 
 ## Branches
 
 ### master
 
-[![Build status](https://ci.appveyor.com/api/projects/status/9rjyjap2wl48xels/branch/master?svg=true)](https://ci.appveyor.com/project/PlagueHO/FSRMDsc/branch/master)
-[![codecov](https://codecov.io/gh/PlagueHO/FSRMDsc/branch/master/graph/badge.svg)](https://codecov.io/gh/PlagueHO/FSRMDsc/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/dsccommunity/FSRMDsc?branch=master&svg=true)](https://ci.appveyor.com/project/dsccommunity/FSRMDsc/branch/master)
+[![codecov](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/master/graph/badge.svg)](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/master)
 
 This is the branch containing the latest release - no contributions should be made
 directly to this branch.
 
 ### dev
 
-[![Build status](https://ci.appveyor.com/api/projects/status/9rjyjap2wl48xels/branch/dev?svg=true)](https://ci.appveyor.com/project/PlagueHO/FSRMDsc/branch/dev)
-[![codecov](https://codecov.io/gh/PlagueHO/FSRMDsc/branch/dev/graph/badge.svg)](https://codecov.io/gh/PlagueHO/FSRMDsc/branch/dev)
+[![Build status](https://ci.appveyor.com/api/projects/status/github/dsccommunity/FSRMDsc?branch=dev&svg=true)](https://ci.appveyor.com/project/dsccommunity/FSRMDsc/branch/dev)
+[![codecov](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/dev/graph/badge.svg)](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/dev)
 
 This is the development branch to which contributions should be proposed by contributors
 as pull requests. This development branch will periodically be merged to the master

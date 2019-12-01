@@ -1,12 +1,12 @@
 <#PSScriptInfo
 .VERSION 1.0.0
 .GUID 62b85bd2-3049-4db7-8313-aa0d829c7db9
-.AUTHOR Daniel Scott-Raynsford
-.COMPANYNAME
-.COPYRIGHT (c) 2018 Daniel Scott-Raynsford. All rights reserved.
+.AUTHOR DSC Community
+.COMPANYNAME DSC Community
+.COPYRIGHT Copyright the DSC Community contributors. All rights reserved.
 .TAGS DSCConfiguration
-.LICENSEURI https://github.com/PlagueHO/FSRMDsc/blob/master/LICENSE
-.PROJECTURI https://github.com/PlagueHO/FSRMDsc
+.LICENSEURI https://github.com/dsccommunity/FSRMDsc/blob/master/LICENSE
+.PROJECTURI https://github.com/dsccommunity/FSRMDsc
 .ICONURI
 .EXTERNALMODULEDEPENDENCIES
 .REQUIREDSCRIPTS
