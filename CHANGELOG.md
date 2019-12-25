@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Transferred ownership to DSCCommunity.org - Fixes [Issue #33](https://github.com/dsccommunity/FSRMDsc/issues/33).
 - Added .gitattributes file to fix bug publishing examples - Fixes [Issue #23](https://github.com/PlagueHO/FSRMDsc/issues/23).
 - Combined all `FSRMDsc.ResourceHelper` module functions into
   `FSRMDsc.Common` module and renamed to `FSRMDsc.CommonHelper`
