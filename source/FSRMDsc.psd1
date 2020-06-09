@@ -3,28 +3,25 @@
     moduleVersion        = '0.0.1'
 
     # ID used to uniquely identify this module
-    GUID                  = '5cda5979-ede4-4b49-9f77-2daa6f80eef2'
+    GUID                 = '5cda5979-ede4-4b49-9f77-2daa6f80eef2'
 
     # Author of this module
-    Author                = 'DSC Community'
+    Author               = 'DSC Community'
 
     # Company or vendor of this module
-    CompanyName           = 'DSC Community'
+    CompanyName          = 'DSC Community'
 
     # Copyright statement for this module
-    Copyright             = 'Copyright the DSC Community contributors. All rights reserved.'
+    Copyright            = 'Copyright the DSC Community contributors. All rights reserved.'
 
     # Description of the functionality provided by this module
-    Description           = 'DSC Resources for File Server Resource Manager configuration.'
+    Description          = 'DSC Resources for File Server Resource Manager configuration.'
 
     # Minimum version of the Windows PowerShell engine required by this module
-    PowerShellVersion     = '4.0'
+    PowerShellVersion    = '4.0'
 
     # Minimum version of the common language runtime (CLR) required by this module
-    CLRVersion            = '4.0'
-
-    # Processor architecture (None, X86, Amd64) required by this module
-    ProcessorArchitecture = 'None'
+    CLRVersion           = '4.0'
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
     FunctionsToExport    = @()
