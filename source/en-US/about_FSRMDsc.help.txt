@@ -1,0 +1,25 @@
+TOPIC
+    about_FSRMDsc
+
+SHORT DESCRIPTION
+    DSC Resources for File Server Resource Manager configuration.
+
+LONG DESCRIPTION
+    This module contains DSC Resources for File Server Resource Manager configuration.
+
+EXAMPLES
+    PS C:\> Get-DscResource -Module FSRMDsc
+
+NOTE:
+    Thank you to the DSC Community contributors who contributed to this module by
+    writing code, sharing opinions, and provided feedback.
+
+TROUBLESHOOTING NOTE:
+    Go to the Github repository for read about issues, submit a new issue, and read
+    about new releases. https://github.com/dsccommunity/FSRMDsc
+
+SEE ALSO
+  - https://github.com/dsccommunity/FSRMDsc
+
+KEYWORDS
+    DSC, DscResource, FSRM, FileServerResourceManager
