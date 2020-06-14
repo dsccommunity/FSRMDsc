@@ -86,7 +86,7 @@ try
                 $current.ClassificationMechanism | Should -Be $configData.AllNodes[0].ClassificationMechanism
                 $current.ContentRegularExpression | Should -Be $configData.AllNodes[0].ContentRegularExpression
                 $current.ContentString | Should -Be $configData.AllNodes[0].ContentString
-                $current.ContentStringCaseSenFsitive | Should -Be $configData.AllNodes[0].ContentStringCaseSensitive
+                $current.ContentStringCaseSensitive | Should -Be $configData.AllNodes[0].ContentStringCaseSensitive
                 $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
                 $current.Flags | Should -Be 'ClearAutomaticallyClassifiedProperty'
                 $current.Namespace | Should -Be $configData.AllNodes[0].Namespace
