@@ -66,16 +66,13 @@ try
                 $current = Get-DscConfiguration | Where-Object -FilterScript {
                     $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
                 }
-                Write-Verbose -Message ($configData.AllNodes[0] | Out-String) -Verbose
-                $current.Path     | Should -Be $configData.AllNodes[0].Path
-                $current.Ensure   | Should -Be $configData.AllNodes[0].Ensure
+                $current.Path     | Should -BeExactly $configData.AllNodes[0].Path
+                $current.Ensure   | Should -BeExactly $configData.AllNodes[0].Ensure
                 $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
-                $current.Template | Should -Be $configData.AllNodes[0].Template
+                $current.Template | Should -BeExactly $configData.AllNodes[0].Template
             }
 
-            AfterAll {
-                Remove-FSRMAutoQuota -Path $configData.AllNodes[0].Path -Confirm:$false
-            }
+            Remove-FSRMAutoQuota -Path $configData.AllNodes[0].Path -Confirm:$false
         }
     }
 }
