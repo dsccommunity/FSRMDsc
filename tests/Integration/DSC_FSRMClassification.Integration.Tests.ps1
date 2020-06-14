@@ -80,7 +80,7 @@ try
                     -ReferenceObject $current.ScheduleMonthly `
                     -DifferenceObject $configData.AllNodes[0].ScheduleMonthly).Count | Should -Be 0
                 $current.ScheduleRunDuration | Should -Be $configData.AllNodes[0].ScheduleRunDuration
-                $current.ScheduleTime        | Should -Be $configData.AllNodes[0].ScheduleTime
+                ([System.DateTime] $current.ScheduleTime).ToString('HH:mm') | Should -Be $configData.AllNodes[0].ScheduleTime
             }
         }
     }

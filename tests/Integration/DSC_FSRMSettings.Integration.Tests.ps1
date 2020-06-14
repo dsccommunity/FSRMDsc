@@ -29,7 +29,6 @@ try
                 AllNodes = @(
                     @{
                         NodeName                 = 'localhost'
-                        IsSingleInstance         = 'Yes'
                         SmtpServer               = 'smtp.contoso.com'
                         AdminEmailAddress        = 'admin@contoso.com'
                         FromEmailAddress         = 'fsrm@contoso.com'
@@ -42,14 +41,20 @@ try
 
             It 'Should compile and apply the MOF without throwing' {
                 {
-                    & "$($script:DSCResourceName)_Config" -OutputPath $TestDrive
-                    Start-DscConfiguration `
-                        -Path $TestDrive `
-                        -ComputerName localhost `
-                        -Wait `
-                        -Verbose `
-                        -Force `
-                        -ErrorAction Stop
+                    & "$($script:dscResourceName)_Config" `
+                        -OutputPath $TestDrive `
+                        -ConfigurationData $configData
+
+                    $startDscConfigurationParameters = @{
+                        Path         = $TestDrive
+                        ComputerName = 'localhost'
+                        Wait         = $true
+                        Verbose      = $true
+                        Force        = $true
+                        ErrorAction  = 'Stop'
+                    }
+
+                    Start-DscConfiguration @startDscConfigurationParameters
                 } | Should -Not -Throw
             }
 

@@ -3,7 +3,7 @@ Configuration DSC_FSRMSettings_Config {
 
     node localhost {
        FSRMSettings Integration_Test {
-            IsSingleInstance         = $Node.IsSingleInstance
+            IsSingleInstance         = 'Yes'
             SmtpServer               = $Node.SmtpServer
             AdminEmailAddress        = $Node.AdminEmailAddress
             FromEmailAddress         = $Node.FromEmailAddress
