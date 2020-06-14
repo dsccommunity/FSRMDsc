@@ -1,67 +1,83 @@
-$script:DSCModuleName      = 'FSRMDsc'
-$script:DSCResourceName    = 'DSC_FSRMAutoQuota'
+$script:dscModuleName = 'FSRMDsc'
+$script:dscResourceName = 'DSC_FSRMAutoQuota'
 
-#region HEADER
-# Integration Test Template Version: 1.1.1
-[System.String] $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-
-if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
-     (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
-{
-    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
-}
-
-Import-Module (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
-Import-Module (Join-Path -Path $script:moduleRoot -ChildPath "$($script:DSCModuleName).psd1") -Force
-$TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $script:DSCModuleName `
-    -DSCResourceName $script:DSCResourceName `
-    -TestType Integration
-#endregion
-
-# Using try/finally to always cleanup even if something awful happens.
 try
 {
-    #region Integration Tests
-    $ConfigFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:DSCResourceName).config.ps1"
-    . $ConfigFile
+    Import-Module -Name DscResource.Test -Force -ErrorAction 'Stop'
+}
+catch [System.IO.FileNotFoundException]
+{
+    throw 'DscResource.Test module dependency not found. Please run ".\build.ps1 -Tasks build" first.'
+}
 
-    Describe "$($script:DSCResourceName)_Integration" {
-        #region DEFAULT TESTS
+$script:testEnvironment = Initialize-TestEnvironment `
+    -DSCModuleName $script:dscModuleName `
+    -DSCResourceName $script:dscResourceName `
+    -ResourceType 'Mof' `
+    -TestType 'Integration'
+
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
+try
+{
+    $configFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:dscResourceName).Config.ps1"
+    . $configFile
+
+    Describe "$($script:dscResourceName)_Integration" {
+        $configData = @{
+            AllNodes = @(
+                @{
+                    NodeName = 'localhost'
+                    Path     = $TestDrive
+                    Ensure   = 'Present'
+                    Disabled = $false
+                    Template = (Get-FSRMQuotaTemplate | Select-Object -First 1).Name
+                }
+            )
+        }
+
         It 'Should compile and apply the MOF without throwing' {
             {
-                & "$($script:DSCResourceName)_Config" -OutputPath $TestDrive
-                Start-DscConfiguration `
-                    -Path $TestDrive `
-                    -ComputerName localhost `
-                    -Wait `
-                    -Verbose `
-                    -Force `
-                    -ErrorAction Stop
+                & "$($script:dscResourceName)_Config" `
+                    -OutputPath $TestDrive `
+                    -ConfigurationData $configData
+
+                $startDscConfigurationParameters = @{
+                    Path         = $TestDrive
+                    ComputerName = 'localhost'
+                    Wait         = $true
+                    Verbose      = $true
+                    Force        = $true
+                    ErrorAction  = 'Stop'
+                }
+
+                Start-DscConfiguration @startDscConfigurationParameters
             } | Should -Not -Throw
         }
 
         It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
+            {
+                Get-DscConfiguration -Verbose -ErrorAction Stop
+            } | Should -Not -Throw
         }
-        #endregion
 
         It 'Should have set the resource and all the parameters should match' {
-            # Get the AutoQuota details
-            $autoquotaNew = Get-FSRMAutoQuota -Path $autoquota.Path
-            $autoquota.Path               | Should -Be $autoquotaNew.Path
-            $autoquota.Disabled           | Should -Be $autoquotaNew.Disabled
-            $autoquota.Template           | Should -Be $autoquotaNew.Template
+            $current = Get-DscConfiguration | Where-Object -FilterScript {
+                $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
+            }
+
+            $current.Path               | Should -Be $configData.AllNodes[0].Path
+            $current.Ensure             | Should -Be $configData.AllNodes[0].Ensure
+            $current.Disabled           | Should -Be $configData.AllNodes[0].Disabled
+            $current.Template           | Should -Be $configData.AllNodes[0].Template
         }
 
-        # Clean up
-        Remove-FSRMAutoQuota -Path $autoquota.path -Confirm:$false
+        AfterAll {
+            Remove-FSRMAutoQuota -Path $configData.AllNodes[0].Path -Confirm:$false
+        }
     }
-    #endregion
 }
 finally
 {
-    #region FOOTER
-    Restore-TestEnvironment -TestEnvironment $TestEnvironment
-    #endregion
+    Restore-TestEnvironment -TestEnvironment $script:testEnvironment
 }
