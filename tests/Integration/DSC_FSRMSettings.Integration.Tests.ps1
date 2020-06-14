@@ -25,8 +25,20 @@ try
         . $configFile
 
         Describe "$($script:DSCResourceName)_Integration" {
-            # Backup existing Settings
-            $settingsOld = Get-FSRMSetting
+            $configData = @{
+                AllNodes = @(
+                    @{
+                        NodeName                 = 'localhost'
+                        IsSingleInstance         = 'Yes'
+                        SmtpServer               = 'smtp.contoso.com'
+                        AdminEmailAddress        = 'admin@contoso.com'
+                        FromEmailAddress         = 'fsrm@contoso.com'
+                        CommandNotificationLimit = 10
+                        EmailNotificationLimit   = 20
+                        EventNotificationLimit   = 30
+                    }
+                )
+            }
 
             It 'Should compile and apply the MOF without throwing' {
                 {
@@ -42,18 +54,21 @@ try
             }
 
             It 'Should be able to call Get-DscConfiguration without throwing' {
-                { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
+                {
+                    Get-DscConfiguration -Verbose -ErrorAction Stop
+                } | Should -Not -Throw
             }
 
             It 'Should have set the resource and all the parameters should match' {
-                # Get the Rule details
-                $settingsNew = Get-FSRMSetting
-                $settings.SmtpServer               | Should -Be $settingsNew.SmtpServer
-                $settings.AdminEmailAddress        | Should -Be $settingsNew.AdminEmailAddress
-                $settings.FromEmailAddress         | Should -Be $settingsNew.FromEmailAddress
-                $settings.CommandNotificationLimit | Should -Be $settingsNew.CommandNotificationLimit
-                $settings.EmailNotificationLimit   | Should -Be $settingsNew.EmailNotificationLimit
-                $settings.EventNotificationLimit   | Should -Be $settingsNew.EventNotificationLimit
+                $current = Get-DscConfiguration | Where-Object -FilterScript {
+                    $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
+                }
+                $current.SmtpServer               | Should -Be $configData.AllNodes[0].SmtpServer
+                $current.AdminEmailAddress        | Should -Be $configData.AllNodes[0].AdminEmailAddress
+                $current.FromEmailAddress         | Should -Be $configData.AllNodes[0].FromEmailAddress
+                $current.CommandNotificationLimit | Should -Be $configData.AllNodes[0].CommandNotificationLimit
+                $current.EmailNotificationLimit   | Should -Be $configData.AllNodes[0].EmailNotificationLimit
+                $current.EventNotificationLimit   | Should -Be $configData.AllNodes[0].EventNotificationLimit
             }
         }
     }
