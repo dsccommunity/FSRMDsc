@@ -1,76 +1,94 @@
-$script:DSCModuleName      = 'FSRMDsc'
-$script:DSCResourceName    = 'DSC_FSRMClassificationProperty'
+$script:dscModuleName = 'FSRMDsc'
+$script:dscResourceName = 'DSC_FSRMClassificationProperty'
 
-#region HEADER
-# Integration Test Template Version: 1.1.1
-[System.String] $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-
-if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
-     (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1'))) )
-{
-    & git @('clone','https://github.com/PowerShell/DscResource.Tests.git',(Join-Path -Path $script:moduleRoot -ChildPath '\DSCResource.Tests\'))
-}
-
-Import-Module (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests\TestHelper.psm1') -Force
-Import-Module (Join-Path -Path $script:moduleRoot -ChildPath "$($script:DSCModuleName).psd1") -Force
-$TestEnvironment = Initialize-TestEnvironment `
-    -DSCModuleName $script:DSCModuleName `
-    -DSCResourceName $script:DSCResourceName `
-    -TestType Integration
-#endregion
-
-# Using try/finally to always cleanup even if something awful happens.
 try
 {
-    #region Integration Tests
-    $ConfigFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:DSCResourceName).config.ps1"
-    . $ConfigFile
+    Import-Module -Name DscResource.Test -Force -ErrorAction 'Stop'
+}
+catch [System.IO.FileNotFoundException]
+{
+    throw 'DscResource.Test module dependency not found. Please run ".\build.ps1 -Tasks build" first.'
+}
 
-    Describe "$($script:DSCResourceName)_Integration" {
-        #region DEFAULT TESTS
-        It 'Should compile and apply the MOF without throwing' {
-            {
-                & "$($script:DSCResourceName)_Config" -OutputPath $TestDrive
-                Start-DscConfiguration `
-                    -Path $TestDrive `
-                    -ComputerName localhost `
-                    -Wait `
-                    -Verbose `
-                    -Force `
-                    -ErrorAction Stop
-            } | Should -Not -Throw
+$script:testEnvironment = Initialize-TestEnvironment `
+    -DSCModuleName $script:dscModuleName `
+    -DSCResourceName $script:dscResourceName `
+    -ResourceType 'Mof' `
+    -TestType 'Integration'
+
+Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
+
+try
+{
+    Describe 'FSRMAutoQuota Integration Tests' {
+        $configFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:dscResourceName).Config.ps1"
+        . $configFile
+
+        Describe "$($script:dscResourceName)_Integration" {
+            $configData = @{
+                AllNodes = @(
+                    @{
+                        NodeName      = 'localhost'
+                        Name          = 'IntegrationTest'
+                        DisplayName   = 'Integration Test'
+                        Type          = 'SingleChoice'
+                        Ensure        = 'Present'
+                        Description   = 'Integration Test Property'
+                        PossibleValue = @( 'Value1', 'Value2', 'Value3' )
+                        Parameters    = @( 'Parameter1=Value1', 'Parameter2=Value2')
+                    }
+                )
+            }
+
+            It 'Should compile and apply the MOF without throwing' {
+                {
+                    & "$($script:dscResourceName)_Config" `
+                        -OutputPath $TestDrive `
+                        -ConfigurationData $configData
+
+                    $startDscConfigurationParameters = @{
+                        Path         = $TestDrive
+                        ComputerName = 'localhost'
+                        Wait         = $true
+                        Verbose      = $true
+                        Force        = $true
+                        ErrorAction  = 'Stop'
+                    }
+
+                    Start-DscConfiguration @startDscConfigurationParameters
+                } | Should -Not -Throw
+            }
+
+            It 'Should be able to call Get-DscConfiguration without throwing' {
+                {
+                    Get-DscConfiguration -Verbose -ErrorAction Stop
+                } | Should -Not -Throw
+            }
+
+            It 'Should have set the resource and all the parameters should match' {
+                $current = Get-DscConfiguration | Where-Object -FilterScript {
+                    $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
+                }
+                $current.Name | Should -BeExactly $configData.AllNodes[0].Name
+                $current.DisplayName | Should -BeExactly $configData.AllNodes[0].DisplayName
+                $current.Type | Should -BeExactly $configData.AllNodes[0].Type
+                $current.Description | Should -BeExactly $configData.AllNodes[0].Description
+                (Compare-Object `
+                        -ReferenceObject $current.PossibleValue `
+                        -DifferenceObject $configData.AllNodes[0].PossibleValue).Count | Should -Be 0
+                (Compare-Object `
+                        -ReferenceObject $current.Parameters `
+                        -DifferenceObject $configData.AllNodes[0].Parameters).Count | Should -Be 0
+            }
+
+            # Clean up
+            Remove-FSRMClassificationPropertyDefinition `
+                -Name $configData.AllNodes[0].Name `
+                -Confirm:$false
         }
-
-        It 'Should be able to call Get-DscConfiguration without throwing' {
-            { Get-DscConfiguration -Verbose -ErrorAction Stop } | Should -Not -throw
-        }
-        #endregion
-
-        It 'Should have set the resource and all the parameters should match' {
-            # Get the Classification Property details
-            $classificationPropertyNew = Get-FSRMClassificationPropertyDefinition -Name $classificationProperty.Name
-            $classificationProperty.Name          | Should -Be $classificationPropertyNew.Name
-            $classificationProperty.DisplayName   | Should -Be $classificationPropertyNew.DisplayName
-            $classificationProperty.Type          | Should -Be $classificationPropertyNew.Type
-            $classificationProperty.Description   | Should -Be $classificationPropertyNew.Description
-            (Compare-Object `
-                -ReferenceObject $classificationProperty.PossibleValue `
-                -DifferenceObject $classificationPropertyNew.PossibleValue.Name).Count | Should -Be 0
-            (Compare-Object `
-                -ReferenceObject $classificationProperty.Parameters `
-                -DifferenceObject $classificationPropertyNew.Parameters).Count | Should -Be 0
-        }
-
-        # Clean up
-        Remove-FSRMClassificationPropertyDefinition `
-            -Name $classificationProperty.Name `
-            -Confirm:$false
     }
-    #endregion
 }
 finally
 {
-    #region FOOTER
-    Restore-TestEnvironment -TestEnvironment $TestEnvironment
-    #endregion
+    Restore-TestEnvironment -TestEnvironment $script:testEnvironment
 }

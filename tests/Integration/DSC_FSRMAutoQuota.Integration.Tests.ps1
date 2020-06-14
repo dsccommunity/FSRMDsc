@@ -29,7 +29,7 @@ try
                 AllNodes = @(
                     @{
                         NodeName = 'localhost'
-                        Path     = $TestDrive
+                        Path     = [System.String] $TestDrive
                         Ensure   = 'Present'
                         Disabled = $false
                         Template = (Get-FSRMQuotaTemplate | Select-Object -First 1).Name
