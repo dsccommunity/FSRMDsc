@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - BREAKING CHANGE: Changed resource prefix from MSFT to DSC.
 - Updated to use continuous delivery pattern using Azure DevOps - Fixes
   [Issue #35](https://github.com/dsccommunity/FSRMDsc/issues/35).
+- Updated build badges in README.MD.
 
 ## [2.4.1] - 2017-12-04
 
