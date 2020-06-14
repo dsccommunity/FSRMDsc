@@ -20,7 +20,7 @@ Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\Co
 
 try
 {
-    Describe 'FSRMAutoQuota Integration Tests' {
+    Describe "$($script:DSCResourceName) Integration Tests" {
         $configFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:dscResourceName).Config.ps1"
         . $configFile
 
