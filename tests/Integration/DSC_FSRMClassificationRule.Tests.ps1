@@ -81,19 +81,19 @@ try
                 $current = Get-DscConfiguration | Where-Object -FilterScript {
                     $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
                 }
-                $current.Name | Should -Be  $configData.AllNodes[0].Name
-                $current.Description | Should -Be  $configData.AllNodes[0].Description
-                $current.ClassificationMechanism | Should -Be  $configData.AllNodes[0].ClassificationMechanism
-                $current.ContentRegularExpression | Should -Be  $configData.AllNodes[0].ContentRegularExpression
-                $current.ContentString | Should -Be  $configData.AllNodes[0].ContentString
-                $current.ContentStringCaseSensitive | Should -Be  $configData.AllNodes[0].ContentStringCaseSensitive
-                $current.Disabled | Should -Be  $configData.AllNodes[0].Disabled
-                $current.Flags | Should -Be  $configData.AllNodes[0].Flags
-                $current.Namespace | Should -Be  $configData.AllNodes[0].Namespace
-                $current.Parameters | Should -Be  $configData.AllNodes[0].Parameters
-                $current.Property | Should -Be  $configData.AllNodes[0].Property
-                $current.PropertyValue | Should -Be  $configData.AllNodes[0].PropertyValue
-                $current.ReevaluateProperty | Should -Be  $configData.AllNodes[0].ReevaluateProperty
+                $current.Name | Should -Be $configData.AllNodes[0].Name
+                $current.Description | Should -Be $configData.AllNodes[0].Description
+                $current.ClassificationMechanism | Should -Be $configData.AllNodes[0].ClassificationMechanism
+                $current.ContentRegularExpression | Should -Be $configData.AllNodes[0].ContentRegularExpression
+                $current.ContentString | Should -Be $configData.AllNodes[0].ContentString
+                $current.ContentStringCaseSenFsitive | Should -Be $configData.AllNodes[0].ContentStringCaseSensitive
+                $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
+                $current.Flags | Should -Be 'ClearAutomaticallyClassifiedProperty'
+                $current.Namespace | Should -Be $configData.AllNodes[0].Namespace
+                $current.Parameters | Should -Be $configData.AllNodes[0].Parameters
+                $current.Property | Should -Be $configData.AllNodes[0].Property
+                $current.PropertyValue | Should -Be $configData.AllNodes[0].PropertyValue
+                $current.ReevaluateProperty | Should -Be $configData.AllNodes[0].ReevaluateProperty
             }
 
             # Clean up

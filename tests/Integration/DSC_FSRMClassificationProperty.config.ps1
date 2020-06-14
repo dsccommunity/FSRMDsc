@@ -2,7 +2,7 @@ Configuration DSC_FSRMClassificationProperty_Config {
     Import-DscResource -ModuleName FSRMDsc
 
     node localhost {
-       FSRMNode Integration_Test {
+       FSRMClassificationProperty Integration_Test {
             Name          = $Node.Name
             DisplayName   = $Node.DisplayName
             Type          = $Node.Type

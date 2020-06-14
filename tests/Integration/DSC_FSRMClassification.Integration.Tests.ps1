@@ -79,8 +79,8 @@ try
                 (Compare-Object `
                     -ReferenceObject $current.ScheduleMonthly `
                     -DifferenceObject $configData.AllNodes[0].ScheduleMonthly).Count | Should -Be 0
-                $current.ScheduleRunDuration | Should -Be $configData.AllNodes[0].Schedule.RunDuration
-                $current.ScheduleTime        | Should -Be $configData.AllNodes[0].Schedule.Time
+                $current.ScheduleRunDuration | Should -Be $configData.AllNodes[0].ScheduleRunDuration
+                $current.ScheduleTime        | Should -Be $configData.AllNodes[0].ScheduleTime
             }
         }
     }
