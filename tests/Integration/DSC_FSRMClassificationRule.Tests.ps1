@@ -78,11 +78,8 @@ try
             -Name $classificationProperty.Name `
             -Confirm:$false
     }
-    #endregion
 }
 finally
 {
-    #region FOOTER
-    Restore-TestEnvironment -TestEnvironment $TestEnvironment
-    #endregion
+    Restore-TestEnvironment -TestEnvironment $script:testEnvironment
 }

@@ -60,11 +60,8 @@ try
             $settings.EventNotificationLimit   | Should -Be $settingsNew.EventNotificationLimit
         }
     }
-    #endregion
 }
 finally
 {
-    #region FOOTER
-    Restore-TestEnvironment -TestEnvironment $TestEnvironment
-    #endregion
+    Restore-TestEnvironment -TestEnvironment $script:testEnvironment
 }
