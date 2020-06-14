@@ -66,11 +66,11 @@ try
                 $current = Get-DscConfiguration | Where-Object -FilterScript {
                     $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
                 }
-                Write-Verbose -Message ($configData.AllNodes | Out-String) -Verbose
-                $current.Path     | Should -Be $configData.AllNodes.Path
-                $current.Ensure   | Should -Be $configData.AllNodes.Ensure
-                $current.Disabled | Should -Be $configData.AllNodes.Disabled
-                $current.Template | Should -Be $configData.AllNodes.Template
+                Write-Verbose -Message ($configData.AllNodes[0] | Out-String) -Verbose
+                $current.Path     | Should -Be $configData.AllNodes[0].Path
+                $current.Ensure   | Should -Be $configData.AllNodes[0].Ensure
+                $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
+                $current.Template | Should -Be $configData.AllNodes[0].Template
             }
 
             AfterAll {
