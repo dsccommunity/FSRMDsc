@@ -1,5 +1,32 @@
 # FSRMDsc
 
+[![Build Status](https://dev.azure.com/dsccommunity/FSRMDsc/_apis/build/status/dsccommunity.FSRMDsc?branchName=master)](https://dev.azure.com/dsccommunity/FSRMDsc/_build/latest?definitionId=18&branchName=master)
+![Code Coverage](https://img.shields.io/azure-devops/coverage/dsccommunity/FSRMDsc/18/master)
+[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/18/master)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=18&contextType=build)
+[![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/vpre/FSRMDsc?label=FSRMDsc%20Preview)](https://www.powershellgallery.com/packages/FSRMDsc/)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/v/FSRMDsc?label=FSRMDsc)](https://www.powershellgallery.com/packages/FSRMDsc/)
+
+## Code of Conduct
+
+This project has adopted [this code of conduct](CODE_OF_CONDUCT.md).
+
+## Releases
+
+For each merge to the branch `master` a preview release will be
+deployed to [PowerShell Gallery](https://www.powershellgallery.com/).
+Periodically a release version tag will be pushed which will deploy a
+full release to [PowerShell Gallery](https://www.powershellgallery.com/).
+
+## Contributing
+
+Please check out common DSC Community [contributing guidelines](https://dsccommunity.org/guidelines/contributing).
+
+## Change log
+
+A full list of changes in each version can be found in the [change log](CHANGELOG.md).
+
+## Resources
+
 The **FSRMDsc** module contains DSC resources for configuring Windows File Server
 Resource Manager.
 
@@ -27,33 +54,7 @@ Resource Manager.
 
 This project has adopted this [Open Source Code of Conduct](CODE_OF_CONDUCT.md).
 
-This module should meet the [PowerShell DSC Resource Kit High Quality Resource
-Module Guidelines](https://github.com/PowerShell/DscResources/blob/master/HighQualityModuleGuidelines.md).
-
 ## Documentation and Examples
 
 For a full list of resources in FSRMDsc and examples on their use, check out
 the [FSRMDsc wiki](https://github.com/dsccommunity/FSRMDsc/wiki).
-
-## Branches
-
-### master
-
-[![Build status](https://ci.appveyor.com/api/projects/status/github/dsccommunity/FSRMDsc?branch=master&svg=true)](https://ci.appveyor.com/project/dsccommunity/FSRMDsc/branch/master)
-[![codecov](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/master/graph/badge.svg)](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/master)
-
-This is the branch containing the latest release - no contributions should be made
-directly to this branch.
-
-### dev
-
-[![Build status](https://ci.appveyor.com/api/projects/status/github/dsccommunity/FSRMDsc?branch=dev&svg=true)](https://ci.appveyor.com/project/dsccommunity/FSRMDsc/branch/dev)
-[![codecov](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/dev/graph/badge.svg)](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/dev)
-
-This is the development branch to which contributions should be proposed by contributors
-as pull requests. This development branch will periodically be merged to the master
-branch, and be released to [PowerShell Gallery](https://www.powershellgallery.com/).
-
-## Contributing
-
-Please check out common DSC Resources [contributing guidelines](https://github.com/PowerShell/DscResource.Kit/blob/master/CONTRIBUTING.md).
