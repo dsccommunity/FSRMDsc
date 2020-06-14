@@ -20,60 +20,62 @@ Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\Co
 
 try
 {
-    $configFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:dscResourceName).Config.ps1"
-    . $configFile
+    Describe 'FSRMAutoQuota Integration Tests' {
+        $configFile = Join-Path -Path $PSScriptRoot -ChildPath "$($script:dscResourceName).Config.ps1"
+        . $configFile
 
-    Describe "$($script:dscResourceName)_Integration" {
-        $configData = @{
-            AllNodes = @(
-                @{
-                    NodeName = 'localhost'
-                    Path     = $TestDrive
-                    Ensure   = 'Present'
-                    Disabled = $false
-                    Template = (Get-FSRMQuotaTemplate | Select-Object -First 1).Name
-                }
-            )
-        }
-
-        It 'Should compile and apply the MOF without throwing' {
-            {
-                & "$($script:dscResourceName)_Config" `
-                    -OutputPath $TestDrive `
-                    -ConfigurationData $configData
-
-                $startDscConfigurationParameters = @{
-                    Path         = $TestDrive
-                    ComputerName = 'localhost'
-                    Wait         = $true
-                    Verbose      = $true
-                    Force        = $true
-                    ErrorAction  = 'Stop'
-                }
-
-                Start-DscConfiguration @startDscConfigurationParameters
-            } | Should -Not -Throw
-        }
-
-        It 'Should be able to call Get-DscConfiguration without throwing' {
-            {
-                Get-DscConfiguration -Verbose -ErrorAction Stop
-            } | Should -Not -Throw
-        }
-
-        It 'Should have set the resource and all the parameters should match' {
-            $current = Get-DscConfiguration | Where-Object -FilterScript {
-                $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
+        Describe "$($script:dscResourceName)_Integration" {
+            $configData = @{
+                AllNodes = @(
+                    @{
+                        NodeName = 'localhost'
+                        Path     = $TestDrive
+                        Ensure   = 'Present'
+                        Disabled = $false
+                        Template = (Get-FSRMQuotaTemplate | Select-Object -First 1).Name
+                    }
+                )
             }
 
-            $current.Path               | Should -Be $configData.AllNodes[0].Path
-            $current.Ensure             | Should -Be $configData.AllNodes[0].Ensure
-            $current.Disabled           | Should -Be $configData.AllNodes[0].Disabled
-            $current.Template           | Should -Be $configData.AllNodes[0].Template
-        }
+            It 'Should compile and apply the MOF without throwing' {
+                {
+                    & "$($script:dscResourceName)_Config" `
+                        -OutputPath $TestDrive `
+                        -ConfigurationData $configData
 
-        AfterAll {
-            Remove-FSRMAutoQuota -Path $configData.AllNodes[0].Path -Confirm:$false
+                    $startDscConfigurationParameters = @{
+                        Path         = $TestDrive
+                        ComputerName = 'localhost'
+                        Wait         = $true
+                        Verbose      = $true
+                        Force        = $true
+                        ErrorAction  = 'Stop'
+                    }
+
+                    Start-DscConfiguration @startDscConfigurationParameters
+                } | Should -Not -Throw
+            }
+
+            It 'Should be able to call Get-DscConfiguration without throwing' {
+                {
+                    Get-DscConfiguration -Verbose -ErrorAction Stop
+                } | Should -Not -Throw
+            }
+
+            It 'Should have set the resource and all the parameters should match' {
+                $current = Get-DscConfiguration | Where-Object -FilterScript {
+                    $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
+                }
+
+                $current.Path     | Should -Be $configData.AllNodes[0].Path
+                $current.Ensure   | Should -Be $configData.AllNodes[0].Ensure
+                $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
+                $current.Template | Should -Be $configData.AllNodes[0].Template
+            }
+
+            AfterAll {
+                Remove-FSRMAutoQuota -Path $configData.AllNodes[0].Path -Confirm:$false
+            }
         }
     }
 }
