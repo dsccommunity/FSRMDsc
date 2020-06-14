@@ -29,6 +29,7 @@ try
                 AllNodes = @(
                     @{
                         NodeName     = 'localhost'
+                        Name         = 'IntegrationTest'
                         PropertyName = 'IntegrationTest'
                         Description  = 'Top Secret Description'
                     }
@@ -37,7 +38,7 @@ try
 
             # Create the Classification Property that will be worked with
             New-FSRMClassificationPropertyDefinition `
-                -Name $configData.AllNodes[0].PropertyName `
+                -Name $configData.AllNodes[0].Name `
                 -Type 'SingleChoice' `
                 -PossibleValue @(New-FSRMClassificationPropertyValue -Name 'None')
 
@@ -70,6 +71,7 @@ try
                 $current = Get-DscConfiguration | Where-Object -FilterScript {
                     $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
                 }
+                $current.Name | Should -BeExactly $configData.AllNodes[0].Name
                 $current.PropertyName | Should -BeExactly $configData.AllNodes[0].PropertyName
                 $current.Description | Should -BeExactly $configData.AllNodes[0].Description
             }

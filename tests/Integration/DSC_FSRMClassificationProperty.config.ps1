@@ -1,4 +1,4 @@
-Configuration DSC_FSRMNode_Config {
+Configuration DSC_FSRMClassificationProperty_Config {
     Import-DscResource -ModuleName FSRMDsc
 
     node localhost {
