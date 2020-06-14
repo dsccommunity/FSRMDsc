@@ -66,7 +66,7 @@ try
                 $current = Get-DscConfiguration | Where-Object -FilterScript {
                     $_.ConfigurationName -eq "$($script:dscResourceName)_Config"
                 }
-
+                Write-Verbose -Message ($configData | Out-String) -Verbose
                 $current.Path     | Should -Be $configData.AllNodes[0].Path
                 $current.Ensure   | Should -Be $configData.AllNodes[0].Ensure
                 $current.Disabled | Should -Be $configData.AllNodes[0].Disabled
