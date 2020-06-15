@@ -1,8 +1,8 @@
 # FSRMDsc
 
-[![Build Status](https://dev.azure.com/dsccommunity/FSRMDsc/_apis/build/status/dsccommunity.FSRMDsc?branchName=master)](https://dev.azure.com/dsccommunity/FSRMDsc/_build/latest?definitionId=18&branchName=master)
-![Code Coverage](https://img.shields.io/azure-devops/coverage/dsccommunity/FSRMDsc/18/master)
-[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/18/master)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=18&contextType=build)
+[![Build Status](https://dev.azure.com/dsccommunity/FSRMDsc/_apis/build/status/dsccommunity.FSRMDsc?branchName=master)](https://dev.azure.com/dsccommunity/FSRMDsc/_build/latest?definitionId=40&branchName=master)
+![Code Coverage](https://img.shields.io/azure-devops/coverage/dsccommunity/FSRMDsc/40/master)
+[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/40/master)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=40&contextType=build)
 [![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/vpre/FSRMDsc?label=FSRMDsc%20Preview)](https://www.powershellgallery.com/packages/FSRMDsc/)
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/FSRMDsc?label=FSRMDsc)](https://www.powershellgallery.com/packages/FSRMDsc/)
 
