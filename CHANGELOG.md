@@ -5,6 +5,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2020-06-20
+
 ### Changed
 
 - Transferred ownership to DSCCommunity.org - Fixes [Issue #33](https://github.com/dsccommunity/FSRMDsc/issues/33).
