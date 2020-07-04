@@ -12,7 +12,7 @@ Please leave comments, feature requests, and bug reports in then
 
 ## Getting started
 
-To get started download NetworkingDsc from the [PowerShell Gallery](http://www.powershellgallery.com/packages/FSRMDsc/)
+To get started download FSRMDsc from the [PowerShell Gallery](http://www.powershellgallery.com/packages/FSRMDsc/)
 and then unzip it to one of your PowerShell modules folders
 (such as $env:ProgramFiles\WindowsPowerShell\Modules).
 
