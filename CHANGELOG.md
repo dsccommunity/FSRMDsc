@@ -5,6 +5,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- FSRMDsc
+  - Automatically publish documentation to GitHub Wiki - Fixes [Issue #41](https://github.com/dsccommunity/FSRMDsc/issues/41).
+
 ## [2.5.0] - 2020-06-20
 
 ### Changed
