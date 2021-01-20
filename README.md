@@ -1,8 +1,8 @@
 # FSRMDsc
 
-[![Build Status](https://dev.azure.com/dsccommunity/FSRMDsc/_apis/build/status/dsccommunity.FSRMDsc?branchName=master)](https://dev.azure.com/dsccommunity/FSRMDsc/_build/latest?definitionId=40&branchName=master)
-![Code Coverage](https://img.shields.io/azure-devops/coverage/dsccommunity/FSRMDsc/40/master)
-[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/40/master)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=40&contextType=build)
+[![Build Status](https://dev.azure.com/dsccommunity/FSRMDsc/_apis/build/status/dsccommunity.FSRMDsc?branchName=main)](https://dev.azure.com/dsccommunity/FSRMDsc/_build/latest?definitionId=40&branchName=main)
+![Code Coverage](https://img.shields.io/azure-devops/coverage/dsccommunity/FSRMDsc/40/main)
+[![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/40/main)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=40&contextType=build)
 [![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/vpre/FSRMDsc?label=FSRMDsc%20Preview)](https://www.powershellgallery.com/packages/FSRMDsc/)
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/FSRMDsc?label=FSRMDsc)](https://www.powershellgallery.com/packages/FSRMDsc/)
 
@@ -12,7 +12,7 @@ This project has adopted [this code of conduct](CODE_OF_CONDUCT.md).
 
 ## Releases
 
-For each merge to the branch `master` a preview release will be
+For each merge to the branch `main` a preview release will be
 deployed to [PowerShell Gallery](https://www.powershellgallery.com/).
 Periodically a release version tag will be pushed which will deploy a
 full release to [PowerShell Gallery](https://www.powershellgallery.com/).
