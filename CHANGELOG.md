@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - FSRMDsc
   - Automatically publish documentation to GitHub Wiki - Fixes [Issue #41](https://github.com/dsccommunity/FSRMDsc/issues/41).
 - Renamed `master` branch to `main` - Fixes [Issue #43](https://github.com/dsccommunity/FSRMDsc/issues/43).
+- Updated build to use `Sampler.GitHubTasks` - Fixes [Issue #46](https://github.com/dsccommunity/FSRMDsc/issues/46).
+- Added support for publishing code coverage to `CodeCov.io` and
+  Azure Pipelines - Fixes [Issue #47](https://github.com/dsccommunity/FSRMDsc/issues/47).
 
 ## [2.5.0] - 2020-06-20
 
