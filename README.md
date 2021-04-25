@@ -5,6 +5,7 @@
 [![Azure DevOps tests](https://img.shields.io/azure-devops/tests/dsccommunity/FSRMDsc/40/main)](https://dsccommunity.visualstudio.com/FSRMDsc/_test/analytics?definitionId=40&contextType=build)
 [![PowerShell Gallery (with prereleases)](https://img.shields.io/powershellgallery/vpre/FSRMDsc?label=FSRMDsc%20Preview)](https://www.powershellgallery.com/packages/FSRMDsc/)
 [![PowerShell Gallery](https://img.shields.io/powershellgallery/v/FSRMDsc?label=FSRMDsc)](https://www.powershellgallery.com/packages/FSRMDsc/)
+[![codecov](https://codecov.io/gh/dsccommunity/FSRMDsc/branch/main/graph/badge.svg)](https://codecov.io/gh/dsccommunity/FSRMDsc)
 
 ## Code of Conduct
 
