@@ -24,7 +24,7 @@ Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\Co
 #>
 if (-not (Get-FSRMQuotaTemplate))
 {
-    New-FsrmQuotaTemplate -Name 'TestTemplate' -Description 'Test Template' -Size 1GB -SoftLimit 1GB -HardLimit 2GB
+    New-FsrmQuotaTemplate -Name 'TestTemplate' -Description 'Test Template' -Size 1GB
     Get-FSRMQuotaTemplate | Format-List -Property * | Out-String
 }
 
