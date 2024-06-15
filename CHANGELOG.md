@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated build to use `Sampler.GitHubTasks` - Fixes [Issue #46](https://github.com/dsccommunity/FSRMDsc/issues/46).
 - Added support for publishing code coverage to `CodeCov.io` and
   Azure Pipelines - Fixes [Issue #47](https://github.com/dsccommunity/FSRMDsc/issues/47).
+- CI Pipeline
+  - Updated pipeline files to match current DSC Community patterns - fixes [Issue #51](https://github.com/dsccommunity/FSRMDsc/issues/51).
+  - Updated HQRM and build steps to use windows-latest image.
+  - Removed testing on Windows Server 2019 and added testing on Windows Server 2022.
 
 ## [2.5.0] - 2020-06-20
 
