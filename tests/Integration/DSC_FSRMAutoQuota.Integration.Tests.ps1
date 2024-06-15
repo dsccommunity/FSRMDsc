@@ -18,6 +18,16 @@ $script:testEnvironment = Initialize-TestEnvironment `
 
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
+<#
+    Make sure there is at least one Quota Template available.
+    Windows Server 2022 does not have any Quota Templates by default.
+#>
+if (-not (Get-FSRMQuotaTemplate))
+{
+    New-FsrmQuotaTemplate -Name 'TestTemplate' -Description 'Test Template' -Size 1GB -SoftLimit 1GB -HardLimit 2GB
+    Get-FSRMQuotaTemplate | Format-List -Property * | Out-String
+}
+
 try
 {
     Describe "$($script:DSCResourceName) Integration Tests" {
