@@ -29,7 +29,7 @@ try
                 Make sure there is at least one Quota Template available.
                 Windows Server 2022 does not have any Quota Templates by default.
             #>
-            $quotaTemplates = Get-FSRMQuotaTemplate
+            $quotaTemplates = Get-FSRMQuotaTemplate -Verbose
             if ($null -eq $quotaTemplates)
             {
                 throw 'No Quota Templates found.'
