@@ -106,7 +106,10 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                Stop-Service -Name 'SrmReports'
+                Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
+                Start-Service -Name 'SrmReports'
               pwsh: false
 
           - task: PowerShell@2
@@ -192,7 +195,10 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                Stop-Service -Name 'SrmReports'
+                Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
+                Start-Service -Name 'SrmReports'
               pwsh: false
 
           - task: PowerShell@2
@@ -231,7 +237,10 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                Stop-Service -Name 'SrmReports'
+                Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
+                Start-Service -Name 'SrmReports'
               pwsh: false
 
           - task: PowerShell@2
@@ -278,7 +287,10 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                Stop-Service -Name 'SrmReports'
+                Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
+                Start-Service -Name 'SrmReports'
               pwsh: false
 
           - task: PowerShell@2
