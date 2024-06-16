@@ -18,7 +18,7 @@
     MarkdownLinkCheck              = 'latest'
     'DscResource.Test'             = 'latest'
     xDscResourceDesigner           = 'latest'
-    LoopbackAdapter             = 'latest'
+    LoopbackAdapter                = 'latest'
 
     # Build dependencies needed for using the module
     'DscResource.Common'           = 'latest'
