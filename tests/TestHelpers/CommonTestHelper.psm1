@@ -71,6 +71,25 @@ function Test-FsrmEnvironment
         return $false
     }
 
+    # Check if the FSRM service is running once every 30 seconds
+    foreach ($i in 1..30)
+    {
+        Write-Verbose -Message 'Checking FSRM Service is running.'
+        $fsrmService = Get-Service -Name 'srmsvc'
+        if ($fsrmService.Status -eq 'Running')
+        {
+            break
+        }
+        Write-Verbose -Message 'FSRM Service is not running. Waiting 1 second before checking again.'
+        Start-Sleep -Seconds 1
+    }
+
+    if (-not $fsrmService.Status -ne 'Running')
+    {
+        Write-Warning -Message 'FSRM Service is not running. Please start the FSRM Service.'
+        return $false
+    }
+
     Write-Verbose -Message 'Getting FSRM settings.'
     $fsrmSettings = Get-FsrmSetting
     if (-not $fsrmSettings)
