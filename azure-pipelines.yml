@@ -104,7 +104,9 @@ stages:
             displayName: 'Install FSRM Features'
             inputs:
               targetType: 'inline'
-              script: 'Install-WindowsFeature -Name fs-resource-manager'
+              script: |
+                Install-WindowsFeature -Name fs-resource-manager
+                Start-Service -Name 'SrmSvc'
               pwsh: false
 
           - task: PowerShell@2
@@ -188,7 +190,9 @@ stages:
             displayName: 'Install FSRM Features'
             inputs:
               targetType: 'inline'
-              script: 'Install-WindowsFeature -Name fs-resource-manager'
+              script: |
+                Install-WindowsFeature -Name fs-resource-manager
+                Start-Service -Name 'SrmSvc'
               pwsh: false
 
           - task: PowerShell@2
@@ -225,7 +229,9 @@ stages:
             displayName: 'Install FSRM Features'
             inputs:
               targetType: 'inline'
-              script: 'Install-WindowsFeature -Name fs-resource-manager'
+              script: |
+                Install-WindowsFeature -Name fs-resource-manager
+                Start-Service -Name 'SrmSvc'
               pwsh: false
 
           - task: PowerShell@2
@@ -270,7 +276,9 @@ stages:
             displayName: 'Install FSRM Features'
             inputs:
               targetType: 'inline'
-              script: 'Install-WindowsFeature -Name fs-resource-manager'
+              script: |
+                Install-WindowsFeature -Name fs-resource-manager
+                Start-Service -Name 'SrmSvc'
               pwsh: false
 
           - task: PowerShell@2
