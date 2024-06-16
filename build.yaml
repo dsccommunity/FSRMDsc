@@ -93,7 +93,7 @@ Pester:
   Tag:
   CodeCoverageOutputFile: JaCoCo_coverage.xml
   CodeCoverageOutputFileEncoding: ascii
-  CodeCoverageThreshold: 70
+  CodeCoverageThreshold: 85
 
   # Pester 5 configuration
   Configuration:
@@ -105,7 +105,7 @@ Pester:
       StackTraceVerbosity: Full
       CIFormat: Auto
     CodeCoverage:
-      CoveragePercentTarget: 70
+      CoveragePercentTarget: 85
       OutputPath: JaCoCo_coverage.xml
       OutputEncoding: ascii
       UseBreakpoints: false

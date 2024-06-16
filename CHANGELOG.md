@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated pipeline files to match current DSC Community patterns - fixes [Issue #51](https://github.com/dsccommunity/FSRMDsc/issues/51).
   - Updated HQRM and build steps to use windows-latest image.
   - Removed testing on Windows Server 2019 and added testing on Windows Server 2022.
+  - Fixed intermittent test failures of FSRM components by restarting `SrmReports` and
+    `SrmSvc` services.
 
 ## [2.5.0] - 2020-06-20
 

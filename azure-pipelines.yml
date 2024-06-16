@@ -106,6 +106,7 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                # Restart the FSRM services is required to reliably run tests
                 Stop-Service -Name 'SrmReports'
                 Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
@@ -195,6 +196,7 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                # Restart the FSRM services is required to reliably run tests
                 Stop-Service -Name 'SrmReports'
                 Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
@@ -237,6 +239,7 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                # Restart the FSRM services is required to reliably run tests
                 Stop-Service -Name 'SrmReports'
                 Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
@@ -287,6 +290,7 @@ stages:
               targetType: 'inline'
               script: |
                 Install-WindowsFeature -Name fs-resource-manager
+                # Restart the FSRM services is required to reliably run tests
                 Stop-Service -Name 'SrmReports'
                 Stop-Service -Name 'SrmSvc'
                 Start-Service -Name 'SrmSvc'
