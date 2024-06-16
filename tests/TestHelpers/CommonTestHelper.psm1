@@ -72,6 +72,15 @@ function Test-FsrmEnvironment
     }
 
     # Check if the FSRM service is running once every 30 seconds
+    Write-Verbose -Message 'Stopping "File Server Storage Reports Manager" service.'
+    Stop-Service -Name 'SrmReports'
+    Write-Verbose -Message 'Stopping "File Server Resource Manager" service.'
+    Stop-Service -Name 'SrmSvc'
+    Write-Verbose -Message 'Starting "File Server Storage Reports Manager" service.'
+    Start-Service -Name 'SrmSvc'
+    Write-Verbose -Message 'Starting "File Server Resource Manager" service.'
+    Start-Service -Name 'SrmReports'
+
     foreach ($i in 1..30)
     {
         Write-Verbose -Message 'Checking FSRM Service is running.'
