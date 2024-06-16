@@ -76,6 +76,4 @@ function Test-FsrmEnvironment
     return $true
 }
 
-Export-ModuleMember -Function `
-    Get-InvalidArgumentRecord `
-    Test-FsrmEnvironment
+Export-ModuleMember -Function Get-InvalidArgumentRecord, Test-FsrmEnvironment
