@@ -63,9 +63,6 @@ function Test-FsrmEnvironment
     Write-Verbose -Message 'Importing FileServerResourceManager module.'
     Import-Module -Name 'FileServerResourceManager'
 
-    Write-Verbose -Message 'Getting list of FileServerResourceManager module commands.'
-    Get-Command -Module 'FileServerResourceManager' | Format-List -Property * | Out-String
-
     Write-Verbose -Message 'Checking FS-Resource-Manager feature is installed.'
     $fsrmFeature = Get-WindowsFeature -Name 'FS-Resource-Manager'
     if (-not $fsrmFeature)
@@ -75,7 +72,7 @@ function Test-FsrmEnvironment
     }
 
     Write-Verbose -Message 'Getting FSRM settings.'
-    $fsrmSettings = Get-FrsmSetting
+    $fsrmSettings = Get-FsrmSetting
     if (-not $fsrmSettings)
     {
         Write-Warning -Message 'FSRM settings could not be retrieved.'
