@@ -29,24 +29,20 @@ function Get-InvalidArgumentRecord
     Tests the FSRM environment is ready for integration testing.
 
 .DESCRIPTION
-    The Test-FsrmEnvironment function checks if the 'FileServerResourceManager' module
-    and 'FS-Resource-Manager' feature are installed on the system.
+    The Test-FsrmEnvironment function checks various aspects of the FSRM environment
+    to ensure it is ready for integration testing.
 
 .PARAMETER
     This function does not take any parameters.
 
-.EXAMPLE
-    Test-FsrmEnvironment
-
-    This command checks if the 'FileServerResourceManager' module and 'FS-Resource-Manager' feature are installed on the system.
-
 .OUTPUTS
-    System.Boolean. Returns true if both the module and feature are installed, otherwise returns false.
+    System.Boolean. Returns true if the FSRM environment is ready for integration testing.
 
 .NOTES
-    If the module or feature are not found, a warning message will be displayed advising to install them.
+    This function is used for diagnosing FRSM testing issues and not recommended for running as part
+    of the continuous integration pipeline.
 #>
-function Test-FsrmEnvironment
+function Test-FsrmEnvironmentForIntegrationTest
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
@@ -54,6 +50,7 @@ function Test-FsrmEnvironment
 
     Write-Verbose -Message 'Checking FileServerResourceManager module is available.'
     $fsrmModule = Get-Module -Name 'FileServerResourceManager' -ListAvailable
+
     if (-not $fsrmModule)
     {
         Write-Warning -Message 'FileServerResourceManager module not found. Please install the FileServerResourceManager module.'
@@ -65,13 +62,14 @@ function Test-FsrmEnvironment
 
     Write-Verbose -Message 'Checking FS-Resource-Manager feature is installed.'
     $fsrmFeature = Get-WindowsFeature -Name 'FS-Resource-Manager'
+
     if (-not $fsrmFeature)
     {
         Write-Warning -Message 'FS-Resource-Manager feature not found. Please install the FS-Resource-Manager feature.'
         return $false
     }
 
-    # Check if the FSRM service is running once every 30 seconds
+    #
     Write-Verbose -Message 'Stopping "File Server Storage Reports Manager" service.'
     Stop-Service -Name 'SrmReports'
     Write-Verbose -Message 'Stopping "File Server Resource Manager" service.'
@@ -81,17 +79,7 @@ function Test-FsrmEnvironment
     Write-Verbose -Message 'Starting "File Server Resource Manager" service.'
     Start-Service -Name 'SrmReports'
 
-    foreach ($i in 1..30)
-    {
-        Write-Verbose -Message 'Checking FSRM Service is running.'
-        $fsrmService = Get-Service -Name 'SrmSvc'
-        if ($fsrmService.Status -eq 'Running')
-        {
-            break
-        }
-        Write-Verbose -Message 'FSRM Service is not running. Waiting 1 second before checking again.'
-        Start-Sleep -Seconds 1
-    }
+    $fsrmService = Get-Service -Name 'SrmSvc'
 
     if ($fsrmService.Status -ne 'Running')
     {
@@ -101,6 +89,7 @@ function Test-FsrmEnvironment
 
     Write-Verbose -Message 'Getting FSRM settings.'
     $fsrmSettings = Get-FsrmSetting
+
     if (-not $fsrmSettings)
     {
         Write-Warning -Message 'FSRM settings could not be retrieved.'
