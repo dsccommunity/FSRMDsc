@@ -25,6 +25,19 @@ try
         . $configFile
 
         Describe "$($script:dscResourceName)_Integration" {
+            <#
+                Make sure there is at least one Quota Template available.
+                Windows Server 2022 does not have any Quota Templates by default.
+            #>
+            $quotaTemplates = Get-FSRMQuotaTemplate
+            if ($null -eq $quotaTemplates)
+            {
+                New-FSRMQuotaTemplate -Name 'TestTemplate' -Description 'Test Template' -Size 1GB
+                $quotaTemplates = Get-FSRMQuotaTemplate
+            }
+
+            $quotaTemplateForTesting = $quotaTemplates | Select-Object -First 1
+
             $configData = @{
                 AllNodes = @(
                     @{
@@ -32,7 +45,7 @@ try
                         Path     = [System.String] $TestDrive
                         Ensure   = 'Present'
                         Disabled = $false
-                        Template = (Get-FSRMQuotaTemplate | Select-Object -First 1).Name
+                        Template = ($quotaTemplateForTesting).Name
                     }
                 )
             }
