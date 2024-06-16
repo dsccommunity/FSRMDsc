@@ -18,7 +18,7 @@ $script:testEnvironment = Initialize-TestEnvironment `
 
 Import-Module -Name (Join-Path -Path $PSScriptRoot -ChildPath '..\TestHelpers\CommonTestHelper.psm1')
 
-if (-not (Test-FsrmEnvironment)) {
+if (-not (Test-FsrmEnvironment -Verbose)) {
     throw 'FSRM environment is not ready for integration testing.'
 }
 
