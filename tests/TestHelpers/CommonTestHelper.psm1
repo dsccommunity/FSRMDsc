@@ -75,7 +75,7 @@ function Test-FsrmEnvironment
     foreach ($i in 1..30)
     {
         Write-Verbose -Message 'Checking FSRM Service is running.'
-        $fsrmService = Get-Service -Name 'srmsvc'
+        $fsrmService = Get-Service -Name 'SrmSvc'
         if ($fsrmService.Status -eq 'Running')
         {
             break
@@ -84,7 +84,7 @@ function Test-FsrmEnvironment
         Start-Sleep -Seconds 1
     }
 
-    if (-not $fsrmService.Status -ne 'Running')
+    if ($fsrmService.Status -ne 'Running')
     {
         Write-Warning -Message 'FSRM Service is not running. Please start the FSRM Service.'
         return $false
