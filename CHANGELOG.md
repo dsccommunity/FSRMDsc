@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Removed testing on Windows Server 2019 and added testing on Windows Server 2022.
   - Fixed intermittent test failures of FSRM components by restarting `SrmReports` and
     `SrmSvc` services.
+  - Remove `windows-2019` image - Fixes [#53](https://github.com/dsccommunity/FSRMDsc/issues/53).
 
 ## [2.5.0] - 2020-06-20
 
